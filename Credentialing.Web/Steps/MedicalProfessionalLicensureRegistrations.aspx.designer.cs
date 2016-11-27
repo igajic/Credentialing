@@ -10,6 +10,6 @@
 namespace Credentialing.Web.Steps {
     
     
-    public partial class MedicalProfessionalLinecsureRegistrations {
+    public partial class MedicalProfessionalLicensureRegistrations {
     }
 }
