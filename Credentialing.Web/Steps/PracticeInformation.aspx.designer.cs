@@ -11,5 +11,239 @@ namespace Credentialing.Web.Steps {
     
     
     public partial class PracticeInformation {
+        
+        /// <summary>
+        /// tboxPracticeName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxPracticeName;
+        
+        /// <summary>
+        /// tboxDepartmentName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxDepartmentName;
+        
+        /// <summary>
+        /// tboxPrimaryOfficeStreetAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxPrimaryOfficeStreetAddress;
+        
+        /// <summary>
+        /// tboxPrimaryOfficeCityStateZip control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxPrimaryOfficeCityStateZip;
+        
+        /// <summary>
+        /// tboxPrimaryOfficeTelephoneNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxPrimaryOfficeTelephoneNumber;
+        
+        /// <summary>
+        /// tboxPrimaryOfficeManagerAdministrator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxPrimaryOfficeManagerAdministrator;
+        
+        /// <summary>
+        /// tboxPrimaryOfficeManagerTelephoneNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxPrimaryOfficeManagerTelephoneNumber;
+        
+        /// <summary>
+        /// tboxPrimaryOfficeManagerFaxNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxPrimaryOfficeManagerFaxNumber;
+        
+        /// <summary>
+        /// tboxPrimaryOfficeNameTaxIdNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxPrimaryOfficeNameTaxIdNumber;
+        
+        /// <summary>
+        /// tboxPrimaryOfficeFederalTaxIdNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxPrimaryOfficeFederalTaxIdNumber;
+        
+        /// <summary>
+        /// tboxSecondaryOfficeStreetAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxSecondaryOfficeStreetAddress;
+        
+        /// <summary>
+        /// tboxSecondaryOfficeCityStateZip control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxSecondaryOfficeCityStateZip;
+        
+        /// <summary>
+        /// tboxSecondaryOfficeTelephoneNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxSecondaryOfficeTelephoneNumber;
+        
+        /// <summary>
+        /// tboxSecondaryOfficeManagerAdministrator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxSecondaryOfficeManagerAdministrator;
+        
+        /// <summary>
+        /// tboxSecondaryOfficeManagerTelephoneNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxSecondaryOfficeManagerTelephoneNumber;
+        
+        /// <summary>
+        /// tboxSecondaryOfficeManagerFaxNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxSecondaryOfficeManagerFaxNumber;
+        
+        /// <summary>
+        /// tboxSecondaryOfficeNameTaxIdNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxSecondaryOfficeNameTaxIdNumber;
+        
+        /// <summary>
+        /// tboxSecondaryOfficeFederalTaxIdNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxSecondaryOfficeFederalTaxIdNumber;
+        
+        /// <summary>
+        /// tboxTertiaryOfficeStreetAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxTertiaryOfficeStreetAddress;
+        
+        /// <summary>
+        /// tboxTertiaryOfficeCityStateZip control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxTertiaryOfficeCityStateZip;
+        
+        /// <summary>
+        /// tboxTertiaryOfficeTelephoneNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxTertiaryOfficeTelephoneNumber;
+        
+        /// <summary>
+        /// tboxTertiaryOfficeManagerAdministrator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxTertiaryOfficeManagerAdministrator;
+        
+        /// <summary>
+        /// tboxTertiaryOfficeManagerTelephoneNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxTertiaryOfficeManagerTelephoneNumber;
+        
+        /// <summary>
+        /// tboxTertiaryOfficeManagerFaxNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxTertiaryOfficeManagerFaxNumber;
+        
+        /// <summary>
+        /// tboxTertiaryOfficeNameTaxIdNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxTertiaryOfficeNameTaxIdNumber;
+        
+        /// <summary>
+        /// tboxTertiaryOfficeFederalTaxIdNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxTertiaryOfficeFederalTaxIdNumber;
     }
 }
