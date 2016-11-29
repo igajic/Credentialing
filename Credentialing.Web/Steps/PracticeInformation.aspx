@@ -19,6 +19,9 @@
     <asp:Label runat="server" AssociatedControlID="tboxPrimaryOfficeTelephoneNumber" Text="Telephone Number:" EnableViewState="False"/>
     <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxPrimaryOfficeTelephoneNumber"/>
 
+    <asp:Label runat="server" AssociatedControlID="tboxPrimaryOfficeFaxNumber" Text="Fax Number:" EnableViewState="False"/>
+    <asp:TextBox runat="server" ClientIDMode="Static" runat="server" ID="tboxPrimaryOfficeFaxNumber"/>
+
     <asp:Label runat="server" AssociatedControlID="tboxPrimaryOfficeManagerAdministrator" Text="Office Manager/Administrator:" EnableViewState="False"/>
     <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxPrimaryOfficeManagerAdministrator"/>
 
@@ -40,8 +43,14 @@
     <asp:Label runat="server" AssociatedControlID="tboxSecondaryOfficeStreetAddress" EnableViewState="False"><strong>Secondary</strong> Office Street Address</asp:Label>
     <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxSecondaryOfficeStreetAddress"/>
 
-    <asp:Label runat="server" AssociatedControlID="tboxSecondaryOfficeCityStateZip" Text="City/State/Zip" EnableViewState="False"/>
-    <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxSecondaryOfficeCityStateZip"/>
+    <asp:Label runat="server" AssociatedControlID="tboxSecondaryOfficeCity" Text="City" EnableViewState="False"/>
+    <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxSecondaryOfficeCity"/>
+    
+    <asp:Label runat="server" AssociatedControlID="tboxSecondaryOfficeState" Text="State" EnableViewState="False"/>
+    <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxSecondaryOfficeState"/>
+    
+    <asp:Label runat="server" AssociatedControlID="tboxSecondaryOfficeZip" Text="Zip" EnableViewState="False"/>
+    <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxSecondaryOfficeZip"/>
 
     <asp:Label runat="server" AssociatedControlID="tboxSecondaryOfficeTelephoneNumber" Text="Telephone Number:" EnableViewState="False"/>
     <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxSecondaryOfficeTelephoneNumber"/>
@@ -62,12 +71,17 @@
     <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxSecondaryOfficeFederalTaxIdNumber"/>
     
     <!-- TERTIARY -->
-    
     <asp:Label runat="server" AssociatedControlID="tboxTertiaryOfficeStreetAddress" EnableViewState="False"><strong>Tertiary</strong> Office Street Address</asp:Label>
     <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxTertiaryOfficeStreetAddress"/>
 
-    <asp:Label runat="server" AssociatedControlID="tboxTertiaryOfficeCityStateZip" Text="City/State/Zip" EnableViewState="False"/>
-    <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxTertiaryOfficeCityStateZip"/>
+    <asp:Label runat="server" AssociatedControlID="tboxTertiaryOfficeCity" Text="City" EnableViewState="False"/>
+    <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxTertiaryOfficeCity"/>
+    
+    <asp:Label ID="Label1" runat="server" AssociatedControlID="tboxSecondaryOfficeState" Text="State" EnableViewState="False"/>
+    <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxTertiaryOfficeState"/>
+    
+    <asp:Label ID="Label2" runat="server" AssociatedControlID="tboxSecondaryOfficeZip" Text="Zip" EnableViewState="False"/>
+    <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxTertiaryOfficeZip"/>
 
     <asp:Label runat="server" AssociatedControlID="tboxTertiaryOfficeTelephoneNumber" Text="Telephone Number:" EnableViewState="False"/>
     <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxTertiaryOfficeTelephoneNumber"/>
@@ -86,4 +100,8 @@
 
     <asp:Label runat="server" AssociatedControlID="tboxTertiaryOfficeFederalTaxIdNumber" Text="Federal Tax ID Number:" EnableViewState="False"/>
     <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxTertiaryOfficeFederalTaxIdNumber"/>
+    
+    <asp:Button runat="server" ID="btnPrevious" Text="Previous"/>
+    <br/>
+    <asp:Button runat="server" ID="btnNext" Text="Next"/>
 </asp:Content>

@@ -58,6 +58,15 @@ namespace Credentialing.Web.Steps {
         protected global::System.Web.UI.WebControls.TextBox tboxPrimaryOfficeTelephoneNumber;
         
         /// <summary>
+        /// tboxPrimaryOfficeFaxNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxPrimaryOfficeFaxNumber;
+        
+        /// <summary>
         /// tboxPrimaryOfficeManagerAdministrator control.
         /// </summary>
         /// <remarks>
@@ -112,13 +121,31 @@ namespace Credentialing.Web.Steps {
         protected global::System.Web.UI.WebControls.TextBox tboxSecondaryOfficeStreetAddress;
         
         /// <summary>
-        /// tboxSecondaryOfficeCityStateZip control.
+        /// tboxSecondaryOfficeCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tboxSecondaryOfficeCityStateZip;
+        protected global::System.Web.UI.WebControls.TextBox tboxSecondaryOfficeCity;
+        
+        /// <summary>
+        /// tboxSecondaryOfficeState control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxSecondaryOfficeState;
+        
+        /// <summary>
+        /// tboxSecondaryOfficeZip control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxSecondaryOfficeZip;
         
         /// <summary>
         /// tboxSecondaryOfficeTelephoneNumber control.
@@ -184,13 +211,49 @@ namespace Credentialing.Web.Steps {
         protected global::System.Web.UI.WebControls.TextBox tboxTertiaryOfficeStreetAddress;
         
         /// <summary>
-        /// tboxTertiaryOfficeCityStateZip control.
+        /// tboxTertiaryOfficeCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tboxTertiaryOfficeCityStateZip;
+        protected global::System.Web.UI.WebControls.TextBox tboxTertiaryOfficeCity;
+        
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
+        /// tboxTertiaryOfficeState control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxTertiaryOfficeState;
+        
+        /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
+        /// tboxTertiaryOfficeZip control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxTertiaryOfficeZip;
         
         /// <summary>
         /// tboxTertiaryOfficeTelephoneNumber control.
@@ -245,5 +308,23 @@ namespace Credentialing.Web.Steps {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tboxTertiaryOfficeFederalTaxIdNumber;
+        
+        /// <summary>
+        /// btnPrevious control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPrevious;
+        
+        /// <summary>
+        /// btnNext control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNext;
     }
 }

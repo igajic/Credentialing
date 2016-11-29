@@ -59,4 +59,12 @@
     
     <asp:Label runat="server" AssociatedControlID="tboxRaceEthnicity" EnableViewState="False">Race/Ethnicity<sup>2</sup>(voluntary)</asp:Label>
     <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxRaceEthnicity" />
+
+    <asp:Label runat="server" AssociatedControlID="tboxSubspeciality" EnableViewState="False"/>
+    <asp:TextBox runat="server" ClientIDMode="Static" ID="tboxSubspeciality"/>
+    
+
+    <asp:Button runat="server" ID="btnPrevious" Text="Previous"/>
+    <br/>
+    <asp:Button runat="server" ID="btnNext" Text="Next"/>
 </asp:Content>
