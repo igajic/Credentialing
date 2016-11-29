@@ -1,0 +1,92 @@
+/*----------  header
+------------------------------------------------------------------------------*/
+.header {
+	width: 100%;
+	position: relative;
+	padding: 0 20px;
+	margin-bottom: 20px;
+	background: $primary;
+	color: $white;
+	float: left;
+	.logo {
+		width: 200px;
+		position: absolute;
+		top: 0;
+		left: 20px;
+		background: $quaternary;
+		padding: 20px;
+		border-radius: 0 0 3px 3px;
+		float: left;
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+	}
+	.menu-toggle {
+		position: absolute;
+		width: 28px;
+		top: 24px;
+		right: 22px;
+		text-align: center;
+		float: left;
+		display: none;
+		cursor: pointer;
+		z-index: 150;
+		&.opened {
+
+		}
+	}
+}
+
+.main-nav {
+	padding: 15px 0;
+	float: right;
+	li {
+		position: relative;
+		margin-right: 10px;
+		float: left;
+		a {
+			background-color: transparent;
+			font-size: 16px;
+			color: $white;
+			padding: 8px 12px;
+			border-radius: 3px;
+			transition: all 0.3s ease-in-out;
+			display: block;
+			&:hover {
+				background-color: $tertiary;
+			}
+		}
+	}
+	/*@include breakpoint(phablet) {
+		position: absolute;
+		top: 60px;
+		left: 0;
+		width: 100%;
+		padding: 20px 0 40px 0;
+		background: $blue-dark;
+		display: none;
+		.level-1 {
+			width: 160px;
+			position: relative;
+			left: 50%;
+			-webkit-transform: translate(-50%, 0);
+			transform: translate(-50%, 0);
+			margin-bottom: 20px;
+			float: left;
+		}
+		li {
+			width: 100%;
+			clear: both;
+			a {
+				width: 100%;
+				font-size: 14px;
+				padding: 11px 0 !important;
+				&:after {
+					margin-top: 5px;
+					float: right;
+				}
+			}
+		}
+	}*/
+}

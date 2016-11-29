@@ -1,0 +1,53 @@
+/*----------  font smoothing
+------------------------------------------------------------------------------*/
+@mixin font-smoothing ($val: antialiased) {
+	-webkit-font-smoothing: $val;
+	-moz-font-smoothing: $val;
+	-ms-font-smoothing: $val;
+	-o-font-smoothing: $val;
+}
+
+/*----------  input placeholder
+------------------------------------------------------------------------------*/
+@mixin placeholder {
+	&::-webkit-input-placeholder {
+		@content;
+	}
+	&:-moz-placeholder {
+		@content;
+	}
+	&::-moz-placeholder {
+		@content;
+	}
+	&:-ms-input-placeholder {
+		@content;
+	}
+}
+
+/*----------  Text Overflow
+------------------------------------------------------------------------------*/
+@mixin text-truncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/*----------  Vertical / horizontal alignment
+------------------------------------------------------------------------------*/
+@mixin align($position: relative, $direction: x) {
+	position: $position;
+	@if ($direction == 'y') {
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	@else if ($direction == 'xy') {
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	} @else {
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+// example: @include align(absolute, xy); for centering both axis'
+// default @include align(); will be relative on x axis

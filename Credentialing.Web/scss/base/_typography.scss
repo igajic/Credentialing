@@ -1,0 +1,63 @@
+/*----------  typography
+------------------------------------------------------------------------------*/
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: $font-serif;
+	font-weight: 400;
+	color: $black;
+	line-height: 1.3em;
+	margin-bottom: 0.625em;
+	padding-bottom: 0.2em;
+	position: relative;
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		height: 4px;
+		background: $quaternary;
+		display: block;
+	}
+}
+
+h1 {
+	font-size: 40px;
+	&::after {
+		width: 120px;
+	}
+}
+
+h2 {
+	font-size: 32px;
+	&::after {
+		width: 100px;
+	}
+}
+
+h3 {
+	font-size: 26px;
+	&::after {
+		width: 80px;
+	}
+}
+
+h4 {
+	font-size: 20px;
+	&::after {
+		width: 60px;
+	}
+}
+
+h5 {
+	font-size: 18px;
+}
+
+h6 {
+	font-size: 14px;
+}
+
+p {
+	font-size: 16px;
+	line-height: 1.5em;
+	margin-bottom: 1em;
+}

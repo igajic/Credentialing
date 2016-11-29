@@ -1,0 +1,56 @@
+/*----------  variables
+------------------------------------------------------------------------------*/
+
+$font-default: 'Lato', sans-serif;
+$font-serif: 'Yrsa', serif;
+
+// Colors
+$white: #fff;
+$black: #000;
+
+$primary: #0a4fa1;
+$secondary: #212121;
+$tertiary: #008ece;
+$quaternary: #be0909;
+//quinary, senary, septenary, octonary, nonary, and denary
+
+/*----------  Bootstrap grid
+------------------------------------------------------------------------------*/
+
+$enable-flex:               false !default; //Set this to false if you don't want flexbox
+$enable-grid-classes:       true !default;
+
+/*----------  Media queries breakpoints - Grid breakpoints
+------------------------------------------------------------------------------*/
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+) !default;
+
+/*----------  Grid containers
+------------------------------------------------------------------------------*/
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px
+) !default;
+
+/*----------  Grid columns
+------------------------------------------------------------------------------*/
+
+$grid-columns:               12 !default;
+$grid-gutter-width-base:     30px !default;
+$grid-gutter-widths: (
+  xs: $grid-gutter-width-base,
+  sm: $grid-gutter-width-base,
+  md: $grid-gutter-width-base,
+  lg: $grid-gutter-width-base,
+  xl: $grid-gutter-width-base
+) !default;
+

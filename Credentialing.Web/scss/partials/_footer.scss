@@ -1,0 +1,48 @@
+/*----------  footer
+------------------------------------------------------------------------------*/
+.footer {
+	width: 100%;
+	background: $secondary;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding: 20px 0;
+	a {
+		position: relative;
+		color: $white;
+		display: block;
+		&::after {
+			content: '';
+			width: 0;
+			height: 1px;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			background: $white;
+			transition: all 0.2s ease;
+			display: block;
+		}
+		&:hover {
+			&::after {
+				width: 100%;
+			}
+		}
+	}
+	.footer-links {
+		float: right;
+		li {
+			margin-left: 20px;
+			float: left;
+		}
+		a {
+			font-size: 14px;
+			line-height: 18px;
+		}
+	}
+	.copyright {
+		font-size: 14px;
+		line-height: 18px;
+		color: $white;
+		float: left;
+	}
+}
