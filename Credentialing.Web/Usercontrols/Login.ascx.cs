@@ -24,14 +24,7 @@ namespace Credentialing.Web.Usercontrols
             {
                 var userRoles = MemberHelper.GetUserRoles(tboxUsername.Text);
 
-                if (userRoles.Contains("Admin"))
-                {
-                    Response.Redirect("/Dashboard/Administrator.aspx", true);
-                }
-                else
-                {
-                    Response.Redirect("/Dashboard/Physician.aspx", true);
-                }
+                Response.Redirect(userRoles.Contains("Admin") ? "/Dashboard/Administrator.aspx" : "/Dashboard/Physician.aspx", true);
 
                 Response.End();
             }

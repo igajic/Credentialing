@@ -1,5 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="Credentialing.Web.Main" %>
 <%@ Register src="/Usercontrols/Login.ascx" tagPrefix="uc" tagName="Login" %>
+<%@ Register src="/Usercontrols/LoginBlock.ascx" tagPrefix="uc" tagName="LoginBlock" %>
 <!DOCTYPE html>
 
 <html>
@@ -26,9 +27,7 @@
 				<div class="logo">
 					<a href="/"><img src="/img/logo.svg" alt="" /></a>
 				</div>
-                <div class="login-btn">
-                    <a class="js-open-login" href="javascript:;">Login</a>
-                </div>
+			    <uc:LoginBlock runat="server" ID="lgBlock"/>
 				<nav class="main-nav">
 					<ul>
 						<li>

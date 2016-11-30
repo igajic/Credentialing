@@ -1,12 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="IdentifyingInformation.aspx.cs" Inherits="Credentialing.Web.Steps.IdentifyingInformation" MasterPageFile="../Main.Master" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
     <h1>II. IDENTIFYING INFORMATION</h1>
-    <br />
-    <br />
-    <br />
-    <br />
-
-    <h1>Coming soon</h1>
 
     <asp:Label runat="server" AssociatedControlID="tboxLastName" Text="Last Name:" EnableViewState="False"/>
     <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxLastName"/>
