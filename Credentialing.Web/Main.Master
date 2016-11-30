@@ -53,8 +53,10 @@
 
         <div class="content">
             <div class="wrap">
-		        <asp:ContentPlaceHolder ID="mainContent" runat="server">
-		        </asp:ContentPlaceHolder>
+                <div class="page-content">
+		            <asp:ContentPlaceHolder ID="mainContent" runat="server">
+		            </asp:ContentPlaceHolder>
+                </div>
             </div>
         </div>
 
