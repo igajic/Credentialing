@@ -24,6 +24,11 @@ namespace Credentialing.Business.DataAccess
             modelBuilder.Entity<IdentifyingInformation>()
                 .HasOptional(s => s.CitizenshipFile)
                 .WithRequired(s => s.IdentifyingInformation);
+
+            modelBuilder.Entity<Attachment>()
+                    .HasOptional(s => s.Education)
+                    .WithMany(s => s.AttachedDocuments)
+                    .HasForeignKey(s => s.AttachmentId);
         }
     }
 }

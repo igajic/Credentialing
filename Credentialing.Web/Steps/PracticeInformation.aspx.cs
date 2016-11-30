@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Credentialing.Business.Helpers;
+using System;
 using System.Web.UI;
 
 namespace Credentialing.Web.Steps
@@ -19,10 +20,55 @@ namespace Credentialing.Web.Steps
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            SaveFormData();
+            if (Validate())
+            {
+                SaveFormData();
 
-            Response.Redirect("/Steps/Education.aspx");
-            Response.End();
+                Response.Redirect("/Steps/Education.aspx");
+                Response.End();
+            }
+        }
+
+        private bool Validate()
+        {
+            var retVal = true;
+
+            retVal = ValidationHelper.ValidateTextbox(tboxPracticeName) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxDepartmentName) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeStreetAddress) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeCityStateZip) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeTelephoneNumber) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeFaxNumber) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeManagerAdministrator) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeManagerTelephoneNumber) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeManagerFaxNumber) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeNameTaxIdNumber) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeFederalTaxIdNumber) && retVal;
+
+            // secondary office
+            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeStreetAddress) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeCity) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeState) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeZip) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeManagerAdministrator) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeManagerTelephoneNumber) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeManagerFaxNumber) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeNameTaxIdNumber) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeFederalTaxIdNumber) && retVal;
+
+            // tertiary office
+            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeStreetAddress) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeCity) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeState) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeZip) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeManagerAdministrator) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeManagerTelephoneNumber) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeManagerFaxNumber) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeNameTaxIdNumber) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeFederalTaxIdNumber) && retVal;
+
+            return retVal;
+
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)

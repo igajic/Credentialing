@@ -4,3 +4,4 @@ obj
 packages
 .idea
 node_modules
+/Credentialing.Web/App_Data/Logs/Website.log

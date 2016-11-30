@@ -8,7 +8,7 @@ namespace Credentialing.Entities.Data
         {
         }
 
-        public int AttachmentId { get; set; }
+        public int? AttachmentId { get; set; }
 
         public string FileName { get; set; }
 
@@ -16,6 +16,6 @@ namespace Credentialing.Entities.Data
 
         public virtual IdentifyingInformation IdentifyingInformation { get; set; }
 
-        //public virtual Education Education { get; set; }
+        public virtual Education Education { get; set; }
     }
 }

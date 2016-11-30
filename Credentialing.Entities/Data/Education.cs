@@ -25,6 +25,6 @@ namespace Credentialing.Entities.Data
 
         public string MailingZip { get; set; }
 
-        //public ICollection<Attachment> AttachedDocuments { get; set; }
+        public ICollection<Attachment> AttachedDocuments { get; set; }
     }
 }

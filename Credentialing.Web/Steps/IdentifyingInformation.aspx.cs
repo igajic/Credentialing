@@ -1,4 +1,5 @@
-﻿using Credentialing.Entities.Data;
+﻿using Credentialing.Business.Helpers;
+using Credentialing.Entities.Data;
 using Credentialing.Entities.Enums;
 using System;
 using System.Web.UI;
@@ -27,9 +28,37 @@ namespace Credentialing.Web.Steps
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            SaveFormData();
-            Response.Redirect("/Steps/PracticeInformation.aspx");
-            Response.End();
+            if (Validate())
+            {
+                SaveFormData();
+                Response.Redirect("/Steps/PracticeInformation.aspx");
+                Response.End();
+            }
+        }
+
+        private bool Validate()
+        {
+            bool retVal = true;
+
+            retVal = ValidationHelper.ValidateTextbox(tboxLastName) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxFirstName) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxMiddleName) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxOtherKnownNames) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxHomeMailingAddress) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxCity) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxState) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxZip) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxHomeTelephoneNumber) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxHomeFaxNumber) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxEmailAddress) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxPagerNumber) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxBirthDate) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxBirthPlace) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxSocialSecurityNumber) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxSpecialty) && retVal;
+            retVal = ValidationHelper.ValidateTextbox(tboxSubspeciality) && retVal;
+
+            return retVal;
         }
 
         private void LoadFormData(Entities.Steps.IdentifyingInformation formData)

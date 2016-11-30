@@ -60,13 +60,13 @@
 				<div class="footer-links">
 					<ul class="clearfix">
 						<li>
-							<a href="javascript:;">Terms & Conditions</a>
+							<a href="TermsConditions.aspx">Terms & Conditions</a>
 						</li>
 						<li>
-							<a href="javascript:;">Privacy Policy</a>
+							<a href="PrivacyPolicy.aspx">Privacy Policy</a>
 						</li>
 						<li>
-							<a href="javascript:;">Cookies</a>
+							<a href="Cookies.aspx">Cookies</a>
 						</li>
 					</ul>
 				</div>
