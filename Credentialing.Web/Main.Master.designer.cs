@@ -31,6 +31,15 @@ namespace Credentialing.Web {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// ucLogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Credentialing.Web.Usercontrols.Login ucLogin;
+        
+        /// <summary>
         /// mainContent control.
         /// </summary>
         /// <remarks>
