@@ -90,3 +90,22 @@
 		}
 	}*/
 }
+
+.login-btn {
+	padding-left: 20px;
+	margin: 15px 0 15px 10px;
+	border-left: 1px solid $white;
+	float: right;
+	a {
+		background-color: $tertiary;
+		font-size: 16px;
+		color: $white;
+		padding: 8px 20px;
+		border-radius: 3px;
+		transition: all 0.3s ease-in-out;
+		display: block;
+		&:hover {
+			background-color: mix($tertiary, $primary, 50%);
+		}
+	}
+}

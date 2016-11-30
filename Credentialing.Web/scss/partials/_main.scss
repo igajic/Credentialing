@@ -1,5 +1,12 @@
 /*----------  main styles
 ------------------------------------------------------------------------------*/
+.templates {
+	width: 100%;
+	padding: 40px;
+	background: $white;
+	float: left;
+	clear: both;
+}
 .demo-templates {
 	ol {
 		margin-left: 30px;
@@ -29,4 +36,78 @@
 			}
 		}
 	}
+}
+
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba($primary, 0.8);
+	z-index: 1000;
+	display: none;
+}
+.modal {
+	position: fixed;
+	top: 25%;
+	left: 50%;
+	width: 480px;
+	transform: scale(0.75);
+	margin-left: -240px;
+	background: $white;
+	border-radius: 5px;
+	box-shadow: 0 0 30px rgba($black, 0.25);
+	transition: all 0.2s;
+	float: left;
+	z-index: 1500;
+	display: none;
+	&.opened {
+		transform: scale(1);
+	}
+	.inner {
+		padding: 40px;
+		@extend %clearfix;
+	}
+}
+
+.login-popup {
+	h2 {
+		margin-bottom: 30px;
+	}
+	label {
+		width: 120px;
+		font-family: $font-serif;
+		font-size: 20px;
+		font-weight: 400;
+		line-height: 38px;
+		float: left;
+	}
+	input[type="text"],
+	input[type="password"] {
+		width: calc(100% - 120px);
+		float: left;
+	}
+	.forgot-password {
+		margin-top: 10px;
+		color: $secondary;
+		float: left;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+	.submit-login {
+		float: right;
+	}
+	/*@include breakpoint(phone) {
+		p {
+			font-size: 15px;
+			font-weight: 400;
+			line-height: 20px;
+		}
+		.forgot-password {
+			margin: 0 0 20px 0;
+			width: 100%;
+		}
+	}*/
 }
