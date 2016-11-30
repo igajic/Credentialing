@@ -6,4 +6,4 @@
 <asp:Label runat="server" AssociatedControlID="tboxPassword" EnableViewState="False" />
 <asp:TextBox runat="server" ID="tboxPassword" />
 
-<asp:Button runat="server" ID="btnLogin" />
+<asp:Button runat="server" ID="btnLogin" Text="Login" />
