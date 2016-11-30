@@ -1,5 +1,6 @@
 ﻿using Credentialing.Business.Helpers;
 using System;
+using System.Linq;
 using System.Web.UI;
 
 namespace Credentialing.Web.Usercontrols
@@ -21,7 +22,17 @@ namespace Credentialing.Web.Usercontrols
         {
             if (MemberHelper.LoginUser(tboxUsername.Text, tboxPassword.Text))
             {
-                Response.Redirect("/Steps/Instructions.aspx", true);
+                var userRoles = MemberHelper.GetUserRoles(tboxUsername.Text);
+
+                if (userRoles.Contains("Admin"))
+                {
+                    Response.Redirect("/Dashboard/Administrator.aspx", true);
+                }
+                else
+                {
+                    Response.Redirect("/Dashboard/Physician.aspx", true);
+                }
+
                 Response.End();
             }
         }
