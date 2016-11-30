@@ -2,14 +2,29 @@
 ------------------------------------------------------------------------------*/
 input,
 textarea {
-	border-radius: 0;
-	-webkit-box-shadow: none;
-	box-shadow: none;
+	border-radius: 3px;
 	background: $white;
-	height: 25px;
-	padding: 0 10px;
+	height: 40px;
+	padding: 0 15px;
 	color: $black;
-	@include placeholder {
-		color: $black;
+	border: 1px solid $secondary;
+	outline: none;
+	box-shadow: none;
+	transition: all 0.3s ease;
+	&:focus,
+	&:hover,
+	&:active {
+		border-color: $primary;
+		box-shadow: 0 0 5px rgba($primary, 0.75);
 	}
+	@include placeholder {
+		color: lighten($secondary, 50%);
+	}
+}
+
+.form-row {
+	width: 100%;
+	margin-bottom: 15px;
+	float: left;
+	clear: both;
 }

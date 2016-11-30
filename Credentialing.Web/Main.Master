@@ -20,11 +20,15 @@
 
 	<form id="form1" runat="server">
 	<div class="container">
+        <div class="body-bg"></div>
 		<header class="header">
 			<div class="wrap">
 				<div class="logo">
 					<a href="/"><img src="/img/logo.svg" alt="" /></a>
 				</div>
+                <div class="login-btn">
+                    <a class="js-open-login" href="javascript:;">Login</a>
+                </div>
 				<nav class="main-nav">
 					<ul>
 						<li>
@@ -44,7 +48,6 @@
 				<span class="menu-toggle">
 					<span></span>
 				</span>
-		        <uc:Login runat="server" ID="ucLogin"/>
 			</div>
 		</header>
 
@@ -73,6 +76,15 @@
 				</div>
 			</div>
 		</footer>
+
+        <div class="overlay"></div>
+
+	    <div class="login-popup modal">
+		    <div class="inner">
+                <h2 class="centered">Login</h2>
+                <uc:Login runat="server" ID="ucLogin"/>
+		    </div>
+	    </div>
 
 	</div>
 
