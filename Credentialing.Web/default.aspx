@@ -1,15 +1,70 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="Credentialing.Web._default" MasterPageFile="Main.Master" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
     
-    <h1>Heading H1</h1>
-    <h2>Heading H2</h2>
-    <h3>Heading H3</h3>
-    <h4>Heading H4</h4>
+    <div class="templates">
+        <h1>List of templates</h1>
 
-    <br /><br />
-
-    <p>
-        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
-    </p>
+        <div class="demo-templates">
+            <ol>
+                <li>
+                    <a href="/Steps/Instructions.aspx">Instructions</a>
+                </li>
+                <li>
+                    <a href="/Steps/IdentifyingInformation.aspx">Identifying Information</a>
+                </li>
+                <li>
+                    <a href="/Steps/PracticeInformation.aspx">Practice Information</a>
+                </li>
+                <li>
+                    <a href="/Steps/Education.aspx">Education</a>
+                </li>
+                <li>
+                    <a href="/Steps/MedicalProfessionalEducation.aspx">Medical Professional Education</a>
+                </li>
+                <li>
+                    <a href="/Steps/InternshipPGYI.aspx">Internship PGYI</a>
+                </li>
+                <li>
+                    <a href="/Steps/ResidencesFellowships.aspx">Residences Fellowships</a>
+                </li>
+                <li>
+                    <a href="/Steps/BoardCertification.aspx">Board Certification</a>
+                </li>
+                <li>
+                    <a href="/Steps/OtherCertifications.aspx">Other Certifications</a>
+                </li>
+                <li>
+                    <a href="/Steps/MedicalProfessionalLicensureRegistrations.aspx">Medical Professional Licensure Registrations</a>
+                </li>
+                <li>
+                    <a href="/Steps/OtherStateMedicalProfessionalLicenses.aspx">Other State Medical Professional Licenses</a>
+                </li>
+                <li>
+                    <a href="/Steps/ProfessionalLiability.aspx">Professional Liability</a>
+                </li>
+                <li>
+                    <a href="/Steps/CurrentAffiliations.aspx">Current Affiliations</a>
+                </li>
+                <li>
+                    <a href="/Steps/PeerReferences.aspx">Peer References</a>
+                </li>
+                <li>
+                    <a href="/Steps/WorkHistory.aspx">Work History</a>
+                </li>
+                <li>
+                    <a href="/Steps/AttestationQuestions.aspx">Attestation Questions</a>
+                </li>
+                <li>
+                    <a href="/Steps/InformationRelease.aspx">Information Release</a>
+                </li>
+                <li>
+                    <a href="/Dashboard/Administrator.aspx">Dashboard Administrator</a>
+                </li>
+                <li>
+                    <a href="/Dashboard/Physician.aspx">Dashboard Physician</a>
+                </li>
+            </ol>
+        </div>
+    </div>
 
 </asp:Content>
