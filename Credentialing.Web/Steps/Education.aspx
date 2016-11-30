@@ -8,7 +8,7 @@
 
     <h1>Coming soon</h1>
 
-    <asp:Panel ID="Panel1" runat="server" Enabled="false">
+    <asp:Panel ID="Panel1" runat="server" Enabled="false" Visible="false">
         <asp:Label runat="server" AssociatedControlID="tboxCollegeUniversityName" Text="College or University Name:" EnableViewState="False"/>
         <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxCollegeUniversityName"/>
 

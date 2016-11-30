@@ -8,7 +8,7 @@
 
     <h1>Coming soon</h1>
 
-    <asp:Panel ID="Panel1" runat="server" Enabled="false">
+    <asp:Panel ID="Panel1" runat="server" Enabled="false" Visible="false">
         <p>
             Include certifications by board(s) which are duly organized and recognized by:
             <ul>

@@ -8,7 +8,7 @@
 
     <h1>Coming soon</h1>
     
-    <asp:Panel ID="Panel1" runat="server" Enabled="false">
+    <asp:Panel ID="Panel1" runat="server" Enabled="false" Visible="false">
         <p>Please answer the following question "yes" or "no". If your answer to questions A through K is "YES,", or if your answer to L or M is "NO," please provide full details on separate sheet.</p>
     
         <ul style="list-style: upper-latin">

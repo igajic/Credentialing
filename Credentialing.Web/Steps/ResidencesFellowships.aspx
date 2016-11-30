@@ -8,7 +8,7 @@
 
     <h1>Coming soon</h1>
 
-    <asp:Panel ID="Panel1" runat="server" Enabled="false">
+    <asp:Panel ID="Panel1" runat="server" Enabled="false" Visible="false">
     <p>Include residencies, fellowships, Preceptorship, teaching appointments (indicate whether clinical or academic), and postgraduate education in chronological order, giving name, address, city, ZIP code, and dates. Include <strong>all</strong> programs you attended, whether or not completed.</p>
     </asp:Panel>
 

@@ -10,7 +10,7 @@
 
     <h1>Coming soon</h1>
 
-    <asp:Panel ID="Panel1" runat="server" Enabled="false">
+    <asp:Panel ID="Panel1" runat="server" Enabled="false" Visible="false">
         <p>
             I hereby consent to the disclosure, inspection and copying of information and documents relating to my credentials, qualifications and performance ("credentialing information") by and between "this Healthcare Organization" and other Healthcare Organizations 
             (e.g., hospital medical staffs, medical groups, independent practice associations {IPAs}, health plans, health maintenance organizations {HMOs}, preferred provider organizations {PPOs}, 
