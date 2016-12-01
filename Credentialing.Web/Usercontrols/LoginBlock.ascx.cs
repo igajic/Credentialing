@@ -1,5 +1,6 @@
 ﻿using Credentialing.Business.Helpers;
 using System;
+using System.Web.Security;
 using System.Web.UI;
 
 namespace Credentialing.Web.Usercontrols
@@ -10,7 +11,9 @@ namespace Credentialing.Web.Usercontrols
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            var loggedInUser = MemberHelper.GetCurrentLoggedUser();
+            //var loggedInUser = MemberHelper.GetCurrentLoggedUser();
+
+            MembershipUser loggedInUser = null;
 
             if (loggedInUser == null)
             {
