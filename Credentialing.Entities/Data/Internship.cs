@@ -31,6 +31,6 @@ namespace Credentialing.Entities.Data
 
         public DateTime SpecialtyTo { get; set; }
 
-        //public virtual ICollection<Attachment> Attachments { get; set; }
+        public virtual ICollection<Attachment> Attachments { get; set; }
     }
 }

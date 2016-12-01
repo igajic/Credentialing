@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Credentialing.Entities.Data
 {
@@ -37,5 +38,7 @@ namespace Credentialing.Entities.Data
         public string SecondaryStateCountry { get; set; }
 
         public string SecondaryZip { get; set; }
+
+        public virtual ICollection<Attachment> Attachments { get; set; }
     }
 }

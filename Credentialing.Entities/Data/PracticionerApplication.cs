@@ -1,31 +1,21 @@
 ﻿using Credentialing.Entities.Steps;
+using System;
 
 namespace Credentialing.Entities.Data
 {
-    public class Attachment
+    public class PracticionerApplication
     {
-        public Attachment()
+        public PracticionerApplication()
         {
         }
 
-        public int? AttachmentId { get; set; }
+        public int PracticionerApplicationId { get; set; }
 
-        public string FileName { get; set; }
-
-        public byte[] Content { get; set; }
-
-        #region Relationship properties
-
-        public int? EducationId { get; set; }
-        public int? MedicalProfessionalEducationId { get; set; }
-        public int? InternshipId { get; set; }
-        public int? ResidenciesFellowshipId { get; set; }
-        public int? OtherCertificationsId { get; set; }
-        public int? MedicalProfessionalLicensureRegistrationsId { get; set; }
-        public int? OtherStateMedicalProfessionalLicensesId { get; set; }
-        public int? WorkHistoryId { get; set; }
+        public Guid UserId { get; set; }
 
         public virtual IdentifyingInformation IdentifyingInformation { get; set; }
+
+        public virtual PracticeInformation PracticeInformation { get; set; }
 
         public virtual Education Education { get; set; }
 
@@ -35,6 +25,8 @@ namespace Credentialing.Entities.Data
 
         public virtual ResidenciesFellowship ResidenciesFellowship { get; set; }
 
+        public virtual BoardCertification BoardCertification { get; set; }
+
         public virtual OtherCertifications OtherCertifications { get; set; }
 
         public virtual MedicalProfessionalLicensureRegistrations MedicalProfessionalLicensureRegistrations { get; set; }
@@ -43,8 +35,12 @@ namespace Credentialing.Entities.Data
 
         public virtual ProfessionalLiability ProfessionalLiability { get; set; }
 
-        public virtual WorkHistory WorkHistories { get; set; }
+        public virtual CurrentHospitalInstitutionalAffiliations CurrentHospitalInstitutionalAffiliations { get; set; }
 
-        #endregion Relationship properties
+        public virtual PeerReferences PeerReferences { get; set; }
+
+        public virtual WorkHistory WorkHistory { get; set; }
+
+        public virtual AttestationQuestions AttestationQuestions { get; set; }
     }
 }

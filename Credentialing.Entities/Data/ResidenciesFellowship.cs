@@ -86,5 +86,7 @@ namespace Credentialing.Entities.Data
         public string TertiaryTo { get; set; }
 
         public bool TertiaryCompleted { get; set; }
+
+        public virtual ICollection<Attachment>  Attachments { get; set; }
     }
 }

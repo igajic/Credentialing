@@ -64,7 +64,7 @@
     <asp:TextBox runat="server" ClientIDMode="Static" ID="tboxSubspeciality"/>
     
 
-    <asp:Button runat="server" ID="btnPrevious" Text="Previous"/>
+    <asp:LinkButton runat="server" ID="btnPrevious" Text="Previous"/>
     <br/>
-    <asp:Button runat="server" ID="btnNext" Text="Next"/>
+    <asp:LinkButton runat="server" ID="btnNext" Text="Next"/>
 </asp:Content>

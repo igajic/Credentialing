@@ -208,7 +208,7 @@ namespace Credentialing.Web.Steps {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPrevious;
+        protected global::System.Web.UI.WebControls.LinkButton btnPrevious;
         
         /// <summary>
         /// btnNext control.
@@ -217,6 +217,6 @@ namespace Credentialing.Web.Steps {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNext;
+        protected global::System.Web.UI.WebControls.LinkButton btnNext;
     }
 }

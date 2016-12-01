@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Credentialing.Entities.Data
 {
-    class WorkHistory
+    public class WorkHistory
     {
+        public WorkHistory()
+        {
+        }
+
+        public int WorkHistoryId { get; set; }
+
+        // TODO: Add fields
+
+        public ICollection<Attachment> Attachments { get; set; }
     }
 }
