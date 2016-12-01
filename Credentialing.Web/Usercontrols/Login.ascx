@@ -2,11 +2,11 @@
 
 <div class="form-row">
 <asp:Label runat="server" AssociatedControlID="tboxUsername" Text="Username" EnableViewState="False" />
-    <asp:TextBox runat="server" ID="tboxUsername" placeholder="Username" />
+    <asp:TextBox runat="server" ID="tboxUsername" />
 </div>
 <div class="form-row">
     <asp:Label runat="server" AssociatedControlID="tboxPassword" Text="Password" EnableViewState="False" />
-    <asp:TextBox runat="server" ID="tboxPassword" TextMode="Password" placeholder="Password" />
+    <asp:TextBox runat="server" ID="tboxPassword" TextMode="Password" />
 </div>
 <div class="form-row">
     <a class="forgot-password" href="javascript:;">Forgot Password?</a>

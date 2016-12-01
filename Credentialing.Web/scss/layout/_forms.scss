@@ -2,12 +2,12 @@
 ------------------------------------------------------------------------------*/
 input,
 textarea {
-	border-radius: 3px;
 	background: $white;
-	height: 40px;
+	width: 100%;
+	height: 37px;
 	padding: 0 15px;
-	color: $black;
-	border: 1px solid $secondary;
+	color: $secondary;
+	border: 1px solid $tertiary;
 	outline: none;
 	box-shadow: none;
 	transition: all 0.3s ease;
@@ -15,13 +15,57 @@ textarea {
 	&:hover,
 	&:active {
 		border-color: $primary;
-		box-shadow: 0 0 5px rgba($primary, 0.75);
+		box-shadow: inset 0 0 5px rgba($tertiary, 0.3);
 	}
 	@include placeholder {
-		color: lighten($secondary, 50%);
+		color: $secondary;
 	}
 	&.error {
 		border-color: $quaternary;
+	}
+}
+
+label {
+	font-family: $font-serif;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 22px;
+	color: $secondary;
+	letter-spacing: -0.02em;
+	margin-bottom: 4px;
+	display: block;
+}
+
+.form-block {
+	margin-bottom: 40px;
+	.row {
+		margin-bottom: 15px;
+	}
+}
+.form-heading {
+	h2 {
+		&::after {
+			display: none;
+		}
+	}
+	strong {
+		font-size: 120%;
+		width: 50px;
+		letter-spacing: -0.03em;
+		text-align: center;
+		position: relative;
+		display: inline-block;
+		&::after {
+			content: '';
+			width: 50px;
+			height: 60px;
+			position: absolute;
+			top: 50%;
+			margin-top: -34px;
+			background: url('../img/svg/heading-number.svg') center center no-repeat;
+			background-size: 100% 100%;
+			display: block;
+		}
 	}
 }
 
@@ -30,4 +74,16 @@ textarea {
 	margin-bottom: 15px;
 	float: left;
 	clear: both;
+}
+
+.form-actions {
+	padding-top: 30px;
+	border-top: 3px double #666;
+	@extend %clearfix;
+	.btn {
+		float: left;
+		&:last-of-type {
+			float: right;
+		}
+	}
 }

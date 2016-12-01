@@ -13,6 +13,15 @@ namespace Credentialing.Web.Steps {
     public partial class IdentifyingInformation {
         
         /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
         /// tboxLastName control.
         /// </summary>
         /// <remarks>
@@ -22,6 +31,15 @@ namespace Credentialing.Web.Steps {
         protected global::System.Web.UI.WebControls.TextBox tboxLastName;
         
         /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
         /// tboxFirstName control.
         /// </summary>
         /// <remarks>
@@ -29,6 +47,15 @@ namespace Credentialing.Web.Steps {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tboxFirstName;
+        
+        /// <summary>
+        /// Label3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
         /// tboxMiddleName control.
@@ -58,6 +85,15 @@ namespace Credentialing.Web.Steps {
         protected global::System.Web.UI.WebControls.TextBox tboxHomeMailingAddress;
         
         /// <summary>
+        /// Label4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label4;
+        
+        /// <summary>
         /// tboxCity control.
         /// </summary>
         /// <remarks>
@@ -67,6 +103,15 @@ namespace Credentialing.Web.Steps {
         protected global::System.Web.UI.WebControls.TextBox tboxCity;
         
         /// <summary>
+        /// Label5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label5;
+        
+        /// <summary>
         /// tboxState control.
         /// </summary>
         /// <remarks>
@@ -74,6 +119,15 @@ namespace Credentialing.Web.Steps {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tboxState;
+        
+        /// <summary>
+        /// Label6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label6;
         
         /// <summary>
         /// tboxZip control.
