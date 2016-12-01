@@ -64,6 +64,18 @@ h6 {
 
 p {
 	font-size: 16px;
-	line-height: 1.5em;
+	line-height: 1.35em;
 	margin-bottom: 1em;
+}
+
+.page-content {
+	ul {
+		margin-left: 18px;
+		li {
+			list-style-type: square;
+			font-size: 16px;
+			line-height: 1.35em;
+			margin-bottom: 8px;
+		}
+	}
 }

@@ -5,6 +5,7 @@ button,
 input[type="button"],
 input[type="submit"] {
 	background: $tertiary;
+	width: auto;
 	height: 40px;
 	line-height: 40px;
 	padding: 0 20px;
@@ -12,11 +13,18 @@ input[type="submit"] {
 	font-size: 16px;
 	font-weight: 400;
 	color: $white;
-	border-radius: 3px;
+	border-radius: 1px;
 	border: none;
 	outline: none;
 	transition: all 0.3s ease;
 	&:hover {
 		background-color: mix($tertiary, $primary, 50%);
+		box-shadow: none;
+	}
+	&.btn-prev {
+		background: lighten($secondary, 40%);
+		&:hover {
+			background-color: $secondary;
+		}
 	}
 }
