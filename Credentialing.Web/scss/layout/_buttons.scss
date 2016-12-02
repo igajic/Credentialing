@@ -23,8 +23,36 @@ input[type="submit"] {
 	}
 	&.btn-prev {
 		background: lighten($secondary, 40%);
+		padding-left: 40px;
+		position: relative;
+		&::after {
+			content: '';
+			position: absolute;
+			top: 12px;
+			left: 15px;
+			width: 10px;
+			height: 15px;
+			background: url('../img/svg/arrow-left.svg') no-repeat;
+			background-size: contain;
+			display: block;
+		}
 		&:hover {
 			background-color: $secondary;
+		}
+	}
+	&.btn-next {
+		padding-right: 40px;
+		position: relative;
+		&::after {
+			content: '';
+			position: absolute;
+			top: 12px;
+			right: 15px;
+			width: 10px;
+			height: 15px;
+			background: url('../img/svg/arrow-right.svg') no-repeat;
+			background-size: contain;
+			display: block;
 		}
 	}
 }

@@ -20,6 +20,12 @@ $(function () {
 		}
 	});
 
+	$('input[type="file"]').on('change', function(){
+		var path = $(this).val();
+		var fileName = path.replace(/^.*\\/, "");
+		$(this).siblings('.temp-filename').text(fileName);
+	});
+
 });
 
 $(window).on('load', function () {

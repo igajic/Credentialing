@@ -6,15 +6,15 @@
         </div>
         <div class="row">
             <div class="col-md-5">
-                <asp:Label ID="Label1" runat="server" AssociatedControlID="tboxLastName" Text="Last Name:" EnableViewState="False"/>
+                <asp:Label runat="server" AssociatedControlID="tboxLastName" Text="Last Name:" EnableViewState="False"/>
                 <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxLastName"/>
             </div>
             <div class="col-md-4">
-                <asp:Label ID="Label2" runat="server" AssociatedControlID="tboxFirstName" Text="First:" EnableViewState="False"/>
+                <asp:Label runat="server" AssociatedControlID="tboxFirstName" Text="First:" EnableViewState="False"/>
                 <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxFirstName"/>
             </div>
             <div class="col-md-3">
-                <asp:Label ID="Label3" runat="server" AssociatedControlID="tboxMiddleName" Text="Middle:" EnableViewState="False"/>
+                <asp:Label runat="server" AssociatedControlID="tboxMiddleName" Text="Middle:" EnableViewState="False"/>
                 <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxMiddleName"/>
             </div>
         </div>
@@ -32,15 +32,15 @@
         </div>
         <div class="row">
             <div class="col-md-5">
-                <asp:Label ID="Label4" runat="server" AssociatedControlID="tboxCity" Text="City:" EnableViewState="False"/>
+                <asp:Label runat="server" AssociatedControlID="tboxCity" Text="City:" EnableViewState="False"/>
                 <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxCity"/>
             </div>
             <div class="col-md-4">
-                <asp:Label ID="Label5" runat="server" AssociatedControlID="tboxState" Text="State:" EnableViewState="False"/>
+                <asp:Label runat="server" AssociatedControlID="tboxState" Text="State:" EnableViewState="False"/>
                 <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxState"/>
             </div>
             <div class="col-md-3">
-                <asp:Label ID="Label6" runat="server" AssociatedControlID="tboxZip" Text="ZIP:" EnableViewState="False"/>
+                <asp:Label runat="server" AssociatedControlID="tboxZip" Text="ZIP:" EnableViewState="False"/>
                 <asp:TextBox  ClientIDMode="Static" runat="server" ID="tboxZip"/>
             </div>
         </div>
@@ -64,31 +64,59 @@
                 <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxPagerNumber"/>
             </div>
         </div>
-
-        <asp:Label runat="server" AssociatedControlID="tboxBirthDate" Text="Birth Date:" EnableViewState="False"/>
-        <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxBirthDate"/>
-
-        <asp:Label runat="server" AssociatedControlID="tboxBirthPlace" Text="Birth Place (City/State/Country):" EnableViewState="False"/>
-        <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxBirthPlace"/>
-
-        <asp:Label runat="server" Text="Citizenship (If not a United States citizen, please include copy of Alien Registration Card)"/>
-        <asp:FileUpload ClientIDMode="Static" runat="server" ID="fuAlienRegistrationCard"/>
-
-        <asp:Label runat="server" AssociatedControlID="tboxSocialSecurityNumber" Text="Social Security #:" EnableViewState="False"/>
-        <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxSocialSecurityNumber" EnableViewState="False"/>
-    
-        <asp:Label runat="server" AssociatedControlID="rbtnMale" EnableViewState="False">Gender<sup>2</sup>:</asp:Label>
-        <asp:RadioButton ClientIDMode="Static" runat="server" ID="rbtnMale" GroupName="Gender"/>
-        <asp:RadioButton ClientIDMode="Static" runat="server" ID="rbtnFemale" GroupName="Gender"/>
-
-        <asp:Label runat="server" AssociatedControlID="tboxSpecialty" Text="Specialty:" EnableViewState="False"/>
-        <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxSpecialty"/>
-    
-        <asp:Label runat="server" AssociatedControlID="tboxRaceEthnicity" EnableViewState="False">Race/Ethnicity<sup>2</sup>(voluntary)</asp:Label>
-        <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxRaceEthnicity" />
-
-        <asp:Label runat="server" AssociatedControlID="tboxSubspeciality" EnableViewState="False"/>
-        <asp:TextBox runat="server" ClientIDMode="Static" ID="tboxSubspeciality"/>
+        <div class="row">
+            <div class="col-md-6">
+                <asp:Label runat="server" AssociatedControlID="tboxBirthDate" Text="Birth Date:" EnableViewState="False"/>
+                <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxBirthDate"/>
+            </div>
+            <div class="col-md-6">
+                <asp:Label runat="server" AssociatedControlID="tboxBirthPlace" Text="Birth Place (City/State/Country):" EnableViewState="False"/>
+                <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxBirthPlace"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 padd-top">
+                <asp:Label runat="server" AssociatedControlID="tboxSocialSecurityNumber" Text="Social Security #:" EnableViewState="False"/>
+                <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxSocialSecurityNumber" EnableViewState="False"/>
+            </div>
+            <div class="col-md-6">
+                <asp:Label runat="server" Text="Citizenship (If not a United States citizen, please include copy of Alien Registration Card)" CssClass="label" />
+                <div class="file-upload">
+                    <asp:FileUpload ClientIDMode="Static" runat="server" ID="fuAlienRegistrationCard"/>
+                    <span class="temp-filename"></span>
+                    <span class="upload-file-btn"><i class="ico"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <span class="label">Gender<sup>2</sup>:</span>
+                <div class="radio-wrap">
+                    <span class="radio">
+                        <asp:RadioButton ClientIDMode="Static" runat="server" ID="rbtnMale" GroupName="Gender" Checked="true" />
+                        <asp:Label runat="server" AssociatedControlID="rbtnMale" EnableViewState="False">Male</asp:Label>
+                    </span>
+                    <span class="radio">
+                        <asp:RadioButton ClientIDMode="Static" runat="server" ID="rbtnFemale" GroupName="Gender"/>
+                        <asp:Label runat="server" AssociatedControlID="rbtnFemale" EnableViewState="False">Female</asp:Label>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <asp:Label runat="server" AssociatedControlID="tboxRaceEthnicity" EnableViewState="False">Race/Ethnicity<sup>2</sup> (voluntary):</asp:Label>
+                <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxRaceEthnicity" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <asp:Label runat="server" AssociatedControlID="tboxSpecialty" Text="Specialty:" EnableViewState="False"/>
+                <asp:TextBox ClientIDMode="Static" runat="server" ID="tboxSpecialty"/>
+            </div>
+            <div class="col-md-6">
+                <asp:Label runat="server" AssociatedControlID="tboxSubspeciality" Text="Subspecialties:" EnableViewState="False"/>
+                <asp:TextBox runat="server" ClientIDMode="Static" ID="tboxSubspeciality"/>
+            </div>
+        </div>
     </div>
     <div class="form-actions">
         <asp:LinkButton runat="server" ID="btnPrevious" Text="Previous" CssClass="btn btn-prev" />
