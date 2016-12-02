@@ -28,7 +28,7 @@ namespace Credentialing.Web.Steps
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if (Validate())
+            if (ValidateFields())
             {
                 SaveFormData();
                 Response.Redirect("/Steps/PracticeInformation.aspx");
@@ -36,7 +36,7 @@ namespace Credentialing.Web.Steps
             }
         }
 
-        private bool Validate()
+        private bool ValidateFields()
         {
             bool retVal = true;
 
@@ -75,7 +75,7 @@ namespace Credentialing.Web.Steps
             tboxHomeFaxNumber.Text = formData.HomeFaxNumber;
             tboxEmailAddress.Text = formData.EmailAddress;
             tboxPagerNumber.Text = formData.PagerNumber;
-            tboxBirthDate.Text = formData.BirthDate.ToString(); // TODO: Check date format
+            tboxBirthDate.Text = formData.BirthDate.ToString("MM/yy");
             tboxBirthPlace.Text = formData.BirthPlace;
             tboxSocialSecurityNumber.Text = formData.SocialSecurityNumber;
             tboxSpecialty.Text = formData.Specialty;
@@ -113,7 +113,7 @@ namespace Credentialing.Web.Steps
             formData.HomeFaxNumber = tboxHomeFaxNumber.Text;
             formData.EmailAddress = tboxEmailAddress.Text;
             formData.PagerNumber = tboxPagerNumber.Text;
-            formData.BirthDate = DateTime.Parse(tboxBirthDate.Text); // TODO: Check date format
+            formData.BirthDate = DateHelper.ParseDate(tboxBirthDate.Text);
             formData.BirthPlace = tboxBirthPlace.Text;
             formData.SocialSecurityNumber = tboxSocialSecurityNumber.Text;
             formData.Specialty = tboxSpecialty.Text;

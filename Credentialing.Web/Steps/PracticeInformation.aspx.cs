@@ -20,7 +20,7 @@ namespace Credentialing.Web.Steps
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if (Validate())
+            if (ValidateFields())
             {
                 SaveFormData();
 
@@ -29,7 +29,7 @@ namespace Credentialing.Web.Steps
             }
         }
 
-        private bool Validate()
+        private bool ValidateFields()
         {
             var retVal = true;
 

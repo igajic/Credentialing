@@ -20,7 +20,7 @@ namespace Credentialing.Web.UserManagment
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            if (Validate())
+            if (ValidateFields())
             {
                 string errorText;
 
@@ -43,7 +43,7 @@ namespace Credentialing.Web.UserManagment
             }
         }
 
-        private bool Validate()
+        private bool ValidateFields()
         {
             var retVal = ValidationHelper.ValidateTextbox(tboxUsername);
             retVal = ValidationHelper.ValidateTextbox(tboxUsername) && retVal;
