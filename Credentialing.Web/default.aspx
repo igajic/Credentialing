@@ -24,7 +24,7 @@
 				<a href="/Steps/InternshipPGYI.aspx">Internship PGYI</a>
 			</li>
 			<li>
-				<a href="/Steps/ResidencesFellowships.aspx">Residences Fellowships</a>
+				<a href="/Steps/ResidencesFellowships.aspx">Residencies Fellowships</a>
 			</li>
 			<li>
 				<a href="/Steps/BoardCertification.aspx">Board Certification</a>
