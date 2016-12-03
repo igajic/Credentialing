@@ -9,11 +9,13 @@ namespace Credentialing.Business.DataAccess
         public CredentialingContext()
             : base("name=CredentialingDB")
         {
+            Configuration.AutoDetectChangesEnabled = true;
+            Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Attachment> Attachments { get; set; }
 
-        public DbSet<PracticionerApplication> PracticionerApplication { get; set; }
+        public DbSet<PracticionerApplication> PracticionerApplications { get; set; }
 
         public DbSet<IdentifyingInformation> IndentifyingInformations { get; set; }
 
@@ -50,6 +52,7 @@ namespace Credentialing.Business.DataAccess
             modelBuilder.Entity<IdentifyingInformation>()
                 .HasOptional(s => s.CitizenshipFile)
                 .WithRequired(s => s.IdentifyingInformation);
+
 
             modelBuilder.Entity<ProfessionalLiability>()
                 .HasOptional(s => s.CurrentLiabilityPolicy)

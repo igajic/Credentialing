@@ -1,4 +1,5 @@
-﻿using Credentialing.Business.Helpers;
+﻿using Credentialing.Business.DataAccess;
+using Credentialing.Business.Helpers;
 using Credentialing.Entities.Data;
 using Credentialing.Entities.Enums;
 using System;
@@ -14,6 +15,11 @@ namespace Credentialing.Web.Steps
         {
             btnNext.Click += btnNext_Click;
             btnPrevious.Click += btnPrevious_Click;
+
+            if (!IsPostBack)
+            {
+                LoadUserData();
+            }
         }
 
         #endregion [Protected methods]
@@ -61,6 +67,23 @@ namespace Credentialing.Web.Steps
             return retVal;
         }
 
+        private void LoadUserData()
+        {
+            var user = MemberHelper.GetCurrentLoggedUser();
+
+            if (user != null && MemberHelper.IsUserPhysician(user.UserName))
+            {
+                var physicianFormData = PracticionersApplicationHandler.Instance.GetPracticionerApplicationByUserId((Guid)user.ProviderUserKey);
+                /*
+                if (physicianFormData != null && physicianFormData.IdentifyingInformationId.HasValue)
+                {
+                    var data = PracticionersApplicationHandler.Instance.GetIdentifyingInformation(physicianFormData.IdentifyingInformationId.Value);
+
+                    LoadFormData(data);
+                }*/
+            }
+        }
+
         private void LoadFormData(Entities.Steps.IdentifyingInformation formData)
         {
             tboxLastName.Text = formData.LastName;
@@ -99,47 +122,59 @@ namespace Credentialing.Web.Steps
 
         private void SaveFormData()
         {
-            var formData = new Entities.Steps.IdentifyingInformation();
+            var user = MemberHelper.GetCurrentLoggedUser();
 
-            formData.LastName = tboxLastName.Text;
-            formData.FirstName = tboxFirstName.Text;
-            formData.MiddleName = tboxMiddleName.Text;
-            formData.OtherKnownNames = tboxOtherKnownNames.Text;
-            formData.HomeMailingAddress = tboxHomeMailingAddress.Text;
-            formData.City = tboxCity.Text;
-            formData.State = tboxState.Text;
-            formData.Zip = tboxZip.Text;
-            formData.HomeTelephoneNumber = tboxHomeTelephoneNumber.Text;
-            formData.HomeFaxNumber = tboxHomeFaxNumber.Text;
-            formData.EmailAddress = tboxEmailAddress.Text;
-            formData.PagerNumber = tboxPagerNumber.Text;
-            formData.BirthDate = DateHelper.ParseDate(tboxBirthDate.Text);
-            formData.BirthPlace = tboxBirthPlace.Text;
-            formData.SocialSecurityNumber = tboxSocialSecurityNumber.Text;
-            formData.Specialty = tboxSpecialty.Text;
-            formData.RaceEthnicity = tboxRaceEthnicity.Text;
-            formData.Subspecialties = tboxSubspeciality.Text;
+            if (user != null && MemberHelper.IsUserPhysician(user.UserName))
+            {
+                var physicianFormData = PracticionersApplicationHandler.Instance.GetPracticionerApplicationByUserId((Guid)user.ProviderUserKey) ?? new PracticionerApplication();
 
-            if (rbtnMale.Checked)
-            {
-                formData.Gender = Gender.Male;
-            }
-            else if (rbtnFemale.Checked)
-            {
-                formData.Gender = Gender.Female;
-            }
-            else
-            {
-                formData.Gender = null;
-            }
+                var formData = physicianFormData.IdentifyingInformation ?? new Entities.Steps.IdentifyingInformation();
 
-            if (fuAlienRegistrationCard.HasFile)
-            {
-                formData.CitizenshipFile = new Attachment
+                formData.LastName = tboxLastName.Text;
+                formData.FirstName = tboxFirstName.Text;
+                formData.MiddleName = tboxMiddleName.Text;
+                formData.OtherKnownNames = tboxOtherKnownNames.Text;
+                formData.HomeMailingAddress = tboxHomeMailingAddress.Text;
+                formData.City = tboxCity.Text;
+                formData.State = tboxState.Text;
+                formData.Zip = tboxZip.Text;
+                formData.HomeTelephoneNumber = tboxHomeTelephoneNumber.Text;
+                formData.HomeFaxNumber = tboxHomeFaxNumber.Text;
+                formData.EmailAddress = tboxEmailAddress.Text;
+                formData.PagerNumber = tboxPagerNumber.Text;
+                formData.BirthDate = DateHelper.ParseDate(tboxBirthDate.Text);
+                formData.BirthPlace = tboxBirthPlace.Text;
+                formData.SocialSecurityNumber = tboxSocialSecurityNumber.Text;
+                formData.Specialty = tboxSpecialty.Text;
+                formData.RaceEthnicity = tboxRaceEthnicity.Text;
+                formData.Subspecialties = tboxSubspeciality.Text;
+
+                if (rbtnMale.Checked)
                 {
-                    FileName = fuAlienRegistrationCard.FileName,
-                    Content = fuAlienRegistrationCard.FileBytes
-                };
+                    formData.Gender = Gender.Male;
+                }
+                else if (rbtnFemale.Checked)
+                {
+                    formData.Gender = Gender.Female;
+                }
+                else
+                {
+                    formData.Gender = null;
+                }
+
+                if (fuAlienRegistrationCard.HasFile)
+                {
+                    formData.CitizenshipFile = new Attachment
+                    {
+                        FileName = fuAlienRegistrationCard.FileName,
+                        Content = fuAlienRegistrationCard.FileBytes
+                    };
+                }
+
+                PracticionersApplicationHandler.Instance.SaveIdentifyingInformation(formData);
+                physicianFormData.IdentifyingInformation = formData;
+
+                PracticionersApplicationHandler.Instance.SavePracticionerApplication(physicianFormData);
             }
         }
 

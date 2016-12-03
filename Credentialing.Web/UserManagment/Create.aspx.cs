@@ -1,6 +1,8 @@
 ﻿using Credentialing.Business.Helpers;
 using System;
 using System.Web.UI;
+using Credentialing.Business.DataAccess;
+using Credentialing.Entities.Data;
 
 namespace Credentialing.Web.UserManagment
 {
@@ -23,11 +25,15 @@ namespace Credentialing.Web.UserManagment
             if (ValidateFields())
             {
                 string errorText;
+                var newUserId = MemberHelper.CreateUser(tboxUsername.Text, tboxPassword.Text, tboxEmail.Text,
+                    ddlRole.SelectedValue, out errorText);
 
-                if (MemberHelper.CreateUser(tboxUsername.Text, tboxPassword.Text, tboxEmail.Text, ddlRole.SelectedValue,
-                    out errorText))
+                if (newUserId.HasValue)
                 {
                     MemberHelper.LoginUser(tboxUsername.Text, tboxPassword.Text);
+
+                    var newApplication = new PracticionerApplication {UserId = newUserId.Value};
+                    PracticionersApplicationHandler.Instance.SavePracticionerApplication(newApplication);
 
                     Response.Redirect(
                         ddlRole.SelectedValue.Contains("Admin")

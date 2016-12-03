@@ -1,22 +1,20 @@
 namespace Credentialing.Business.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Credentialing.Business.DataAccess.CredentialingContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DataAccess.CredentialingContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(Credentialing.Business.DataAccess.CredentialingContext context)
+        protected override void Seed(DataAccess.CredentialingContext context)
         {
             //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data. E.g.
             //
             //    context.People.AddOrUpdate(
