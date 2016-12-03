@@ -20,7 +20,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<asp:Label runat="server" AssociatedControlID="tboxOtherKnownNames" Text="Is there any other name under which you have been known? Name (s):" EnableViewState="False"/>
+				<asp:Label runat="server" AssociatedControlID="tboxOtherKnownNames" Text="Is there any other name under which you have been known? Name(s):" EnableViewState="False"/>
 				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxOtherKnownNames"/>
 			</div>
 		</div>
