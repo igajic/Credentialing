@@ -1,5 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Instructions.aspx.cs" Inherits="Credentialing.Web.Steps.Instructions" MasterPageFile="../Main.Master" %>
+<%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
+
+	<uc:SidebarProgress runat="server" CurrentStep="1" EnableViewState="false"/>
 	<div class="form-block">
 		<div class="form-heading">
 			<h2><strong>1.</strong> Instructions</h2>

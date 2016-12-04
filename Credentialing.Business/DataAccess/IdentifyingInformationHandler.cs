@@ -58,7 +58,7 @@ namespace Credentialing.Business.DataAccess
                             retVal.BirthPlace = reader[Constants.IdentifyingInformationColumns.BirthPlace] as string;
                             retVal.AttachmentId = reader[Constants.IdentifyingInformationColumns.AttachmentId] as int?;
                             retVal.SocialSecurityNumber = reader[Constants.IdentifyingInformationColumns.SocialSecurityNumber] as string;
-                            retVal.Gender = reader[Constants.IdentifyingInformationColumns.Gender] as Gender?;
+                            retVal.Gender = (Gender?)(int?)reader[Constants.IdentifyingInformationColumns.Gender];
                             retVal.Specialty = reader[Constants.IdentifyingInformationColumns.Specialty] as string;
                             retVal.RaceEthnicity = reader[Constants.IdentifyingInformationColumns.RaceEthnicity] as string;
                             retVal.Subspecialties = reader[Constants.IdentifyingInformationColumns.Subspecialties] as string;

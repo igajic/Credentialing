@@ -39,6 +39,6 @@ namespace Credentialing.Entities.Data
 
         public string SecondaryZip { get; set; }
 
-        public virtual ICollection<Attachment> Attachments { get; set; }
+        public virtual List<Attachment> Attachments { get; set; }
     }
 }

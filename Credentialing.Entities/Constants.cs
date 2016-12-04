@@ -111,5 +111,24 @@
             public const string TertiaryOfficeNameAffiliatedWithTaxIdNumber = "TertiaryOfficeNameAffiliatedWithTaxIdNumber";
             public const string TertiaryOfficeFederalTaxIdNumber = "TertiaryOfficeFederalTaxIdNumber";
         }
+
+        public static class MedicalProfessionalEducationColumns
+        {
+            public const string MedicalProfessionalEducationId = "MedicalProfessionalEducationId";
+            public const string PrimaryMedicalProfessionalSchool = "PrimaryMedicalProfessionalSchool";
+            public const string PrimaryDegreeReceived = "PrimaryDegreeReceived";
+            public const string PrimaryDateOfGraduation = "PrimaryDateOfGraduation";
+            public const string PrimaryMailingAddress = "PrimaryMailingAddress";
+            public const string PrimaryCity = "PrimaryCity";
+            public const string PrimaryStateCountry = "PrimaryStateCountry";
+            public const string PrimaryZip = "PrimaryZip";
+            public const string SecondaryMedicalProfessionalSchool = "SecondaryMedicalProfessionalSchool";
+            public const string SecondaryDegreeReceived = "SecondaryDegreeReceived";
+            public const string SecondaryDateOfGraduation = "SecondaryDateOfGraduation";
+            public const string SecondaryMailingAddress = "SecondaryMailingAddress";
+            public const string SecondaryCity = "SecondaryCity";
+            public const string SecondaryStateCountry = "SecondaryStateCountry";
+            public const string SecondaryZip = "SecondaryZip";
+        }
     }
 }
