@@ -7,17 +7,15 @@
 		<h1>Coming soon</h1>
 		<asp:Panel ID="Panel1" runat="server" Enabled="false" Visible="false">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxCollegeUniversityName" Text="College or University Name:" EnableViewState="False"/>
 				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxCollegeUniversityName"/>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-3">
 				<asp:Label runat="server" AssociatedControlID="tboxDegreeReceived" Text="Degree Received:" EnableViewState="False"/>
 				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxDegreeReceived"/>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-3">
 				<asp:Label runat="server" AssociatedControlID="tboxDateOfGraduation" Text="Date of Graduation (mm/yy)" EnableViewState="False"/>
 				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxDateOfGraduation"/>
 			</div>
