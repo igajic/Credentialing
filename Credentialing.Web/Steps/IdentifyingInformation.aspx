@@ -90,7 +90,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<span class="label">Gender:</span>
+				<span class="label">Gender<sup>2</sup>:</span>
 				<div class="radio-wrap">
 					<span class="radio">
 						<asp:RadioButton ClientIDMode="Static" runat="server" ID="rbtnMale" GroupName="Gender" Checked="true" />
@@ -103,7 +103,7 @@
 				</div>
 			</div>
 			<div class="col-md-6">
-				<asp:Label runat="server" AssociatedControlID="tboxRaceEthnicity" EnableViewState="False">Race/Ethnicity (voluntary):</asp:Label>
+				<asp:Label runat="server" AssociatedControlID="tboxRaceEthnicity" EnableViewState="False">Race/Ethnicity<sup>2</sup> (voluntary):</asp:Label>
 				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxRaceEthnicity" />
 			</div>
 		</div>
@@ -117,6 +117,10 @@
 				<asp:TextBox runat="server" ClientIDMode="Static" ID="tboxSubspeciality"/>
 			</div>
 		</div>
+        <div class="row">
+            <sup>1</sup> As used in the Information Release/Acknowledgments Section of this application, the term "this Healthcare Organization" shall refer to the entity to which this application is submitted as identified above. <br/>
+            <sup>2</sup> This information will be used for consumer information purposes only.<br/>
+        </div>
 	</div>
 	<div class="form-actions">
 		<asp:LinkButton runat="server" ID="btnPrevious" Text="Previous" CssClass="btn btn-prev" />
