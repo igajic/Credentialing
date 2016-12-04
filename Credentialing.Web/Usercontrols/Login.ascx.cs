@@ -27,7 +27,7 @@ namespace Credentialing.Web.Usercontrols
                 var userRoles = MemberHelper.GetUserRoles(tboxUsername.Text);
                 var user = MemberHelper.GetUserByName(tboxUsername.Text);
 
-                var existingApplication = PracticionersApplicationHandler.Instance.GetPracticionerApplicationByUserId((Guid)user.ProviderUserKey);
+                var existingApplication = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey);
 
                 if (existingApplication == null)
                 {

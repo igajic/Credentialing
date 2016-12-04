@@ -13,14 +13,27 @@ namespace Credentialing.Business.DataAccess
 
         public static AttachmentHandler Instance
         {
-            get { return _instance ?? new AttachmentHandler(); }
+            get { return _instance ?? (_instance = new AttachmentHandler()); }
         }
 
         private AttachmentHandler()
         {
         }
 
-        public Attachment GetAttachmentById(int attachmentId)
+        public void Delete(int attachmentId)
+        {
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            {
+                var sqlCommand = new SqlCommand("DELETE FROM Attachments WHERE AttachmentId = @attachmentId", conn);
+                sqlCommand.Parameters.AddWithValue("@attachmentId", attachmentId);
+
+                conn.Open();
+
+                sqlCommand.ExecuteNonQuery();
+            }
+        }
+
+        public Attachment GetById(int attachmentId)
         {
             Attachment retVal = null;
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
@@ -57,7 +70,7 @@ namespace Credentialing.Business.DataAccess
             return retVal;
         }
 
-        public int InsertAttachment(Attachment attachment)
+        public int Insert(Attachment attachment)
         {
             int retVal;
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))

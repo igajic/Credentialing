@@ -72,17 +72,13 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxSecondaryOfficeState" Text="State" EnableViewState="False"/>
 				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxSecondaryOfficeState"/>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxSecondaryOfficeZip" Text="Zip" EnableViewState="False"/>
 				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxSecondaryOfficeZip"/>
-			</div>
-			<div class="col-md-4">
-				<asp:Label runat="server" AssociatedControlID="tboxSecondaryOfficeTelephoneNumber" Text="Telephone Number:" EnableViewState="False"/>
-				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxSecondaryOfficeTelephoneNumber"/>
 			</div>
 		</div>
 		<div class="row">
@@ -122,17 +118,13 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxSecondaryOfficeState" Text="State" EnableViewState="False"/>
 				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxTertiaryOfficeState"/>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxSecondaryOfficeZip" Text="Zip" EnableViewState="False"/>
 				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxTertiaryOfficeZip"/>
-			</div>
-			<div class="col-md-4">
-				<asp:Label runat="server" AssociatedControlID="tboxTertiaryOfficeTelephoneNumber" Text="Telephone Number:" EnableViewState="False"/>
-				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxTertiaryOfficeTelephoneNumber"/>
 			</div>
 		</div>
 		<div class="row">

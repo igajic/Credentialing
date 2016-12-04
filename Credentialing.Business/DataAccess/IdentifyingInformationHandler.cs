@@ -14,14 +14,14 @@ namespace Credentialing.Business.DataAccess
 
         public static IdentifyingInformationHandler Instance
         {
-            get { return _instance ?? new IdentifyingInformationHandler(); }
+            get { return _instance ?? (_instance = new IdentifyingInformationHandler()); }
         }
 
         private IdentifyingInformationHandler()
         {
         }
 
-        public IdentifyingInformation GetIdentifyingInformation(int id)
+        public IdentifyingInformation GetById(int id, bool deepLoad = false)
         {
             IdentifyingInformation retVal = null;
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
@@ -39,10 +39,9 @@ namespace Credentialing.Business.DataAccess
                     {
                         if (reader.Read())
                         {
-
                             retVal = new IdentifyingInformation();
 
-                            retVal.IdentifyingInformationId = (int) reader[Constants.IdentifyingInformationColumns.IdentifyingInformationId];
+                            retVal.IdentifyingInformationId = (int)reader[Constants.IdentifyingInformationColumns.IdentifyingInformationId];
                             retVal.LastName = reader[Constants.IdentifyingInformationColumns.LastName] as string;
                             retVal.FirstName = reader[Constants.IdentifyingInformationColumns.FirstName] as string;
                             retVal.MiddleName = reader[Constants.IdentifyingInformationColumns.MiddleName] as string;
@@ -55,7 +54,7 @@ namespace Credentialing.Business.DataAccess
                             retVal.HomeFaxNumber = reader[Constants.IdentifyingInformationColumns.HomeFaxNumber] as string;
                             retVal.EmailAddress = reader[Constants.IdentifyingInformationColumns.EmailAddress] as string;
                             retVal.PagerNumber = reader[Constants.IdentifyingInformationColumns.PagerNumber] as string;
-                            retVal.BirthDate = (DateTime) reader[Constants.IdentifyingInformationColumns.BirthDate];
+                            retVal.BirthDate = (DateTime)reader[Constants.IdentifyingInformationColumns.BirthDate];
                             retVal.BirthPlace = reader[Constants.IdentifyingInformationColumns.BirthPlace] as string;
                             retVal.AttachmentId = reader[Constants.IdentifyingInformationColumns.AttachmentId] as int?;
                             retVal.SocialSecurityNumber = reader[Constants.IdentifyingInformationColumns.SocialSecurityNumber] as string;
@@ -64,9 +63,12 @@ namespace Credentialing.Business.DataAccess
                             retVal.RaceEthnicity = reader[Constants.IdentifyingInformationColumns.RaceEthnicity] as string;
                             retVal.Subspecialties = reader[Constants.IdentifyingInformationColumns.Subspecialties] as string;
 
-                            if (retVal.AttachmentId.HasValue)
+                            if (deepLoad)
                             {
-                                retVal.Attachment = AttachmentHandler.Instance.GetAttachmentById(retVal.AttachmentId.Value);
+                                if (retVal.AttachmentId.HasValue)
+                                {
+                                    retVal.Attachment = AttachmentHandler.Instance.GetById(retVal.AttachmentId.Value);
+                                }
                             }
                         }
                     }

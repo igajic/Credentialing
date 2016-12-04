@@ -73,11 +73,11 @@ namespace Credentialing.Web.Steps
 
             if (user != null && MemberHelper.IsUserPhysician(user.UserName))
             {
-                var physicianFormData = PracticionersApplicationHandler.Instance.GetPracticionerApplicationByUserId((Guid)user.ProviderUserKey);
+                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey);
 
                 if (physicianFormData != null && physicianFormData.IdentifyingInformationId.HasValue)
                 {
-                    var data = IdentifyingInformationHandler.Instance.GetIdentifyingInformation(physicianFormData.IdentifyingInformationId.Value);
+                    var data = IdentifyingInformationHandler.Instance.GetById(physicianFormData.IdentifyingInformationId.Value);
 
                     LoadFormData(data);
                 }
@@ -126,13 +126,13 @@ namespace Credentialing.Web.Steps
 
             if (user != null && MemberHelper.IsUserPhysician(user.UserName))
             {
-                var physicianFormData = PracticionersApplicationHandler.Instance.GetPracticionerApplicationByUserId((Guid)user.ProviderUserKey);
+                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey);
 
                 var formData = new Entities.Data.IdentifyingInformation();
 
                 if (physicianFormData.IdentifyingInformationId.HasValue)
                 {
-                    formData = IdentifyingInformationHandler.Instance.GetIdentifyingInformation(physicianFormData.IdentifyingInformationId.Value);
+                    formData = IdentifyingInformationHandler.Instance.GetById(physicianFormData.IdentifyingInformationId.Value);
                 }
 
                 formData.LastName = tboxLastName.Text;
@@ -175,7 +175,12 @@ namespace Credentialing.Web.Steps
                         Content = fuAlienRegistrationCard.FileBytes
                     };
 
-                    var id = AttachmentHandler.Instance.InsertAttachment(attachment);
+                    if (formData.AttachmentId.HasValue)
+                    {
+                        AttachmentHandler.Instance.Delete(formData.AttachmentId.Value);
+                    }
+
+                    var id = AttachmentHandler.Instance.Insert(attachment);
                     formData.AttachmentId = id;
                 }
 

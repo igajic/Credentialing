@@ -13,14 +13,14 @@ namespace Credentialing.Business.DataAccess
 
         public static PracticionersApplicationHandler Instance
         {
-            get { return _instance ?? new PracticionersApplicationHandler(); }
+            get { return _instance ?? (_instance = new PracticionersApplicationHandler()); }
         }
 
         private PracticionersApplicationHandler()
         {
         }
 
-        public PracticionerApplication GetPracticionerApplicationByUserId(Guid userId)
+        public PracticionerApplication GetByUserId(Guid userId, bool deepLoad = false)
         {
             PracticionerApplication retVal = null;
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
@@ -54,6 +54,24 @@ namespace Credentialing.Business.DataAccess
                             retVal.ProfessionalLiabilityId = reader[Constants.PracticionerApplicationColumns.ProfessionalLiabilityId] as int?;
                             retVal.ResidenciesFellowshipId = reader[Constants.PracticionerApplicationColumns.ResidenciesFellowshipId] as int?;
                             retVal.WorkHistoryId = reader[Constants.PracticionerApplicationColumns.WorkHistoryId] as int?;
+
+                            if (deepLoad)
+                            {
+                                if (retVal.IdentifyingInformationId.HasValue)
+                                {
+                                    retVal.IdentifyingInformation = IdentifyingInformationHandler.Instance.GetById(retVal.IdentifyingInformationId.Value, true);
+                                }
+
+                                if (retVal.PracticeInformationId.HasValue)
+                                {
+                                    retVal.PracticeInformation = PracticeInformationHandler.Instance.GetById(retVal.PracticeInformationId.Value, true);
+                                }
+
+                                if (retVal.EducationId.HasValue)
+                                {
+                                    retVal.Education = EducationHandler.Instance.GetById(retVal.EducationId.Value, true);
+                                }
+                            }
                         }
                     }
                 }

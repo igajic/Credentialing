@@ -13,14 +13,14 @@ namespace Credentialing.Business.DataAccess
 
         public static EducationHandler Instance
         {
-            get { return _instance ?? new EducationHandler(); }
+            get { return _instance ?? (_instance = new EducationHandler()); }
         }
 
         private EducationHandler()
         {
         }
 
-        public Education GetById(int id)
+        public Education GetById(int id, bool deepLoad)
         {
             Education retVal = null;
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
@@ -41,13 +41,18 @@ namespace Credentialing.Business.DataAccess
                             retVal = new Education();
 
                             retVal.CollegeUniverityName = reader[Constants.EducationColumns.CollegeUniverityName] as string;
-                            retVal.DateGraduation = (DateTime) reader[Constants.EducationColumns.DateGraduation];
+                            retVal.DateGraduation = (DateTime)reader[Constants.EducationColumns.DateGraduation];
                             retVal.DegreeReceived = reader[Constants.EducationColumns.DegreeReceived] as string;
-                            retVal.EducationId = (int) reader[Constants.EducationColumns.EducationId];
+                            retVal.EducationId = (int)reader[Constants.EducationColumns.EducationId];
                             retVal.MailingAddress = reader[Constants.EducationColumns.MailingAddress] as string;
                             retVal.MailingCity = reader[Constants.EducationColumns.MailingCity] as string;
                             retVal.MailingState = reader[Constants.EducationColumns.MailingState] as string;
                             retVal.MailingZip = reader[Constants.EducationColumns.MailingZip] as string;
+
+                            if (deepLoad)
+                            {
+                                // TODO: Load all attachments
+                            }
                         }
                     }
                 }

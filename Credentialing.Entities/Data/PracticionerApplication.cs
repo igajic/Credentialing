@@ -41,5 +41,13 @@ namespace Credentialing.Entities.Data
         public int? WorkHistoryId { get; set; }
 
         public int? AttestationQuestionId { get; set; }
+
+
+        // references
+        public virtual IdentifyingInformation IdentifyingInformation { get; set; }
+
+        public virtual PracticeInformation PracticeInformation { get; set; }
+
+        public virtual Education Education { get; set; }
     }
 }
