@@ -32,7 +32,7 @@ namespace Credentialing.Web.Usercontrols
                 if (existingApplication == null)
                 {
                     var newApplication = new PracticionerApplication { UserId = (Guid)user.ProviderUserKey };
-                    PracticionersApplicationHandler.Instance.SavePracticionerApplication(newApplication);
+                    PracticionersApplicationHandler.Instance.Insert(newApplication);
                 }
 
                 Response.Redirect(userRoles.Contains("Admin") ? "/Dashboard/Administrator.aspx" : "/Dashboard/Physician.aspx", true);

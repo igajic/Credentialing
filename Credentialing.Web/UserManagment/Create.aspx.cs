@@ -33,7 +33,7 @@ namespace Credentialing.Web.UserManagment
                     MemberHelper.LoginUser(tboxUsername.Text, tboxPassword.Text);
 
                     var newApplication = new PracticionerApplication {UserId = newUserId.Value};
-                    PracticionersApplicationHandler.Instance.SavePracticionerApplication(newApplication);
+                    PracticionersApplicationHandler.Instance.Insert(newApplication);
 
                     Response.Redirect(
                         ddlRole.SelectedValue.Contains("Admin")
