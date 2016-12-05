@@ -78,7 +78,7 @@ namespace Credentialing.Business.DataAccess
             return retVal;
         }
 
-        public int SaveIdentifyingInformation(IdentifyingInformation info)
+        public int Insert(IdentifyingInformation info)
         {
             int retVal;
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))

@@ -186,7 +186,7 @@ namespace Credentialing.Web.Steps
 
                 if (formData.IdentifyingInformationId == 0)
                 {
-                    var id = IdentifyingInformationHandler.Instance.SaveIdentifyingInformation(formData);
+                    var id = IdentifyingInformationHandler.Instance.Insert(formData);
                     physicianFormData.IdentifyingInformationId = id;
 
                     PracticionersApplicationHandler.Instance.Update(physicianFormData);
