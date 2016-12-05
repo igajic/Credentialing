@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Credentialing.Business.DataAccess
+﻿namespace Credentialing.Business.DataAccess
 {
     public class OtherCertificationsHandler
     {

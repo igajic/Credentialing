@@ -20,39 +20,46 @@ namespace Credentialing.Business.DataAccess
         {
         }
 
-        public Education GetById(int id, bool deepLoad)
+        public Education GetById(int id, bool deepLoad = false)
         {
-            Education retVal = null;
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
             {
-                var sqlCommand = new SqlCommand(@"SELECT *
+                return GetById(conn, id, deepLoad);
+            }
+        }
+
+        public Education GetById(SqlConnection conn, int id, bool deepLoad = false)
+        {
+            Education retVal = null;
+
+            var sqlCommand = new SqlCommand(@"SELECT *
                                                   FROM Educations
                                                   WHERE EducationId = @educationId", conn);
-                sqlCommand.Parameters.AddWithValue("@educationId", id);
+            sqlCommand.Parameters.AddWithValue("@educationId", id);
 
-                conn.Open();
+            conn.Open();
 
-                using (var reader = sqlCommand.ExecuteReader())
+            using (var reader = sqlCommand.ExecuteReader())
+            {
+                if (reader.HasRows)
                 {
-                    if (reader.HasRows)
+                    if (reader.Read())
                     {
-                        if (reader.Read())
+                        retVal = new Education();
+
+                        retVal.EducationId = (int) reader[Constants.EducationColumns.EducationId];
+                        retVal.CollegeUniverityName = reader[Constants.EducationColumns.CollegeUniverityName] as string;
+                        retVal.DateGraduation = (DateTime)reader[Constants.EducationColumns.DateGraduation];
+                        retVal.DegreeReceived = reader[Constants.EducationColumns.DegreeReceived] as string;
+                        retVal.EducationId = (int)reader[Constants.EducationColumns.EducationId];
+                        retVal.MailingAddress = reader[Constants.EducationColumns.MailingAddress] as string;
+                        retVal.MailingCity = reader[Constants.EducationColumns.MailingCity] as string;
+                        retVal.MailingState = reader[Constants.EducationColumns.MailingState] as string;
+                        retVal.MailingZip = reader[Constants.EducationColumns.MailingZip] as string;
+
+                        if (deepLoad)
                         {
-                            retVal = new Education();
-
-                            retVal.CollegeUniverityName = reader[Constants.EducationColumns.CollegeUniverityName] as string;
-                            retVal.DateGraduation = (DateTime)reader[Constants.EducationColumns.DateGraduation];
-                            retVal.DegreeReceived = reader[Constants.EducationColumns.DegreeReceived] as string;
-                            retVal.EducationId = (int)reader[Constants.EducationColumns.EducationId];
-                            retVal.MailingAddress = reader[Constants.EducationColumns.MailingAddress] as string;
-                            retVal.MailingCity = reader[Constants.EducationColumns.MailingCity] as string;
-                            retVal.MailingState = reader[Constants.EducationColumns.MailingState] as string;
-                            retVal.MailingZip = reader[Constants.EducationColumns.MailingZip] as string;
-
-                            if (deepLoad)
-                            {
-                                // TODO: Load all attachments
-                            }
+                            retVal.AttachedDocuments = AttachmentHandler.Instance.GetReferencedAttachments(conn, "EducationId", retVal.EducationId);
                         }
                     }
                 }
@@ -66,37 +73,48 @@ namespace Credentialing.Business.DataAccess
             int retVal;
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
             {
-                var sqlCommand = new SqlCommand(@"INSERT INTO Educations
+                retVal = Insert(conn, education);
+            }
+
+            return retVal;
+        }
+
+        public int Insert(SqlConnection conn, Education education)
+        {
+            var sqlCommand = new SqlCommand(@"INSERT INTO Educations
                                                     (CollegeUniverityName, DegreeReceived, DateGraduation, MailingAddress, MailingCity, MailingState, MailingZip)
                                                     OUTPUT INSERTED.EducationId
                                                     VALUES
                                                     (@collegeUniverityName, @degreeReceived, @dateGraduation, @mailingAddress, @mailingCity, @mailingState, @mailingZip)", conn);
-                conn.Open();
+            conn.Open();
 
-                sqlCommand.Parameters.AddWithValue("@collegeUniverityName", education.CollegeUniverityName);
-                sqlCommand.Parameters.AddWithValue("@degreeReceived", education.DegreeReceived);
-                sqlCommand.Parameters.AddWithValue("@dateGraduation", education.DateGraduation);
-                sqlCommand.Parameters.AddWithValue("@mailingAddress", education.MailingAddress);
-                sqlCommand.Parameters.AddWithValue("@mailingCity", education.MailingCity);
-                sqlCommand.Parameters.AddWithValue("@mailingState", education.MailingState);
-                sqlCommand.Parameters.AddWithValue("@mailingZip", education.MailingZip);
+            sqlCommand.Parameters.AddWithValue("@collegeUniverityName", education.CollegeUniverityName);
+            sqlCommand.Parameters.AddWithValue("@degreeReceived", education.DegreeReceived);
+            sqlCommand.Parameters.AddWithValue("@dateGraduation", education.DateGraduation);
+            sqlCommand.Parameters.AddWithValue("@mailingAddress", education.MailingAddress);
+            sqlCommand.Parameters.AddWithValue("@mailingCity", education.MailingCity);
+            sqlCommand.Parameters.AddWithValue("@mailingState", education.MailingState);
+            sqlCommand.Parameters.AddWithValue("@mailingZip", education.MailingZip);
 
-                foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
-                {
-                    parameter.Value = DBNull.Value;
-                }
-
-                retVal = (int)sqlCommand.ExecuteScalar();
+            foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
+            {
+                parameter.Value = DBNull.Value;
             }
 
-            return retVal;
+            return (int)sqlCommand.ExecuteScalar();
         }
 
         public void Update(Education education)
         {
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
             {
-                var sqlCommand = new SqlCommand(@"UPDATE Educations
+                Update(conn, education);
+            }
+        }
+
+        public void Update(SqlConnection conn, Education education)
+        {
+            var sqlCommand = new SqlCommand(@"UPDATE Educations
                                                     SET CollegeUniverityName = @collegeUniverityName,
                                                         DegreeReceived = @degreeReceived,
                                                         DateGraduation = @dateGraduation,
@@ -105,24 +123,23 @@ namespace Credentialing.Business.DataAccess
                                                         MailingState = @mailingState,
                                                         MailingZip = @mailingZip
                                                     WHERE EducationId = @educationId", conn);
-                conn.Open();
+            conn.Open();
 
-                sqlCommand.Parameters.AddWithValue("@educationId", education.EducationId);
-                sqlCommand.Parameters.AddWithValue("@collegeUniverityName", education.CollegeUniverityName);
-                sqlCommand.Parameters.AddWithValue("@degreeReceived", education.DegreeReceived);
-                sqlCommand.Parameters.AddWithValue("@dateGraduation", education.DateGraduation);
-                sqlCommand.Parameters.AddWithValue("@mailingAddress", education.MailingAddress);
-                sqlCommand.Parameters.AddWithValue("@mailingCity", education.MailingCity);
-                sqlCommand.Parameters.AddWithValue("@mailingState", education.MailingState);
-                sqlCommand.Parameters.AddWithValue("@mailingZip", education.MailingZip);
+            sqlCommand.Parameters.AddWithValue("@educationId", education.EducationId);
+            sqlCommand.Parameters.AddWithValue("@collegeUniverityName", education.CollegeUniverityName);
+            sqlCommand.Parameters.AddWithValue("@degreeReceived", education.DegreeReceived);
+            sqlCommand.Parameters.AddWithValue("@dateGraduation", education.DateGraduation);
+            sqlCommand.Parameters.AddWithValue("@mailingAddress", education.MailingAddress);
+            sqlCommand.Parameters.AddWithValue("@mailingCity", education.MailingCity);
+            sqlCommand.Parameters.AddWithValue("@mailingState", education.MailingState);
+            sqlCommand.Parameters.AddWithValue("@mailingZip", education.MailingZip);
 
-                foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
-                {
-                    parameter.Value = DBNull.Value;
-                }
-
-                sqlCommand.ExecuteNonQuery();
+            foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
+            {
+                parameter.Value = DBNull.Value;
             }
+
+            sqlCommand.ExecuteNonQuery();
         }
     }
 }

@@ -139,64 +139,55 @@ namespace Credentialing.Web.Steps
 
         private void SaveFormData()
         {
+            var formData = new Entities.Data.PracticeInformation();
+
+            formData.PracticeName = tboxPracticeName.Text;
+            formData.DepartmentName = tboxDepartmentName.Text;
+            formData.PrimaryOfficeStreetAddress = tboxPrimaryOfficeStreetAddress.Text;
+            formData.PrimaryOfficeCityStateZip = tboxPrimaryOfficeCityStateZip.Text;
+            formData.PrimaryOfficeTelephoneNumber = tboxPrimaryOfficeTelephoneNumber.Text;
+            formData.PrimaryOfficeFaxNumber = tboxPrimaryOfficeFaxNumber.Text;
+            formData.PrimaryOfficeManagerAdministrator = tboxPrimaryOfficeManagerAdministrator.Text;
+            formData.PrimaryOfficeManagerAdministratorTelephoneNumber = tboxPrimaryOfficeManagerTelephoneNumber.Text;
+            formData.PrimaryOfficeManagerAdministratorFaxNumber = tboxPrimaryOfficeManagerFaxNumber.Text;
+            formData.PrimaryOfficeNameAffiliatedWithTaxIdNumber = tboxPrimaryOfficeNameTaxIdNumber.Text;
+            formData.PrimaryOfficeFederalTaxIdNumber = tboxPrimaryOfficeFederalTaxIdNumber.Text;
+
+            // secondary office
+            formData.SecondaryOfficeStreetAddress = tboxSecondaryOfficeStreetAddress.Text;
+            formData.SecondaryOfficeCity = tboxSecondaryOfficeCity.Text;
+            formData.SecondaryOfficeState = tboxSecondaryOfficeState.Text;
+            formData.SecondaryOfficeZip = tboxSecondaryOfficeZip.Text;
+            formData.SecondaryOfficeManagerAdministrator = tboxSecondaryOfficeManagerAdministrator.Text;
+            formData.SecondaryOfficeManagerAdministratorTelephoneNumber = tboxSecondaryOfficeManagerTelephoneNumber.Text;
+            formData.SecondaryOfficeManagerAdministratorFaxNumber = tboxSecondaryOfficeManagerFaxNumber.Text;
+            formData.SecondaryOfficeNameAffiliatedWithTaxIdNumber = tboxSecondaryOfficeNameTaxIdNumber.Text;
+            formData.SecondaryOfficeFederalTaxIdNumber = tboxSecondaryOfficeFederalTaxIdNumber.Text;
+
+            // tertiary office
+            formData.TertiaryOfficeStreetAddress = tboxTertiaryOfficeStreetAddress.Text;
+            formData.TertiaryOfficeCity = tboxTertiaryOfficeCity.Text;
+            formData.TertiaryOfficeState = tboxTertiaryOfficeState.Text;
+            formData.TertiaryOfficeZip = tboxTertiaryOfficeZip.Text;
+            formData.TertiaryOfficeManagerAdministrator = tboxTertiaryOfficeManagerAdministrator.Text;
+            formData.TertiaryOfficeManagerAdministratorTelephoneNumber = tboxTertiaryOfficeManagerTelephoneNumber.Text;
+            formData.TertiaryOfficeManagerAdministratorFaxNumber = tboxTertiaryOfficeManagerFaxNumber.Text;
+            formData.TertiaryOfficeNameAffiliatedWithTaxIdNumber = tboxTertiaryOfficeNameTaxIdNumber.Text;
+            formData.TertiaryOfficeFederalTaxIdNumber = tboxTertiaryOfficeFederalTaxIdNumber.Text;
+
             var user = MemberHelper.GetCurrentLoggedUser();
-
-            if (user != null && MemberHelper.IsUserPhysician(user.UserName))
+            var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid) user.ProviderUserKey);
+            if (!physicianFormData.PracticeInformationId.HasValue)
             {
-                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid) user.ProviderUserKey);
+                var id = PracticeInformationHandler.Instance.Insert(formData);
+                physicianFormData.PracticeInformationId = id;
 
-                var formData = new Entities.Data.PracticeInformation();
-
-                if (physicianFormData.PracticeInformationId.HasValue)
-                {
-                    formData = PracticeInformationHandler.Instance.GetById(physicianFormData.PracticeInformationId.Value);
-                }
-
-                formData.PracticeName = tboxPracticeName.Text;
-                formData.DepartmentName = tboxDepartmentName.Text;
-                formData.PrimaryOfficeStreetAddress = tboxPrimaryOfficeStreetAddress.Text;
-                formData.PrimaryOfficeCityStateZip = tboxPrimaryOfficeCityStateZip.Text;
-                formData.PrimaryOfficeTelephoneNumber = tboxPrimaryOfficeTelephoneNumber.Text;
-                formData.PrimaryOfficeFaxNumber = tboxPrimaryOfficeFaxNumber.Text;
-                formData.PrimaryOfficeManagerAdministrator = tboxPrimaryOfficeManagerAdministrator.Text;
-                formData.PrimaryOfficeManagerAdministratorTelephoneNumber = tboxPrimaryOfficeManagerTelephoneNumber.Text;
-                formData.PrimaryOfficeManagerAdministratorFaxNumber = tboxPrimaryOfficeManagerFaxNumber.Text;
-                formData.PrimaryOfficeNameAffiliatedWithTaxIdNumber = tboxPrimaryOfficeNameTaxIdNumber.Text;
-                formData.PrimaryOfficeFederalTaxIdNumber = tboxPrimaryOfficeFederalTaxIdNumber.Text;
-
-                // secondary office
-                formData.SecondaryOfficeStreetAddress = tboxSecondaryOfficeStreetAddress.Text;
-                formData.SecondaryOfficeCity = tboxSecondaryOfficeCity.Text;
-                formData.SecondaryOfficeState = tboxSecondaryOfficeState.Text;
-                formData.SecondaryOfficeZip = tboxSecondaryOfficeZip.Text;
-                formData.SecondaryOfficeManagerAdministrator = tboxSecondaryOfficeManagerAdministrator.Text;
-                formData.SecondaryOfficeManagerAdministratorTelephoneNumber = tboxSecondaryOfficeManagerTelephoneNumber.Text;
-                formData.SecondaryOfficeManagerAdministratorFaxNumber = tboxSecondaryOfficeManagerFaxNumber.Text;
-                formData.SecondaryOfficeNameAffiliatedWithTaxIdNumber = tboxSecondaryOfficeNameTaxIdNumber.Text;
-                formData.SecondaryOfficeFederalTaxIdNumber = tboxSecondaryOfficeFederalTaxIdNumber.Text;
-
-                // tertiary office
-                formData.TertiaryOfficeStreetAddress = tboxTertiaryOfficeStreetAddress.Text;
-                formData.TertiaryOfficeCity = tboxTertiaryOfficeCity.Text;
-                formData.TertiaryOfficeState = tboxTertiaryOfficeState.Text;
-                formData.TertiaryOfficeZip = tboxTertiaryOfficeZip.Text;
-                formData.TertiaryOfficeManagerAdministrator = tboxTertiaryOfficeManagerAdministrator.Text;
-                formData.TertiaryOfficeManagerAdministratorTelephoneNumber = tboxTertiaryOfficeManagerTelephoneNumber.Text;
-                formData.TertiaryOfficeManagerAdministratorFaxNumber = tboxTertiaryOfficeManagerFaxNumber.Text;
-                formData.TertiaryOfficeNameAffiliatedWithTaxIdNumber = tboxTertiaryOfficeNameTaxIdNumber.Text;
-                formData.TertiaryOfficeFederalTaxIdNumber = tboxTertiaryOfficeFederalTaxIdNumber.Text;
-
-                if (formData.PracticeInformationId == 0)
-                {
-                    var id = PracticeInformationHandler.Instance.Insert(formData);
-                    physicianFormData.PracticeInformationId = id;
-
-                    PracticionersApplicationHandler.Instance.Update(physicianFormData);
-                }
-                else
-                {
-                    PracticeInformationHandler.Instance.Update(formData);
-                }
+                PracticionersApplicationHandler.Instance.Update(physicianFormData);
+            }
+            else
+            {
+                formData.PracticeInformationId = physicianFormData.PracticeInformationId.Value;
+                PracticeInformationHandler.Instance.Update(formData);
             }
         }
 

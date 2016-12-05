@@ -126,14 +126,7 @@ namespace Credentialing.Web.Steps
 
             if (user != null && MemberHelper.IsUserPhysician(user.UserName))
             {
-                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey);
-
                 var formData = new Entities.Data.IdentifyingInformation();
-
-                if (physicianFormData.IdentifyingInformationId.HasValue)
-                {
-                    formData = IdentifyingInformationHandler.Instance.GetById(physicianFormData.IdentifyingInformationId.Value);
-                }
 
                 formData.LastName = tboxLastName.Text;
                 formData.FirstName = tboxFirstName.Text;
@@ -184,7 +177,8 @@ namespace Credentialing.Web.Steps
                     formData.AttachmentId = id;
                 }
 
-                if (formData.IdentifyingInformationId == 0)
+                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey);
+                if (!physicianFormData.IdentifyingInformationId.HasValue)
                 {
                     var id = IdentifyingInformationHandler.Instance.Insert(formData);
                     physicianFormData.IdentifyingInformationId = id;
@@ -193,6 +187,7 @@ namespace Credentialing.Web.Steps
                 }
                 else
                 {
+                    formData.IdentifyingInformationId = physicianFormData.IdentifyingInformationId.Value;
                     IdentifyingInformationHandler.Instance.Update(formData);
                 }
             }
