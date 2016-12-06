@@ -1,4 +1,5 @@
-﻿using System.Web.UI.WebControls;
+﻿using System;
+using System.Web.UI.WebControls;
 
 namespace Credentialing.Business.Helpers
 {
@@ -15,6 +16,36 @@ namespace Credentialing.Business.Helpers
             {
                 textBox.CssClass = "";
                 return true;
+            }
+        }
+
+        public static bool ValidateFullDate(TextBox textBox)
+        {
+            try
+            {
+                var date = DateTime.Parse(textBox.Text);
+                textBox.CssClass = "";
+                return true;
+            }
+            catch
+            {
+                textBox.CssClass = "error";
+                return false;
+            }
+        }
+
+        public static bool ValidateShortDate(TextBox textBox)
+        {
+            try
+            {
+                var date = DateHelper.ParseDate(textBox.Text);
+                textBox.CssClass = "";
+                return true;
+            }
+            catch
+            {
+                textBox.CssClass = "error";
+                return false;
             }
         }
     }

@@ -2,6 +2,7 @@
 using Credentialing.Entities.Data;
 using Credentialing.Entities.Enums;
 using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Configuration;
@@ -38,7 +39,11 @@ namespace Credentialing.Business.DataAccess
                                                   WHERE IdentifyingInformationId = @identifyingInformationId", conn);
             sqlCommand.Parameters.AddWithValue("@identifyingInformationId", id);
 
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
+
             using (var reader = sqlCommand.ExecuteReader())
             {
                 if (reader.HasRows)
@@ -85,6 +90,7 @@ namespace Credentialing.Business.DataAccess
         public int Insert(IdentifyingInformation info)
         {
             int retVal;
+
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
             {
                 retVal = Insert(conn, info);
@@ -100,7 +106,11 @@ namespace Credentialing.Business.DataAccess
                                                     OUTPUT INSERTED.IdentifyingInformationId
                                                     VALUES
                                                     (@lastName, @firstName, @middleName, @otherKnownNames, @homeMailingAddress, @city, @state, @zip, @homeTelephoneNumber, @homeFaxNumber, @emailAddress, @pagerNumber, @birthDate, @birthPlace, @socialSecurityNumber, @gender, @specialty, @raceEthnicity, @subspecialties, @attachmentId)", conn);
-            conn.Open();
+
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
 
             sqlCommand.Parameters.AddWithValue("@lastName", info.LastName);
             sqlCommand.Parameters.AddWithValue("@firstName", info.FirstName);
@@ -164,7 +174,11 @@ namespace Credentialing.Business.DataAccess
                                                         AttachmentId = @attachmentId
                                                     WHERE IdentifyingInformationId = @identifyingInformationId
                                                     ", conn);
-            conn.Open();
+
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
 
             sqlCommand.Parameters.AddWithValue("@identifyingInformationId", info.IdentifyingInformationId);
             sqlCommand.Parameters.AddWithValue("@lastName", info.LastName);

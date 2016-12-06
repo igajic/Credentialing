@@ -1,6 +1,8 @@
 ﻿using Credentialing.Entities;
 using Credentialing.Entities.Data;
+using log4net;
 using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Configuration;
@@ -9,6 +11,7 @@ namespace Credentialing.Business.DataAccess
 {
     public class PracticionersApplicationHandler
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(PracticionersApplicationHandler));
         private static PracticionersApplicationHandler _instance;
 
         public static PracticionersApplicationHandler Instance
@@ -27,7 +30,10 @@ namespace Credentialing.Business.DataAccess
             var sqlCommand = new SqlCommand("SELECT * FROM PracticionerApplications WHERE UserId = @userId", conn);
             sqlCommand.Parameters.AddWithValue("@userId", userId);
 
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
 
             using (var reader = sqlCommand.ExecuteReader())
             {
@@ -93,7 +99,11 @@ namespace Credentialing.Business.DataAccess
                                                     OUTPUT INSERTED.PracticionerApplicationId
                                                     VALUES
                                                     (@userId, @attestationQuestionsId, @boardCertificationId, @currentHospitalInstitutionalAffiliationsId, @educationId, @identifyingInformationId, @internshipId, @medicalProfessionalEducationId, @medicalProfessionalLicensureRegistrationsId, @otherCertificationsId, @otherStateMedicalProfessionalLicensesId, @peerReferencesId, @practiceInformationId, @professionalLiabilityId, @residenciesFellowshipId, @workHistoryId)", conn);
-            conn.Open();
+
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
 
             sqlCommand.Parameters.AddWithValue("@userId", application.UserId);
             sqlCommand.Parameters.AddWithValue("@attestationQuestionsId", application.AttestationQuestionId);
@@ -152,7 +162,11 @@ namespace Credentialing.Business.DataAccess
                                                         WorkHistoryId = @workHistoryId
                                                     WHERE PracticionerApplicationId = @practicionerApplicationId
                                                     ", conn);
-            conn.Open();
+
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
 
             sqlCommand.Parameters.AddWithValue("@practicionerApplicationId", application.PracticionerApplicationId);
             sqlCommand.Parameters.AddWithValue("@userId", application.UserId);
@@ -186,6 +200,194 @@ namespace Credentialing.Business.DataAccess
             {
                 Update(conn, application);
             }
+        }
+
+        public bool UpsertIdentifyingInformation(IdentifyingInformation formData, Guid userId)
+        {
+            bool retVal = true;
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            {
+                conn.Open();
+                var trans = conn.BeginTransaction();
+                try
+                {
+                    if (formData.Attachment != null)
+                    {
+                        AttachmentHandler.Instance.Delete(conn, formData.AttachmentId.Value);
+
+                        var id = AttachmentHandler.Instance.Insert(conn, formData.Attachment);
+                        formData.AttachmentId = id;
+                    }
+
+                    var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, userId);
+                    if (!physicianFormData.IdentifyingInformationId.HasValue)
+                    {
+                        var id = IdentifyingInformationHandler.Instance.Insert(conn, formData);
+                        physicianFormData.IdentifyingInformationId = id;
+
+                        PracticionersApplicationHandler.Instance.Update(conn, physicianFormData);
+                    }
+                    else
+                    {
+                        formData.IdentifyingInformationId = physicianFormData.IdentifyingInformationId.Value;
+                        IdentifyingInformationHandler.Instance.Update(conn, formData);
+                    }
+
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    Log.Error(ex);
+
+                    retVal = false;
+                }
+            }
+
+            return retVal;
+        }
+
+        public bool UpsertEducation(Education formData, Guid userId)
+        {
+            var retVal = true;
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            {
+                conn.Open();
+                var trans = conn.BeginTransaction();
+                try
+                {
+                    var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, userId);
+                    if (physicianFormData.EducationId.HasValue)
+                    {
+                        formData.EducationId = physicianFormData.EducationId.Value;
+                        EducationHandler.Instance.Update(conn, formData);
+                    }
+                    else
+                    {
+                        var id = EducationHandler.Instance.Insert(conn, formData);
+                        physicianFormData.EducationId = id;
+
+                        PracticionersApplicationHandler.Instance.Update(conn, physicianFormData);
+                    }
+
+                    if (formData.AttachedDocuments.Count > 0)
+                    {
+                        var existingAttachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, "EducationId", formData.EducationId);
+                        foreach (var attachment in existingAttachments)
+                        {
+                            AttachmentHandler.Instance.Delete(conn, attachment.AttachmentId);
+                        }
+
+                        foreach (var attachment in formData.AttachedDocuments)
+                        {
+                            attachment.EducationId = physicianFormData.EducationId;
+                            AttachmentHandler.Instance.Insert(conn, attachment);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+
+                    Log.Error(ex);
+
+                    retVal = false;
+                }
+            }
+
+            return retVal;
+        }
+
+        public bool UpsertMedicalProfessionalEducation(MedicalProfessionalEducation formData, Guid userId)
+        {
+            var retVal = true;
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            {
+                conn.Open();
+                var trans = conn.BeginTransaction();
+                try
+                {
+                    var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, userId);
+
+                    if (physicianFormData.MedicalProfessionalEducationId.HasValue)
+                    {
+                        formData.MedicalProfessionalEducationId = physicianFormData.MedicalProfessionalEducationId.Value;
+                        MedicalProfessionalEducationHandler.Instance.Update(conn, formData);
+                    }
+                    else
+                    {
+                        var id = MedicalProfessionalEducationHandler.Instance.Insert(conn, formData);
+                        physicianFormData.MedicalProfessionalEducationId = id;
+
+                        PracticionersApplicationHandler.Instance.Update(conn, physicianFormData);
+                    }
+
+                    if (formData.Attachments.Count > 0)
+                    {
+                        var existingAttachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, "MedicalProfessionalEducationId", formData.MedicalProfessionalEducationId);
+                        foreach (var attachment in existingAttachments)
+                        {
+                            AttachmentHandler.Instance.Delete(conn, attachment.AttachmentId);
+                        }
+
+                        foreach (var attachment in formData.Attachments)
+                        {
+                            attachment.MedicalProfessionalEducationId = physicianFormData.MedicalProfessionalEducationId;
+                            AttachmentHandler.Instance.Insert(conn, attachment);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+
+                    Log.Error(ex);
+
+                    retVal = false;
+                }
+            }
+
+            return retVal;
+        }
+
+        public bool UpsertPracticeInformation(PracticeInformation formData, Guid userId)
+        {
+            var retVal = true;
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            {
+                conn.Open();
+                var trans = conn.BeginTransaction();
+                try
+                {
+                    var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, userId);
+                    if (!physicianFormData.PracticeInformationId.HasValue)
+                    {
+                        var id = PracticeInformationHandler.Instance.Insert(conn, formData);
+                        physicianFormData.PracticeInformationId = id;
+
+                        PracticionersApplicationHandler.Instance.Update(conn, physicianFormData);
+                    }
+                    else
+                    {
+                        formData.PracticeInformationId = physicianFormData.PracticeInformationId.Value;
+                        PracticeInformationHandler.Instance.Update(conn, formData);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+
+                    Log.Error(ex);
+
+                    retVal = false;
+                }
+            }
+
+            return retVal;
         }
     }
 }

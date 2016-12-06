@@ -1,6 +1,7 @@
 ﻿using Credentialing.Entities;
 using Credentialing.Entities.Data;
 using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Configuration;
@@ -35,7 +36,10 @@ namespace Credentialing.Business.DataAccess
             var sqlCommand = new SqlCommand("SELECT * FROM MedicalProfessionalEducation WHERE MedicalProfessionalEducationId = @medicalProfessionalEducationId", conn);
             sqlCommand.Parameters.AddWithValue("@medicalProfessionalEducationId", id);
 
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
 
             using (var reader = sqlCommand.ExecuteReader())
             {
@@ -89,7 +93,10 @@ namespace Credentialing.Business.DataAccess
                                                     VALUES
                                                     (@primaryMedicalProfessionalSchool, @primaryDegreeReceived, @primaryDateOfGraduation, @primaryMailingAddress, @primaryCity, @primaryStateCountry, @primaryZip, @secondaryMedicalProfessionalSchool, @secondaryDegreeReceived, @secondaryDateOfGraduation, @secondaryMailingAddress, @secondaryCity, @secondaryStateCountry, @secondaryZip)", conn);
 
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
 
             sqlCommand.Parameters.AddWithValue("@primaryMedicalProfessionalSchool", medicalEducation.PrimaryMedicalProfessionalSchool);
             sqlCommand.Parameters.AddWithValue("@primaryDegreeReceived", medicalEducation.PrimaryDegreeReceived);

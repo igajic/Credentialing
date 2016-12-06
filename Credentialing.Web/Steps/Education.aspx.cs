@@ -88,36 +88,13 @@ namespace Credentialing.Web.Steps
             formData.MailingState = tboxMailingState.Text;
             formData.MailingZip = tboxMailingZip.Text;
 
-
-            var user = MemberHelper.GetCurrentLoggedUser();
-            var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey);
-            if (physicianFormData.EducationId.HasValue)
-            {
-                formData.EducationId = physicianFormData.EducationId.Value;
-                EducationHandler.Instance.Update(formData);
-            }
-            else
-            {
-                var id = EducationHandler.Instance.Insert(formData);
-                physicianFormData.EducationId = id;
-
-                PracticionersApplicationHandler.Instance.Update(physicianFormData);
-            }
-
             if (fuAttachments.HasFiles)
             {
-                var existingAttachments = AttachmentHandler.Instance.GetReferencedAttachments("EducationId", formData.EducationId);
-                foreach (var attachment in existingAttachments)
-                {
-                    AttachmentHandler.Instance.Delete(attachment.AttachmentId);
-                }
-
                 foreach (var file in fuAttachments.PostedFiles)
                 {
                     var attachment = new Attachment
                     {
-                        FileName = file.FileName,
-                        EducationId = formData.EducationId
+                        FileName = file.FileName
                     };
 
                     using (MemoryStream ms = new MemoryStream())
@@ -126,9 +103,14 @@ namespace Credentialing.Web.Steps
                         attachment.Content = ms.ToArray();
                     }
 
-                    AttachmentHandler.Instance.Insert(attachment);
+                    formData.AttachedDocuments.Add(attachment);
                 }
             }
+
+            var user = MemberHelper.GetCurrentLoggedUser();
+            var userId = (Guid)user.ProviderUserKey;
+
+            PracticionersApplicationHandler.Instance.UpsertEducation(formData, userId);
         }
 
         private bool ValidateFields()
@@ -136,6 +118,7 @@ namespace Credentialing.Web.Steps
             var retVal = ValidationHelper.ValidateTextbox(tboxCollegeUniversityName);
             retVal = ValidationHelper.ValidateTextbox(tboxDegreeReceived) && retVal;
             retVal = ValidationHelper.ValidateTextbox(tboxDateOfGraduation) && retVal;
+            retVal = ValidationHelper.ValidateShortDate(tboxDateOfGraduation) && retVal;
             retVal = ValidationHelper.ValidateTextbox(tboxMailingAddress) && retVal;
             retVal = ValidationHelper.ValidateTextbox(tboxMailingCity) && retVal;
             retVal = ValidationHelper.ValidateTextbox(tboxMailingState) && retVal;

@@ -56,7 +56,7 @@ namespace Credentialing.Web.Handlers
                 {
                     var application = PracticionersApplicationHandler.Instance.GetByUserId((Guid)currentUser.ProviderUserKey, true);
 
-                    // TODO: Add security checks
+                    // TODO: Add security checks, check all attachment in physicians application attachments
 
 
 

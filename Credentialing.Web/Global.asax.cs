@@ -6,7 +6,6 @@ namespace Credentialing.Web
 {
     public class Global : HttpApplication
     {
-
         static readonly ILog Log = LogManager.GetLogger(typeof(Global));
 
         protected void Application_Start(object sender, EventArgs e)

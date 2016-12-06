@@ -1,6 +1,7 @@
 ﻿using Credentialing.Entities;
 using Credentialing.Entities.Data;
 using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Configuration;
@@ -35,7 +36,10 @@ namespace Credentialing.Business.DataAccess
             var sqlCommand = new SqlCommand("SELECT * FROM PracticeInformations WHERE PracticeInformationId = @practiceInformationId", conn);
             sqlCommand.Parameters.AddWithValue("@practiceInformationId", id);
 
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
 
             using (var reader = sqlCommand.ExecuteReader())
             {
@@ -93,7 +97,10 @@ namespace Credentialing.Business.DataAccess
                                                     VALUES
                                                     (@practiceName, @departmentName, @primaryOfficeStreetAddress, @primaryOfficeCityStateZip, @primaryOfficeTelephoneNumber, @primaryOfficeFaxNumber, @primaryOfficeManagerAdministrator, @primaryOfficeManagerAdministratorTelephoneNumber, @primaryOfficeManagerAdministratorFaxNumber, @primaryOfficeNameAffiliatedWithTaxIdNumber, @primaryOfficeFederalTaxIdNumber, @secondaryOfficeStreetAddress, @secondaryOfficeCity, @secondaryOfficeState, @secondaryOfficeZip, @secondaryOfficeManagerAdministrator, @secondaryOfficeManagerAdministratorTelephoneNumber, @secondaryOfficeManagerAdministratorFaxNumber, @secondaryOfficeNameAffiliatedWithTaxIdNumber, @secondaryOfficeFederalTaxIdNumber, @tertiaryOfficeStreetAddress, @tertiaryOfficeCity, @tertiaryOfficeState, @tertiaryOfficeZip, @tertiaryOfficeTelephoneNumber, @tertiaryOfficeFaxNumber, @tertiaryOfficeManagerAdministrator, @tertiaryOfficeManagerAdministratorTelephoneNumber, @tertiaryOfficeManagerAdministratorFaxNumber, @tertiaryOfficeNameAffiliatedWithTaxIdNumber, @tertiaryOfficeFederalTaxIdNumber)", conn);
 
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
 
             sqlCommand.Parameters.AddWithValue("@practiceName", practiceInformation.PracticeName);
             sqlCommand.Parameters.AddWithValue("@departmentName", practiceInformation.DepartmentName);
@@ -185,7 +192,10 @@ namespace Credentialing.Business.DataAccess
                                                         TertiaryOfficeFederalTaxIdNumber = @tertiaryOfficeFederalTaxIdNumber
                                                     WHERE PracticeInformationId = @practiceInformationId
                                                     ", conn);
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
 
             sqlCommand.Parameters.AddWithValue("@practiceInformationId", practiceInformation.PracticeInformationId);
             sqlCommand.Parameters.AddWithValue("@practiceName", practiceInformation.PracticeName);

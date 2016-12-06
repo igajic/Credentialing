@@ -35,7 +35,11 @@ namespace Credentialing.Business.DataAccess
             var sqlCommand = new SqlCommand("DELETE FROM Attachments WHERE AttachmentId = @attachmentId", conn);
             sqlCommand.Parameters.AddWithValue("@attachmentId", attachmentId);
 
-            conn.Open();
+
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
 
             sqlCommand.ExecuteNonQuery();
         }
@@ -89,7 +93,10 @@ namespace Credentialing.Business.DataAccess
             var sqlCommand = new SqlCommand("SELECT * FROM Attachments WHERE AttachmentId = @attachmentId", conn);
             sqlCommand.Parameters.AddWithValue("@attachmentId", attachmentId);
 
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
 
             using (var reader = sqlCommand.ExecuteReader())
             {
@@ -121,7 +128,10 @@ namespace Credentialing.Business.DataAccess
                                                     VALUES
                                                     (@fileName, @content, @educationId, @medicalProfessionalEducationId, @internshipId, @residenciesFellowshipId, @otherCertificationsId, @medicalProfessionalLicensureRegistrationsId, @otherStateMedicalProfessionalLicensesId, @workHistoryId, @attestationQuestionsId)", conn);
 
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
 
             sqlCommand.Parameters.AddWithValue("@fileName", attachment.FileName);
             sqlCommand.Parameters.AddWithValue("@content", attachment.Content);

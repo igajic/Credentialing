@@ -1,6 +1,7 @@
 ﻿using Credentialing.Entities;
 using Credentialing.Entities.Data;
 using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Configuration;
@@ -37,7 +38,10 @@ namespace Credentialing.Business.DataAccess
                                                   WHERE EducationId = @educationId", conn);
             sqlCommand.Parameters.AddWithValue("@educationId", id);
 
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
 
             using (var reader = sqlCommand.ExecuteReader())
             {
@@ -47,7 +51,7 @@ namespace Credentialing.Business.DataAccess
                     {
                         retVal = new Education();
 
-                        retVal.EducationId = (int) reader[Constants.EducationColumns.EducationId];
+                        retVal.EducationId = (int)reader[Constants.EducationColumns.EducationId];
                         retVal.CollegeUniverityName = reader[Constants.EducationColumns.CollegeUniverityName] as string;
                         retVal.DateGraduation = (DateTime)reader[Constants.EducationColumns.DateGraduation];
                         retVal.DegreeReceived = reader[Constants.EducationColumns.DegreeReceived] as string;

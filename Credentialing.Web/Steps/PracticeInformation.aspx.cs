@@ -176,19 +176,9 @@ namespace Credentialing.Web.Steps
             formData.TertiaryOfficeFederalTaxIdNumber = tboxTertiaryOfficeFederalTaxIdNumber.Text;
 
             var user = MemberHelper.GetCurrentLoggedUser();
-            var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid) user.ProviderUserKey);
-            if (!physicianFormData.PracticeInformationId.HasValue)
-            {
-                var id = PracticeInformationHandler.Instance.Insert(formData);
-                physicianFormData.PracticeInformationId = id;
+            var userId = (Guid)user.ProviderUserKey;
 
-                PracticionersApplicationHandler.Instance.Update(physicianFormData);
-            }
-            else
-            {
-                formData.PracticeInformationId = physicianFormData.PracticeInformationId.Value;
-                PracticeInformationHandler.Instance.Update(formData);
-            }
+            PracticionersApplicationHandler.Instance.UpsertPracticeInformation(formData, userId);
         }
 
         #endregion [Private methods]

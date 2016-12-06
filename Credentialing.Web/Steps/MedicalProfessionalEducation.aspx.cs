@@ -53,37 +53,13 @@ namespace Credentialing.Web.Steps
             formData.SecondaryStateCountry = tboxMailingStateSecond.Text;
             formData.SecondaryZip = tboxMailingZipSecond.Text;
 
-
-            var user = MemberHelper.GetCurrentLoggedUser();
-            var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey);
-
-            if (physicianFormData.MedicalProfessionalEducationId.HasValue)
-            {
-                formData.MedicalProfessionalEducationId = physicianFormData.MedicalProfessionalEducationId.Value;
-                MedicalProfessionalEducationHandler.Instance.Update(formData);
-            }
-            else
-            {
-                var id = MedicalProfessionalEducationHandler.Instance.Insert(formData);
-                physicianFormData.MedicalProfessionalEducationId = id;
-
-                PracticionersApplicationHandler.Instance.Update(physicianFormData);
-            }
-
             if (fuAttachments.HasFiles)
             {
-                var existingAttachments = AttachmentHandler.Instance.GetReferencedAttachments("MedicalProfessionalEducationId", formData.MedicalProfessionalEducationId);
-                foreach (var attachment in existingAttachments)
-                {
-                    AttachmentHandler.Instance.Delete(attachment.AttachmentId);
-                }
-
                 foreach (var file in fuAttachments.PostedFiles)
                 {
                     var attachment = new Attachment
                     {
-                        FileName = file.FileName,
-                        EducationId = formData.MedicalProfessionalEducationId
+                        FileName = file.FileName
                     };
 
                     using (MemoryStream ms = new MemoryStream())
@@ -91,9 +67,15 @@ namespace Credentialing.Web.Steps
                         file.InputStream.CopyTo(ms);
                         attachment.Content = ms.ToArray();
                     }
-                    AttachmentHandler.Instance.Insert(attachment);
+
+                    formData.Attachments.Add(attachment);
                 }
             }
+
+            var user = MemberHelper.GetCurrentLoggedUser();
+            var userId = (Guid)user.ProviderUserKey;
+
+            PracticionersApplicationHandler.Instance.UpsertMedicalProfessionalEducation(formData, userId);
         }
 
         private bool ValidateFields()
@@ -102,6 +84,7 @@ namespace Credentialing.Web.Steps
 
             retVal = ValidationHelper.ValidateTextbox(tboxDegreeReceivedFirst) && retVal;
             retVal = ValidationHelper.ValidateTextbox(tboxDateGraduationFirst) && retVal;
+            retVal = ValidationHelper.ValidateShortDate(tboxDateGraduationFirst) && retVal;
             retVal = ValidationHelper.ValidateTextbox(tboxMailingAdrressFirst) && retVal;
             retVal = ValidationHelper.ValidateTextbox(tboxMailingCityFirst) && retVal;
             retVal = ValidationHelper.ValidateTextbox(tboxMailingStateFirst) && retVal;
@@ -110,6 +93,7 @@ namespace Credentialing.Web.Steps
             retVal = ValidationHelper.ValidateTextbox(tboxMedicalProfessionalSchoolSecond) && retVal;
             retVal = ValidationHelper.ValidateTextbox(tboxDegreeReceivedSecond) && retVal;
             retVal = ValidationHelper.ValidateTextbox(tboxDateGraduationSecond) && retVal;
+            retVal = ValidationHelper.ValidateShortDate(tboxDateGraduationSecond) && retVal;
             retVal = ValidationHelper.ValidateTextbox(tboxMailingAdrressSecond) && retVal;
             retVal = ValidationHelper.ValidateTextbox(tboxMailingCitySecond) && retVal;
             retVal = ValidationHelper.ValidateTextbox(tboxMailingStateSecond) && retVal;
