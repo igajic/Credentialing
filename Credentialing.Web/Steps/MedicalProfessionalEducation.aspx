@@ -1,6 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MedicalProfessionalEducation.aspx.cs" Inherits="Credentialing.Web.Steps.MedicalProfessionalEducation"  MasterPageFile="../Main.Master"%>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
 	<div class="form-block">
+		<div class="form-heading">
+			<h2><strong>5.</strong> Medical / Professional education</h2>
+		</div>
 		<div class="row">
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxMedicalProfessionalSchoolFirst" Text="Medical/Professional School:" EnableViewState="False" />
