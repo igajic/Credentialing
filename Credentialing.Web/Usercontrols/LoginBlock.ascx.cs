@@ -11,9 +11,9 @@ namespace Credentialing.Web.Usercontrols
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //var loggedInUser = MemberHelper.GetCurrentLoggedUser();
+            var loggedInUser = MemberHelper.GetCurrentLoggedUser();
 
-            MembershipUser loggedInUser = null;
+            //MembershipUser loggedInUser = null;
 
             if (loggedInUser == null)
             {

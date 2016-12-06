@@ -7,8 +7,9 @@ namespace Credentialing.Entities.Data
     {
         public Education()
         {
-            
+            AttachedDocuments = new List<Attachment>();
         }
+
         public int EducationId { get; set; }
 
         public string CollegeUniverityName { get; set; }
@@ -25,6 +26,6 @@ namespace Credentialing.Entities.Data
 
         public string MailingZip { get; set; }
 
-        public ICollection<Attachment> AttachedDocuments { get; set; }
+        public List<Attachment> AttachedDocuments { get; set; }
     }
 }

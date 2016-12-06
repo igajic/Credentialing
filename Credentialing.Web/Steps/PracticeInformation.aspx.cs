@@ -1,6 +1,7 @@
 ﻿using Credentialing.Business.Helpers;
 using System;
 using System.Web.UI;
+using Credentialing.Business.DataAccess;
 
 namespace Credentialing.Web.Steps
 {
@@ -12,6 +13,11 @@ namespace Credentialing.Web.Steps
         {
             btnPrevious.Click += btnPrevious_Click;
             btnNext.Click += btnNext_Click;
+
+            if (!IsPostBack)
+            {
+                LoadUserData();
+            }
         }
 
         #endregion [Protected methods]
@@ -75,6 +81,23 @@ namespace Credentialing.Web.Steps
         {
             Response.Redirect("/Steps/IdentifyingInformation.aspx");
             Response.End();
+        }
+
+        private void LoadUserData()
+        {
+            var user = MemberHelper.GetCurrentLoggedUser();
+
+            if (user != null && MemberHelper.IsUserPhysician(user.UserName))
+            {
+                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey);
+
+                if (physicianFormData != null && physicianFormData.PracticeInformationId.HasValue)
+                {
+                    var data = PracticeInformationHandler.Instance.GetById(physicianFormData.PracticeInformationId.Value);
+
+                    LoadFormData(data);
+                }
+            }
         }
 
         private void LoadFormData(Entities.Data.PracticeInformation formData)
@@ -151,6 +174,21 @@ namespace Credentialing.Web.Steps
             formData.TertiaryOfficeManagerAdministratorFaxNumber = tboxTertiaryOfficeManagerFaxNumber.Text;
             formData.TertiaryOfficeNameAffiliatedWithTaxIdNumber = tboxTertiaryOfficeNameTaxIdNumber.Text;
             formData.TertiaryOfficeFederalTaxIdNumber = tboxTertiaryOfficeFederalTaxIdNumber.Text;
+
+            var user = MemberHelper.GetCurrentLoggedUser();
+            var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid) user.ProviderUserKey);
+            if (!physicianFormData.PracticeInformationId.HasValue)
+            {
+                var id = PracticeInformationHandler.Instance.Insert(formData);
+                physicianFormData.PracticeInformationId = id;
+
+                PracticionersApplicationHandler.Instance.Update(physicianFormData);
+            }
+            else
+            {
+                formData.PracticeInformationId = physicianFormData.PracticeInformationId.Value;
+                PracticeInformationHandler.Instance.Update(formData);
+            }
         }
 
         #endregion [Private methods]

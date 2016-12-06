@@ -1,4 +1,6 @@
-﻿using Credentialing.Business.Helpers;
+﻿using Credentialing.Business.DataAccess;
+using Credentialing.Business.Helpers;
+using Credentialing.Entities.Data;
 using System;
 using System.Linq;
 using System.Web.UI;
@@ -23,6 +25,15 @@ namespace Credentialing.Web.Usercontrols
             if (MemberHelper.LoginUser(tboxUsername.Text, tboxPassword.Text))
             {
                 var userRoles = MemberHelper.GetUserRoles(tboxUsername.Text);
+                var user = MemberHelper.GetUserByName(tboxUsername.Text);
+
+                var existingApplication = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey);
+
+                if (existingApplication == null)
+                {
+                    var newApplication = new PracticionerApplication { UserId = (Guid)user.ProviderUserKey };
+                    PracticionersApplicationHandler.Instance.Insert(newApplication);
+                }
 
                 Response.Redirect(userRoles.Contains("Admin") ? "/Dashboard/Administrator.aspx" : "/Dashboard/Physician.aspx", true);
 

@@ -1,14 +1,12 @@
 ﻿using Credentialing.Entities.Enums;
 using System;
-using Credentialing.Entities.Data;
 
-namespace Credentialing.Entities.Steps
+namespace Credentialing.Entities.Data
 {
     public class IdentifyingInformation
     {
         public IdentifyingInformation()
         {
-            
         }
 
         public int IdentifyingInformationId { get; set; }
@@ -41,7 +39,7 @@ namespace Credentialing.Entities.Steps
 
         public string BirthPlace { get; set; }
 
-        public virtual Attachment CitizenshipFile { get; set; }
+        public int? AttachmentId { get; set; }
 
         public string SocialSecurityNumber { get; set; }
 
@@ -52,5 +50,7 @@ namespace Credentialing.Entities.Steps
         public string RaceEthnicity { get; set; }
 
         public string Subspecialties { get; set; }
+
+        public Attachment Attachment { get; set; }
     }
 }

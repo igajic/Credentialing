@@ -49,9 +49,9 @@ namespace Credentialing.Business.Helpers
             return GetUserRoles(userName).Contains("Physician");
         }
 
-        public static bool CreateUser(string userName, string password, string email, string role, out string errorMessage)
+        public static Guid? CreateUser(string userName, string password, string email, string role, out string errorMessage)
         {
-            bool retVal = false;
+            Guid? retVal = null;
             errorMessage = null;
 
             try
@@ -59,7 +59,7 @@ namespace Credentialing.Business.Helpers
                 MembershipUser newUser = Membership.CreateUser(userName, password, email);
                 Roles.AddUserToRole(userName, role);
 
-                retVal = true;
+                retVal = (Guid?)newUser.ProviderUserKey;
             }
             catch (MembershipCreateUserException e)
             {
