@@ -37,7 +37,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<asp:Label  runat="server" AssociatedControlID="tboxPrimaryOfficeManagerAdministrator" Text="Office Manager/Administrator:" EnableViewState="False"/>
+				<asp:Label runat="server" AssociatedControlID="tboxPrimaryOfficeManagerAdministrator" Text="Office Manager/Administrator:" EnableViewState="False"/>
 				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxPrimaryOfficeManagerAdministrator"/>
 			</div>
 			<div class="col-md-3">
