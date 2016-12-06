@@ -209,7 +209,7 @@ namespace Credentialing.Business.DataAccess
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
             {
                 conn.Open();
-                var trans = conn.BeginTransaction();
+                //var trans = conn.BeginTransaction();
                 try
                 {
                     if (formData.Attachment != null)
@@ -234,11 +234,11 @@ namespace Credentialing.Business.DataAccess
                         IdentifyingInformationHandler.Instance.Update(conn, formData);
                     }
 
-                    trans.Commit();
+                    //trans.Commit();
                 }
                 catch (Exception ex)
                 {
-                    trans.Rollback();
+                    //trans.Rollback();
                     Log.Error(ex);
 
                     retVal = false;
@@ -255,7 +255,7 @@ namespace Credentialing.Business.DataAccess
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
             {
                 conn.Open();
-                var trans = conn.BeginTransaction();
+                //var trans = conn.BeginTransaction();
                 try
                 {
                     var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, userId);
@@ -289,7 +289,7 @@ namespace Credentialing.Business.DataAccess
                 }
                 catch (Exception ex)
                 {
-                    trans.Rollback();
+                    //trans.Rollback();
 
                     Log.Error(ex);
 
@@ -307,7 +307,7 @@ namespace Credentialing.Business.DataAccess
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
             {
                 conn.Open();
-                var trans = conn.BeginTransaction();
+                //var trans = conn.BeginTransaction();
                 try
                 {
                     var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, userId);
@@ -342,7 +342,7 @@ namespace Credentialing.Business.DataAccess
                 }
                 catch (Exception ex)
                 {
-                    trans.Rollback();
+                   // trans.Rollback();
 
                     Log.Error(ex);
 
@@ -360,7 +360,7 @@ namespace Credentialing.Business.DataAccess
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
             {
                 conn.Open();
-                var trans = conn.BeginTransaction();
+                //var trans = conn.BeginTransaction();
                 try
                 {
                     var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, userId);
@@ -379,7 +379,7 @@ namespace Credentialing.Business.DataAccess
                 }
                 catch (Exception ex)
                 {
-                    trans.Rollback();
+                    //trans.Rollback();
 
                     Log.Error(ex);
 
