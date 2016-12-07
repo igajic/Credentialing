@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ResidencesFellowships.aspx.cs" Inherits="Credentialing.Web.Steps.ResidencesFellowships" MasterPageFile="../Main.Master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ResidenciesFellowships.aspx.cs" Inherits="Credentialing.Web.Steps.ResidencesFellowships" MasterPageFile="../Main.Master" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
 	<div class="form-block">
 		<div class="form-heading">
