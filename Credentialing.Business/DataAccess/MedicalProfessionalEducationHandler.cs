@@ -33,7 +33,7 @@ namespace Credentialing.Business.DataAccess
         {
             MedicalProfessionalEducation retVal = null;
 
-            var sqlCommand = new SqlCommand("SELECT * FROM MedicalProfessionalEducation WHERE MedicalProfessionalEducationId = @medicalProfessionalEducationId", conn);
+            var sqlCommand = new SqlCommand("SELECT * FROM MedicalProfessionalEducations WHERE MedicalProfessionalEducationId = @medicalProfessionalEducationId", conn);
             sqlCommand.Parameters.AddWithValue("@medicalProfessionalEducationId", id);
             if (trans != null) sqlCommand.Transaction = trans;
 
@@ -89,7 +89,7 @@ namespace Credentialing.Business.DataAccess
 
         public int Insert(SqlConnection conn, SqlTransaction trans, MedicalProfessionalEducation medicalEducation)
         {
-            var sqlCommand = new SqlCommand(@"INSERT INTO MedicalProfessionalEducation
+            var sqlCommand = new SqlCommand(@"INSERT INTO MedicalProfessionalEducations
                                                     (PrimaryMedicalProfessionalSchool, PrimaryDegreeReceived, PrimaryDateOfGraduation, PrimaryMailingAddress, PrimaryCity, PrimaryStateCountry, PrimaryZip, SecondaryMedicalProfessionalSchool, SecondaryDegreeReceived, SecondaryDateOfGraduation, SecondaryMailingAddress, SecondaryCity, SecondaryStateCountry, SecondaryZip)
                                                     OUTPUT INSERTED.MedicalProfessionalEducationId
                                                     VALUES
@@ -136,7 +136,7 @@ namespace Credentialing.Business.DataAccess
 
         public void Update(SqlConnection conn, SqlTransaction trans, MedicalProfessionalEducation medicalEducation)
         {
-            var sqlCommand = new SqlCommand(@"UPDATE MedicalProfessionalEducation
+            var sqlCommand = new SqlCommand(@"UPDATE MedicalProfessionalEducations
                                                     SET
                                                         PrimaryMedicalProfessionalSchool = @primaryMedicalProfessionalSchool,
                                                         PrimaryDegreeReceived =  @primaryDegreeReceived,
@@ -154,7 +154,13 @@ namespace Credentialing.Business.DataAccess
                                                         SecondaryStateCountry = @secondaryStateCountry,
                                                         SecondaryZip = @secondaryZip
                                                     WHERE MedicalProfessionalEducationId = @medicalProfessionalEducationId", conn);
-            conn.Open();
+
+            if (trans != null) sqlCommand.Transaction = trans;
+
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
 
             sqlCommand.Parameters.AddWithValue("@medicalProfessionalEducationId", medicalEducation.MedicalProfessionalEducationId);
             sqlCommand.Parameters.AddWithValue("@primaryMedicalProfessionalSchool", medicalEducation.PrimaryMedicalProfessionalSchool);
