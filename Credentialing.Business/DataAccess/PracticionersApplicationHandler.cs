@@ -23,12 +23,14 @@ namespace Credentialing.Business.DataAccess
         {
         }
 
-        public PracticionerApplication GetByUserId(SqlConnection conn, Guid userId, bool deepLoad = false)
+        public PracticionerApplication GetByUserId(SqlConnection conn, SqlTransaction trans, Guid userId, bool deepLoad = false)
         {
             PracticionerApplication retVal = null;
 
             var sqlCommand = new SqlCommand("SELECT * FROM PracticionerApplications WHERE UserId = @userId", conn);
             sqlCommand.Parameters.AddWithValue("@userId", userId);
+            if (trans != null) sqlCommand.Transaction = trans;
+
 
             if (conn.State != ConnectionState.Open)
             {
@@ -144,7 +146,7 @@ namespace Credentialing.Business.DataAccess
         {
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                return GetByUserId(conn, userId, deepLoad);
+                return GetByUserId(conn, null, userId, deepLoad);
             }
         }
 
@@ -277,7 +279,7 @@ namespace Credentialing.Business.DataAccess
                         formData.AttachmentId = id;
                     }
 
-                    var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, userId);
+                    var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, trans, userId);
                     if (!physicianFormData.IdentifyingInformationId.HasValue)
                     {
                         var id = IdentifyingInformationHandler.Instance.Insert(conn, trans, formData);
@@ -315,7 +317,7 @@ namespace Credentialing.Business.DataAccess
                 var trans = conn.BeginTransaction();
                 try
                 {
-                    var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, userId);
+                    var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, trans, userId);
                     if (physicianFormData.EducationId.HasValue)
                     {
                         formData.EducationId = physicianFormData.EducationId.Value;
@@ -369,7 +371,7 @@ namespace Credentialing.Business.DataAccess
                 var trans = conn.BeginTransaction();
                 try
                 {
-                    var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, userId);
+                    var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, trans, userId);
 
                     if (physicianFormData.MedicalProfessionalEducationId.HasValue)
                     {
@@ -424,7 +426,7 @@ namespace Credentialing.Business.DataAccess
                 var trans = conn.BeginTransaction();
                 try
                 {
-                    var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, userId);
+                    var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, trans, userId);
                     if (!physicianFormData.PracticeInformationId.HasValue)
                     {
                         var id = PracticeInformationHandler.Instance.Insert(conn, trans, formData);
