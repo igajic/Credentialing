@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Education.aspx.cs" Inherits="Credentialing.Web.Steps.Education"  MasterPageFile="../Main.Master"%>
+<%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
+    <uc:SidebarProgress runat="server" CurrentStep="4" EnableViewState="false"/>
 	<div class="form-block">
 		<div class="form-heading">
 			<h2><strong>4.</strong> Education</h2>

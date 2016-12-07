@@ -15,7 +15,7 @@ namespace Credentialing.Web.Usercontrols
             {3, new Tuple<string, string, string>("Practice Information", "/Steps/PracticeInformation.aspx", "Integer vulputate")},
             {4, new Tuple<string, string, string>("Education", "/Steps/Education.aspx", "Quis tristique arcu tincidunt")},
             {5, new Tuple<string, string, string>("Medical Professional Education", "/Steps/MedicalProfessionalEducation.aspx", "Pellentesque eget ornare sapien")},
-            {6, new Tuple<string, string, string>("Internship/PGYI", "/Steps/Internship.aspx", "Curabitur et nunc nisl")},
+            {6, new Tuple<string, string, string>("Internship/PGYI", "/Steps/InternshipPGYI.aspx", "Curabitur et nunc nisl")},
             {7, new Tuple<string, string, string>("Residencies Fellowships", "/Steps/ResidenciesFellowships.aspx", "Aliquam erat volutpat")},
             {8, new Tuple<string, string, string>("Board Certification", "/Steps/BoardCertification.aspx", "Praesent quis felis posuere")},
             {9, new Tuple<string, string, string>("Other Certifications", "/Steps/OtherCertifications.aspx", "Quisque eget tincidunt nulla")},
