@@ -23,12 +23,18 @@ namespace Credentialing.Web.Steps
 
         #region [Private methods]
 
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/Steps/Education.aspx", true);
+            Response.End();
+        }
+
         private void btnNext_Click(object sender, EventArgs e)
         {
             if (ValidateFields())
             {
                 SaveFormData();
-                Response.Redirect("/Steps/MedicalProfessionalEducation.aspx");
+                Response.Redirect("/Steps/InternshipPGYI.aspx");
                 Response.End();
             }
         }
@@ -100,12 +106,6 @@ namespace Credentialing.Web.Steps
             retVal = ValidationHelper.ValidateTextbox(tboxMailingZipSecond) && retVal;
 
             return retVal;
-        }
-
-        private void btnPrevious_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("/Steps/Education.aspx", true);
-            Response.End();
         }
 
         private Entities.Data.MedicalProfessionalEducation LoadUserData()

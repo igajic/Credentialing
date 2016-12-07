@@ -13,6 +13,33 @@ namespace Credentialing.Web.Usercontrols {
     public partial class SidebarProgress {
         
         /// <summary>
+        /// pnlCurrentStep control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCurrentStep;
+        
+        /// <summary>
+        /// ltrProgress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltrProgress;
+        
+        /// <summary>
+        /// ltrCurrentStep control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltrCurrentStep;
+        
+        /// <summary>
         /// rptSidebarProgress control.
         /// </summary>
         /// <remarks>
