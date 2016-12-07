@@ -50,11 +50,11 @@ namespace Credentialing.Web.Usercontrols
 
                 if (data.Key < CurrentStep)
                 {
-                    lbStep.CssClass += "completed";
+                    lbStep.CssClass += " completed";
                 }
                 else if (data.Key == CurrentStep)
                 {
-                    lbStep.CssClass += "current";
+                    lbStep.CssClass += " current";
                 }
             }
         }

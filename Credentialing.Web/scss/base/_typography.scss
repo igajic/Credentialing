@@ -83,3 +83,12 @@ hr {
 		}
 	}
 }
+
+.footnotes {
+	p {
+		font-size: 14px;
+		&:last-of-type {
+			margin-bottom: 0;
+		}
+	}
+}
