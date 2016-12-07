@@ -120,10 +120,17 @@
 				<asp:TextBox runat="server" ClientIDMode="Static" ID="tboxSubspeciality"/>
 			</div>
 		</div>
-        <div class="row">
-            <sup>1</sup> As used in the Information Release/Acknowledgments Section of this application, the term "this Healthcare Organization" shall refer to the entity to which this application is submitted as identified above. <br/>
-            <sup>2</sup> This information will be used for consumer information purposes only.<br/>
-        </div>
+		<hr />
+		<div class="row">
+			<div class="footnotes col-md-12">
+				<p>
+					<sup>1</sup> As used in the Information Release/Acknowledgments Section of this application, the term "this Healthcare Organization" shall refer to the entity to which this application is submitted as identified above.
+				</p>
+				<p>
+					<sup>2</sup> This information will be used for consumer information purposes only.
+				</p>
+			</div>
+		</div>
 	</div>
 	<div class="form-actions">
 		<asp:LinkButton runat="server" ID="btnPrevious" Text="Previous" CssClass="btn btn-prev" />
