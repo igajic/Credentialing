@@ -26,6 +26,11 @@ $(function () {
 		$(this).siblings('.temp-filename').text(fileName);
 	});
 
+	$('.js-toggle-steps').on('click', function(){
+		$('.steps-progress').stop().slideToggle(400);
+		$(this).toggleClass('opened');
+	});
+
 });
 
 $(window).on('load', function () {
