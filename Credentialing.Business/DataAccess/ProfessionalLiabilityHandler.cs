@@ -1,4 +1,6 @@
-﻿namespace Credentialing.Business.DataAccess
+﻿using Credentialing.Entities.Data;
+using System.Data.SqlClient;
+namespace Credentialing.Business.DataAccess
 {
     public class ProfessionalLiabilityHandler
     {
@@ -11,6 +13,18 @@
 
         private ProfessionalLiabilityHandler()
         {
+        }
+
+        public ProfessionalLiability GetById(int professionalLiabilityId, bool deepLoad = false)
+        {
+            // TODO: Implement this
+            return null;
+        }
+
+        public ProfessionalLiability GetById(SqlConnection conn, SqlTransaction trans, int professionalLiabilityId, bool deepLoad = false)
+        {
+            // TODO: Implement this
+            return null;
         }
     }
 }

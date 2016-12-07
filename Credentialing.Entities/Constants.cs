@@ -2,6 +2,13 @@
 {
     public static class Constants
     {
+        public const string ConnectionStringName = "CredentialingDB";
+
+        public static class RequestParameters
+        {
+            public const string AttachmentId = "attachmentId";
+        }
+
         public static class AttachmentColumns
         {
             public const string AttachmentId = "AttachmentId";

@@ -24,13 +24,13 @@ namespace Credentialing.Business.DataAccess
 
         public IdentifyingInformation GetById(int id, bool deepLoad = false)
         {
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                return GetById(conn, id, deepLoad);
+                return GetById(conn, null, id, deepLoad);
             }
         }
 
-        public IdentifyingInformation GetById(SqlConnection conn, int id, bool deepLoad = false)
+        public IdentifyingInformation GetById(SqlConnection conn, SqlTransaction trans, int id, bool deepLoad = false)
         {
             IdentifyingInformation retVal = null;
 
@@ -38,6 +38,7 @@ namespace Credentialing.Business.DataAccess
                                                   FROM IdentifyingInformations
                                                   WHERE IdentifyingInformationId = @identifyingInformationId", conn);
             sqlCommand.Parameters.AddWithValue("@identifyingInformationId", id);
+            if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
             {
@@ -91,22 +92,22 @@ namespace Credentialing.Business.DataAccess
         {
             int retVal;
 
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                retVal = Insert(conn, info);
+                retVal = Insert(conn, null, info);
             }
 
             return retVal;
         }
 
-        public int Insert(SqlConnection conn, IdentifyingInformation info)
+        public int Insert(SqlConnection conn, SqlTransaction trans, IdentifyingInformation info)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO IdentifyingInformations
                                                     (LastName, FirstName, MiddleName, OtherKnownNames, HomeMailingAddress, City, State, Zip, HomeTelephoneNumber, HomeFaxNumber, EmailAddress, PagerNumber, BirthDate, BirthPlace, SocialSecurityNumber, Gender, Specialty, RaceEthnicity, Subspecialties, AttachmentId)
                                                     OUTPUT INSERTED.IdentifyingInformationId
                                                     VALUES
                                                     (@lastName, @firstName, @middleName, @otherKnownNames, @homeMailingAddress, @city, @state, @zip, @homeTelephoneNumber, @homeFaxNumber, @emailAddress, @pagerNumber, @birthDate, @birthPlace, @socialSecurityNumber, @gender, @specialty, @raceEthnicity, @subspecialties, @attachmentId)", conn);
-
+            if (trans != null) sqlCommand.Transaction = trans;
             if (conn.State != ConnectionState.Open)
             {
                 conn.Open();
@@ -143,13 +144,13 @@ namespace Credentialing.Business.DataAccess
 
         public void Update(IdentifyingInformation info)
         {
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                Update(conn, info);
+                Update(conn, null, info);
             }
         }
 
-        public void Update(SqlConnection conn, IdentifyingInformation info)
+        public void Update(SqlConnection conn, SqlTransaction trans, IdentifyingInformation info)
         {
             var sqlCommand = new SqlCommand(@"UPDATE IdentifyingInformations
                                                     SET LastName = @lastName,

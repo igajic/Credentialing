@@ -62,6 +62,7 @@ namespace Credentialing.Business.DataAccess
 
                         if (deepLoad)
                         {
+                            // load referenced tables
                             if (retVal.IdentifyingInformationId.HasValue)
                             {
                                 retVal.IdentifyingInformation = IdentifyingInformationHandler.Instance.GetById(retVal.IdentifyingInformationId.Value, true);
@@ -76,6 +77,61 @@ namespace Credentialing.Business.DataAccess
                             {
                                 retVal.Education = EducationHandler.Instance.GetById(retVal.EducationId.Value, true);
                             }
+
+                            if (retVal.MedicalProfessionalEducationId.HasValue)
+                            {
+                                retVal.MedicalProfessionalEducation = MedicalProfessionalEducationHandler.Instance.GetById(retVal.MedicalProfessionalEducationId.Value, true);
+                            }
+
+                            if (retVal.InternshipId.HasValue)
+                            {
+                                retVal.Internship = InternshipHandler.Instance.GetById(retVal.InternshipId.Value, true);
+                            }
+
+                            if (retVal.ResidenciesFellowshipId.HasValue)
+                            {
+                                retVal.ResidenciesFellowship = ResidenciesFellowshipHandler.Instance.GetById(retVal.ResidenciesFellowshipId.Value, true);
+                            }
+
+                            if (retVal.BoardCertificationId.HasValue)
+                            {
+                                retVal.BoardCertification = BoardCertificationHandler.Instance.GetById(retVal.BoardCertificationId.Value, true);
+                            }
+
+                            if (retVal.OtherCertificationId.HasValue)
+                            {
+                                retVal.OtherCertification = OtherCertificationsHandler.Instance.GetById(retVal.OtherCertificationId.Value, true);
+                            }
+
+                            if (retVal.MedicalProfessionalLicensureRegistrationId.HasValue)
+                            {
+                                retVal.MedicalProfessionalLicensureRegistration = MedicalProfessionalLicensureRegistrationHandler.Instance.GetById(retVal.MedicalProfessionalLicensureRegistrationId.Value, true);
+                            }
+
+                            if (retVal.OtherStateMedicalProfessionalLicenseId.HasValue)
+                            {
+                                retVal.OtherStateMedicalProfessionalLicense = OtherStateMedicalProfessionalLicensesHandler.Instance.GetById(retVal.OtherStateMedicalProfessionalLicenseId.Value, true);
+                            }
+
+                            if (retVal.ProfessionalLiabilityId.HasValue)
+                            {
+                                retVal.ProfessionalLiability = ProfessionalLiabilityHandler.Instance.GetById(retVal.ProfessionalLiabilityId.Value, true);
+                            }
+
+                            if (retVal.CurrentHospitalInstitutionalAffiliationId.HasValue)
+                            {
+                                retVal.CurrentHospitalInstitutionalAffiliations = CurrentHospitalInstitutionalAffiliationsHandler.Instance.GetById(retVal.CurrentHospitalInstitutionalAffiliationId.Value, true);
+                            }
+
+                            if (retVal.PeerReferenceId.HasValue)
+                            {
+                                retVal.WorkHistory = WorkHistoryHandler.Instance.GetById(retVal.WorkHistoryId.Value, true);
+                            }
+
+                            if (retVal.AttestationQuestionId.HasValue)
+                            {
+                                retVal.AttestationQuestions = AttestationQuestionsHandler.Instance.GetById(retVal.AttestationQuestionId.Value, true);
+                            }
                         }
                     }
                 }
@@ -86,7 +142,7 @@ namespace Credentialing.Business.DataAccess
 
         public PracticionerApplication GetByUserId(Guid userId, bool deepLoad = false)
         {
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
                 return GetByUserId(conn, userId, deepLoad);
             }
@@ -133,7 +189,7 @@ namespace Credentialing.Business.DataAccess
         public int Insert(PracticionerApplication application)
         {
             int retVal;
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
                 retVal = Insert(conn, application);
             }
@@ -141,7 +197,7 @@ namespace Credentialing.Business.DataAccess
             return retVal;
         }
 
-        public void Update(SqlConnection conn, PracticionerApplication application)
+        public void Update(SqlConnection conn, SqlTransaction trans, PracticionerApplication application)
         {
             var sqlCommand = new SqlCommand(@"UPDATE PracticionerApplications
                                                     SET UserId = @userId,
@@ -162,6 +218,7 @@ namespace Credentialing.Business.DataAccess
                                                         WorkHistoryId = @workHistoryId
                                                     WHERE PracticionerApplicationId = @practicionerApplicationId
                                                     ", conn);
+            if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
             {
@@ -196,9 +253,9 @@ namespace Credentialing.Business.DataAccess
 
         public void Update(PracticionerApplication application)
         {
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                Update(conn, application);
+                Update(conn, null, application);
             }
         }
 
@@ -206,39 +263,39 @@ namespace Credentialing.Business.DataAccess
         {
             bool retVal = true;
 
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
                 conn.Open();
-                //var trans = conn.BeginTransaction();
+                var trans = conn.BeginTransaction();
                 try
                 {
                     if (formData.Attachment != null)
                     {
-                        AttachmentHandler.Instance.Delete(conn, formData.AttachmentId.Value);
+                        AttachmentHandler.Instance.Delete(conn, trans, formData.AttachmentId.Value);
 
-                        var id = AttachmentHandler.Instance.Insert(conn, formData.Attachment);
+                        var id = AttachmentHandler.Instance.Insert(conn, trans, formData.Attachment);
                         formData.AttachmentId = id;
                     }
 
                     var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, userId);
                     if (!physicianFormData.IdentifyingInformationId.HasValue)
                     {
-                        var id = IdentifyingInformationHandler.Instance.Insert(conn, formData);
+                        var id = IdentifyingInformationHandler.Instance.Insert(conn, trans, formData);
                         physicianFormData.IdentifyingInformationId = id;
 
-                        PracticionersApplicationHandler.Instance.Update(conn, physicianFormData);
+                        PracticionersApplicationHandler.Instance.Update(conn, trans, physicianFormData);
                     }
                     else
                     {
                         formData.IdentifyingInformationId = physicianFormData.IdentifyingInformationId.Value;
-                        IdentifyingInformationHandler.Instance.Update(conn, formData);
+                        IdentifyingInformationHandler.Instance.Update(conn, trans, formData);
                     }
 
-                    //trans.Commit();
+                    trans.Commit();
                 }
                 catch (Exception ex)
                 {
-                    //trans.Rollback();
+                    trans.Rollback();
                     Log.Error(ex);
 
                     retVal = false;
@@ -252,44 +309,46 @@ namespace Credentialing.Business.DataAccess
         {
             var retVal = true;
 
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
                 conn.Open();
-                //var trans = conn.BeginTransaction();
+                var trans = conn.BeginTransaction();
                 try
                 {
                     var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, userId);
                     if (physicianFormData.EducationId.HasValue)
                     {
                         formData.EducationId = physicianFormData.EducationId.Value;
-                        EducationHandler.Instance.Update(conn, formData);
+                        EducationHandler.Instance.Update(conn, trans, formData);
                     }
                     else
                     {
-                        var id = EducationHandler.Instance.Insert(conn, formData);
+                        var id = EducationHandler.Instance.Insert(conn, trans, formData);
                         physicianFormData.EducationId = id;
 
-                        PracticionersApplicationHandler.Instance.Update(conn, physicianFormData);
+                        PracticionersApplicationHandler.Instance.Update(conn, trans, physicianFormData);
                     }
 
                     if (formData.AttachedDocuments.Count > 0)
                     {
-                        var existingAttachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, "EducationId", formData.EducationId);
+                        var existingAttachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "EducationId", formData.EducationId);
                         foreach (var attachment in existingAttachments)
                         {
-                            AttachmentHandler.Instance.Delete(conn, attachment.AttachmentId);
+                            AttachmentHandler.Instance.Delete(conn, trans, attachment.AttachmentId);
                         }
 
                         foreach (var attachment in formData.AttachedDocuments)
                         {
                             attachment.EducationId = physicianFormData.EducationId;
-                            AttachmentHandler.Instance.Insert(conn, attachment);
+                            AttachmentHandler.Instance.Insert(conn, trans, attachment);
                         }
                     }
+
+                    trans.Commit();
                 }
                 catch (Exception ex)
                 {
-                    //trans.Rollback();
+                    trans.Rollback();
 
                     Log.Error(ex);
 
@@ -304,10 +363,10 @@ namespace Credentialing.Business.DataAccess
         {
             var retVal = true;
 
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
                 conn.Open();
-                //var trans = conn.BeginTransaction();
+                var trans = conn.BeginTransaction();
                 try
                 {
                     var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, userId);
@@ -315,34 +374,36 @@ namespace Credentialing.Business.DataAccess
                     if (physicianFormData.MedicalProfessionalEducationId.HasValue)
                     {
                         formData.MedicalProfessionalEducationId = physicianFormData.MedicalProfessionalEducationId.Value;
-                        MedicalProfessionalEducationHandler.Instance.Update(conn, formData);
+                        MedicalProfessionalEducationHandler.Instance.Update(conn, trans, formData);
                     }
                     else
                     {
-                        var id = MedicalProfessionalEducationHandler.Instance.Insert(conn, formData);
+                        var id = MedicalProfessionalEducationHandler.Instance.Insert(conn, trans, formData);
                         physicianFormData.MedicalProfessionalEducationId = id;
 
-                        PracticionersApplicationHandler.Instance.Update(conn, physicianFormData);
+                        PracticionersApplicationHandler.Instance.Update(conn, trans, physicianFormData);
                     }
 
                     if (formData.Attachments.Count > 0)
                     {
-                        var existingAttachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, "MedicalProfessionalEducationId", formData.MedicalProfessionalEducationId);
+                        var existingAttachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "MedicalProfessionalEducationId", formData.MedicalProfessionalEducationId);
                         foreach (var attachment in existingAttachments)
                         {
-                            AttachmentHandler.Instance.Delete(conn, attachment.AttachmentId);
+                            AttachmentHandler.Instance.Delete(conn, trans, attachment.AttachmentId);
                         }
 
                         foreach (var attachment in formData.Attachments)
                         {
                             attachment.MedicalProfessionalEducationId = physicianFormData.MedicalProfessionalEducationId;
-                            AttachmentHandler.Instance.Insert(conn, attachment);
+                            AttachmentHandler.Instance.Insert(conn, trans, attachment);
                         }
                     }
+
+                    trans.Commit();
                 }
                 catch (Exception ex)
                 {
-                   // trans.Rollback();
+                    trans.Rollback();
 
                     Log.Error(ex);
 
@@ -357,29 +418,31 @@ namespace Credentialing.Business.DataAccess
         {
             var retVal = true;
 
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
                 conn.Open();
-                //var trans = conn.BeginTransaction();
+                var trans = conn.BeginTransaction();
                 try
                 {
                     var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, userId);
                     if (!physicianFormData.PracticeInformationId.HasValue)
                     {
-                        var id = PracticeInformationHandler.Instance.Insert(conn, formData);
+                        var id = PracticeInformationHandler.Instance.Insert(conn, trans, formData);
                         physicianFormData.PracticeInformationId = id;
 
-                        PracticionersApplicationHandler.Instance.Update(conn, physicianFormData);
+                        PracticionersApplicationHandler.Instance.Update(conn, trans, physicianFormData);
                     }
                     else
                     {
                         formData.PracticeInformationId = physicianFormData.PracticeInformationId.Value;
-                        PracticeInformationHandler.Instance.Update(conn, formData);
+                        PracticeInformationHandler.Instance.Update(conn, trans, formData);
                     }
+
+                    trans.Commit();
                 }
                 catch (Exception ex)
                 {
-                    //trans.Rollback();
+                    trans.Rollback();
 
                     Log.Error(ex);
 

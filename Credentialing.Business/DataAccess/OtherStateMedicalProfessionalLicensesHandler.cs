@@ -1,4 +1,7 @@
-﻿namespace Credentialing.Business.DataAccess
+﻿using Credentialing.Entities.Data;
+using System.Data.SqlClient;
+
+namespace Credentialing.Business.DataAccess
 {
     public class OtherStateMedicalProfessionalLicensesHandler
     {
@@ -11,6 +14,18 @@
 
         private OtherStateMedicalProfessionalLicensesHandler()
         {
+        }
+
+        public OtherStateMedicalProfessionalLicenses GetById(int otherStateMedicalProfessionalLicensesId, bool deepLoad = false)
+        {
+            // TODO: Implement this
+            return null;
+        }
+
+        public OtherStateMedicalProfessionalLicenses GetById(SqlConnection conn, SqlTransaction trans, int otherStateMedicalProfessionalLicensesId, bool deepLoad = false)
+        {
+            // TODO: Implement this
+            return null;
         }
     }
 }

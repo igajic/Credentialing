@@ -42,12 +42,35 @@ namespace Credentialing.Entities.Data
 
         public int? AttestationQuestionId { get; set; }
 
-
         // references
         public virtual IdentifyingInformation IdentifyingInformation { get; set; }
 
         public virtual PracticeInformation PracticeInformation { get; set; }
 
         public virtual Education Education { get; set; }
+
+        public virtual MedicalProfessionalEducation MedicalProfessionalEducation { get; set; }
+
+        public virtual Internship Internship { get; set; }
+
+        public virtual ResidenciesFellowship ResidenciesFellowship { get; set; }
+
+        public virtual BoardCertification BoardCertification { get; set; }
+
+        public virtual OtherCertifications OtherCertification { get; set; }
+
+        public virtual MedicalProfessionalLicensureRegistrations MedicalProfessionalLicensureRegistration { get; set; }
+
+        public virtual ProfessionalLiability ProfessionalLiability { get; set; }
+
+        public virtual OtherStateMedicalProfessionalLicenses OtherStateMedicalProfessionalLicense { get; set; }
+
+        public virtual CurrentHospitalInstitutionalAffiliations CurrentHospitalInstitutionalAffiliations { get; set; }
+
+        public virtual PeerReferences PeerReferences { get; set; }
+
+        public virtual WorkHistory WorkHistory { get; set; }
+
+        public virtual AttestationQuestions AttestationQuestions { get; set; }
     }
 }
