@@ -24,17 +24,17 @@ namespace Credentialing.Business.DataAccess
 
         public void Delete(int attachmentId)
         {
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                Delete(conn, attachmentId);
+                Delete(conn, null, attachmentId);
             }
         }
 
-        public void Delete(SqlConnection conn, int attachmentId)
+        public void Delete(SqlConnection conn, SqlTransaction trans, int attachmentId)
         {
             var sqlCommand = new SqlCommand("DELETE FROM Attachments WHERE AttachmentId = @attachmentId", conn);
             sqlCommand.Parameters.AddWithValue("@attachmentId", attachmentId);
-
+            if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
             {
@@ -46,18 +46,19 @@ namespace Credentialing.Business.DataAccess
 
         public List<Attachment> GetReferencedAttachments(string fk, int fkVal)
         {
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                return GetReferencedAttachments(conn, fk, fkVal);
+                return GetReferencedAttachments(conn, null, fk, fkVal);
             }
         }
 
-        public List<Attachment> GetReferencedAttachments(SqlConnection conn, string fk, int fkVal)
+        public List<Attachment> GetReferencedAttachments(SqlConnection conn, SqlTransaction trans, string fk, int fkVal)
         {
             var retVal = new List<Attachment>();
 
             var sqlCommand = new SqlCommand("SELECT * FROM Attachments WHERE " + fk + " = @fkVal", conn);
             sqlCommand.Parameters.AddWithValue("@fkVal", fkVal);
+            if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
             {
@@ -80,18 +81,19 @@ namespace Credentialing.Business.DataAccess
 
         public Attachment GetById(int attachmentId)
         {
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                return GetById(conn, attachmentId);
+                return GetById(conn, null, attachmentId);
             }
         }
 
-        public Attachment GetById(SqlConnection conn, int attachmentId)
+        public Attachment GetById(SqlConnection conn, SqlTransaction trans, int attachmentId)
         {
             Attachment retVal = null;
 
             var sqlCommand = new SqlCommand("SELECT * FROM Attachments WHERE AttachmentId = @attachmentId", conn);
             sqlCommand.Parameters.AddWithValue("@attachmentId", attachmentId);
+            if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
             {
@@ -114,19 +116,20 @@ namespace Credentialing.Business.DataAccess
 
         public int Insert(Attachment attachment)
         {
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                return Insert(conn, attachment);
+                return Insert(conn, null, attachment);
             }
         }
 
-        public int Insert(SqlConnection conn, Attachment attachment)
+        public int Insert(SqlConnection conn, SqlTransaction trans, Attachment attachment)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO Attachments
                                                     (FileName, Content, EducationId, MedicalProfessionalEducationId, InternshipId, ResidenciesFellowshipId, OtherCertificationsId, MedicalProfessionalLicensureRegistrationsId, OtherStateMedicalProfessionalLicensesId, WorkHistoryId, AttestationQuestionsId)
                                                     OUTPUT INSERTED.AttachmentId
                                                     VALUES
                                                     (@fileName, @content, @educationId, @medicalProfessionalEducationId, @internshipId, @residenciesFellowshipId, @otherCertificationsId, @medicalProfessionalLicensureRegistrationsId, @otherStateMedicalProfessionalLicensesId, @workHistoryId, @attestationQuestionsId)", conn);
+            if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
             {

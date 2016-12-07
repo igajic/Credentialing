@@ -1,7 +1,9 @@
-﻿using System;
-using Credentialing.Business.DataAccess;
-using System.Web;
+﻿using Credentialing.Business.DataAccess;
 using Credentialing.Business.Helpers;
+using Credentialing.Entities;
+using System;
+using System.Linq;
+using System.Web;
 
 namespace Credentialing.Web.Handlers
 {
@@ -22,9 +24,9 @@ namespace Credentialing.Web.Handlers
         {
             int attachmentId;
 
-            if (int.TryParse(context.Request["attachmentId"], out attachmentId))
+            if (int.TryParse(context.Request[Constants.RequestParameters.AttachmentId], out attachmentId))
             {
-                if (CheckUserAccess())
+                if (CheckUserAccess(attachmentId))
                 {
                     var attachment = AttachmentHandler.Instance.GetById(attachmentId);
 
@@ -40,10 +42,10 @@ namespace Credentialing.Web.Handlers
             }
         }
 
-        private bool CheckUserAccess()
+        private bool CheckUserAccess(int attachmentId)
         {
             var retVal = false;
-            
+
             var currentUser = MemberHelper.GetCurrentLoggedUser();
 
             if (currentUser != null)
@@ -56,10 +58,67 @@ namespace Credentialing.Web.Handlers
                 {
                     var application = PracticionersApplicationHandler.Instance.GetByUserId((Guid)currentUser.ProviderUserKey, true);
 
-                    // TODO: Add security checks, check all attachment in physicians application attachments
+                    // check all attachment in physicians application attachments
 
+                    if (application.IdentifyingInformationId.HasValue)
+                    {
+                        retVal = application.IdentifyingInformation.Attachment.AttachmentId == attachmentId;
+                    }
 
+                    if (!retVal && application.EducationId.HasValue)
+                    {
+                        retVal = application.Education.AttachedDocuments.Any(s => s.AttachmentId == attachmentId);
+                    }
 
+                    if (!retVal && application.MedicalProfessionalEducationId.HasValue)
+                    {
+                        retVal = application.MedicalProfessionalEducation.Attachments.Any(s => s.AttachmentId == attachmentId);
+                    }
+
+                    if (!retVal && application.InternshipId.HasValue)
+                    {
+                        retVal = application.Internship.Attachments.Any(s => s.AttachmentId == attachmentId);
+                    }
+
+                    if (!retVal && application.ResidenciesFellowshipId.HasValue)
+                    {
+                        retVal = application.ResidenciesFellowship.Attachments.Any(s => s.AttachmentId == attachmentId);
+                    }
+
+                    if (!retVal && application.BoardCertificationId.HasValue)
+                    {
+                        retVal = application.BoardCertification.Attachment.AttachmentId == attachmentId;
+                    }
+
+                    if (!retVal && application.OtherCertificationId.HasValue)
+                    {
+                        retVal = application.OtherCertification.Attachments.Any(s => s.AttachmentId == attachmentId);
+                    }
+
+                    if (!retVal && application.MedicalProfessionalLicensureRegistrationId.HasValue)
+                    {
+                        retVal = application.MedicalProfessionalLicensureRegistration.Attachments.Any(s => s.AttachmentId == attachmentId);
+                    }
+
+                    if (!retVal && application.OtherStateMedicalProfessionalLicenseId.HasValue)
+                    {
+                        retVal = application.OtherStateMedicalProfessionalLicense.Attachments.Any(s => s.AttachmentId == attachmentId);
+                    }
+
+                    if (!retVal && application.ProfessionalLiabilityId.HasValue)
+                    {
+                        retVal = application.ProfessionalLiability.CurrentLiabilityPolicy.AttachmentId == attachmentId;
+                    }
+
+                    if (!retVal && application.WorkHistoryId.HasValue)
+                    {
+                        retVal = application.WorkHistory.Attachments.Any(s => s.AttachmentId == attachmentId);
+                    }
+
+                    if (!retVal && application.AttestationQuestionId.HasValue)
+                    {
+                        retVal = application.AttestationQuestions.AdditionalSheets.Any(s => s.AttachmentId == attachmentId);
+                    }
                 }
             }
 

@@ -23,13 +23,13 @@ namespace Credentialing.Business.DataAccess
 
         public Education GetById(int id, bool deepLoad = false)
         {
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                return GetById(conn, id, deepLoad);
+                return GetById(conn, null, id, deepLoad);
             }
         }
 
-        public Education GetById(SqlConnection conn, int id, bool deepLoad = false)
+        public Education GetById(SqlConnection conn, SqlTransaction trans, int id, bool deepLoad = false)
         {
             Education retVal = null;
 
@@ -37,6 +37,7 @@ namespace Credentialing.Business.DataAccess
                                                   FROM Educations
                                                   WHERE EducationId = @educationId", conn);
             sqlCommand.Parameters.AddWithValue("@educationId", id);
+            if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
             {
@@ -63,7 +64,7 @@ namespace Credentialing.Business.DataAccess
 
                         if (deepLoad)
                         {
-                            retVal.AttachedDocuments = AttachmentHandler.Instance.GetReferencedAttachments(conn, "EducationId", retVal.EducationId);
+                            retVal.AttachedDocuments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "EducationId", retVal.EducationId);
                         }
                     }
                 }
@@ -75,22 +76,27 @@ namespace Credentialing.Business.DataAccess
         public int Insert(Education education)
         {
             int retVal;
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                retVal = Insert(conn, education);
+                retVal = Insert(conn, null, education);
             }
 
             return retVal;
         }
 
-        public int Insert(SqlConnection conn, Education education)
+        public int Insert(SqlConnection conn, SqlTransaction trans, Education education)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO Educations
                                                     (CollegeUniverityName, DegreeReceived, DateGraduation, MailingAddress, MailingCity, MailingState, MailingZip)
                                                     OUTPUT INSERTED.EducationId
                                                     VALUES
                                                     (@collegeUniverityName, @degreeReceived, @dateGraduation, @mailingAddress, @mailingCity, @mailingState, @mailingZip)", conn);
-            conn.Open();
+            if (trans != null) sqlCommand.Transaction = trans;
+
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
 
             sqlCommand.Parameters.AddWithValue("@collegeUniverityName", education.CollegeUniverityName);
             sqlCommand.Parameters.AddWithValue("@degreeReceived", education.DegreeReceived);
@@ -110,13 +116,13 @@ namespace Credentialing.Business.DataAccess
 
         public void Update(Education education)
         {
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                Update(conn, education);
+                Update(conn, null, education);
             }
         }
 
-        public void Update(SqlConnection conn, Education education)
+        public void Update(SqlConnection conn, SqlTransaction trans, Education education)
         {
             var sqlCommand = new SqlCommand(@"UPDATE Educations
                                                     SET CollegeUniverityName = @collegeUniverityName,
@@ -127,7 +133,12 @@ namespace Credentialing.Business.DataAccess
                                                         MailingState = @mailingState,
                                                         MailingZip = @mailingZip
                                                     WHERE EducationId = @educationId", conn);
-            conn.Open();
+            if (trans != null) sqlCommand.Transaction = trans;
+
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
 
             sqlCommand.Parameters.AddWithValue("@educationId", education.EducationId);
             sqlCommand.Parameters.AddWithValue("@collegeUniverityName", education.CollegeUniverityName);

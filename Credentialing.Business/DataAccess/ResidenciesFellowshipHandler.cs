@@ -1,4 +1,6 @@
-﻿namespace Credentialing.Business.DataAccess
+﻿using Credentialing.Entities.Data;
+using System.Data.SqlClient;
+namespace Credentialing.Business.DataAccess
 {
     public class ResidenciesFellowshipHandler
     {
@@ -11,6 +13,18 @@
 
         private ResidenciesFellowshipHandler()
         {
+        }
+
+        public ResidenciesFellowship GetById(int residenciesFellowshipId, bool deepLoad = false)
+        {
+            // TODO: Implement this
+            return null;
+        }
+
+        public ResidenciesFellowship GetById(SqlConnection conn, SqlTransaction trans, int residenciesFellowshipId, bool deepLoad = false)
+        {
+            // TODO: Implement this
+            return null;
         }
     }
 }

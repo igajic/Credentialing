@@ -23,18 +23,19 @@ namespace Credentialing.Business.DataAccess
 
         public PracticeInformation GetById(int id, bool deepLoad = false)
         {
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                return GetById(conn, id, deepLoad);
+                return GetById(conn, null, id, deepLoad);
             }
         }
 
-        public PracticeInformation GetById(SqlConnection conn, int id, bool deepLoad = false)
+        public PracticeInformation GetById(SqlConnection conn, SqlTransaction trans, int id, bool deepLoad = false)
         {
             PracticeInformation retVal = null;
 
             var sqlCommand = new SqlCommand("SELECT * FROM PracticeInformations WHERE PracticeInformationId = @practiceInformationId", conn);
             sqlCommand.Parameters.AddWithValue("@practiceInformationId", id);
+            if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
             {
@@ -89,13 +90,14 @@ namespace Credentialing.Business.DataAccess
             return retVal;
         }
 
-        public int Insert(SqlConnection conn, PracticeInformation practiceInformation)
+        public int Insert(SqlConnection conn, SqlTransaction trans, PracticeInformation practiceInformation)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO PracticeInformations
                                                     (PracticeName, DepartmentName, PrimaryOfficeStreetAddress, PrimaryOfficeCityStateZip, PrimaryOfficeTelephoneNumber, PrimaryOfficeFaxNumber, PrimaryOfficeManagerAdministrator, PrimaryOfficeManagerAdministratorTelephoneNumber, PrimaryOfficeManagerAdministratorFaxNumber, PrimaryOfficeNameAffiliatedWithTaxIdNumber, PrimaryOfficeFederalTaxIdNumber, SecondaryOfficeStreetAddress, SecondaryOfficeCity, SecondaryOfficeState, SecondaryOfficeZip, SecondaryOfficeManagerAdministrator, SecondaryOfficeManagerAdministratorTelephoneNumber, SecondaryOfficeManagerAdministratorFaxNumber, SecondaryOfficeNameAffiliatedWithTaxIdNumber,SecondaryOfficeFederalTaxIdNumber, TertiaryOfficeStreetAddress, TertiaryOfficeCity, TertiaryOfficeState, TertiaryOfficeZip, TertiaryOfficeTelephoneNumber, TertiaryOfficeFaxNumber, TertiaryOfficeManagerAdministrator, TertiaryOfficeManagerAdministratorTelephoneNumber, TertiaryOfficeManagerAdministratorFaxNumber, TertiaryOfficeNameAffiliatedWithTaxIdNumber, TertiaryOfficeFederalTaxIdNumber)
                                                     OUTPUT INSERTED.PracticeInformationId
                                                     VALUES
                                                     (@practiceName, @departmentName, @primaryOfficeStreetAddress, @primaryOfficeCityStateZip, @primaryOfficeTelephoneNumber, @primaryOfficeFaxNumber, @primaryOfficeManagerAdministrator, @primaryOfficeManagerAdministratorTelephoneNumber, @primaryOfficeManagerAdministratorFaxNumber, @primaryOfficeNameAffiliatedWithTaxIdNumber, @primaryOfficeFederalTaxIdNumber, @secondaryOfficeStreetAddress, @secondaryOfficeCity, @secondaryOfficeState, @secondaryOfficeZip, @secondaryOfficeManagerAdministrator, @secondaryOfficeManagerAdministratorTelephoneNumber, @secondaryOfficeManagerAdministratorFaxNumber, @secondaryOfficeNameAffiliatedWithTaxIdNumber, @secondaryOfficeFederalTaxIdNumber, @tertiaryOfficeStreetAddress, @tertiaryOfficeCity, @tertiaryOfficeState, @tertiaryOfficeZip, @tertiaryOfficeTelephoneNumber, @tertiaryOfficeFaxNumber, @tertiaryOfficeManagerAdministrator, @tertiaryOfficeManagerAdministratorTelephoneNumber, @tertiaryOfficeManagerAdministratorFaxNumber, @tertiaryOfficeNameAffiliatedWithTaxIdNumber, @tertiaryOfficeFederalTaxIdNumber)", conn);
+            if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
             {
@@ -145,15 +147,15 @@ namespace Credentialing.Business.DataAccess
         public int Insert(PracticeInformation practiceInformation)
         {
             int retVal;
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                retVal = Insert(conn, practiceInformation);
+                retVal = Insert(conn, null, practiceInformation);
             }
 
             return retVal;
         }
 
-        public void Update(SqlConnection conn, PracticeInformation practiceInformation)
+        public void Update(SqlConnection conn, SqlTransaction trans, PracticeInformation practiceInformation)
         {
             var sqlCommand = new SqlCommand(@"UPDATE PracticeInformations
                                                     SET
@@ -192,6 +194,8 @@ namespace Credentialing.Business.DataAccess
                                                         TertiaryOfficeFederalTaxIdNumber = @tertiaryOfficeFederalTaxIdNumber
                                                     WHERE PracticeInformationId = @practiceInformationId
                                                     ", conn);
+            if (trans != null) sqlCommand.Transaction = trans;
+
             if (conn.State != ConnectionState.Open)
             {
                 conn.Open();
@@ -240,9 +244,9 @@ namespace Credentialing.Business.DataAccess
 
         public void Update(PracticeInformation practiceInformation)
         {
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                Update(conn, practiceInformation);
+                Update(conn, null, practiceInformation);
             }
         }
     }

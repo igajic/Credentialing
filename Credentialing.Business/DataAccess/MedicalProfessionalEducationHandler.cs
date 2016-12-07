@@ -23,18 +23,20 @@ namespace Credentialing.Business.DataAccess
 
         public MedicalProfessionalEducation GetById(int id, bool deepLoad = false)
         {
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                return GetById(conn, id, deepLoad);
+                return GetById(conn, null, id, deepLoad);
             }
         }
 
-        public MedicalProfessionalEducation GetById(SqlConnection conn, int id, bool deepLoad = false)
+        public MedicalProfessionalEducation GetById(SqlConnection conn, SqlTransaction trans, int id, bool deepLoad = false)
         {
             MedicalProfessionalEducation retVal = null;
 
             var sqlCommand = new SqlCommand("SELECT * FROM MedicalProfessionalEducation WHERE MedicalProfessionalEducationId = @medicalProfessionalEducationId", conn);
             sqlCommand.Parameters.AddWithValue("@medicalProfessionalEducationId", id);
+            if (trans != null) sqlCommand.Transaction = trans;
+
 
             if (conn.State != ConnectionState.Open)
             {
@@ -69,7 +71,7 @@ namespace Credentialing.Business.DataAccess
 
                         if (deepLoad)
                         {
-                            retVal.Attachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, "MedicalProfessionalEducationId", retVal.MedicalProfessionalEducationId);
+                            retVal.Attachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "MedicalProfessionalEducationId", retVal.MedicalProfessionalEducationId);
                         }
                     }
                 }
@@ -79,19 +81,20 @@ namespace Credentialing.Business.DataAccess
 
         public int Insert(MedicalProfessionalEducation medicalEducation)
         {
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                return Insert(conn, medicalEducation);
+                return Insert(conn, null, medicalEducation);
             }
         }
 
-        public int Insert(SqlConnection conn, MedicalProfessionalEducation medicalEducation)
+        public int Insert(SqlConnection conn, SqlTransaction trans, MedicalProfessionalEducation medicalEducation)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO MedicalProfessionalEducation
                                                     (PrimaryMedicalProfessionalSchool, PrimaryDegreeReceived, PrimaryDateOfGraduation, PrimaryMailingAddress, PrimaryCity, PrimaryStateCountry, PrimaryZip, SecondaryMedicalProfessionalSchool, SecondaryDegreeReceived, SecondaryDateOfGraduation, SecondaryMailingAddress, SecondaryCity, SecondaryStateCountry, SecondaryZip)
                                                     OUTPUT INSERTED.MedicalProfessionalEducationId
                                                     VALUES
                                                     (@primaryMedicalProfessionalSchool, @primaryDegreeReceived, @primaryDateOfGraduation, @primaryMailingAddress, @primaryCity, @primaryStateCountry, @primaryZip, @secondaryMedicalProfessionalSchool, @secondaryDegreeReceived, @secondaryDateOfGraduation, @secondaryMailingAddress, @secondaryCity, @secondaryStateCountry, @secondaryZip)", conn);
+            if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
             {
@@ -125,13 +128,13 @@ namespace Credentialing.Business.DataAccess
 
         public void Update(MedicalProfessionalEducation medicalEducation)
         {
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["CredentialingDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                Update(conn, medicalEducation);
+                Update(conn, null, medicalEducation);
             }
         }
 
-        public void Update(SqlConnection conn, MedicalProfessionalEducation medicalEducation)
+        public void Update(SqlConnection conn, SqlTransaction trans, MedicalProfessionalEducation medicalEducation)
         {
             var sqlCommand = new SqlCommand(@"UPDATE MedicalProfessionalEducation
                                                     SET

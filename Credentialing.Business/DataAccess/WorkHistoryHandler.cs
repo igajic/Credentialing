@@ -1,4 +1,6 @@
-﻿namespace Credentialing.Business.DataAccess
+﻿using Credentialing.Entities.Data;
+using System.Data.SqlClient;
+namespace Credentialing.Business.DataAccess
 {
     public class WorkHistoryHandler
     {
@@ -11,6 +13,18 @@
 
         private WorkHistoryHandler()
         {
+        }
+
+        public WorkHistory GetById(int workHistoryId, bool deepLoad = false)
+        {
+            // TODO: Implement this
+            return null;
+        }
+
+        public WorkHistory GetById(SqlConnection conn, SqlTransaction trans, int workHistoryId, bool deepLoad = false)
+        {
+            // TODO: Implement this
+            return null;
         }
     }
 }
