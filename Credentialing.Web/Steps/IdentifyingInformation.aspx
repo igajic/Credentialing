@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="IdentifyingInformation.aspx.cs" Inherits="Credentialing.Web.Steps.IdentifyingInformation" MasterPageFile="../Main.Master" %>
 <%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
-    <uc:SidebarProgress runat="server" CurrentStep="2" EnableViewState="false"/>
+	<uc:SidebarProgress runat="server" CurrentStep="2" EnableViewState="false"/>
 
 	<div class="form-block">
 		<div class="form-heading">
@@ -70,7 +70,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxBirthDate" Text="Birth Date:" EnableViewState="False"/>
-				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxBirthDate" placeholder="mm/dd/yyyy"/>
+				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxBirthDate" placeholder="mm/dd/yyyy" CssClass="datepicker datepicker-default"/>
 			</div>
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxBirthPlace" Text="Birth Place (City/State/Country):" EnableViewState="False"/>
