@@ -70,7 +70,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.BirthPlace = reader[Constants.IdentifyingInformationColumns.BirthPlace] as string;
                         retVal.AttachmentId = reader[Constants.IdentifyingInformationColumns.AttachmentId] as int?;
                         retVal.SocialSecurityNumber = reader[Constants.IdentifyingInformationColumns.SocialSecurityNumber] as string;
-                        retVal.Gender = (Gender?)(int?)reader[Constants.IdentifyingInformationColumns.Gender];
+                        retVal.Gender = Convert.IsDBNull(reader[Constants.IdentifyingInformationColumns.Gender]) ? null : (Gender?)(int?)reader[Constants.IdentifyingInformationColumns.Gender];
                         retVal.Specialty = reader[Constants.IdentifyingInformationColumns.Specialty] as string;
                         retVal.RaceEthnicity = reader[Constants.IdentifyingInformationColumns.RaceEthnicity] as string;
                         retVal.Subspecialties = reader[Constants.IdentifyingInformationColumns.Subspecialties] as string;
@@ -79,12 +79,13 @@ namespace Credentialing.Business.DataAccess
                         {
                             if (retVal.AttachmentId.HasValue)
                             {
-                                retVal.Attachment = AttachmentHandler.Instance.GetById(retVal.AttachmentId.Value);
+                                retVal.Attachment = AttachmentHandler.Instance.GetById(conn, trans, retVal.AttachmentId.Value);
                             }
                         }
                     }
                 }
             }
+
             return retVal;
         }
 
@@ -175,6 +176,8 @@ namespace Credentialing.Business.DataAccess
                                                         AttachmentId = @attachmentId
                                                     WHERE IdentifyingInformationId = @identifyingInformationId
                                                     ", conn);
+
+            if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
             {

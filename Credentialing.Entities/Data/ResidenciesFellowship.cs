@@ -33,9 +33,9 @@ namespace Credentialing.Entities.Data
 
         public string PrimarySpecialty { get; set; }
 
-        public string PrimaryFrom { get; set; }
+        public DateTime PrimaryFrom { get; set; }
 
-        public string PrimaryTo { get; set; }
+        public DateTime PrimaryTo { get; set; }
 
         public bool PrimaryCompleted { get; set; }
 
@@ -57,9 +57,9 @@ namespace Credentialing.Entities.Data
 
         public string SecondarySpecialty { get; set; }
 
-        public string SecondaryFrom { get; set; }
+        public DateTime SecondaryFrom { get; set; }
 
-        public string SecondaryTo { get; set; }
+        public DateTime SecondaryTo { get; set; }
 
         public bool SecondaryCompleted { get; set; }
 
@@ -81,9 +81,9 @@ namespace Credentialing.Entities.Data
 
         public string TertiarySpecialty { get; set; }
 
-        public string TertiaryFrom { get; set; }
+        public DateTime TertiaryFrom { get; set; }
 
-        public string TertiaryTo { get; set; }
+        public DateTime TertiaryTo { get; set; }
 
         public bool TertiaryCompleted { get; set; }
 

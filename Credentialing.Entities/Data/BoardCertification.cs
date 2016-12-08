@@ -41,6 +41,8 @@ namespace Credentialing.Entities.Data
 
         public string AdditionalListBoardsDates { get; set; }
 
+        public int? AttachmentId { get; set; }
+
         public virtual Attachment Attachment { get; set; }
     }
 }
