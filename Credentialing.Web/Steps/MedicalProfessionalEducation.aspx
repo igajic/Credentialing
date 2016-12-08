@@ -17,7 +17,7 @@
 			</div>
 			<div class="col-md-3">
 				<asp:Label runat="server" AssociatedControlID="tboxDateGraduationFirst" Text="Date of Graduation (mm/yy)" EnableViewState="False"/>
-				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxDateGraduationFirst"/>
+				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxDateGraduationFirst" placeholder="mm/yy" CssClass="datepicker datepicker-monthly"/>
 			</div>
 		</div>
 		<div class="row">
@@ -51,7 +51,7 @@
 			</div>
 			<div class="col-md-3">
 				<asp:Label runat="server" AssociatedControlID="tboxDateGraduationSecond" Text="Date of Graduation (mm/yy)" EnableViewState="False"/>
-				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxDateGraduationSecond"/>
+				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxDateGraduationSecond" placeholder="mm/yy" CssClass="datepicker datepicker-monthly"/>
 			</div>
 		</div>
 		<div class="row">
