@@ -9,6 +9,6 @@
 	<asp:TextBox runat="server" ID="tboxPassword" TextMode="Password" />
 </div>
 <div class="form-row">
-	<a class="forgot-password" href="javascript:;">Forgot Password?</a>
+	<a class="forgot-password" href="/UserManagement/Register.aspx">Register</a>
 	<asp:Button runat="server" ID="btnLogin" Text="Login" CssClass="btn submit-login" />
 </div>
