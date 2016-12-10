@@ -35,7 +35,7 @@ namespace Credentialing.Entities.Data
 
         public string PagerNumber { get; set; }
 
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         public string BirthPlace { get; set; }
 
@@ -52,5 +52,30 @@ namespace Credentialing.Entities.Data
         public string Subspecialties { get; set; }
 
         public Attachment Attachment { get; set; }
+
+        public int PercentComplete
+        {
+            get
+            {
+                var tmp = LastName.IsCompleted();
+                tmp += MiddleName.IsCompleted();
+                tmp += OtherKnownNames.IsCompleted();
+                tmp += HomeMailingAddress.IsCompleted();
+                tmp += City.IsCompleted();
+                tmp += State.IsCompleted();
+                tmp += Zip.IsCompleted();
+                tmp += HomeTelephoneNumber.IsCompleted();
+                tmp += HomeFaxNumber.IsCompleted();
+                tmp += EmailAddress.IsCompleted();
+                tmp += PagerNumber.IsCompleted();
+                tmp += (BirthDate.HasValue ? 1 : 0);
+                tmp += BirthPlace.IsCompleted();
+                tmp += SocialSecurityNumber.IsCompleted();
+                tmp += Specialty.IsCompleted();
+                tmp += Subspecialties.IsCompleted();
+
+                return 100 * tmp / 16;
+            }
+        }
     }
 }

@@ -62,7 +62,7 @@ namespace Credentialing.Business.DataAccess
                 }
             }
 
-            if (deepLoad)
+            if (deepLoad && retVal != null)
             {
                 retVal.Attachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "OtherCertificationsId", retVal.OtherCertificationsId);
             }

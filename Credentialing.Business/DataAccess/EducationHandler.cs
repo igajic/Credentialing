@@ -61,13 +61,13 @@ namespace Credentialing.Business.DataAccess
                         retVal.MailingCity = reader[Constants.EducationColumns.MailingCity] as string;
                         retVal.MailingState = reader[Constants.EducationColumns.MailingState] as string;
                         retVal.MailingZip = reader[Constants.EducationColumns.MailingZip] as string;
-
-                        if (deepLoad)
-                        {
-                            retVal.AttachedDocuments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "EducationId", retVal.EducationId);
-                        }
                     }
                 }
+            }
+
+            if (deepLoad && retVal != null)
+            {
+                retVal.AttachedDocuments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "EducationId", retVal.EducationId);
             }
 
             return retVal;

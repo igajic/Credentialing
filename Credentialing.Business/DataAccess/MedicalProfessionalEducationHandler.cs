@@ -51,11 +51,11 @@ namespace Credentialing.Business.DataAccess
                     {
                         retVal = new MedicalProfessionalEducation();
 
-                        retVal.MedicalProfessionalEducationId = (int)reader[Constants.MedicalProfessionalEducationColumns.MedicalProfessionalEducationId];
+                        retVal.MedicalProfessionalEducationId = (int) reader[Constants.MedicalProfessionalEducationColumns.MedicalProfessionalEducationId];
 
                         retVal.PrimaryMedicalProfessionalSchool = reader[Constants.MedicalProfessionalEducationColumns.PrimaryMedicalProfessionalSchool] as string;
                         retVal.PrimaryDegreeReceived = reader[Constants.MedicalProfessionalEducationColumns.PrimaryDegreeReceived] as string;
-                        retVal.PrimaryDateOfGraduation = (DateTime)reader[Constants.MedicalProfessionalEducationColumns.PrimaryDateOfGraduation];
+                        retVal.PrimaryDateOfGraduation = (DateTime) reader[Constants.MedicalProfessionalEducationColumns.PrimaryDateOfGraduation];
                         retVal.PrimaryMailingAddress = reader[Constants.MedicalProfessionalEducationColumns.PrimaryMailingAddress] as string;
                         retVal.PrimaryCity = reader[Constants.MedicalProfessionalEducationColumns.PrimaryCity] as string;
                         retVal.PrimaryStateCountry = reader[Constants.MedicalProfessionalEducationColumns.PrimaryStateCountry] as string;
@@ -63,19 +63,20 @@ namespace Credentialing.Business.DataAccess
 
                         retVal.SecondaryMedicalProfessionalSchool = reader[Constants.MedicalProfessionalEducationColumns.SecondaryMedicalProfessionalSchool] as string;
                         retVal.SecondaryDegreeReceived = reader[Constants.MedicalProfessionalEducationColumns.SecondaryDegreeReceived] as string;
-                        retVal.SecondaryDateOfGraduation = (DateTime)reader[Constants.MedicalProfessionalEducationColumns.SecondaryDateOfGraduation];
+                        retVal.SecondaryDateOfGraduation = (DateTime) reader[Constants.MedicalProfessionalEducationColumns.SecondaryDateOfGraduation];
                         retVal.SecondaryMailingAddress = reader[Constants.MedicalProfessionalEducationColumns.SecondaryMailingAddress] as string;
                         retVal.SecondaryCity = reader[Constants.MedicalProfessionalEducationColumns.SecondaryCity] as string;
                         retVal.SecondaryStateCountry = reader[Constants.MedicalProfessionalEducationColumns.SecondaryStateCountry] as string;
                         retVal.SecondaryZip = reader[Constants.MedicalProfessionalEducationColumns.SecondaryZip] as string;
-
-                        if (deepLoad)
-                        {
-                            retVal.Attachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "MedicalProfessionalEducationId", retVal.MedicalProfessionalEducationId);
-                        }
                     }
                 }
             }
+
+            if (deepLoad && retVal != null)
+            {
+                retVal.Attachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "MedicalProfessionalEducationId", retVal.MedicalProfessionalEducationId);
+            }
+
             return retVal;
         }
 

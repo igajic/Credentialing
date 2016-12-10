@@ -66,11 +66,7 @@
         public string TertiaryOfficeState { get; set; }
 
         public string TertiaryOfficeZip { get; set; }
-
-        public string TertiaryOfficeTelephoneNumber { get; set; }
-
-        public string TertiaryOfficeFaxNumber { get; set; }
-
+        
         public string TertiaryOfficeManagerAdministrator { get; set; }
 
         public string TertiaryOfficeManagerAdministratorTelephoneNumber { get; set; }
@@ -82,5 +78,43 @@
         public string TertiaryOfficeFederalTaxIdNumber { get; set; }
 
         #endregion [Tertiary office]
+
+        public int PercentComplete
+        {
+            get
+            {
+                var tmp = PracticeName.IsCompleted();
+                tmp += DepartmentName.IsCompleted();
+                tmp += PrimaryOfficeStreetAddress.IsCompleted();
+                tmp += PrimaryOfficeCityStateZip.IsCompleted();
+                tmp += PrimaryOfficeTelephoneNumber.IsCompleted();
+                tmp += PrimaryOfficeFaxNumber.IsCompleted();
+                tmp += PrimaryOfficeManagerAdministrator.IsCompleted();
+                tmp += PrimaryOfficeManagerAdministratorTelephoneNumber.IsCompleted();
+                tmp += PrimaryOfficeManagerAdministratorFaxNumber.IsCompleted();
+                tmp += PrimaryOfficeNameAffiliatedWithTaxIdNumber.IsCompleted();
+                tmp += PrimaryOfficeFederalTaxIdNumber.IsCompleted();
+                tmp += SecondaryOfficeStreetAddress.IsCompleted();
+                tmp += SecondaryOfficeCity.IsCompleted();
+                tmp += SecondaryOfficeState.IsCompleted();
+                tmp += SecondaryOfficeZip.IsCompleted();
+                tmp += SecondaryOfficeManagerAdministrator.IsCompleted();
+                tmp += SecondaryOfficeManagerAdministratorTelephoneNumber.IsCompleted();
+                tmp += SecondaryOfficeManagerAdministratorFaxNumber.IsCompleted();
+                tmp += SecondaryOfficeNameAffiliatedWithTaxIdNumber.IsCompleted();
+                tmp += SecondaryOfficeFederalTaxIdNumber.IsCompleted();
+                tmp += TertiaryOfficeStreetAddress.IsCompleted();
+                tmp += TertiaryOfficeCity.IsCompleted();
+                tmp += TertiaryOfficeState.IsCompleted();
+                tmp += TertiaryOfficeZip.IsCompleted();
+                tmp += TertiaryOfficeManagerAdministrator.IsCompleted();
+                tmp += TertiaryOfficeManagerAdministratorTelephoneNumber.IsCompleted();
+                tmp += TertiaryOfficeManagerAdministratorFaxNumber.IsCompleted();
+                tmp += TertiaryOfficeNameAffiliatedWithTaxIdNumber.IsCompleted();
+                tmp += TertiaryOfficeFederalTaxIdNumber.IsCompleted();
+
+                return 100*tmp/29;
+            }
+        }
     }
 }

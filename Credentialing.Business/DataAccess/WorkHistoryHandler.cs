@@ -85,13 +85,13 @@ namespace Credentialing.Business.DataAccess
                         retVal.TertiaryZip = reader[Constants.WorkHistoriesColumns.TertiaryZip] as string;
                         retVal.TertiaryStartDate = (DateTime)reader[Constants.WorkHistoriesColumns.TertiaryStartDate];
                         retVal.TertiaryEndDate = (DateTime)reader[Constants.WorkHistoriesColumns.TertiaryEndDate];
-
-                        if (deepLoad)
-                        {
-                            retVal.Attachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "WorkHistoryId", retVal.WorkHistoryId);
-                        }
                     }
                 }
+            }
+
+            if (deepLoad && retVal != null)
+            {
+                retVal.Attachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "WorkHistoryId", retVal.WorkHistoryId);
             }
 
             return retVal;

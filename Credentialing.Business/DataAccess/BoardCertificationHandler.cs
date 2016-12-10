@@ -68,15 +68,15 @@ namespace Credentialing.Business.DataAccess
                         retVal.AdditionalBoards = (bool)reader[Constants.BoardCertificationColumns.AdditionalBoards];
                         retVal.AdditionalListBoardsDates = reader[Constants.BoardCertificationColumns.AdditionalListBoardsDates] as string;
                         retVal.AttachmentId = (int?)reader[Constants.BoardCertificationColumns.Attachment_AttachmentId];
-
-                        if (deepLoad)
-                        {
-                            if (retVal.AttachmentId.HasValue)
-                            {
-                                retVal.Attachment = AttachmentHandler.Instance.GetById(conn, trans, retVal.AttachmentId.Value);
-                            }
-                        }
                     }
+                }
+            }
+
+            if (deepLoad && retVal != null)
+            {
+                if (retVal.AttachmentId.HasValue)
+                {
+                    retVal.Attachment = AttachmentHandler.Instance.GetById(conn, trans, retVal.AttachmentId.Value);
                 }
             }
 

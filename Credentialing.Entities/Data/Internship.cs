@@ -27,10 +27,29 @@ namespace Credentialing.Entities.Data
 
         public string Specialty { get; set; }
 
-        public DateTime SpecialtyFrom { get; set; }
+        public DateTime? SpecialtyFrom { get; set; }
 
-        public DateTime SpecialtyTo { get; set; }
+        public DateTime? SpecialtyTo { get; set; }
 
         public virtual ICollection<Attachment> Attachments { get; set; }
+
+        public virtual int PercentComplete
+        {
+            get
+            {
+                var tmp = Institution.IsCompleted();
+                tmp += ProgramDirector.IsCompleted();
+                tmp += MailingAddress.IsCompleted();
+                tmp += City.IsCompleted();
+                tmp += StateCountry.IsCompleted();
+                tmp += Zip.IsCompleted();
+                tmp += TypeOfInternship.IsCompleted();
+                tmp += Specialty.IsCompleted();
+                tmp += SpecialtyTo.HasValue ? 1 : 0;
+                tmp += SpecialtyFrom.HasValue ? 1 : 0;
+
+                return 100*tmp/10;
+            }
+        }
     }
 }

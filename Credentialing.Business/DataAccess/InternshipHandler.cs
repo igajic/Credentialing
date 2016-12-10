@@ -65,7 +65,7 @@ namespace Credentialing.Business.DataAccess
                 }
             }
 
-            if (deepLoad)
+            if (deepLoad && retVal != null)
             {
                 retVal.Attachments = AttachmentHandler.Instance.GetReferencedAttachments("InternshipId", retVal.InternshipId);
             }

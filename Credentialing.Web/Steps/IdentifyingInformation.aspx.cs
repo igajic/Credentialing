@@ -9,6 +9,8 @@ namespace Credentialing.Web.Steps
 {
     public partial class IdentifyingInformation : Page
     {
+        private int CurrentStep = 1;
+
         #region [Protected methods]
 
         protected void Page_Load(object sender, EventArgs e)
@@ -28,7 +30,7 @@ namespace Credentialing.Web.Steps
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/Steps/Instructions.aspx", true);
+            Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep - 1].Url, true);
             Response.End();
         }
 
@@ -37,7 +39,7 @@ namespace Credentialing.Web.Steps
             if (ValidateFields())
             {
                 SaveFormData();
-                Response.Redirect("/Steps/PracticeInformation.aspx");
+                Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
                 Response.End();
             }
         }
@@ -46,24 +48,10 @@ namespace Credentialing.Web.Steps
         {
             bool retVal = true;
 
-            retVal = ValidationHelper.ValidateTextbox(tboxLastName) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxFirstName) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxMiddleName) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxOtherKnownNames) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxHomeMailingAddress) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxCity) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxState) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxZip) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxHomeTelephoneNumber) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxHomeFaxNumber) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxEmailAddress) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxPagerNumber) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxBirthDate) && retVal;
-            retVal = ValidationHelper.ValidateFullDate(tboxBirthDate) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxBirthPlace) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxSocialSecurityNumber) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxSpecialty) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxSubspeciality) && retVal;
+            if (!string.IsNullOrWhiteSpace(tboxBirthDate.Text))
+            {
+                retVal = ValidationHelper.ValidateFullDate(tboxBirthDate) && retVal;
+            }
 
             return retVal;
         }
@@ -74,19 +62,21 @@ namespace Credentialing.Web.Steps
 
             if (user != null && MemberHelper.IsUserPhysician(user.UserName))
             {
-                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey);
+                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey, true);
 
-                if (physicianFormData != null && physicianFormData.IdentifyingInformationId.HasValue)
+                StepsHelper.Instance.UpdateSteps(physicianFormData);
+
+                if (physicianFormData != null)
                 {
-                    var data = IdentifyingInformationHandler.Instance.GetById(physicianFormData.IdentifyingInformationId.Value);
-
-                    LoadFormData(data);
+                    LoadFormData(physicianFormData.IdentifyingInformation);
                 }
             }
         }
 
         private void LoadFormData(Entities.Data.IdentifyingInformation formData)
         {
+            if(formData == null) return;
+
             tboxLastName.Text = formData.LastName;
             tboxFirstName.Text = formData.FirstName;
             tboxMiddleName.Text = formData.MiddleName;
@@ -99,7 +89,7 @@ namespace Credentialing.Web.Steps
             tboxHomeFaxNumber.Text = formData.HomeFaxNumber;
             tboxEmailAddress.Text = formData.EmailAddress;
             tboxPagerNumber.Text = formData.PagerNumber;
-            tboxBirthDate.Text = formData.BirthDate.ToString("MM/dd/yyyy");
+            tboxBirthDate.Text = formData.BirthDate.HasValue ? formData.BirthDate.Value.ToString("MM/dd/yyyy") : string.Empty;
             tboxBirthPlace.Text = formData.BirthPlace;
             tboxSocialSecurityNumber.Text = formData.SocialSecurityNumber;
             tboxSpecialty.Text = formData.Specialty;
@@ -137,7 +127,7 @@ namespace Credentialing.Web.Steps
             formData.HomeFaxNumber = tboxHomeFaxNumber.Text;
             formData.EmailAddress = tboxEmailAddress.Text;
             formData.PagerNumber = tboxPagerNumber.Text;
-            formData.BirthDate = DateHelper.ParseDate(tboxBirthDate.Text);
+            formData.BirthDate = string.IsNullOrWhiteSpace(tboxBirthDate.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxBirthDate.Text);
             formData.BirthPlace = tboxBirthPlace.Text;
             formData.SocialSecurityNumber = tboxSocialSecurityNumber.Text;
             formData.Specialty = tboxSpecialty.Text;
@@ -159,7 +149,7 @@ namespace Credentialing.Web.Steps
 
             if (fuAlienRegistrationCard.HasFile)
             {
-                formData.Attachment = new Attachment()
+                formData.Attachment = new Attachment
                 {
                     FileName = fuAlienRegistrationCard.FileName,
                     Content = fuAlienRegistrationCard.FileBytes

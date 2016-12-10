@@ -52,5 +52,40 @@
         public string TertiaryState { get; set; }
 
         public string TertiaryZip { get; set; }
+
+        public virtual int PercentComplete
+        {
+            get
+            {
+                // primary
+                var tmp = PrimaryNameReference.IsCompleted();
+                tmp += PrimarySpecialty.IsCompleted();
+                tmp += PrimaryTelephoneNumber.IsCompleted();
+                tmp += PrimaryMailingAddress.IsCompleted();
+                tmp += PrimaryCity.IsCompleted();
+                tmp += PrimaryState.IsCompleted();
+                tmp += PrimaryZip.IsCompleted();
+
+                // secondary
+                tmp += SecondaryNameReference.IsCompleted();
+                tmp += SecondarySpecialty.IsCompleted();
+                tmp += SecondaryTelephoneNumber.IsCompleted();
+                tmp += SecondaryMailingAddress.IsCompleted();
+                tmp += SecondaryCity.IsCompleted();
+                tmp += SecondaryState.IsCompleted();
+                tmp += SecondaryZip.IsCompleted();
+
+                // tertiary
+                tmp += TertiaryNameReference.IsCompleted();
+                tmp += TertiarySpecialty.IsCompleted();
+                tmp += TertiaryTelephoneNumber.IsCompleted();
+                tmp += TertiaryMailingAddress.IsCompleted();
+                tmp += TertiaryCity.IsCompleted();
+                tmp += TertiaryState.IsCompleted();
+                tmp += TertiaryZip.IsCompleted();
+
+                return 100 * tmp / 21;
+            }
+        }
     }
 }

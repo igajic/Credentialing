@@ -66,12 +66,12 @@ namespace Credentialing.Business.DataAccess
                         retVal.QuestionK = (bool)reader[Constants.AttestationQuestionsColumns.QuestionK];
                         retVal.QuestionL = (bool)reader[Constants.AttestationQuestionsColumns.QuestionL];
                         retVal.QuestionM = (bool)reader[Constants.AttestationQuestionsColumns.QuestionM];
-
-                        if (deepLoad)
-                        {
-                            retVal.AdditionalSheets = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "AttestationQuestionsId", retVal.AttestationQuestionsId);
-                        }
                     }
+                }
+
+                if (deepLoad && retVal != null)
+                {
+                    retVal.AdditionalSheets = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "AttestationQuestionsId", retVal.AttestationQuestionsId);
                 }
             }
 

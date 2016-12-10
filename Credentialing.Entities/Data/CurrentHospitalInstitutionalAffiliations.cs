@@ -22,7 +22,7 @@ namespace Credentialing.Entities.Data
 
         public string CurrentPrimaryDepartmentStatus { get; set; }
 
-        public DateTime CurrentPrimaryAppointmentDate { get; set; }
+        public DateTime? CurrentPrimaryAppointmentDate { get; set; }
 
         // secondary
         public string CurrentSecondaryAdmittingHospital { get; set; }
@@ -35,7 +35,7 @@ namespace Credentialing.Entities.Data
 
         public string CurrentSecondaryDepartmentStatus { get; set; }
 
-        public DateTime CurrentSecondaryAppointmentDate { get; set; }
+        public DateTime? CurrentSecondaryAppointmentDate { get; set; }
 
         // tertiary
         public string CurrentTertiaryAdmittingHospital { get; set; }
@@ -48,8 +48,7 @@ namespace Credentialing.Entities.Data
 
         public string CurrentTertiaryDepartmentStatus { get; set; }
 
-        public DateTime CurrentTertiaryAppointmentDate { get; set; }
-
+        public DateTime? CurrentTertiaryAppointmentDate { get; set; }
 
         // previous affiliations
         // primary
@@ -63,7 +62,7 @@ namespace Credentialing.Entities.Data
 
         public string PreviousPrimaryDepartmentStatus { get; set; }
 
-        public DateTime PreviousPrimaryAppointmentDate { get; set; }
+        public DateTime? PreviousPrimaryAppointmentDate { get; set; }
 
         // secondary
         public string PreviousSecondaryAdmittingHospital { get; set; }
@@ -76,7 +75,7 @@ namespace Credentialing.Entities.Data
 
         public string PreviousSecondaryDepartmentStatus { get; set; }
 
-        public DateTime PreviousSecondaryAppointmentDate { get; set; }
+        public DateTime? PreviousSecondaryAppointmentDate { get; set; }
 
         // tertiary
         public string PreviousTertiaryAdmittingHospital { get; set; }
@@ -89,7 +88,61 @@ namespace Credentialing.Entities.Data
 
         public string PreviousTertiaryDepartmentStatus { get; set; }
 
-        public DateTime PreviousTertiaryAppointmentDate { get; set; }
-        
+        public DateTime? PreviousTertiaryAppointmentDate { get; set; }
+
+        public int PercentComplete
+        {
+            get
+            {
+                var tmp = CurrentPrimaryAdmittingHospital.IsCompleted();
+                tmp += CurrentPrimaryCity.IsCompleted();
+                tmp += CurrentPrimaryState.IsCompleted();
+                tmp += CurrentPrimaryZip.IsCompleted();
+                tmp += CurrentPrimaryDepartmentStatus.IsCompleted();
+                tmp += CurrentPrimaryAppointmentDate.HasValue ? 1 : 0;
+
+                // secondary
+                tmp += CurrentSecondaryAdmittingHospital.IsCompleted();
+                tmp += CurrentSecondaryCity.IsCompleted();
+                tmp += CurrentSecondaryState.IsCompleted();
+                tmp += CurrentSecondaryZip.IsCompleted();
+                tmp += CurrentSecondaryDepartmentStatus.IsCompleted();
+                tmp += CurrentSecondaryAppointmentDate.HasValue ? 1 : 0;
+
+                // tertiary
+                tmp += CurrentTertiaryAdmittingHospital.IsCompleted();
+                tmp += CurrentTertiaryCity.IsCompleted();
+                tmp += CurrentTertiaryState.IsCompleted();
+                tmp += CurrentTertiaryZip.IsCompleted();
+                tmp += CurrentTertiaryDepartmentStatus.IsCompleted();
+                tmp += CurrentTertiaryAppointmentDate.HasValue ? 1 : 0;
+
+                // previous affiliations
+                // primary
+                tmp += PreviousPrimaryAdmittingHospital.IsCompleted();
+                tmp += PreviousPrimaryCity.IsCompleted();
+                tmp += PreviousPrimaryState.IsCompleted();
+                tmp += PreviousPrimaryZip.IsCompleted();
+                tmp += PreviousPrimaryDepartmentStatus.IsCompleted();
+                tmp += PreviousPrimaryAppointmentDate.HasValue ? 1 : 0;
+
+                // secondary
+                tmp += PreviousSecondaryAdmittingHospital.IsCompleted();
+                tmp += PreviousSecondaryCity.IsCompleted();
+                tmp += PreviousSecondaryState.IsCompleted();
+                tmp += PreviousSecondaryZip.IsCompleted();
+                tmp += PreviousSecondaryDepartmentStatus.IsCompleted();
+                tmp += PreviousSecondaryAppointmentDate.HasValue ? 1 : 0;
+
+                // tertiary
+                tmp += PreviousTertiaryAdmittingHospital.IsCompleted();
+                tmp += PreviousTertiaryCity.IsCompleted();
+                tmp += PreviousTertiaryState.IsCompleted();
+                tmp += PreviousTertiaryZip.IsCompleted();
+                tmp += PreviousTertiaryDepartmentStatus.IsCompleted();
+                tmp += PreviousTertiaryAppointmentDate.HasValue ? 1 : 0;
+                return 100 * tmp / 36;
+            }
+        }
     }
 }

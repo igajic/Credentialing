@@ -74,6 +74,8 @@ namespace Credentialing.Business.DataAccess
                         retVal.Add(ReadAttachmentFields(reader));
                     }
                 }
+
+                reader.Close();
             }
 
             return retVal;

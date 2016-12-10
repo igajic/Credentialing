@@ -16,7 +16,7 @@ namespace Credentialing.Entities.Data
 
         public string DegreeReceived { get; set; }
 
-        public DateTime DateGraduation { get; set; }
+        public DateTime? DateGraduation { get; set; }
 
         public string MailingAddress { get; set; }
 
@@ -27,5 +27,22 @@ namespace Credentialing.Entities.Data
         public string MailingZip { get; set; }
 
         public List<Attachment> AttachedDocuments { get; set; }
+
+
+        public int PercentComplete
+        {
+            get
+            {
+                var tmp = CollegeUniverityName.IsCompleted();
+                tmp += DegreeReceived.IsCompleted();
+                tmp += DateGraduation.HasValue ? 1 : 0;
+                tmp += MailingAddress.IsCompleted();
+                tmp += MailingCity.IsCompleted();
+                tmp += MailingState.IsCompleted();
+                tmp += MailingZip.IsCompleted();
+
+                return 100*tmp/7;
+            }
+        }
     }
 }

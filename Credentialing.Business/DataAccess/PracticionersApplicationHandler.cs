@@ -61,81 +61,81 @@ namespace Credentialing.Business.DataAccess
                         retVal.ProfessionalLiabilityId = reader[Constants.PracticionerApplicationColumns.ProfessionalLiabilityId] as int?;
                         retVal.ResidenciesFellowshipId = reader[Constants.PracticionerApplicationColumns.ResidenciesFellowshipId] as int?;
                         retVal.WorkHistoryId = reader[Constants.PracticionerApplicationColumns.WorkHistoryId] as int?;
-
-                        if (deepLoad)
-                        {
-                            // load referenced tables
-                            if (retVal.IdentifyingInformationId.HasValue)
-                            {
-                                retVal.IdentifyingInformation = IdentifyingInformationHandler.Instance.GetById(retVal.IdentifyingInformationId.Value, true);
-                            }
-
-                            if (retVal.PracticeInformationId.HasValue)
-                            {
-                                retVal.PracticeInformation = PracticeInformationHandler.Instance.GetById(retVal.PracticeInformationId.Value, true);
-                            }
-
-                            if (retVal.EducationId.HasValue)
-                            {
-                                retVal.Education = EducationHandler.Instance.GetById(retVal.EducationId.Value, true);
-                            }
-
-                            if (retVal.MedicalProfessionalEducationId.HasValue)
-                            {
-                                retVal.MedicalProfessionalEducation = MedicalProfessionalEducationHandler.Instance.GetById(retVal.MedicalProfessionalEducationId.Value, true);
-                            }
-
-                            if (retVal.InternshipId.HasValue)
-                            {
-                                retVal.Internship = InternshipHandler.Instance.GetById(retVal.InternshipId.Value, true);
-                            }
-
-                            if (retVal.ResidenciesFellowshipId.HasValue)
-                            {
-                                retVal.ResidenciesFellowship = ResidenciesFellowshipHandler.Instance.GetById(retVal.ResidenciesFellowshipId.Value, true);
-                            }
-
-                            if (retVal.BoardCertificationId.HasValue)
-                            {
-                                retVal.BoardCertification = BoardCertificationHandler.Instance.GetById(retVal.BoardCertificationId.Value, true);
-                            }
-
-                            if (retVal.OtherCertificationId.HasValue)
-                            {
-                                retVal.OtherCertification = OtherCertificationsHandler.Instance.GetById(retVal.OtherCertificationId.Value, true);
-                            }
-
-                            if (retVal.MedicalProfessionalLicensureRegistrationId.HasValue)
-                            {
-                                retVal.MedicalProfessionalLicensureRegistration = MedicalProfessionalLicensureRegistrationHandler.Instance.GetById(retVal.MedicalProfessionalLicensureRegistrationId.Value, true);
-                            }
-
-                            if (retVal.OtherStateMedicalProfessionalLicenseId.HasValue)
-                            {
-                                retVal.OtherStateMedicalProfessionalLicense = OtherStateMedicalProfessionalLicensesHandler.Instance.GetById(retVal.OtherStateMedicalProfessionalLicenseId.Value, true);
-                            }
-
-                            if (retVal.ProfessionalLiabilityId.HasValue)
-                            {
-                                retVal.ProfessionalLiability = ProfessionalLiabilityHandler.Instance.GetById(retVal.ProfessionalLiabilityId.Value, true);
-                            }
-
-                            if (retVal.CurrentHospitalInstitutionalAffiliationId.HasValue)
-                            {
-                                retVal.CurrentHospitalInstitutionalAffiliations = CurrentHospitalInstitutionalAffiliationsHandler.Instance.GetById(retVal.CurrentHospitalInstitutionalAffiliationId.Value, true);
-                            }
-
-                            if (retVal.PeerReferenceId.HasValue)
-                            {
-                                retVal.WorkHistory = WorkHistoryHandler.Instance.GetById(retVal.WorkHistoryId.Value, true);
-                            }
-
-                            if (retVal.AttestationQuestionId.HasValue)
-                            {
-                                retVal.AttestationQuestions = AttestationQuestionsHandler.Instance.GetById(retVal.AttestationQuestionId.Value, true);
-                            }
-                        }
                     }
+                }
+            }
+
+            if (deepLoad && retVal != null)
+            {
+                // load referenced tables
+                if (retVal.IdentifyingInformationId.HasValue)
+                {
+                    retVal.IdentifyingInformation = IdentifyingInformationHandler.Instance.GetById(retVal.IdentifyingInformationId.Value, true);
+                }
+
+                if (retVal.PracticeInformationId.HasValue)
+                {
+                    retVal.PracticeInformation = PracticeInformationHandler.Instance.GetById(retVal.PracticeInformationId.Value, true);
+                }
+
+                if (retVal.EducationId.HasValue)
+                {
+                    retVal.Education = EducationHandler.Instance.GetById(retVal.EducationId.Value, true);
+                }
+
+                if (retVal.MedicalProfessionalEducationId.HasValue)
+                {
+                    retVal.MedicalProfessionalEducation = MedicalProfessionalEducationHandler.Instance.GetById(retVal.MedicalProfessionalEducationId.Value, true);
+                }
+
+                if (retVal.InternshipId.HasValue)
+                {
+                    retVal.Internship = InternshipHandler.Instance.GetById(retVal.InternshipId.Value, true);
+                }
+
+                if (retVal.ResidenciesFellowshipId.HasValue)
+                {
+                    retVal.ResidenciesFellowship = ResidenciesFellowshipHandler.Instance.GetById(retVal.ResidenciesFellowshipId.Value, true);
+                }
+
+                if (retVal.BoardCertificationId.HasValue)
+                {
+                    retVal.BoardCertification = BoardCertificationHandler.Instance.GetById(retVal.BoardCertificationId.Value, true);
+                }
+
+                if (retVal.OtherCertificationId.HasValue)
+                {
+                    retVal.OtherCertification = OtherCertificationsHandler.Instance.GetById(retVal.OtherCertificationId.Value, true);
+                }
+
+                if (retVal.MedicalProfessionalLicensureRegistrationId.HasValue)
+                {
+                    retVal.MedicalProfessionalLicensureRegistration = MedicalProfessionalLicensureRegistrationHandler.Instance.GetById(retVal.MedicalProfessionalLicensureRegistrationId.Value, true);
+                }
+
+                if (retVal.OtherStateMedicalProfessionalLicenseId.HasValue)
+                {
+                    retVal.OtherStateMedicalProfessionalLicense = OtherStateMedicalProfessionalLicensesHandler.Instance.GetById(retVal.OtherStateMedicalProfessionalLicenseId.Value, true);
+                }
+
+                if (retVal.ProfessionalLiabilityId.HasValue)
+                {
+                    retVal.ProfessionalLiability = ProfessionalLiabilityHandler.Instance.GetById(retVal.ProfessionalLiabilityId.Value, true);
+                }
+
+                if (retVal.CurrentHospitalInstitutionalAffiliationId.HasValue)
+                {
+                    retVal.CurrentHospitalInstitutionalAffiliations = CurrentHospitalInstitutionalAffiliationsHandler.Instance.GetById(retVal.CurrentHospitalInstitutionalAffiliationId.Value, true);
+                }
+
+                if (retVal.PeerReferenceId.HasValue)
+                {
+                    retVal.WorkHistory = WorkHistoryHandler.Instance.GetById(retVal.WorkHistoryId.Value, true);
+                }
+
+                if (retVal.AttestationQuestionId.HasValue)
+                {
+                    retVal.AttestationQuestions = AttestationQuestionsHandler.Instance.GetById(retVal.AttestationQuestionId.Value, true);
                 }
             }
 

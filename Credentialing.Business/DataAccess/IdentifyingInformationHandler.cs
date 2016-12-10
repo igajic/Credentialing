@@ -74,18 +74,17 @@ namespace Credentialing.Business.DataAccess
                         retVal.Specialty = reader[Constants.IdentifyingInformationColumns.Specialty] as string;
                         retVal.RaceEthnicity = reader[Constants.IdentifyingInformationColumns.RaceEthnicity] as string;
                         retVal.Subspecialties = reader[Constants.IdentifyingInformationColumns.Subspecialties] as string;
-
-                        if (deepLoad)
-                        {
-                            if (retVal.AttachmentId.HasValue)
-                            {
-                                retVal.Attachment = AttachmentHandler.Instance.GetById(conn, trans, retVal.AttachmentId.Value);
-                            }
-                        }
                     }
                 }
             }
 
+            if (deepLoad && retVal != null)
+            {
+                if (retVal.AttachmentId.HasValue)
+                {
+                    retVal.Attachment = AttachmentHandler.Instance.GetById(conn, trans, retVal.AttachmentId.Value);
+                }
+            }
             return retVal;
         }
 

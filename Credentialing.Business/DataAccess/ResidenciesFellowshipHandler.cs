@@ -88,13 +88,13 @@ namespace Credentialing.Business.DataAccess
                         retVal.TertiaryFrom = (DateTime)reader[Constants.ResidenciesFellowshipsColumns.TertiaryFrom];
                         retVal.TertiaryTo = (DateTime)reader[Constants.ResidenciesFellowshipsColumns.TertiaryTo];
                         retVal.TertiaryCompleted = (bool)reader[Constants.ResidenciesFellowshipsColumns.TertiaryCompleted];
-
-                        if (deepLoad)
-                        {
-                            retVal.Attachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "ResidenciesFellowshipId", retVal.ResidenciesFellowshipId);
-                        }
                     }
                 }
+            }
+
+            if (deepLoad && retVal != null)
+            {
+                retVal.Attachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "ResidenciesFellowshipId", retVal.ResidenciesFellowshipId);
             }
 
             return retVal;

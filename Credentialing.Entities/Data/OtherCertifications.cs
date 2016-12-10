@@ -16,7 +16,7 @@ namespace Credentialing.Entities.Data
 
         public string PrimaryNumber { get; set; }
 
-        public DateTime PrimaryDate { get; set; }
+        public DateTime? PrimaryDate { get; set; }
 
         // secondary
 
@@ -24,8 +24,24 @@ namespace Credentialing.Entities.Data
 
         public string SecondaryNumber { get; set; }
 
-        public DateTime SecondaryDate { get; set; }
+        public DateTime? SecondaryDate { get; set; }
 
         public virtual ICollection<Attachment> Attachments { get; set; }
+
+        public virtual int PercentComplete
+        {
+            get
+            {
+                var tmp = PrimaryType.IsCompleted();
+                tmp += PrimaryNumber.IsCompleted();
+                tmp += PrimaryDate.HasValue ? 1 : 0;
+
+                tmp += SecondaryType.IsCompleted();
+                tmp += SecondaryNumber.IsCompleted();
+                tmp += SecondaryDate.HasValue ? 1 : 0;
+
+                return 100*tmp/6;
+            }
+        }
     }
 }

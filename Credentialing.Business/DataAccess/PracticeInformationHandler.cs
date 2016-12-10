@@ -77,8 +77,6 @@ namespace Credentialing.Business.DataAccess
                         retVal.TertiaryOfficeCity = reader[Constants.PracticeInformationColumns.TertiaryOfficeCity] as string;
                         retVal.TertiaryOfficeState = reader[Constants.PracticeInformationColumns.TertiaryOfficeState] as string;
                         retVal.TertiaryOfficeZip = reader[Constants.PracticeInformationColumns.TertiaryOfficeZip] as string;
-                        retVal.TertiaryOfficeTelephoneNumber = reader[Constants.PracticeInformationColumns.TertiaryOfficeTelephoneNumber] as string;
-                        retVal.TertiaryOfficeFaxNumber = reader[Constants.PracticeInformationColumns.TertiaryOfficeFaxNumber] as string;
                         retVal.TertiaryOfficeManagerAdministrator = reader[Constants.PracticeInformationColumns.TertiaryOfficeManagerAdministrator] as string;
                         retVal.TertiaryOfficeManagerAdministratorTelephoneNumber = reader[Constants.PracticeInformationColumns.TertiaryOfficeManagerAdministratorTelephoneNumber] as string;
                         retVal.TertiaryOfficeManagerAdministratorFaxNumber = reader[Constants.PracticeInformationColumns.TertiaryOfficeManagerAdministratorFaxNumber] as string;
@@ -87,16 +85,17 @@ namespace Credentialing.Business.DataAccess
                     }
                 }
             }
+
             return retVal;
         }
 
         public int Insert(SqlConnection conn, SqlTransaction trans, PracticeInformation practiceInformation)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO PracticeInformations
-                                                    (PracticeName, DepartmentName, PrimaryOfficeStreetAddress, PrimaryOfficeCityStateZip, PrimaryOfficeTelephoneNumber, PrimaryOfficeFaxNumber, PrimaryOfficeManagerAdministrator, PrimaryOfficeManagerAdministratorTelephoneNumber, PrimaryOfficeManagerAdministratorFaxNumber, PrimaryOfficeNameAffiliatedWithTaxIdNumber, PrimaryOfficeFederalTaxIdNumber, SecondaryOfficeStreetAddress, SecondaryOfficeCity, SecondaryOfficeState, SecondaryOfficeZip, SecondaryOfficeManagerAdministrator, SecondaryOfficeManagerAdministratorTelephoneNumber, SecondaryOfficeManagerAdministratorFaxNumber, SecondaryOfficeNameAffiliatedWithTaxIdNumber,SecondaryOfficeFederalTaxIdNumber, TertiaryOfficeStreetAddress, TertiaryOfficeCity, TertiaryOfficeState, TertiaryOfficeZip, TertiaryOfficeTelephoneNumber, TertiaryOfficeFaxNumber, TertiaryOfficeManagerAdministrator, TertiaryOfficeManagerAdministratorTelephoneNumber, TertiaryOfficeManagerAdministratorFaxNumber, TertiaryOfficeNameAffiliatedWithTaxIdNumber, TertiaryOfficeFederalTaxIdNumber)
+                                                    (PracticeName, DepartmentName, PrimaryOfficeStreetAddress, PrimaryOfficeCityStateZip, PrimaryOfficeTelephoneNumber, PrimaryOfficeFaxNumber, PrimaryOfficeManagerAdministrator, PrimaryOfficeManagerAdministratorTelephoneNumber, PrimaryOfficeManagerAdministratorFaxNumber, PrimaryOfficeNameAffiliatedWithTaxIdNumber, PrimaryOfficeFederalTaxIdNumber, SecondaryOfficeStreetAddress, SecondaryOfficeCity, SecondaryOfficeState, SecondaryOfficeZip, SecondaryOfficeManagerAdministrator, SecondaryOfficeManagerAdministratorTelephoneNumber, SecondaryOfficeManagerAdministratorFaxNumber, SecondaryOfficeNameAffiliatedWithTaxIdNumber,SecondaryOfficeFederalTaxIdNumber, TertiaryOfficeStreetAddress, TertiaryOfficeCity, TertiaryOfficeState, TertiaryOfficeZip, TertiaryOfficeManagerAdministrator, TertiaryOfficeManagerAdministratorTelephoneNumber, TertiaryOfficeManagerAdministratorFaxNumber, TertiaryOfficeNameAffiliatedWithTaxIdNumber, TertiaryOfficeFederalTaxIdNumber)
                                                     OUTPUT INSERTED.PracticeInformationId
                                                     VALUES
-                                                    (@practiceName, @departmentName, @primaryOfficeStreetAddress, @primaryOfficeCityStateZip, @primaryOfficeTelephoneNumber, @primaryOfficeFaxNumber, @primaryOfficeManagerAdministrator, @primaryOfficeManagerAdministratorTelephoneNumber, @primaryOfficeManagerAdministratorFaxNumber, @primaryOfficeNameAffiliatedWithTaxIdNumber, @primaryOfficeFederalTaxIdNumber, @secondaryOfficeStreetAddress, @secondaryOfficeCity, @secondaryOfficeState, @secondaryOfficeZip, @secondaryOfficeManagerAdministrator, @secondaryOfficeManagerAdministratorTelephoneNumber, @secondaryOfficeManagerAdministratorFaxNumber, @secondaryOfficeNameAffiliatedWithTaxIdNumber, @secondaryOfficeFederalTaxIdNumber, @tertiaryOfficeStreetAddress, @tertiaryOfficeCity, @tertiaryOfficeState, @tertiaryOfficeZip, @tertiaryOfficeTelephoneNumber, @tertiaryOfficeFaxNumber, @tertiaryOfficeManagerAdministrator, @tertiaryOfficeManagerAdministratorTelephoneNumber, @tertiaryOfficeManagerAdministratorFaxNumber, @tertiaryOfficeNameAffiliatedWithTaxIdNumber, @tertiaryOfficeFederalTaxIdNumber)", conn);
+                                                    (@practiceName, @departmentName, @primaryOfficeStreetAddress, @primaryOfficeCityStateZip, @primaryOfficeTelephoneNumber, @primaryOfficeFaxNumber, @primaryOfficeManagerAdministrator, @primaryOfficeManagerAdministratorTelephoneNumber, @primaryOfficeManagerAdministratorFaxNumber, @primaryOfficeNameAffiliatedWithTaxIdNumber, @primaryOfficeFederalTaxIdNumber, @secondaryOfficeStreetAddress, @secondaryOfficeCity, @secondaryOfficeState, @secondaryOfficeZip, @secondaryOfficeManagerAdministrator, @secondaryOfficeManagerAdministratorTelephoneNumber, @secondaryOfficeManagerAdministratorFaxNumber, @secondaryOfficeNameAffiliatedWithTaxIdNumber, @secondaryOfficeFederalTaxIdNumber, @tertiaryOfficeStreetAddress, @tertiaryOfficeCity, @tertiaryOfficeState, @tertiaryOfficeZip, @tertiaryOfficeManagerAdministrator, @tertiaryOfficeManagerAdministratorTelephoneNumber, @tertiaryOfficeManagerAdministratorFaxNumber, @tertiaryOfficeNameAffiliatedWithTaxIdNumber, @tertiaryOfficeFederalTaxIdNumber)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
@@ -128,8 +127,6 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeCity", practiceInformation.TertiaryOfficeCity);
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeState", practiceInformation.TertiaryOfficeState);
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeZip", practiceInformation.TertiaryOfficeZip);
-            sqlCommand.Parameters.AddWithValue("@tertiaryOfficeTelephoneNumber", practiceInformation.TertiaryOfficeTelephoneNumber);
-            sqlCommand.Parameters.AddWithValue("@tertiaryOfficeFaxNumber", practiceInformation.TertiaryOfficeFaxNumber);
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeManagerAdministrator", practiceInformation.TertiaryOfficeManagerAdministrator);
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeManagerAdministratorTelephoneNumber", practiceInformation.TertiaryOfficeManagerAdministratorTelephoneNumber);
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeManagerAdministratorFaxNumber", practiceInformation.TertiaryOfficeManagerAdministratorFaxNumber);
@@ -185,8 +182,6 @@ namespace Credentialing.Business.DataAccess
                                                         TertiaryOfficeCity = @tertiaryOfficeCity,
                                                         TertiaryOfficeState = @tertiaryOfficeState,
                                                         TertiaryOfficeZip = @tertiaryOfficeZip,
-                                                        TertiaryOfficeTelephoneNumber = @tertiaryOfficeTelephoneNumber,
-                                                        TertiaryOfficeFaxNumber = @tertiaryOfficeFaxNumber,
                                                         TertiaryOfficeManagerAdministrator = @tertiaryOfficeManagerAdministrator,
                                                         TertiaryOfficeManagerAdministratorTelephoneNumber = @tertiaryOfficeManagerAdministratorTelephoneNumber,
                                                         TertiaryOfficeManagerAdministratorFaxNumber = @tertiaryOfficeManagerAdministratorFaxNumber,
@@ -226,8 +221,6 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeCity", practiceInformation.TertiaryOfficeCity);
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeState", practiceInformation.TertiaryOfficeState);
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeZip", practiceInformation.TertiaryOfficeZip);
-            sqlCommand.Parameters.AddWithValue("@tertiaryOfficeTelephoneNumber", practiceInformation.TertiaryOfficeTelephoneNumber);
-            sqlCommand.Parameters.AddWithValue("@tertiaryOfficeFaxNumber", practiceInformation.TertiaryOfficeFaxNumber);
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeManagerAdministrator", practiceInformation.TertiaryOfficeManagerAdministrator);
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeManagerAdministratorTelephoneNumber", practiceInformation.TertiaryOfficeManagerAdministratorTelephoneNumber);
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeManagerAdministratorFaxNumber", practiceInformation.TertiaryOfficeManagerAdministratorFaxNumber);

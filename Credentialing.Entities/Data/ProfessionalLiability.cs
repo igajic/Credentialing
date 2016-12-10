@@ -14,7 +14,7 @@ namespace Credentialing.Entities.Data
 
         public string CurrentPolicyNumber { get; set; }
 
-        public DateTime InitialEffectiverDate { get; set; }
+        public DateTime? InitialEffectiverDate { get; set; }
 
         public string CurrentMailingAddress { get; set; }
 
@@ -24,11 +24,11 @@ namespace Credentialing.Entities.Data
 
         public string CurrentZip { get; set; }
 
-        public decimal CurrentPerClaimAmount { get; set; }
+        public decimal? CurrentPerClaimAmount { get; set; }
 
-        public decimal CurrentAggregateAmount { get; set; }
+        public decimal? CurrentAggregateAmount { get; set; }
 
-        public DateTime CurrentExpirationDate { get; set; }
+        public DateTime? CurrentExpirationDate { get; set; }
 
         // Previous liability carriers
 
@@ -37,9 +37,9 @@ namespace Credentialing.Entities.Data
 
         public string FirstPolicyNumber { get; set; }
 
-        public DateTime FirstFromDate { get; set; }
+        public DateTime? FirstFromDate { get; set; }
 
-        public DateTime FirstToDate { get; set; }
+        public DateTime? FirstToDate { get; set; }
 
         public string FirstMailingAddress { get; set; }
 
@@ -54,9 +54,9 @@ namespace Credentialing.Entities.Data
 
         public string SecondPolicyNumber { get; set; }
 
-        public DateTime SecondFromDate { get; set; }
+        public DateTime? SecondFromDate { get; set; }
 
-        public DateTime SecondToDate { get; set; }
+        public DateTime? SecondToDate { get; set; }
 
         public string SecondMailingAddress { get; set; }
 
@@ -71,9 +71,9 @@ namespace Credentialing.Entities.Data
 
         public string ThirdPolicyNumber { get; set; }
 
-        public DateTime ThirdFromDate { get; set; }
+        public DateTime? ThirdFromDate { get; set; }
 
-        public DateTime ThirdToDate { get; set; }
+        public DateTime? ThirdToDate { get; set; }
 
         public string ThirdMailingAddress { get; set; }
 
@@ -88,9 +88,9 @@ namespace Credentialing.Entities.Data
 
         public string FourthPolicyNumber { get; set; }
 
-        public DateTime FourthFromDate { get; set; }
+        public DateTime? FourthFromDate { get; set; }
 
-        public DateTime FourthToDate { get; set; }
+        public DateTime? FourthToDate { get; set; }
 
         public string FourthMailingAddress { get; set; }
 
@@ -102,5 +102,65 @@ namespace Credentialing.Entities.Data
 
         // reference fields
         public virtual Attachment CurrentLiabilityPolicy { get; set; }
+
+        public virtual int PercentComplete
+        {
+            get
+            {
+                var tmp = CurrentInsuranceCarrier.IsCompleted();
+                tmp += CurrentPolicyNumber.IsCompleted();
+                tmp += InitialEffectiverDate.HasValue ? 1 : 0;
+                tmp += CurrentMailingAddress.IsCompleted();
+                tmp += CurrentCity.IsCompleted();
+                tmp += CurrentState.IsCompleted();
+                tmp += CurrentZip.IsCompleted();
+                tmp += CurrentPerClaimAmount.HasValue ? 1 : 0;
+                tmp += CurrentAggregateAmount.HasValue ? 1 : 0;
+                tmp += CurrentExpirationDate.HasValue ? 1 : 0;
+                // Previous liability carriers
+
+                // firstUpda
+                tmp += FirstPolicyCarrierName.IsCompleted();
+                tmp += FirstPolicyNumber.IsCompleted();
+                tmp += FirstFromDate.HasValue ? 1 : 0;
+                tmp += FirstToDate.HasValue ? 1 : 0;
+                tmp += FirstMailingAddress.IsCompleted();
+                tmp += FirstCity.IsCompleted();
+                tmp += FirstState.IsCompleted();
+                tmp += FirstZip.IsCompleted();
+
+                // second
+                tmp += SecondPolicyCarrierName.IsCompleted();
+                tmp += SecondPolicyNumber.IsCompleted();
+                tmp += SecondFromDate.HasValue ? 1 : 0;
+                tmp += SecondToDate.HasValue ? 1 : 0;
+                tmp += SecondMailingAddress.IsCompleted();
+                tmp += SecondCity.IsCompleted();
+                tmp += SecondState.IsCompleted();
+                tmp += SecondZip.IsCompleted();
+
+                // third
+                tmp += ThirdPolicyCarrierName.IsCompleted();
+                tmp += ThirdPolicyNumber.IsCompleted();
+                tmp += ThirdFromDate.HasValue ? 1 : 0;
+                tmp += ThirdToDate.HasValue ? 1 : 0;
+                tmp += ThirdMailingAddress.IsCompleted();
+                tmp += ThirdCity.IsCompleted();
+                tmp += ThirdState.IsCompleted();
+                tmp += ThirdZip.IsCompleted();
+
+                // fourth
+                tmp += FourthPolicyCarrierName.IsCompleted();
+                tmp += FourthPolicyNumber.IsCompleted();
+                tmp += FourthFromDate.HasValue ? 1 : 0;
+                tmp += FourthToDate.HasValue ? 1 : 0;
+                tmp += FourthMailingAddress.IsCompleted();
+                tmp += FourthCity.IsCompleted();
+                tmp += FourthState.IsCompleted();
+                tmp += FourthZip.IsCompleted();
+
+                return 100 * tmp / 42;
+            }
+        }
     }
 }

@@ -9,6 +9,8 @@ namespace Credentialing.Web.Steps
 {
     public partial class Education : Page
     {
+        public int CurrentStep = 3;
+
         #region [Protected regions]
 
         protected void Page_Load(object sender, EventArgs e)
@@ -30,7 +32,7 @@ namespace Credentialing.Web.Steps
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/Steps/PracticeInformation.aspx", true);
+            Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep - 1].Url, true);
             Response.End();
         }
 
@@ -39,7 +41,7 @@ namespace Credentialing.Web.Steps
             if (ValidateFields())
             {
                 SaveFormData();
-                Response.Redirect("/Steps/MedicalProfessionalEducation.aspx");
+                Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
                 Response.End();
             }
         }
@@ -50,9 +52,9 @@ namespace Credentialing.Web.Steps
 
             if (user != null && MemberHelper.IsUserPhysician(user.UserName))
             {
-                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey);
+                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey, true);
 
-                if (physicianFormData != null && physicianFormData.EducationId.HasValue)
+                if (physicianFormData != null && physicianFormData.Education != null)
                 {
                     var data = EducationHandler.Instance.GetById(physicianFormData.EducationId.Value);
 
@@ -69,7 +71,7 @@ namespace Credentialing.Web.Steps
 
             tboxCollegeUniversityName.Text = data.CollegeUniverityName;
             tboxDegreeReceived.Text = data.DegreeReceived;
-            tboxDateOfGraduation.Text = data.DateGraduation.ToString("MM/yy");
+            tboxDateOfGraduation.Text = data.DateGraduation.HasValue ? data.DateGraduation.Value.ToString("MM/yy") : string.Empty;
             tboxMailingAddress.Text = data.MailingAddress;
             tboxMailingCity.Text = data.MailingCity;
             tboxMailingState.Text = data.MailingState;
@@ -82,7 +84,7 @@ namespace Credentialing.Web.Steps
 
             formData.CollegeUniverityName = tboxCollegeUniversityName.Text;
             formData.DegreeReceived = tboxDegreeReceived.Text;
-            formData.DateGraduation = DateHelper.ParseDate(tboxDateOfGraduation.Text);
+            formData.DateGraduation = string.IsNullOrWhiteSpace(tboxDateOfGraduation.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxDateOfGraduation.Text);
             formData.MailingAddress = tboxMailingAddress.Text;
             formData.MailingCity = tboxMailingCity.Text;
             formData.MailingState = tboxMailingState.Text;

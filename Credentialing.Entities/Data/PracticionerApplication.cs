@@ -72,5 +72,31 @@ namespace Credentialing.Entities.Data
         public virtual WorkHistory WorkHistory { get; set; }
 
         public virtual AttestationQuestions AttestationQuestions { get; set; }
+
+        public virtual int PercentComplete
+        {
+            get
+            {
+                var tmp = 0;
+
+                tmp += IdentifyingInformation == null ? 0 : IdentifyingInformation.PercentComplete;
+                tmp += PracticeInformation == null ? 0 : PracticeInformation.PercentComplete;
+                tmp += Education == null ? 0 : Education.PercentComplete;
+                tmp += MedicalProfessionalEducation == null ? 0 : MedicalProfessionalEducation.PercentComplete;
+                tmp += Internship == null ? 0 : Internship.PercentComplete;
+                tmp += ResidenciesFellowship == null ? 0 : ResidenciesFellowship.PercentComplete;
+                tmp += BoardCertification == null ? 0 : BoardCertification.PercentComplete;
+                tmp += OtherCertification == null ? 0 : OtherCertification.PercentComplete;
+                tmp += MedicalProfessionalLicensureRegistration == null ? 0 : MedicalProfessionalLicensureRegistration.PercentComplete;
+                tmp += OtherStateMedicalProfessionalLicense == null ? 0 : OtherStateMedicalProfessionalLicense.PercentComplete;
+                tmp += ProfessionalLiability == null ? 0 : ProfessionalLiability.PercentComplete;
+                tmp += CurrentHospitalInstitutionalAffiliations == null ? 0 : CurrentHospitalInstitutionalAffiliations.PercentComplete;
+                tmp += PeerReferences == null ? 0 : PeerReferences.PercentComplete;
+                tmp += WorkHistory == null ? 0 : WorkHistory.PercentComplete;
+                tmp += AttestationQuestions == null ? 0 : AttestationQuestions.PercentComplete;
+
+                return tmp/15;
+            }
+        }
     }
 }

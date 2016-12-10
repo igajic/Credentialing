@@ -9,6 +9,10 @@ namespace Credentialing.Web.Steps
 {
     public partial class MedicalProfessionalEducation : Page
     {
+        private int CurrentStep = 4;
+
+        #region [Protected methods]
+
         protected void Page_Load(object sender, EventArgs e)
         {
             btnNext.Click += btnNext_Click;
@@ -21,11 +25,13 @@ namespace Credentialing.Web.Steps
             }
         }
 
+        #endregion [Protected methods]
+
         #region [Private methods]
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/Steps/Education.aspx", true);
+            Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep - 1].Url, true);
             Response.End();
         }
 
@@ -34,7 +40,7 @@ namespace Credentialing.Web.Steps
             if (ValidateFields())
             {
                 SaveFormData();
-                Response.Redirect("/Steps/InternshipPGYI.aspx");
+                Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep - 1].Url);
                 Response.End();
             }
         }
@@ -45,7 +51,7 @@ namespace Credentialing.Web.Steps
 
             formData.PrimaryMedicalProfessionalSchool = tboxMedicalProfessionalSchoolFirst.Text;
             formData.PrimaryDegreeReceived = tboxDegreeReceivedFirst.Text;
-            formData.PrimaryDateOfGraduation = DateHelper.ParseDate(tboxDateGraduationFirst.Text);
+            formData.PrimaryDateOfGraduation = string.IsNullOrWhiteSpace(tboxDateGraduationFirst.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxDateGraduationFirst.Text);
             formData.PrimaryMailingAddress = tboxMailingAdrressFirst.Text;
             formData.PrimaryCity = tboxMailingCityFirst.Text;
             formData.PrimaryStateCountry = tboxMailingStateFirst.Text;
@@ -53,7 +59,7 @@ namespace Credentialing.Web.Steps
 
             formData.SecondaryMedicalProfessionalSchool = tboxMedicalProfessionalSchoolSecond.Text;
             formData.SecondaryDegreeReceived = tboxDegreeReceivedSecond.Text;
-            formData.SecondaryDateOfGraduation = DateHelper.ParseDate(tboxDateGraduationSecond.Text);
+            formData.SecondaryDateOfGraduation = string.IsNullOrWhiteSpace(tboxDateGraduationSecond.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxDateGraduationSecond.Text);
             formData.SecondaryMailingAddress = tboxMailingAdrressSecond.Text;
             formData.SecondaryCity = tboxMailingCitySecond.Text;
             formData.SecondaryStateCountry = tboxMailingStateSecond.Text;
@@ -86,24 +92,17 @@ namespace Credentialing.Web.Steps
 
         private bool ValidateFields()
         {
-            var retVal = ValidationHelper.ValidateTextbox(tboxMedicalProfessionalSchoolFirst);
+            var retVal = true;
 
-            retVal = ValidationHelper.ValidateTextbox(tboxDegreeReceivedFirst) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxDateGraduationFirst) && retVal;
-            retVal = ValidationHelper.ValidateShortDate(tboxDateGraduationFirst) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxMailingAdrressFirst) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxMailingCityFirst) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxMailingStateFirst) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxMailingZipFirst) && retVal;
+            if (!string.IsNullOrWhiteSpace(tboxDateGraduationFirst.Text))
+            {
+                retVal = ValidationHelper.ValidateShortDate(tboxDateGraduationFirst) && retVal;
+            }
 
-            retVal = ValidationHelper.ValidateTextbox(tboxMedicalProfessionalSchoolSecond) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxDegreeReceivedSecond) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxDateGraduationSecond) && retVal;
-            retVal = ValidationHelper.ValidateShortDate(tboxDateGraduationSecond) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxMailingAdrressSecond) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxMailingCitySecond) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxMailingStateSecond) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxMailingZipSecond) && retVal;
+            if (!string.IsNullOrWhiteSpace(tboxDateGraduationSecond.Text))
+            {
+                retVal = ValidationHelper.ValidateShortDate(tboxDateGraduationSecond) && retVal;
+            }
 
             return retVal;
         }
@@ -114,13 +113,13 @@ namespace Credentialing.Web.Steps
 
             if (user != null && MemberHelper.IsUserPhysician(user.UserName))
             {
-                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey);
+                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey, true);
 
-                if (physicianFormData != null && physicianFormData.MedicalProfessionalEducationId.HasValue)
+                StepsHelper.Instance.UpdateSteps(physicianFormData);
+
+                if (physicianFormData != null && physicianFormData.MedicalProfessionalEducation != null)
                 {
-                    var data = MedicalProfessionalEducationHandler.Instance.GetById(physicianFormData.MedicalProfessionalEducationId.Value);
-
-                    return data;
+                    return physicianFormData.MedicalProfessionalEducation;
                 }
             }
 
@@ -133,7 +132,7 @@ namespace Credentialing.Web.Steps
 
             tboxMedicalProfessionalSchoolFirst.Text = data.PrimaryMedicalProfessionalSchool;
             tboxDegreeReceivedFirst.Text = data.PrimaryDegreeReceived;
-            tboxDateGraduationFirst.Text = data.PrimaryDateOfGraduation.ToString("MM/yy");
+            tboxDateGraduationFirst.Text = data.PrimaryDateOfGraduation.HasValue ? data.PrimaryDateOfGraduation.Value.ToString("MM/yy") : string.Empty;
             tboxMailingAdrressFirst.Text = data.PrimaryMailingAddress;
             tboxMailingCityFirst.Text = data.PrimaryCity;
             tboxMailingStateFirst.Text = data.PrimaryStateCountry;
@@ -141,7 +140,7 @@ namespace Credentialing.Web.Steps
 
             tboxMedicalProfessionalSchoolSecond.Text = data.SecondaryMedicalProfessionalSchool;
             tboxDegreeReceivedSecond.Text = data.SecondaryDegreeReceived;
-            tboxDateGraduationSecond.Text = data.SecondaryDateOfGraduation.ToString("MM/yy");
+            tboxDateGraduationSecond.Text = data.SecondaryDateOfGraduation.HasValue ? data.SecondaryDateOfGraduation.Value.ToString("MM/yy") : string.Empty;
             tboxMailingAdrressSecond.Text = data.SecondaryMailingAddress;
             tboxMailingCitySecond.Text = data.SecondaryCity;
             tboxMailingStateSecond.Text = data.SecondaryStateCountry;

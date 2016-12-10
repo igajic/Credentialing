@@ -1,12 +1,14 @@
-﻿using Credentialing.Business.Helpers;
+﻿using Credentialing.Business.DataAccess;
+using Credentialing.Business.Helpers;
 using System;
 using System.Web.UI;
-using Credentialing.Business.DataAccess;
 
 namespace Credentialing.Web.Steps
 {
     public partial class PracticeInformation : Page
     {
+        private int CurrentStep = 2;
+
         #region [Protected methods]
 
         protected void Page_Load(object sender, EventArgs e)
@@ -26,60 +28,15 @@ namespace Credentialing.Web.Steps
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if (ValidateFields())
-            {
-                SaveFormData();
+            SaveFormData();
 
-                Response.Redirect("/Steps/Education.aspx");
-                Response.End();
-            }
-        }
-
-        private bool ValidateFields()
-        {
-            var retVal = true;
-
-            retVal = ValidationHelper.ValidateTextbox(tboxPracticeName) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxDepartmentName) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeStreetAddress) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeCityStateZip) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeTelephoneNumber) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeFaxNumber) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeManagerAdministrator) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeManagerTelephoneNumber) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeManagerFaxNumber) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeNameTaxIdNumber) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxPrimaryOfficeFederalTaxIdNumber) && retVal;
-
-            // secondary office
-            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeStreetAddress) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeCity) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeState) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeZip) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeManagerAdministrator) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeManagerTelephoneNumber) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeManagerFaxNumber) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeNameTaxIdNumber) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxSecondaryOfficeFederalTaxIdNumber) && retVal;
-
-            // tertiary office
-            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeStreetAddress) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeCity) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeState) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeZip) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeManagerAdministrator) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeManagerTelephoneNumber) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeManagerFaxNumber) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeNameTaxIdNumber) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxTertiaryOfficeFederalTaxIdNumber) && retVal;
-
-            return retVal;
-
+            Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
+            Response.End();
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/Steps/IdentifyingInformation.aspx");
+            Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep - 1].Url);
             Response.End();
         }
 
@@ -89,19 +46,21 @@ namespace Credentialing.Web.Steps
 
             if (user != null && MemberHelper.IsUserPhysician(user.UserName))
             {
-                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey);
+                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey, true);
 
-                if (physicianFormData != null && physicianFormData.PracticeInformationId.HasValue)
+                StepsHelper.Instance.UpdateSteps(physicianFormData);
+
+                if (physicianFormData != null && physicianFormData.PracticeInformation != null)
                 {
-                    var data = PracticeInformationHandler.Instance.GetById(physicianFormData.PracticeInformationId.Value);
-
-                    LoadFormData(data);
+                    LoadFormData(physicianFormData.PracticeInformation);
                 }
             }
         }
 
         private void LoadFormData(Entities.Data.PracticeInformation formData)
         {
+            if (formData == null) return;
+
             tboxPracticeName.Text = formData.PracticeName;
             tboxDepartmentName.Text = formData.DepartmentName;
             tboxPrimaryOfficeStreetAddress.Text = formData.PrimaryOfficeStreetAddress;

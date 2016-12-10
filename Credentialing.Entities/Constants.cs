@@ -110,8 +110,6 @@
             public const string TertiaryOfficeCity = "TertiaryOfficeCity";
             public const string TertiaryOfficeState = "TertiaryOfficeState";
             public const string TertiaryOfficeZip = "TertiaryOfficeZip";
-            public const string TertiaryOfficeTelephoneNumber = "TertiaryOfficeTelephoneNumber";
-            public const string TertiaryOfficeFaxNumber = "TertiaryOfficeFaxNumber";
             public const string TertiaryOfficeManagerAdministrator = "TertiaryOfficeManagerAdministrator";
             public const string TertiaryOfficeManagerAdministratorTelephoneNumber = "TertiaryOfficeManagerAdministratorTelephoneNumber";
             public const string TertiaryOfficeManagerAdministratorFaxNumber = "TertiaryOfficeManagerAdministratorFaxNumber";
