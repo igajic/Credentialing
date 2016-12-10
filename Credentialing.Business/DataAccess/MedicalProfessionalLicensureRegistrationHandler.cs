@@ -1,5 +1,11 @@
-﻿using Credentialing.Entities.Data;
+﻿using System;
+using System.Data;
+using Credentialing.Entities.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Web.Configuration;
+using Credentialing.Entities;
+
 namespace Credentialing.Business.DataAccess
 {
     public class MedicalProfessionalLicensureRegistrationHandler
@@ -17,14 +23,156 @@ namespace Credentialing.Business.DataAccess
 
         public MedicalProfessionalLicensureRegistrations GetById(int medicalProfessionalLicensureId, bool deepLoad = false)
         {
-            // TODO: Implement this
-            return null;
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                return GetById(conn, null, medicalProfessionalLicensureId, deepLoad);
+            }
         }
 
         public MedicalProfessionalLicensureRegistrations GetById(SqlConnection conn, SqlTransaction trans, int medicalProfessionalLicensureId, bool deepLoad = false)
         {
-            // TODO: Implement this
-            return null;
+            MedicalProfessionalLicensureRegistrations retVal = null;
+
+            var sqlCommand = new SqlCommand("SELECT * FROM MedicalProfessionalLicensureRegistrations WHERE MedicalProfessionalLicensureRegistrationsId = @medicalProfessionalLicensureRegistrationsId", conn);
+            sqlCommand.Parameters.AddWithValue("@MedicalProfessionalLicensureRegistrationsId", medicalProfessionalLicensureId);
+            if (trans != null) sqlCommand.Transaction = trans;
+
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
+
+            using (var reader = sqlCommand.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    if (reader.Read())
+                    {
+                        retVal = new MedicalProfessionalLicensureRegistrations();
+
+                        retVal.MedicalProfessionalLicensureRegistrationsId = (int) reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.MedicalProfessionalLicensureRegistrationsId];
+                        retVal.PrimaryStateMedicalLicenseNumber = reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.PrimaryStateMedicalLicenseNumber] as string;
+                        retVal.PrimaryStateMedicalLicenseIssueDate = (DateTime)reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.PrimaryStateMedicalLicenseIssueDate];
+                        retVal.PrimaryStateMedicalLicenseExpirationDate = (DateTime)reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.PrimaryStateMedicalLicenseExpirationDate];
+                        retVal.DrugAdministrationNumber = reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.DrugAdministrationNumber] as string;
+                        retVal.DrugAdministrationExpirationDate = (DateTime)reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.DrugAdministrationExpirationDate];
+                        retVal.StateControlledSubstancesCertificate = reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.StateControlledSubstancesCertificate] as string;
+                        retVal.StateControlledSubstancesCertificateExpirationDate = (DateTime)reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.StateControlledSubstancesCertificateExpirationDate];
+                        retVal.ECFMGNumber = reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.ECFMGNumber] as string;
+                        retVal.ECFMGNumberIssueDate = (DateTime)reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.ECFMGNumberIssueDate];
+                        retVal.MedicareNationalPhysicianIdentifier = reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.MedicareNationalPhysicianIdentifier] as string;
+                        retVal.MedicaidNumber = reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.MedicaidNumber] as string;
+                    }
+                }
+            }
+
+            return retVal;
+        }
+
+        public int Insert(MedicalProfessionalLicensureRegistrations info)
+        {
+            int retVal;
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                retVal = Insert(conn, null, info);
+            }
+
+            return retVal;
+        }
+
+        public int Insert(SqlConnection conn, SqlTransaction trans, MedicalProfessionalLicensureRegistrations info)
+        {
+            var sqlCommand = new SqlCommand(@"INSERT INTO MedicalProfessionalLicensureRegistrations
+                                                    (PrimaryStateMedicalLicenseNumber, PrimaryStateMedicalLicenseIssueDate, PrimaryStateMedicalLicenseExpirationDate, DrugAdministrationNumber, DrugAdministrationExpirationDate, StateControlledSubstancesCertificate, StateControlledSubstancesCertificateExpirationDate, ECFMGNumber, ECFMGNumberIssueDate, MedicareNationalPhysicianIdentifier, MedicaidNumber)
+                                                    OUTPUT INSERTED.MedicalProfessionalLicensureRegistrationsId
+                                                    VALUES
+                                                    (@primaryStateMedicalLicenseNumber, @primaryStateMedicalLicenseIssueDate, @primaryStateMedicalLicenseExpirationDate, @drugAdministrationNumber, @drugAdministrationExpirationDate, @stateControlledSubstancesCertificate, @stateControlledSubstancesCertificateExpirationDate, @eCFMGNumber, @eCFMGNumberIssueDate, @medicareNationalPhysicianIdentifier, @medicaidNumber)", conn);
+            if (trans != null) sqlCommand.Transaction = trans;
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
+
+            sqlCommand.Parameters.AddWithValue("@primaryStateMedicalLicenseNumber", info.PrimaryStateMedicalLicenseNumber);
+            sqlCommand.Parameters.AddWithValue("@primaryStateMedicalLicenseIssueDate", info.PrimaryStateMedicalLicenseIssueDate);
+            sqlCommand.Parameters.AddWithValue("@primaryStateMedicalLicenseExpirationDate", info.PrimaryStateMedicalLicenseExpirationDate);
+
+            sqlCommand.Parameters.AddWithValue("@drugAdministrationNumber", info.DrugAdministrationNumber);
+            sqlCommand.Parameters.AddWithValue("@drugAdministrationExpirationDate", info.DrugAdministrationExpirationDate);
+
+            sqlCommand.Parameters.AddWithValue("@stateControlledSubstancesCertificate", info.StateControlledSubstancesCertificate);
+            sqlCommand.Parameters.AddWithValue("@stateControlledSubstancesCertificateExpirationDate", info.StateControlledSubstancesCertificateExpirationDate);
+
+            sqlCommand.Parameters.AddWithValue("@eCFMGNumber", info.ECFMGNumber);
+            sqlCommand.Parameters.AddWithValue("@eCFMGNumberIssueDate", info.ECFMGNumberIssueDate);
+
+            sqlCommand.Parameters.AddWithValue("@medicareNationalPhysicianIdentifier", info.MedicareNationalPhysicianIdentifier);
+            sqlCommand.Parameters.AddWithValue("@medicaidNumber", info.MedicaidNumber);
+
+            foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
+            {
+                parameter.Value = DBNull.Value;
+            }
+
+            return (int)sqlCommand.ExecuteScalar();
+        }
+
+        public void Update(MedicalProfessionalLicensureRegistrations info)
+        {
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                Update(conn, null, info);
+            }
+        }
+
+        public void Update(SqlConnection conn, SqlTransaction trans, MedicalProfessionalLicensureRegistrations info)
+        {
+            var sqlCommand = new SqlCommand(@"UPDATE MedicalProfessionalLicensureRegistrations
+                                                SET
+                                                    PrimaryStateMedicalLicenseNumber = @primaryStateMedicalLicenseNumber, 
+                                                    PrimaryStateMedicalLicenseIssueDate = @primaryStateMedicalLicenseIssueDate,
+                                                    PrimaryStateMedicalLicenseExpirationDate = @primaryStateMedicalLicenseExpirationDate, 
+                                                    DrugAdministrationNumber = @drugAdministrationNumber, 
+                                                    DrugAdministrationExpirationDate = @drugAdministrationExpirationDate, 
+                                                    StateControlledSubstancesCertificate = @stateControlledSubstancesCertificate, 
+                                                    StateControlledSubstancesCertificateExpirationDate = @stateControlledSubstancesCertificateExpirationDate, 
+                                                    ECFMGNumber = @eCFMGNumber, 
+                                                    ECFMGNumberIssueDate = @eCFMGNumberIssueDate, 
+                                                    MedicareNationalPhysicianIdentifier = @medicareNationalPhysicianIdentifier, 
+                                                    MedicaidNumber = @medicaidNumber
+                                                WHERE MedicalProfessionalLicensureRegistrationsId = @medicalProfessionalLicensureRegistrationsId", conn);
+
+            if (trans != null) sqlCommand.Transaction = trans;
+
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
+
+            sqlCommand.Parameters.AddWithValue("@medicalProfessionalLicensureRegistrationsId", info.MedicalProfessionalLicensureRegistrationsId);
+            sqlCommand.Parameters.AddWithValue("@primaryStateMedicalLicenseNumber", info.PrimaryStateMedicalLicenseNumber);
+            sqlCommand.Parameters.AddWithValue("@primaryStateMedicalLicenseIssueDate", info.PrimaryStateMedicalLicenseIssueDate);
+            sqlCommand.Parameters.AddWithValue("@primaryStateMedicalLicenseExpirationDate", info.PrimaryStateMedicalLicenseExpirationDate);
+
+            sqlCommand.Parameters.AddWithValue("@drugAdministrationNumber", info.DrugAdministrationNumber);
+            sqlCommand.Parameters.AddWithValue("@drugAdministrationExpirationDate", info.DrugAdministrationExpirationDate);
+
+            sqlCommand.Parameters.AddWithValue("@stateControlledSubstancesCertificate", info.StateControlledSubstancesCertificate);
+            sqlCommand.Parameters.AddWithValue("@stateControlledSubstancesCertificateExpirationDate", info.StateControlledSubstancesCertificateExpirationDate);
+
+            sqlCommand.Parameters.AddWithValue("@eCFMGNumber", info.ECFMGNumber);
+            sqlCommand.Parameters.AddWithValue("@eCFMGNumberIssueDate", info.ECFMGNumberIssueDate);
+
+            sqlCommand.Parameters.AddWithValue("@medicareNationalPhysicianIdentifier", info.MedicareNationalPhysicianIdentifier);
+            sqlCommand.Parameters.AddWithValue("@medicaidNumber", info.MedicaidNumber);
+
+            foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
+            {
+                parameter.Value = DBNull.Value;
+            }
+
+            sqlCommand.ExecuteNonQuery();
         }
     }
 }

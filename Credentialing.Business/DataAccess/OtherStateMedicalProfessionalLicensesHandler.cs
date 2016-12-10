@@ -1,5 +1,10 @@
-﻿using Credentialing.Entities.Data;
+﻿using Credentialing.Entities;
+using Credentialing.Entities.Data;
+using System;
+using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Web.Configuration;
 
 namespace Credentialing.Business.DataAccess
 {
@@ -18,14 +23,160 @@ namespace Credentialing.Business.DataAccess
 
         public OtherStateMedicalProfessionalLicenses GetById(int otherStateMedicalProfessionalLicensesId, bool deepLoad = false)
         {
-            // TODO: Implement this
-            return null;
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                return GetById(conn, null, otherStateMedicalProfessionalLicensesId, deepLoad);
+            }
         }
 
         public OtherStateMedicalProfessionalLicenses GetById(SqlConnection conn, SqlTransaction trans, int otherStateMedicalProfessionalLicensesId, bool deepLoad = false)
         {
-            // TODO: Implement this
-            return null;
+            OtherStateMedicalProfessionalLicenses retVal = null;
+
+            var sqlCommand = new SqlCommand("SELECT * FROM OtherStateMedicalProfessionalLicenses WHERE otherStateMedicalProfessionalLicensesId = @otherStateMedicalProfessionalLicensesId", conn);
+            sqlCommand.Parameters.AddWithValue("@otherStateMedicalProfessionalLicensesId", otherStateMedicalProfessionalLicensesId);
+            if (trans != null) sqlCommand.Transaction = trans;
+
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
+
+            using (var reader = sqlCommand.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    if (reader.Read())
+                    {
+                        retVal = new OtherStateMedicalProfessionalLicenses();
+
+                        retVal.OtherStateMedicalProfessionalLicensesId = (int)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.OtherStateMedicalProfessionalLicensesId];
+                        retVal.PrimaryState = reader[Constants.OtherStateMedicalProfessionalLicensesColumns.PrimaryState] as string;
+                        retVal.PrimaryLicenseNumber = reader[Constants.OtherStateMedicalProfessionalLicensesColumns.PrimaryLicenseNumber] as string;
+                        retVal.PrimaryExpirationDate = (DateTime)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.PrimaryExpirationDate];
+                        retVal.PrimaryLastExpirationDate = (DateTime)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.PrimaryLastExpirationDate];
+                        retVal.SecondaryState = reader[Constants.OtherStateMedicalProfessionalLicensesColumns.SecondaryState] as string;
+                        retVal.SecondaryLicenseNumber = reader[Constants.OtherStateMedicalProfessionalLicensesColumns.SecondaryLicenseNumber] as string;
+                        retVal.SecondaryExpirationDate = (DateTime)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.SecondaryExpirationDate];
+                        retVal.SecondaryLastExpirationDate = (DateTime)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.SecondaryLastExpirationDate];
+                        retVal.TertiaryState = reader[Constants.OtherStateMedicalProfessionalLicensesColumns.TertiaryState] as string;
+                        retVal.TertiaryLicenseNumber = reader[Constants.OtherStateMedicalProfessionalLicensesColumns.TertiaryLicenseNumber] as string;
+                        retVal.TertiaryExpirationDate = (DateTime)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.TertiaryExpirationDate];
+                        retVal.TertiaryLastExpirationDate = (DateTime)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.TertiaryLastExpirationDate];
+                    }
+                }
+            }
+
+            return retVal;
+        }
+
+
+        public int Insert(OtherStateMedicalProfessionalLicenses info)
+        {
+            int retVal;
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                retVal = Insert(conn, null, info);
+            }
+
+            return retVal;
+        }
+
+        public int Insert(SqlConnection conn, SqlTransaction trans, OtherStateMedicalProfessionalLicenses info)
+        {
+            var sqlCommand = new SqlCommand(@"INSERT INTO OtherStateMedicalProfessionalLicenses
+                                                    (PrimaryState, PrimaryLicenseNumber, PrimaryExpirationDate, PrimaryLastExpirationDate, SecondaryState, SecondaryLicenseNumber, SecondaryExpirationDate, SecondaryLastExpirationDate, TertiaryState, TertiaryLicenseNumber, TertiaryExpirationDate, TertiaryLastExpirationDate)
+                                                    OUTPUT INSERTED.OtherStateMedicalProfessionalLicensesId
+                                                    VALUES
+                                                    (@primaryState, @primaryLicenseNumber, @primaryExpirationDate, @primaryLastExpirationDate, @secondaryState, @secondaryLicenseNumber, @secondaryExpirationDate, @secondaryLastExpirationDate, @tertiaryState, @tertiaryLicenseNumber, @tertiaryExpirationDate, @tertiaryLastExpirationDate)", conn);
+            if (trans != null) sqlCommand.Transaction = trans;
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
+
+            sqlCommand.Parameters.AddWithValue("@primaryState", info.PrimaryState);
+            sqlCommand.Parameters.AddWithValue("@primaryLicenseNumber", info.PrimaryLicenseNumber);
+            sqlCommand.Parameters.AddWithValue("@primaryExpirationDate", info.PrimaryExpirationDate);
+            sqlCommand.Parameters.AddWithValue("@primaryLastExpirationDate", info.PrimaryLastExpirationDate);
+
+            sqlCommand.Parameters.AddWithValue("@secondaryState", info.SecondaryState);
+            sqlCommand.Parameters.AddWithValue("@secondaryLicenseNumber", info.SecondaryLicenseNumber);
+            sqlCommand.Parameters.AddWithValue("@secondaryExpirationDate", info.SecondaryExpirationDate);
+            sqlCommand.Parameters.AddWithValue("@secondaryLastExpirationDate", info.SecondaryLastExpirationDate);
+
+            sqlCommand.Parameters.AddWithValue("@tertiaryState", info.TertiaryState);
+            sqlCommand.Parameters.AddWithValue("@tertiaryLicenseNumber", info.TertiaryLicenseNumber);
+            sqlCommand.Parameters.AddWithValue("@tertiaryExpirationDate", info.TertiaryExpirationDate);
+            sqlCommand.Parameters.AddWithValue("@tertiaryLastExpirationDate", info.TertiaryLastExpirationDate);
+
+            foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
+            {
+                parameter.Value = DBNull.Value;
+            }
+
+            return (int)sqlCommand.ExecuteScalar();
+        }
+
+        public void Update(OtherStateMedicalProfessionalLicenses info)
+        {
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                Update(conn, null, info);
+            }
+        }
+
+        public void Update(SqlConnection conn, SqlTransaction trans, OtherStateMedicalProfessionalLicenses info)
+        {
+            var sqlCommand = new SqlCommand(@"UPDATE OtherStateMedicalProfessionalLicenses
+                                                SET
+                                                    PrimaryState = @primaryState, 
+                                                    PrimaryLicenseNumber = @primaryLicenseNumber, 
+                                                    PrimaryExpirationDate = @primaryExpirationDate, 
+                                                    PrimaryLastExpirationDate = @primaryLastExpirationDate, 
+
+                                                    SecondaryState = @secondaryState, 
+                                                    SecondaryLicenseNumber = @secondaryLicenseNumber, 
+                                                    SecondaryExpirationDate = @secondaryExpirationDate, 
+                                                    SecondaryLastExpirationDate = @secondaryLastExpirationDate , 
+    
+                                                    TertiaryState = @tertiaryState,
+                                                    TertiaryLicenseNumber = @tertiaryLicenseNumber,
+                                                    TertiaryExpirationDate = @tertiaryExpirationDate, 
+                                                    TertiaryLastExpirationDate = @tertiaryLastExpirationDate
+                                                    
+                                                WHERE OtherStateMedicalProfessionalLicensesId = @otherStateMedicalProfessionalLicensesId", conn);
+
+            if (trans != null) sqlCommand.Transaction = trans;
+
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
+
+            sqlCommand.Parameters.AddWithValue("@otherStateMedicalProfessionalLicensesId", info.OtherStateMedicalProfessionalLicensesId);
+            sqlCommand.Parameters.AddWithValue("@primaryState", info.PrimaryState);
+            sqlCommand.Parameters.AddWithValue("@primaryLicenseNumber", info.PrimaryLicenseNumber);
+            sqlCommand.Parameters.AddWithValue("@primaryExpirationDate", info.PrimaryExpirationDate);
+            sqlCommand.Parameters.AddWithValue("@primaryLastExpirationDate", info.PrimaryLastExpirationDate);
+
+            sqlCommand.Parameters.AddWithValue("@secondaryState", info.SecondaryState);
+            sqlCommand.Parameters.AddWithValue("@secondaryLicenseNumber", info.SecondaryLicenseNumber);
+            sqlCommand.Parameters.AddWithValue("@secondaryExpirationDate", info.SecondaryExpirationDate);
+            sqlCommand.Parameters.AddWithValue("@secondaryLastExpirationDate", info.SecondaryLastExpirationDate);
+
+            sqlCommand.Parameters.AddWithValue("@tertiaryState", info.TertiaryState);
+            sqlCommand.Parameters.AddWithValue("@tertiaryLicenseNumber", info.TertiaryLicenseNumber);
+            sqlCommand.Parameters.AddWithValue("@tertiaryExpirationDate", info.TertiaryExpirationDate);
+            sqlCommand.Parameters.AddWithValue("@tertiaryLastExpirationDate", info.TertiaryLastExpirationDate);
+
+            foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
+            {
+                parameter.Value = DBNull.Value;
+            }
+
+            sqlCommand.ExecuteNonQuery();
         }
     }
 }
