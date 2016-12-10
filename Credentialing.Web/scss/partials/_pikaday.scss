@@ -8,24 +8,24 @@
 // Variables are namespaced with the pd (pikaday) prefix
 
 // Colours
-$pd-text-color: #999 !default;
-$pd-title-color: #434343 !default;
-$pd-title-bg: #fff !default;
-$pd-picker-bg: #fff !default;
-$pd-picker-border: #434343 !default;
-$pd-picker-border-bottom: #434343 !default;
+$pd-text-color: $grey !default;
+$pd-title-color: $darkgrey !default;
+$pd-title-bg: $white !default;
+$pd-picker-bg: $white !default;
+$pd-picker-border: $darkgrey !default;
+$pd-picker-border-bottom: $darkgrey !default;
 $pd-picker-shadow: rgba(0, 0, 0, .5) !default;
-$pd-th-color: #999 !default;
-$pd-day-color: #999 !default;
-$pd-day-bg: #fff !default;
-$pd-day-hover-color: #434343 !default;
+$pd-th-color: $grey !default;
+$pd-day-color: $grey !default;
+$pd-day-bg: $white !default;
+$pd-day-hover-color: $darkgrey !default;
 $pd-day-hover-bg: $tertiary !default;
-$pd-day-today-color: #fff !default;
-$pd-day-selected-color: #fff !default;
+$pd-day-today-color: $white !default;
+$pd-day-selected-color: $white !default;
 $pd-day-selected-bg: $tertiary !default;
 $pd-day-selected-shadow: $tertiary !default;
-$pd-day-disabled-color: #999 !default;
-$pd-week-color: #999 !default;
+$pd-day-disabled-color: $grey !default;
+$pd-week-color: $grey !default;
 
 // Font
 $pd-font-family: $font-default !default;
@@ -104,7 +104,7 @@ $pd-font-family: $font-default !default;
 	text-align: left;
 	color: $pd-title-color;
 	background-color: $pd-title-bg;
-	border: 1px solid #999;
+	border: 1px solid $grey;
 	border-radius: 2px;
 	&:after {
 		content: '';
@@ -184,8 +184,8 @@ $pd-font-family: $font-default !default;
 		font-weight: 400;
 	}
 	td {
-		border-top: 1px solid #999;
-		border-left: 1px solid #999;
+		border-top: 1px solid $grey;
+		border-left: 1px solid $grey;
 		&:first-child {
 			border-left: none;
 		}
@@ -193,7 +193,7 @@ $pd-font-family: $font-default !default;
 			border-left: none;
 		}
 		&:not(.is-empty) + .is-empty {
-			border-left: 1px solid #999;
+			border-left: 1px solid $grey;
 		}
 	}
 	
@@ -232,7 +232,7 @@ $pd-font-family: $font-default !default;
 	.is-selected & {
 		color: $white;
 		background: $tertiary;
-		outline-color: #434343;
+		outline-color: $darkgrey;
 	}
 	
 	.is-disabled &,
@@ -244,9 +244,9 @@ $pd-font-family: $font-default !default;
 	}
 	
 	&:hover {
-		color: #434343;
+		color: $darkgrey;
 		background: $white;
-		outline-color: #434343;
+		outline-color: $darkgrey;
 	}
 }
 
@@ -260,14 +260,14 @@ $pd-font-family: $font-default !default;
 }
 
 .is-startrange .pika-button {
-	color: #fff;
-	background: #6CB31D;
+	color: $white;
+	background: $green;
 	box-shadow: none;
 	border-radius: 3px;
 }
 
 .is-endrange .pika-button {
-	color: #fff;
+	color: $white;
 	background: #33aaff;
 	box-shadow: none;
 	border-radius: 3px;

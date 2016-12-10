@@ -39,9 +39,6 @@
 }
 
 .login-popup {
-	h2 {
-		margin-bottom: 30px;
-	}
 	label {
 		width: 120px;
 		font-size: 20px;
@@ -54,7 +51,7 @@
 		width: calc(100% - 120px);
 		float: left;
 	}
-	.forgot-password {
+	.register-user {
 		margin-top: 10px;
 		color: $secondary;
 		float: left;
@@ -76,4 +73,23 @@
 			width: 100%;
 		}
 	}*/
+}
+
+.register-popup {
+	width: 500px;
+	margin-left: -250px;
+	top: 20%;
+	label {
+		width: 140px;
+		font-size: 20px;
+		line-height: 36px;
+		margin-bottom: 0;
+		float: left;
+	}
+	input[type="text"],
+	input[type="password"],
+	.selectric-wrapper {
+		width: calc(100% - 140px);
+		float: left;
+	}
 }

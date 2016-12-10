@@ -1,6 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="Credentialing.Web.Main" %>
 <%@ Register src="/Usercontrols/Login.ascx" tagPrefix="uc" tagName="Login" %>
 <%@ Register src="/Usercontrols/LoginBlock.ascx" tagPrefix="uc" tagName="LoginBlock" %>
+<%@ Register src="/Usercontrols/CreateUser.ascx" tagPrefix="uc" tagName="CreateUser" %>
 <!DOCTYPE html>
 
 <html>
@@ -26,7 +27,7 @@
 				<div class="logo">
 					<a href="/"><img src="/img/logo.svg" alt="" /></a>
 				</div>
-			    <uc:LoginBlock runat="server" ID="lgBlock"/>
+				<uc:LoginBlock runat="server" ID="lgBlock"/>
 				<nav class="main-nav">
 					<ul>
 						<li>
@@ -86,10 +87,18 @@
 			</div>
 		</div>
 
+		<div class="register-popup modal">
+			<div class="inner">
+				<h2 class="centered">Register</h2>
+				<uc:CreateUser runat="server" ID="createUserBlock"/>
+			</div>
+		</div>
+
 	</div>
 
 	<!-- javascript -->
 	<script type="text/javascript" src="/Scripts/libs/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/jquery.selectric.min.js"></script>
 	<script type="text/javascript" src="/Scripts/libs/moment.js"></script>
 	<script type="text/javascript" src="/Scripts/libs/pikaday.js"></script>
 	<script type="text/javascript" src="/Scripts/default.js"></script>

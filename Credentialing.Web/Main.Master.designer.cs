@@ -56,5 +56,14 @@ namespace Credentialing.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Credentialing.Web.Usercontrols.Login ucLogin;
+        
+        /// <summary>
+        /// createUserBlock control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Credentialing.Web.Usercontrols.CreateUser createUserBlock;
     }
 }

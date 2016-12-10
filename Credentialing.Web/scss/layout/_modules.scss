@@ -33,6 +33,9 @@
 		padding: 40px;
 		@extend %clearfix;
 	}
+	h2 {
+		margin-bottom: 30px;
+	}
 }
 
 .current-step {
@@ -138,7 +141,7 @@
 		}
 		&.completed {
 			a {
-				background: $primary;
+				background: $green;
 				color: $white;
 			}
 		}
