@@ -54,6 +54,8 @@ namespace Credentialing.Web.Steps
             {
                 var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey, true);
 
+                StepsHelper.Instance.UpdateSteps(physicianFormData);
+
                 if (physicianFormData != null && physicianFormData.Education != null)
                 {
                     var data = EducationHandler.Instance.GetById(physicianFormData.EducationId.Value);

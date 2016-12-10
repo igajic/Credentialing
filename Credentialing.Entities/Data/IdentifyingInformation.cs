@@ -58,6 +58,7 @@ namespace Credentialing.Entities.Data
             get
             {
                 var tmp = LastName.IsCompleted();
+                tmp += FirstName.IsCompleted();
                 tmp += MiddleName.IsCompleted();
                 tmp += OtherKnownNames.IsCompleted();
                 tmp += HomeMailingAddress.IsCompleted();
@@ -74,7 +75,7 @@ namespace Credentialing.Entities.Data
                 tmp += Specialty.IsCompleted();
                 tmp += Subspecialties.IsCompleted();
 
-                return 100 * tmp / 16;
+                return 100 * tmp / 17;
             }
         }
     }
