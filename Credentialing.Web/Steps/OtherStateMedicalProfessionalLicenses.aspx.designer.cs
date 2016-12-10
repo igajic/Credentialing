@@ -11,5 +11,113 @@ namespace Credentialing.Web.Steps {
     
     
     public partial class OtherStateMedicalProfessionalLicenses {
+        
+        /// <summary>
+        /// tboxPrimaryState control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxPrimaryState;
+        
+        /// <summary>
+        /// tboxPrimaryLicenseNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxPrimaryLicenseNumber;
+        
+        /// <summary>
+        /// tboxPrimaryExpirationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxPrimaryExpirationDate;
+        
+        /// <summary>
+        /// tboxPrimaryLastExpirationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxPrimaryLastExpirationDate;
+        
+        /// <summary>
+        /// tboxSecondaryState control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxSecondaryState;
+        
+        /// <summary>
+        /// tboxSecondaryLicenseNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxSecondaryLicenseNumber;
+        
+        /// <summary>
+        /// tboxSecondaryExpirationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxSecondaryExpirationDate;
+        
+        /// <summary>
+        /// tboxSecondaryLastExpirationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxSecondaryLastExpirationDate;
+        
+        /// <summary>
+        /// tboxTertiaryState control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxTertiaryState;
+        
+        /// <summary>
+        /// tboxTertiaryLicenseNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxTertiaryLicenseNumber;
+        
+        /// <summary>
+        /// tboxTertiaryExpirationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxTertiaryExpirationDate;
+        
+        /// <summary>
+        /// tboxTertiaryLastExpirationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxTertiaryLastExpirationDate;
     }
 }

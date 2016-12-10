@@ -13,6 +13,8 @@ namespace Credentialing.Entities.Data
 
         public string PrimaryStateMedicalLicenseNumber { get; set; }
 
+        public string LicensureState { get; set; } // TODO: Add backing DB field
+
         public DateTime? PrimaryStateMedicalLicenseIssueDate { get; set; }
 
         public DateTime? PrimaryStateMedicalLicenseExpirationDate { get; set; }
@@ -40,6 +42,7 @@ namespace Credentialing.Entities.Data
             get
             {
                 var tmp = PrimaryStateMedicalLicenseNumber.IsCompleted();
+                tmp += LicensureState.IsCompleted();
                 tmp += PrimaryStateMedicalLicenseIssueDate.HasValue ? 1 : 0;
                 tmp += PrimaryStateMedicalLicenseExpirationDate.HasValue ? 1 : 0;
                 tmp += DrugAdministrationNumber.IsCompleted();
@@ -52,7 +55,7 @@ namespace Credentialing.Entities.Data
                 tmp += MedicareNationalPhysicianIdentifier.IsCompleted();
                 tmp += MedicaidNumber.IsCompleted();
 
-                return 100 * tmp / 11;
+                return 100 * tmp / 12;
             }
         }
     }
