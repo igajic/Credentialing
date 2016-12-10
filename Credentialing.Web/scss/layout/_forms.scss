@@ -226,6 +226,9 @@ label,
 	margin-bottom: 15px;
 	float: left;
 	clear: both;
+	&.row {
+		width: calc(100% + 20px);
+	}
 }
 
 .form-actions {
