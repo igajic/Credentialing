@@ -54,7 +54,7 @@ namespace Credentialing.Business.DataAccess
 
                         retVal.EducationId = (int)reader[Constants.EducationColumns.EducationId];
                         retVal.CollegeUniverityName = reader[Constants.EducationColumns.CollegeUniverityName] as string;
-                        retVal.DateGraduation = (DateTime)reader[Constants.EducationColumns.DateGraduation];
+                        retVal.DateGraduation = Convert.IsDBNull(reader[Constants.EducationColumns.DateGraduation]) ? null :  (DateTime?)reader[Constants.EducationColumns.DateGraduation];
                         retVal.DegreeReceived = reader[Constants.EducationColumns.DegreeReceived] as string;
                         retVal.EducationId = (int)reader[Constants.EducationColumns.EducationId];
                         retVal.MailingAddress = reader[Constants.EducationColumns.MailingAddress] as string;

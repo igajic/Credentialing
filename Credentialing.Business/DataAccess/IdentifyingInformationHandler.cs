@@ -66,7 +66,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.HomeFaxNumber = reader[Constants.IdentifyingInformationColumns.HomeFaxNumber] as string;
                         retVal.EmailAddress = reader[Constants.IdentifyingInformationColumns.EmailAddress] as string;
                         retVal.PagerNumber = reader[Constants.IdentifyingInformationColumns.PagerNumber] as string;
-                        retVal.BirthDate = (DateTime)reader[Constants.IdentifyingInformationColumns.BirthDate];
+                        retVal.BirthDate = Convert.IsDBNull(reader[Constants.IdentifyingInformationColumns.BirthDate]) ? null : (DateTime?)reader[Constants.IdentifyingInformationColumns.BirthDate];
                         retVal.BirthPlace = reader[Constants.IdentifyingInformationColumns.BirthPlace] as string;
                         retVal.AttachmentId = reader[Constants.IdentifyingInformationColumns.AttachmentId] as int?;
                         retVal.SocialSecurityNumber = reader[Constants.IdentifyingInformationColumns.SocialSecurityNumber] as string;

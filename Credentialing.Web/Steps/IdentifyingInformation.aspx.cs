@@ -3,6 +3,7 @@ using Credentialing.Business.Helpers;
 using Credentialing.Entities.Data;
 using Credentialing.Entities.Enums;
 using System;
+using System.Globalization;
 using System.Web.UI;
 
 namespace Credentialing.Web.Steps
@@ -127,7 +128,7 @@ namespace Credentialing.Web.Steps
             formData.HomeFaxNumber = tboxHomeFaxNumber.Text;
             formData.EmailAddress = tboxEmailAddress.Text;
             formData.PagerNumber = tboxPagerNumber.Text;
-            formData.BirthDate = string.IsNullOrWhiteSpace(tboxBirthDate.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxBirthDate.Text);
+            formData.BirthDate = string.IsNullOrWhiteSpace(tboxBirthDate.Text) ? (DateTime?)null : DateTime.Parse(tboxBirthDate.Text, new CultureInfo("en-US"));
             formData.BirthPlace = tboxBirthPlace.Text;
             formData.SocialSecurityNumber = tboxSocialSecurityNumber.Text;
             formData.Specialty = tboxSpecialty.Text;

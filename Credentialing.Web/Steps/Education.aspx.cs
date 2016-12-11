@@ -119,14 +119,13 @@ namespace Credentialing.Web.Steps
 
         private bool ValidateFields()
         {
-            var retVal = ValidationHelper.ValidateTextbox(tboxCollegeUniversityName);
-            retVal = ValidationHelper.ValidateTextbox(tboxDegreeReceived) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxDateOfGraduation) && retVal;
-            retVal = ValidationHelper.ValidateShortDate(tboxDateOfGraduation) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxMailingAddress) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxMailingCity) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxMailingState) && retVal;
-            retVal = ValidationHelper.ValidateTextbox(tboxMailingZip) && retVal;
+            var retVal = true;
+
+            if (!string.IsNullOrWhiteSpace(tboxDateOfGraduation.Text))
+            {
+
+                retVal = ValidationHelper.ValidateShortDate(tboxDateOfGraduation);
+            }
 
             return retVal;
         }

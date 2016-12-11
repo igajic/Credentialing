@@ -40,7 +40,7 @@ namespace Credentialing.Web.Steps
             if (ValidateFields())
             {
                 SaveFormData();
-                Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep - 1].Url);
+                Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
                 Response.End();
             }
         }
