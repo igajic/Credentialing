@@ -70,5 +70,12 @@
 	    <asp:TextBox runat="server" ID="tboxAdditionalListBoardsDates" ClientIDMode="Static"/>
 
         <asp:FileUpload runat="server" ID="fuAttachments" AllowMultiple="True"/>
+        
+        
+        
+	    <div class="form-actions">
+		    <asp:LinkButton runat="server" ID="btnPrevious" Text="Previous" CssClass="btn btn-prev" />
+		    <asp:LinkButton runat="server" ID="btnNext" Text="Next" CssClass="btn btn-next" />
+	    </div>
 	</asp:Panel>
 </asp:Content>

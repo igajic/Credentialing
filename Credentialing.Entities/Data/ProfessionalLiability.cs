@@ -32,7 +32,7 @@ namespace Credentialing.Entities.Data
 
         // Previous liability carriers
 
-        // firstUpda
+        // first
         public string FirstPolicyCarrierName { get; set; }
 
         public string FirstPolicyNumber { get; set; }
