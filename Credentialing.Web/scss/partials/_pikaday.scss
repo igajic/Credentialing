@@ -65,6 +65,9 @@ $pd-font-family: $font-default !default;
 	width: 280px;
 	padding-top: 14px;
 	float: left;
+	@include media-breakpoint-down(sm) {
+		width: 258px;
+	}
 }
 
 .pika-title {
@@ -119,6 +122,9 @@ $pd-font-family: $font-default !default;
 	}
 	select {
 		font-family: $pd-font-family;
+	}
+	@include media-breakpoint-down(sm) {
+		min-width: 80px;
 	}
 }
 
@@ -247,6 +253,9 @@ $pd-font-family: $font-default !default;
 		color: $darkgrey;
 		background: $white;
 		outline-color: $darkgrey;
+	}
+	@include media-breakpoint-down(sm) {
+		height: 36px;
 	}
 }
 

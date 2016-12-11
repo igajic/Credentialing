@@ -35,4 +35,7 @@
 
 .padd-top {
 	padding-top: 20px;
+	@include media-breakpoint-down(sm) {
+		padding-top: 0;
+	}
 }

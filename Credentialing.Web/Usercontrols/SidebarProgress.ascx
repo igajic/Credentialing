@@ -13,9 +13,10 @@
 	</HeaderTemplate>
 	<ItemTemplate>
 		<li class="step" runat="server" id="liStep" EnableViewState="False">
-			<asp:Label runat="server" ID="lblStep" EnableViewState="False" ClientIDMode="Static"/>
-			<asp:HyperLink runat="server" ID="hlStep" EnableViewState="False" ClientIDMode="Static"/>
-			<p><asp:Literal ID="ltrShortDesc" runat="server" EnableViewState="False"/></p>
+			<asp:HyperLink runat="server" ID="hlStepLink" EnableViewState="False" ClientIDMode="Static" CssClass="overlay-link"/>
+			<asp:Label runat="server" ID="lblStep" EnableViewState="False" ClientIDMode="Static" CssClass="step-circle"/>
+			<span class="step-name"><asp:Literal runat="server" ID="hlStep" EnableViewState="False" ClientIDMode="Static"/></span>
+			<span class="short-description"><asp:Literal ID="ltrShortDesc" runat="server" EnableViewState="False"/></span>
 		</li>
 	</ItemTemplate>
 	<FooterTemplate>

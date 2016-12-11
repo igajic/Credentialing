@@ -1,5 +1,15 @@
 $(function () {
 
+	$('.menu-toggle').on('click', function() {
+		if(!$(this).hasClass('opened')){
+			$(this).addClass('opened');
+			$('.header').find('.mobile-menu').addClass('opened');
+		} else {
+			$(this).removeClass('opened');
+			$('.header').find('.mobile-menu').removeClass('opened');
+		}
+	});
+
 	/* Documentation @ http://lcdsantos.github.io/jQuery-Selectric/ */
 	if($('select').length){
 		$('select').selectric({

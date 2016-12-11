@@ -62,17 +62,16 @@
 	.submit-login {
 		float: right;
 	}
-	/*@include breakpoint(phone) {
-		p {
-			font-size: 15px;
-			font-weight: 400;
-			line-height: 20px;
+	@include media-breakpoint-down(sm) {
+		label {
+			width: 100%;
+			line-height: 24px;
 		}
-		.forgot-password {
-			margin: 0 0 20px 0;
+		input[type="text"],
+		input[type="password"] {
 			width: 100%;
 		}
-	}*/
+	}
 }
 
 .register-popup {
@@ -91,5 +90,19 @@
 	.selectric-wrapper {
 		width: calc(100% - 140px);
 		float: left;
+	}
+	@include media-breakpoint-down(sm) {
+		top: 100px;
+		width: 92%;
+		margin-left: 0;
+		label {
+			width: 100%;
+			line-height: 24px;
+		}
+		input[type="text"],
+		input[type="password"],
+		.selectric-wrapper {
+			width: 100%;
+		}
 	}
 }

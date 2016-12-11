@@ -26,13 +26,14 @@ namespace Credentialing.Web.Usercontrols
             if (e.Item.ItemType == ListItemType.AlternatingItem || e.Item.ItemType == ListItemType.Item)
             {
                 var data = (Step)e.Item.DataItem;
-                var hlStep = (HyperLink)e.Item.FindControl("hlStep");
+                var hlStep = (Literal)e.Item.FindControl("hlStep");
+				var hlStepLink = (HyperLink)e.Item.FindControl("hlStepLink");
                 var lbStep = (Label)e.Item.FindControl("lblStep");
                 var liStep = (HtmlGenericControl)e.Item.FindControl("liStep");
                 var ltrShortDesc = (Literal)e.Item.FindControl("ltrShortDesc");
 
                 hlStep.Text = data.Name;
-                hlStep.NavigateUrl = data.Url;
+				hlStepLink.NavigateUrl = data.Url;
                 lbStep.Text = data.StepId.ToString();
                 ltrShortDesc.Text = data.Description;
 

@@ -29,6 +29,9 @@ body {
 	position: relative;
 	overflow: hidden;
 	padding-bottom: 58px;
+	@include media-breakpoint-down(sm) {
+		padding-bottom: 0;
+	}
 }
 
 .wrap {
@@ -38,12 +41,18 @@ body {
 	padding: 0 20px;
 	margin: 0 auto;
 	@extend %clearfix;
+	@include media-breakpoint-down(sm) {
+		padding: 0 10px;
+	}
 }
 
 .content {
 	width: 100%;
 	padding: 40px 0;
 	clear: both;
+	@include media-breakpoint-down(sm) {
+		padding: 20px 0;
+	}
 }
 
 .page-content {
@@ -52,4 +61,7 @@ body {
 	background: $white;
 	float: left;
 	clear: both;
+	@include media-breakpoint-down(md) {
+		padding: 20px;
+	}
 }

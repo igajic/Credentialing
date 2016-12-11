@@ -31,12 +31,20 @@ h1 {
 	&::after {
 		width: 120px;
 	}
+	@include media-breakpoint-down(sm) {
+		font-size: 32px;
+		line-height: 1em;
+	}
 }
 
 h2 {
 	font-size: 32px;
 	&::after {
 		width: 100px;
+	}
+	@include media-breakpoint-down(sm) {
+		font-size: 28px;
+		line-height: 1em;
 	}
 }
 
@@ -70,6 +78,9 @@ p {
 
 hr {
 	margin: 2em 0 1em;
+	@include media-breakpoint-down(sm) {
+		margin-top: 1em;
+	}
 }
 
 .page-content {

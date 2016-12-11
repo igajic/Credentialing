@@ -27,23 +27,19 @@
 				<div class="logo">
 					<a href="/"><img src="/img/logo.svg" alt="" /></a>
 				</div>
-				<uc:LoginBlock runat="server" ID="lgBlock"/>
-				<nav class="main-nav">
-					<ul>
-						<li>
-							<a href="javascript:;">Example link</a>
-						</li>
-						<li>
-							<a href="javascript:;">Another link</a>
-						</li>
-						<li>
-							<a href="javascript:;">Link three</a>
-						</li>
-						<li>
-							<a href="javascript:;">Last one</a>
-						</li>
-					</ul>
-				</nav>
+				<div class="mobile-menu">
+					<uc:LoginBlock runat="server" ID="lgBlock"/>
+					<nav class="main-nav">
+						<ul>
+							<li>
+								<a href="/Dashboard/Physician.aspx">Physician Dashboard</a>
+							</li>
+							<li>
+								<a href="/Dashboard/Administrator.aspx">Administrator Dashboard</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
 				<span class="menu-toggle">
 					<span></span>
 				</span>
