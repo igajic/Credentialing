@@ -47,23 +47,24 @@ $(function () {
 	});
 
 	if ($('.datepicker-default').length) {
-		var field = $('.datepicker-default')[0];
-		var picker = new Pikaday({
-			field: field,
-			format: moment().format('MM/DD/YYYY'),
-			firstDay: 1,
-			onSelect: function () {
-				field.value = this.getMoment().format('MM/DD/YYYY');
-			},
-			onOpen: function () {
-				if (parseInt(this.el.style.top, 10) < $(field).offset().top) {
-					this.el.style.marginTop = '1px';
-				}
-			},
-			onClose: function () {
-				this.el.style.marginTop = '';
-			}
-		});
+	    $('.datepicker-default').each(function(idx, element) {
+	        new Pikaday({
+	            field: element,
+	            format: moment().format('MM/DD/YYYY'),
+	            firstDay: 1,
+	            onSelect: function (date) {
+	                this._o.field.value = moment(date).format('MM/DD/YYYY');
+	            },
+	            onOpen: function () {
+	                if (parseInt(this.el.style.top, 10) < $(this.el).offset().top) {
+	                    this.el.style.marginTop = '1px';
+	                }
+	            },
+	            onClose: function () {
+	                this.el.style.marginTop = '';
+	            }
+	        });
+	    });
 	}
 
 	if ($('.datepicker-monthly').length) {
