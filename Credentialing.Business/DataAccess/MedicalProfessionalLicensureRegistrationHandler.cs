@@ -52,14 +52,18 @@ namespace Credentialing.Business.DataAccess
 
                         retVal.MedicalProfessionalLicensureRegistrationsId = (int) reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.MedicalProfessionalLicensureRegistrationsId];
                         retVal.PrimaryStateMedicalLicenseNumber = reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.PrimaryStateMedicalLicenseNumber] as string;
-                        retVal.PrimaryStateMedicalLicenseIssueDate = (DateTime)reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.PrimaryStateMedicalLicenseIssueDate];
-                        retVal.PrimaryStateMedicalLicenseExpirationDate = (DateTime)reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.PrimaryStateMedicalLicenseExpirationDate];
+                        retVal.PrimaryStateMedicalLicenseIssueDate = Convert.IsDBNull(reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.PrimaryStateMedicalLicenseIssueDate]) ? null : (DateTime?)reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.PrimaryStateMedicalLicenseIssueDate];
+                        retVal.PrimaryStateMedicalLicenseExpirationDate = Convert.IsDBNull(reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.PrimaryStateMedicalLicenseExpirationDate]) ? null : (DateTime?)reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.PrimaryStateMedicalLicenseExpirationDate];
+
                         retVal.DrugAdministrationNumber = reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.DrugAdministrationNumber] as string;
-                        retVal.DrugAdministrationExpirationDate = (DateTime)reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.DrugAdministrationExpirationDate];
+                        retVal.DrugAdministrationExpirationDate = Convert.IsDBNull(reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.DrugAdministrationExpirationDate]) ? null : (DateTime?)reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.DrugAdministrationExpirationDate];
+
                         retVal.StateControlledSubstancesCertificate = reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.StateControlledSubstancesCertificate] as string;
-                        retVal.StateControlledSubstancesCertificateExpirationDate = (DateTime)reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.StateControlledSubstancesCertificateExpirationDate];
+                        retVal.StateControlledSubstancesCertificateExpirationDate = Convert.IsDBNull(reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.StateControlledSubstancesCertificateExpirationDate]) ? null : (DateTime?)reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.StateControlledSubstancesCertificateExpirationDate];
+
                         retVal.ECFMGNumber = reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.ECFMGNumber] as string;
-                        retVal.ECFMGNumberIssueDate = (DateTime)reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.ECFMGNumberIssueDate];
+                        retVal.ECFMGNumberIssueDate = Convert.IsDBNull(reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.ECFMGNumberIssueDate]) ? null : (DateTime?)reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.ECFMGNumberIssueDate];
+
                         retVal.MedicareNationalPhysicianIdentifier = reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.MedicareNationalPhysicianIdentifier] as string;
                         retVal.MedicaidNumber = reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.MedicaidNumber] as string;
                     }

@@ -53,16 +53,18 @@ namespace Credentialing.Business.DataAccess
                         retVal.OtherStateMedicalProfessionalLicensesId = (int)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.OtherStateMedicalProfessionalLicensesId];
                         retVal.PrimaryState = reader[Constants.OtherStateMedicalProfessionalLicensesColumns.PrimaryState] as string;
                         retVal.PrimaryLicenseNumber = reader[Constants.OtherStateMedicalProfessionalLicensesColumns.PrimaryLicenseNumber] as string;
-                        retVal.PrimaryExpirationDate = (DateTime)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.PrimaryExpirationDate];
-                        retVal.PrimaryLastExpirationDate = (DateTime)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.PrimaryLastExpirationDate];
+                        retVal.PrimaryExpirationDate = Convert.IsDBNull(reader[Constants.OtherStateMedicalProfessionalLicensesColumns.PrimaryExpirationDate]) ? null : (DateTime?)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.PrimaryExpirationDate];
+                        retVal.PrimaryLastExpirationDate = Convert.IsDBNull(reader[Constants.OtherStateMedicalProfessionalLicensesColumns.PrimaryLastExpirationDate]) ? null : (DateTime?)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.PrimaryLastExpirationDate];
+
                         retVal.SecondaryState = reader[Constants.OtherStateMedicalProfessionalLicensesColumns.SecondaryState] as string;
                         retVal.SecondaryLicenseNumber = reader[Constants.OtherStateMedicalProfessionalLicensesColumns.SecondaryLicenseNumber] as string;
-                        retVal.SecondaryExpirationDate = (DateTime)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.SecondaryExpirationDate];
-                        retVal.SecondaryLastExpirationDate = (DateTime)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.SecondaryLastExpirationDate];
+                        retVal.SecondaryExpirationDate = Convert.IsDBNull(reader[Constants.OtherStateMedicalProfessionalLicensesColumns.SecondaryExpirationDate]) ? null : (DateTime?)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.SecondaryExpirationDate];
+                        retVal.SecondaryLastExpirationDate = Convert.IsDBNull(reader[Constants.OtherStateMedicalProfessionalLicensesColumns.SecondaryLastExpirationDate]) ? null : (DateTime?)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.SecondaryLastExpirationDate];
+
                         retVal.TertiaryState = reader[Constants.OtherStateMedicalProfessionalLicensesColumns.TertiaryState] as string;
                         retVal.TertiaryLicenseNumber = reader[Constants.OtherStateMedicalProfessionalLicensesColumns.TertiaryLicenseNumber] as string;
-                        retVal.TertiaryExpirationDate = (DateTime)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.TertiaryExpirationDate];
-                        retVal.TertiaryLastExpirationDate = (DateTime)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.TertiaryLastExpirationDate];
+                        retVal.TertiaryExpirationDate = Convert.IsDBNull(reader[Constants.OtherStateMedicalProfessionalLicensesColumns.TertiaryExpirationDate]) ? null : (DateTime?)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.TertiaryExpirationDate];
+                        retVal.TertiaryLastExpirationDate = Convert.IsDBNull(reader[Constants.OtherStateMedicalProfessionalLicensesColumns.TertiaryLastExpirationDate]) ? null : (DateTime?)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.TertiaryLastExpirationDate];
                     }
                 }
             }
