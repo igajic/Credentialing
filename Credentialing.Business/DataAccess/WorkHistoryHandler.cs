@@ -61,8 +61,8 @@ namespace Credentialing.Business.DataAccess
                         retVal.PrimaryCity = reader[Constants.WorkHistoriesColumns.PrimaryCity] as string;
                         retVal.PrimaryState = reader[Constants.WorkHistoriesColumns.PrimaryState] as string;
                         retVal.PrimaryZip = reader[Constants.WorkHistoriesColumns.PrimaryZip] as string;
-                        retVal.PrimaryStartDate = (DateTime)reader[Constants.WorkHistoriesColumns.PrimaryStartDate];
-                        retVal.PrimaryEndDate = (DateTime)reader[Constants.WorkHistoriesColumns.PrimaryEndDate];
+                        retVal.PrimaryStartDate = Convert.IsDBNull(reader[Constants.WorkHistoriesColumns.PrimaryStartDate]) ? null : (DateTime?)reader[Constants.WorkHistoriesColumns.PrimaryStartDate];
+                        retVal.PrimaryEndDate = Convert.IsDBNull(reader[Constants.WorkHistoriesColumns.PrimaryEndDate]) ? null : (DateTime?)reader[Constants.WorkHistoriesColumns.PrimaryEndDate];
 
                         retVal.SecondaryNamePracticeEmployer = reader[Constants.WorkHistoriesColumns.SecondaryNamePracticeEmployer] as string;
                         retVal.SecondaryContactName = reader[Constants.WorkHistoriesColumns.SecondaryContactName] as string;
@@ -72,8 +72,8 @@ namespace Credentialing.Business.DataAccess
                         retVal.SecondaryCity = reader[Constants.WorkHistoriesColumns.SecondaryCity] as string;
                         retVal.SecondaryState = reader[Constants.WorkHistoriesColumns.SecondaryState] as string;
                         retVal.SecondaryZip = reader[Constants.WorkHistoriesColumns.SecondaryZip] as string;
-                        retVal.SecondaryStartDate = (DateTime)reader[Constants.WorkHistoriesColumns.SecondaryStartDate];
-                        retVal.SecondaryEndDate = (DateTime)reader[Constants.WorkHistoriesColumns.SecondaryEndDate];
+                        retVal.SecondaryStartDate = Convert.IsDBNull(reader[Constants.WorkHistoriesColumns.SecondaryStartDate]) ? null : (DateTime?)reader[Constants.WorkHistoriesColumns.SecondaryStartDate];
+                        retVal.SecondaryEndDate = Convert.IsDBNull(reader[Constants.WorkHistoriesColumns.SecondaryEndDate]) ? null : (DateTime?)reader[Constants.WorkHistoriesColumns.SecondaryEndDate];
 
                         retVal.TertiaryNamePracticeEmployer = reader[Constants.WorkHistoriesColumns.TertiaryNamePracticeEmployer] as string;
                         retVal.TertiaryContactName = reader[Constants.WorkHistoriesColumns.TertiaryContactName] as string;
@@ -83,8 +83,8 @@ namespace Credentialing.Business.DataAccess
                         retVal.TertiaryCity = reader[Constants.WorkHistoriesColumns.TertiaryCity] as string;
                         retVal.TertiaryState = reader[Constants.WorkHistoriesColumns.TertiaryState] as string;
                         retVal.TertiaryZip = reader[Constants.WorkHistoriesColumns.TertiaryZip] as string;
-                        retVal.TertiaryStartDate = (DateTime)reader[Constants.WorkHistoriesColumns.TertiaryStartDate];
-                        retVal.TertiaryEndDate = (DateTime)reader[Constants.WorkHistoriesColumns.TertiaryEndDate];
+                        retVal.TertiaryStartDate = Convert.IsDBNull(reader[Constants.WorkHistoriesColumns.TertiaryStartDate]) ? null : (DateTime?)reader[Constants.WorkHistoriesColumns.TertiaryStartDate];
+                        retVal.TertiaryEndDate = Convert.IsDBNull(reader[Constants.WorkHistoriesColumns.TertiaryEndDate]) ? null : (DateTime?)reader[Constants.WorkHistoriesColumns.TertiaryEndDate];
                     }
                 }
             }

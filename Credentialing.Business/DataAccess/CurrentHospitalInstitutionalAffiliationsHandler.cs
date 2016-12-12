@@ -58,42 +58,42 @@ namespace Credentialing.Business.DataAccess
                         retVal.CurrentPrimaryState = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentPrimaryState] as string;
                         retVal.CurrentPrimaryZip = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentPrimaryZip] as string;
                         retVal.CurrentPrimaryDepartmentStatus = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentPrimaryDepartmentStatus] as string;
-                        retVal.CurrentPrimaryAppointmentDate = (DateTime)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentPrimaryAppointmentDate];
+                        retVal.CurrentPrimaryAppointmentDate = Convert.IsDBNull(reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentPrimaryAppointmentDate]) ? null : (DateTime?)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentPrimaryAppointmentDate];
 
                         retVal.CurrentSecondaryAdmittingHospital = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentSecondaryAdmittingHospital] as string;
                         retVal.CurrentSecondaryCity = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentSecondaryCity] as string;
                         retVal.CurrentSecondaryState = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentSecondaryState] as string;
                         retVal.CurrentSecondaryZip = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentSecondaryZip] as string;
                         retVal.CurrentSecondaryDepartmentStatus = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentSecondaryDepartmentStatus] as string;
-                        retVal.CurrentSecondaryAppointmentDate = (DateTime)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentSecondaryAppointmentDate];
+                        retVal.CurrentSecondaryAppointmentDate = Convert.IsDBNull(reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentSecondaryAppointmentDate]) ? null : (DateTime?)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentSecondaryAppointmentDate];
 
                         retVal.CurrentTertiaryAdmittingHospital = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentTertiaryAdmittingHospital] as string;
                         retVal.CurrentTertiaryCity = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentTertiaryCity] as string;
                         retVal.CurrentTertiaryState = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentTertiaryState] as string;
                         retVal.CurrentTertiaryZip = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentTertiaryZip] as string;
                         retVal.CurrentTertiaryDepartmentStatus = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentTertiaryDepartmentStatus] as string;
-                        retVal.CurrentTertiaryAppointmentDate = (DateTime)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentTertiaryAppointmentDate];
+                        retVal.CurrentTertiaryAppointmentDate = Convert.IsDBNull(reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentTertiaryAppointmentDate]) ? null : (DateTime?)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.CurrentTertiaryAppointmentDate];
 
                         retVal.PreviousPrimaryAdmittingHospital = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousPrimaryAdmittingHospital] as string;
                         retVal.PreviousPrimaryCity = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousPrimaryCity] as string;
                         retVal.PreviousPrimaryState = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousPrimaryState] as string;
                         retVal.PreviousPrimaryZip = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousPrimaryZip] as string;
                         retVal.PreviousPrimaryDepartmentStatus = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousPrimaryDepartmentStatus] as string;
-                        retVal.PreviousPrimaryAppointmentDate = (DateTime)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousPrimaryAppointmentDate];
+                        retVal.PreviousPrimaryAppointmentDate = Convert.IsDBNull(reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousPrimaryAppointmentDate]) ? null : (DateTime?)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousPrimaryAppointmentDate];
 
                         retVal.PreviousSecondaryAdmittingHospital = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousSecondaryAdmittingHospital] as string;
                         retVal.PreviousSecondaryCity = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousSecondaryCity] as string;
                         retVal.PreviousSecondaryState = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousSecondaryState] as string;
                         retVal.PreviousSecondaryZip = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousSecondaryZip] as string;
                         retVal.PreviousSecondaryDepartmentStatus = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousSecondaryDepartmentStatus] as string;
-                        retVal.PreviousSecondaryAppointmentDate = (DateTime)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousSecondaryAppointmentDate];
+                        retVal.PreviousSecondaryAppointmentDate = Convert.IsDBNull(reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousSecondaryAppointmentDate]) ? null : (DateTime?)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousSecondaryAppointmentDate];
 
                         retVal.PreviousTertiaryAdmittingHospital = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousTertiaryAdmittingHospital] as string;
                         retVal.PreviousTertiaryCity = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousTertiaryCity] as string;
                         retVal.PreviousTertiaryState = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousTertiaryState] as string;
                         retVal.PreviousTertiaryZip = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousTertiaryZip] as string;
                         retVal.PreviousTertiaryDepartmentStatus = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousTertiaryDepartmentStatus] as string;
-                        retVal.PreviousTertiaryAppointmentDate = (DateTime)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousTertiaryAppointmentDate];
+                        retVal.PreviousTertiaryAppointmentDate = Convert.IsDBNull(reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousTertiaryAppointmentDate]) ? null : (DateTime?)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousTertiaryAppointmentDate];
                     }
                 }
             }
