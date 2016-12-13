@@ -57,24 +57,24 @@ $(function () {
 	});
 
 	if ($('.datepicker-default').length) {
-	    $('.datepicker-default').each(function(idx, element) {
-	        new Pikaday({
-	            field: element,
-	            format: moment().format('MM/DD/YYYY'),
-	            firstDay: 1,
-	            onSelect: function (date) {
-	                this._o.field.value = moment(date).format('MM/DD/YYYY');
-	            },
-	            onOpen: function () {
-	                if (parseInt(this.el.style.top, 10) < $(this.el).offset().top) {
-	                    this.el.style.marginTop = '1px';
-	                }
-	            },
-	            onClose: function () {
-	                this.el.style.marginTop = '';
-	            }
-	        });
-	    });
+		$('.datepicker-default').each(function (idx, element) {
+			new Pikaday({
+				field: element,
+				format: moment().format('MM/DD/YYYY'),
+				firstDay: 1,
+				onSelect: function (date) {
+					this._o.field.value = moment(date).format('MM/DD/YYYY');
+				},
+				onOpen: function () {
+					if (parseInt(this.el.style.top, 10) < $(this.el).offset().top) {
+						this.el.style.marginTop = '1px';
+					}
+				},
+				onClose: function () {
+					this.el.style.marginTop = '';
+				}
+			});
+		});
 	}
 
 	if ($('.datepicker-monthly').length) {
@@ -100,6 +100,15 @@ $(function () {
 
 		});
 	}
+
+	$('.form-step-progress').each(function() {
+		var $this = $(this);
+		var percentNum = $this.find('.text-percent').text().slice(0,-1);
+		setTimeout(function() {
+			$this.find('.progress-bar').css('width', percentNum + '%');
+		}, 500);
+	});
+
 });
 
 $(window).on('load', function () {

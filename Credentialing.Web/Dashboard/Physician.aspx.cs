@@ -48,10 +48,11 @@ namespace Credentialing.Web.Dashboard
             {
                 var data = (Step) e.Item.DataItem;
                 var ltrPercentage = (Literal)e.Item.FindControl("ltrPercentage");
+				var ltrProgressBar = (Literal)e.Item.FindControl("ltrProgressBar");
                 var hlStep = (HyperLink)e.Item.FindControl("hlStep");
 
-
                 ltrPercentage.Text = data.PercentComplete + "%";
+				ltrProgressBar.Text = data.PercentComplete + "%";
                 hlStep.Text = data.Name;
                 hlStep.NavigateUrl = data.Url;
             }
