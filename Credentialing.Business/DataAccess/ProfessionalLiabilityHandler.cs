@@ -1,10 +1,10 @@
-﻿using System;
-using System.Data;
+﻿using Credentialing.Entities;
 using Credentialing.Entities.Data;
+using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Configuration;
-using Credentialing.Entities;
 
 namespace Credentialing.Business.DataAccess
 {
@@ -50,53 +50,49 @@ namespace Credentialing.Business.DataAccess
                     {
                         retVal = new ProfessionalLiability();
 
-                        retVal.ProfessionalLiabilityId = (int) reader[Constants.ProfessionalLiabilities.ProfessionalLiabilityId];
+                        retVal.ProfessionalLiabilityId = (int)reader[Constants.ProfessionalLiabilities.ProfessionalLiabilityId];
                         retVal.CurrentInsuranceCarrier = reader[Constants.ProfessionalLiabilities.CurrentInsuranceCarrier] as string;
                         retVal.CurrentPolicyNumber = reader[Constants.ProfessionalLiabilities.CurrentPolicyNumber] as string;
-                        retVal.InitialEffectiverDate = (DateTime)reader[Constants.ProfessionalLiabilities.InitialEffectiverDate];
+                        retVal.InitialEffectiverDate = Convert.IsDBNull(reader[Constants.ProfessionalLiabilities.InitialEffectiverDate]) ? null : (DateTime?)reader[Constants.ProfessionalLiabilities.InitialEffectiverDate];
                         retVal.CurrentMailingAddress = reader[Constants.ProfessionalLiabilities.CurrentMailingAddress] as string;
                         retVal.CurrentCity = reader[Constants.ProfessionalLiabilities.CurrentCity] as string;
                         retVal.CurrentState = reader[Constants.ProfessionalLiabilities.CurrentState] as string;
                         retVal.CurrentZip = reader[Constants.ProfessionalLiabilities.CurrentZip] as string;
-                        retVal.CurrentPerClaimAmount = (decimal)reader[Constants.ProfessionalLiabilities.CurrentPerClaimAmount];
-                        retVal.CurrentAggregateAmount = (decimal)reader[Constants.ProfessionalLiabilities.CurrentAggregateAmount];
-                        retVal.CurrentExpirationDate = (DateTime)reader[Constants.ProfessionalLiabilities.CurrentExpirationDate];
-
+                        retVal.CurrentPerClaimAmount = Convert.IsDBNull(reader[Constants.ProfessionalLiabilities.CurrentPerClaimAmount]) ? null : (decimal?)reader[Constants.ProfessionalLiabilities.CurrentPerClaimAmount];
+                        retVal.CurrentAggregateAmount = Convert.IsDBNull(reader[Constants.ProfessionalLiabilities.CurrentAggregateAmount]) ? null : (decimal?)reader[Constants.ProfessionalLiabilities.CurrentAggregateAmount];
+                        retVal.CurrentExpirationDate = Convert.IsDBNull(reader[Constants.ProfessionalLiabilities.CurrentExpirationDate]) ? null : (DateTime?)reader[Constants.ProfessionalLiabilities.CurrentExpirationDate];
 
                         retVal.FirstPolicyCarrierName = reader[Constants.ProfessionalLiabilities.FirstPolicyCarrierName] as string;
                         retVal.FirstPolicyNumber = reader[Constants.ProfessionalLiabilities.FirstPolicyNumber] as string;
-                        retVal.FirstFromDate = (DateTime)reader[Constants.ProfessionalLiabilities.FirstFromDate];
-                        retVal.FirstToDate = (DateTime)reader[Constants.ProfessionalLiabilities.FirstToDate];
+                        retVal.FirstFromDate = Convert.IsDBNull(reader[Constants.ProfessionalLiabilities.FirstFromDate]) ? null : (DateTime?)reader[Constants.ProfessionalLiabilities.FirstFromDate];
+                        retVal.FirstToDate = Convert.IsDBNull(reader[Constants.ProfessionalLiabilities.FirstToDate]) ? null : (DateTime?)reader[Constants.ProfessionalLiabilities.FirstToDate];
                         retVal.FirstMailingAddress = reader[Constants.ProfessionalLiabilities.FirstMailingAddress] as string;
                         retVal.FirstCity = reader[Constants.ProfessionalLiabilities.FirstCity] as string;
                         retVal.FirstState = reader[Constants.ProfessionalLiabilities.FirstState] as string;
                         retVal.FirstZip = reader[Constants.ProfessionalLiabilities.FirstZip] as string;
 
-
                         retVal.SecondPolicyCarrierName = reader[Constants.ProfessionalLiabilities.SecondPolicyCarrierName] as string;
                         retVal.SecondPolicyNumber = reader[Constants.ProfessionalLiabilities.SecondPolicyNumber] as string;
-                        retVal.SecondFromDate = (DateTime)reader[Constants.ProfessionalLiabilities.SecondFromDate];
-                        retVal.SecondToDate = (DateTime)reader[Constants.ProfessionalLiabilities.SecondToDate];
+                        retVal.SecondFromDate = Convert.IsDBNull(reader[Constants.ProfessionalLiabilities.SecondFromDate]) ? null : (DateTime?)reader[Constants.ProfessionalLiabilities.SecondFromDate];
+                        retVal.SecondToDate = Convert.IsDBNull(reader[Constants.ProfessionalLiabilities.SecondToDate]) ? null : (DateTime?)reader[Constants.ProfessionalLiabilities.SecondToDate];
                         retVal.SecondMailingAddress = reader[Constants.ProfessionalLiabilities.SecondMailingAddress] as string;
                         retVal.SecondCity = reader[Constants.ProfessionalLiabilities.SecondCity] as string;
                         retVal.SecondState = reader[Constants.ProfessionalLiabilities.SecondState] as string;
                         retVal.SecondZip = reader[Constants.ProfessionalLiabilities.SecondZip] as string;
 
-
                         retVal.ThirdPolicyCarrierName = reader[Constants.ProfessionalLiabilities.ThirdPolicyCarrierName] as string;
                         retVal.ThirdPolicyNumber = reader[Constants.ProfessionalLiabilities.ThirdPolicyNumber] as string;
-                        retVal.ThirdFromDate = (DateTime)reader[Constants.ProfessionalLiabilities.ThirdFromDate];
-                        retVal.ThirdToDate = (DateTime)reader[Constants.ProfessionalLiabilities.ThirdToDate];
+                        retVal.ThirdFromDate = Convert.IsDBNull(reader[Constants.ProfessionalLiabilities.ThirdFromDate]) ? null : (DateTime?)reader[Constants.ProfessionalLiabilities.ThirdFromDate];
+                        retVal.ThirdToDate = Convert.IsDBNull(reader[Constants.ProfessionalLiabilities.ThirdToDate]) ? null : (DateTime?)reader[Constants.ProfessionalLiabilities.ThirdToDate];
                         retVal.ThirdMailingAddress = reader[Constants.ProfessionalLiabilities.ThirdMailingAddress] as string;
                         retVal.ThirdCity = reader[Constants.ProfessionalLiabilities.ThirdCity] as string;
                         retVal.ThirdState = reader[Constants.ProfessionalLiabilities.ThirdState] as string;
                         retVal.ThirdZip = reader[Constants.ProfessionalLiabilities.ThirdZip] as string;
 
-
                         retVal.FourthPolicyCarrierName = reader[Constants.ProfessionalLiabilities.FourthPolicyCarrierName] as string;
                         retVal.FourthPolicyNumber = reader[Constants.ProfessionalLiabilities.FourthPolicyNumber] as string;
-                        retVal.FourthFromDate = (DateTime)reader[Constants.ProfessionalLiabilities.FourthFromDate];
-                        retVal.FourthToDate = (DateTime)reader[Constants.ProfessionalLiabilities.FourthToDate];
+                        retVal.FourthFromDate = Convert.IsDBNull(reader[Constants.ProfessionalLiabilities.FourthFromDate]) ? null : (DateTime?)reader[Constants.ProfessionalLiabilities.FourthFromDate];
+                        retVal.FourthToDate = Convert.IsDBNull(reader[Constants.ProfessionalLiabilities.FourthToDate]) ? null : (DateTime?)reader[Constants.ProfessionalLiabilities.FourthToDate];
                         retVal.FourthMailingAddress = reader[Constants.ProfessionalLiabilities.FourthMailingAddress] as string;
                         retVal.FourthCity = reader[Constants.ProfessionalLiabilities.FourthCity] as string;
                         retVal.FourthState = reader[Constants.ProfessionalLiabilities.FourthState] as string;
@@ -204,53 +200,52 @@ namespace Credentialing.Business.DataAccess
         {
             var sqlCommand = new SqlCommand(@"UPDATE ProfessionalLiabilities
                                                 SET
-                                                    CurrentInsuranceCarrier = @currentInsuranceCarrier, 
-                                                    CurrentPolicyNumber = @currentPolicyNumber, 
-                                                    InitialEffectiverDate = @initialEffectiverDate, 
+                                                    CurrentInsuranceCarrier = @currentInsuranceCarrier,
+                                                    CurrentPolicyNumber = @currentPolicyNumber,
+                                                    InitialEffectiverDate = @initialEffectiverDate,
 
-                                                    CurrentMailingAddress = @currentMailingAddress, 
-                                                    CurrentCity = @currentCity, 
-                                                    CurrentState = @currentState , 
-                                                    CurrentZip = @currentZip, 
-                                                    CurrentPerClaimAmount = @currentPerClaimAmount, 
-                                                    CurrentAggregateAmount = @currentAggregateAmount, 
-                                                    CurrentExpirationDate = @currentExpirationDate, 
+                                                    CurrentMailingAddress = @currentMailingAddress,
+                                                    CurrentCity = @currentCity,
+                                                    CurrentState = @currentState ,
+                                                    CurrentZip = @currentZip,
+                                                    CurrentPerClaimAmount = @currentPerClaimAmount,
+                                                    CurrentAggregateAmount = @currentAggregateAmount,
+                                                    CurrentExpirationDate = @currentExpirationDate,
 
+                                                    FirstPolicyCarrierName = @firstPolicyCarrierName,
+                                                    FirstPolicyNumber = @firstPolicyNumber,
+                                                    FirstFromDate = @firstFromDate,
+                                                    FirstToDate = @firstToDate,
+                                                    FirstMailingAddress = @firstMailingAddress,
+                                                    FirstCity = @firstCity ,
+                                                    FirstState = @firstState,
+                                                    FirstZip = @firstZip,
 
-                                                    FirstPolicyCarrierName = @firstPolicyCarrierName, 
-                                                    FirstPolicyNumber = @firstPolicyNumber, 
-                                                    FirstFromDate = @firstFromDate, 
-                                                    FirstToDate = @firstToDate, 
-                                                    FirstMailingAddress = @firstMailingAddress, 
-                                                    FirstCity = @firstCity , 
-                                                    FirstState = @firstState, 
-                                                    FirstZip = @firstZip, 
+                                                    SecondPolicyCarrierName = @secondPolicyCarrierName,
+                                                    SecondPolicyNumber = @secondPolicyNumber,
+                                                    SecondFromDate = @secondFromDate,
+                                                    SecondToDate = @secondToDate,
+                                                    SecondMailingAddress = @secondMailingAddress,
+                                                    SecondCity = @secondCity,
+                                                    SecondState = @secondState,
+                                                    SecondZip = @secondZip,
 
-                                                    SecondPolicyCarrierName = @secondPolicyCarrierName, 
-                                                    SecondPolicyNumber = @secondPolicyNumber, 
-                                                    SecondFromDate = @secondFromDate, 
-                                                    SecondToDate = @secondToDate, 
-                                                    SecondMailingAddress = @secondMailingAddress, 
-                                                    SecondCity = @secondCity, 
-                                                    SecondState = @secondState, 
-                                                    SecondZip = @secondZip, 
+                                                    ThirdPolicyCarrierName = @thirdPolicyCarrierName,
+                                                    ThirdPolicyNumber = @thirdPolicyNumber,
+                                                    ThirdFromDate = @thirdFromDate,
+                                                    ThirdToDate = @thirdToDate,
+                                                    ThirdMailingAddress = @thirdMailingAddress,
+                                                    ThirdCity = @thirdCity,
+                                                    ThirdState = @thirdState,
+                                                    ThirdZip = @thirdZip,
 
-                                                    ThirdPolicyCarrierName = @thirdPolicyCarrierName, 
-                                                    ThirdPolicyNumber = @thirdPolicyNumber, 
-                                                    ThirdFromDate = @thirdFromDate, 
-                                                    ThirdToDate = @thirdToDate, 
-                                                    ThirdMailingAddress = @thirdMailingAddress, 
-                                                    ThirdCity = @thirdCity, 
-                                                    ThirdState = @thirdState, 
-                                                    ThirdZip = @thirdZip, 
-
-                                                    FourthPolicyCarrierName = @fourthPolicyCarrierName, 
-                                                    FourthPolicyNumber = @fourthPolicyNumber, 
-                                                    FourthFromDate = @fourthFromDate, 
-                                                    FourthToDate = @fourthToDate, 
-                                                    FourthMailingAddress = @fourthMailingAddress, 
-                                                    FourthCity = @fourthCity, 
-                                                    FourthState = @fourthState, 
+                                                    FourthPolicyCarrierName = @fourthPolicyCarrierName,
+                                                    FourthPolicyNumber = @fourthPolicyNumber,
+                                                    FourthFromDate = @fourthFromDate,
+                                                    FourthToDate = @fourthToDate,
+                                                    FourthMailingAddress = @fourthMailingAddress,
+                                                    FourthCity = @fourthCity,
+                                                    FourthState = @fourthState,
                                                     FourthZip = @fourthZip,
 
                                                     Completed = @completed

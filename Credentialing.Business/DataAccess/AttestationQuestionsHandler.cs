@@ -53,19 +53,19 @@ namespace Credentialing.Business.DataAccess
                         retVal = new AttestationQuestions();
 
                         retVal.AttestationQuestionsId = (int)reader[Constants.AttestationQuestionsColumns.AttestationQuestionsId];
-                        retVal.QuestionA = (bool)reader[Constants.AttestationQuestionsColumns.QuestionA];
-                        retVal.QuestionB = (bool)reader[Constants.AttestationQuestionsColumns.QuestionB];
-                        retVal.QuestionC = (bool)reader[Constants.AttestationQuestionsColumns.QuestionC];
-                        retVal.QuestionD = (bool)reader[Constants.AttestationQuestionsColumns.QuestionD];
-                        retVal.QuestionE = (bool)reader[Constants.AttestationQuestionsColumns.QuestionE];
-                        retVal.QuestionF = (bool)reader[Constants.AttestationQuestionsColumns.QuestionF];
-                        retVal.QuestionG = (bool)reader[Constants.AttestationQuestionsColumns.QuestionG];
-                        retVal.QuestionH = (bool)reader[Constants.AttestationQuestionsColumns.QuestionH];
-                        retVal.QuestionI = (bool)reader[Constants.AttestationQuestionsColumns.QuestionI];
-                        retVal.QuestionJ = (bool)reader[Constants.AttestationQuestionsColumns.QuestionJ];
-                        retVal.QuestionK = (bool)reader[Constants.AttestationQuestionsColumns.QuestionK];
-                        retVal.QuestionL = (bool)reader[Constants.AttestationQuestionsColumns.QuestionL];
-                        retVal.QuestionM = (bool)reader[Constants.AttestationQuestionsColumns.QuestionM];
+                        retVal.QuestionA = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.QuestionA]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.QuestionA];
+                        retVal.QuestionB = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.QuestionB]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.QuestionB];
+                        retVal.QuestionC = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.QuestionC]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.QuestionC];
+                        retVal.QuestionD = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.QuestionD]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.QuestionD];
+                        retVal.QuestionE = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.QuestionE]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.QuestionE];
+                        retVal.QuestionF = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.QuestionF]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.QuestionF];
+                        retVal.QuestionG = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.QuestionG]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.QuestionG];
+                        retVal.QuestionH = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.QuestionH]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.QuestionH];
+                        retVal.QuestionI = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.QuestionI]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.QuestionI];
+                        retVal.QuestionJ = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.QuestionJ]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.QuestionJ];
+                        retVal.QuestionK = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.QuestionK]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.QuestionK];
+                        retVal.QuestionL = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.QuestionL]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.QuestionL];
+                        retVal.QuestionM = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.QuestionM]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.QuestionM];
                         retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }

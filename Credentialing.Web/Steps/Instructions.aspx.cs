@@ -21,9 +21,9 @@ namespace Credentialing.Web.Steps
             if (user != null && MemberHelper.IsUserPhysician(user.UserName))
             {
                 physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid) user.ProviderUserKey);
-            }
 
-            StepsHelper.Instance.UpdateSteps(physicianFormData);
+                StepsHelper.Instance.UpdateSteps(physicianFormData);
+            }
         }
 
         #endregion [Protected methods]

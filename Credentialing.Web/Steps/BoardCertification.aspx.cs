@@ -1,4 +1,5 @@
-﻿using Credentialing.Business.Helpers;
+﻿using Credentialing.Business.DataAccess;
+using Credentialing.Business.Helpers;
 using System;
 using System.Web.UI;
 
@@ -14,6 +15,13 @@ namespace Credentialing.Web.Steps
         {
             btnNext.Click += btnNext_Click;
             btnPrevious.Click += btnPrevious_Click;
+
+            if (!IsPostBack)
+            {
+                var data = LoadUserData();
+
+                //   LoadFormData(data);
+            }
         }
 
         #endregion [Protected methods]
@@ -30,20 +38,112 @@ namespace Credentialing.Web.Steps
         {
             if (ValidateFields())
             {
-                SaveFormData();
+                // SaveFormData();
                 Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
                 Response.End();
             }
         }
 
+        private Entities.Data.BoardCertification LoadUserData()
+        {
+            var user = MemberHelper.GetCurrentLoggedUser();
+
+            if (user != null && MemberHelper.IsUserPhysician(user.UserName))
+            {
+                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey, true);
+
+                StepsHelper.Instance.UpdateSteps(physicianFormData);
+
+                if (physicianFormData != null && physicianFormData.OtherCertification != null)
+                {
+                    return physicianFormData.BoardCertification;
+                }
+            }
+
+            return null;
+        }
+
         private void SaveFormData()
         {
-            // TODO: Implement
+            var formData = new Entities.Data.BoardCertification();
+
+            formData.PrimaryNameIssuingBoard = tboxPrimaryNameIssuingBoard.Text;
+            formData.PrimarySpecialty = tboxPrimarySpecialty.Text;
+
+            formData.PrimaryDateCertifiedRecertified = string.IsNullOrWhiteSpace(tboxPrimaryDateCertifiedRecertified.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxPrimaryDateCertifiedRecertified.Text);
+            formData.PrimaryExpirationDate = string.IsNullOrWhiteSpace(tboxPrimaryExpirationDate.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxPrimaryExpirationDate.Text);
+
+            formData.SecondaryNameIssuingBoard = tboxSecondaryNameIssuingBoard.Text;
+            formData.SecondarySpecialty = tboxSecondarySpecialty.Text;
+            formData.SecondaryDateCertifiedRecertified = string.IsNullOrWhiteSpace(tboxSecondaryDateCertifiedRecertified.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxSecondaryDateCertifiedRecertified.Text);
+            formData.SecondaryExpirationDate = string.IsNullOrWhiteSpace(tboxSecondaryExpirationDate.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxSecondaryExpirationDate.Text);
+
+            formData.TertiaryNameIssuingBoard = tboxTertiaryNameIssuingBoard.Text;
+            formData.TertiarySpecialty = tboxTertiarySpecialty.Text;
+            formData.TertiaryDateCertifiedRecertified = string.IsNullOrWhiteSpace(tboxTertiaryDateCertifiedRecertified.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxTertiaryDateCertifiedRecertified.Text);
+            formData.TertiaryExpirationDate = string.IsNullOrWhiteSpace(tboxTertiaryExpirationDate.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxTertiaryExpirationDate.Text);
+
+            var user = MemberHelper.GetCurrentLoggedUser();
+            var userId = (Guid)user.ProviderUserKey;
+
+            PracticionersApplicationHandler.Instance.UpsertBoardCertification(formData, userId);
         }
 
         private bool ValidateFields()
         {
-            return true; // TODO: Implement
+            var retVal = true;
+
+            if (!string.IsNullOrWhiteSpace(tboxPrimaryDateCertifiedRecertified.Text))
+            {
+                retVal = ValidationHelper.ValidateShortDate(tboxPrimaryDateCertifiedRecertified) && retVal;
+            }
+
+            if (!string.IsNullOrWhiteSpace(tboxPrimaryExpirationDate.Text))
+            {
+                retVal = ValidationHelper.ValidateShortDate(tboxPrimaryExpirationDate) && retVal;
+            }
+
+            if (!string.IsNullOrWhiteSpace(tboxSecondaryDateCertifiedRecertified.Text))
+            {
+                retVal = ValidationHelper.ValidateShortDate(tboxSecondaryDateCertifiedRecertified) && retVal;
+            }
+
+            if (!string.IsNullOrWhiteSpace(tboxSecondaryExpirationDate.Text))
+            {
+                retVal = ValidationHelper.ValidateShortDate(tboxSecondaryExpirationDate) && retVal;
+            }
+
+            if (!string.IsNullOrWhiteSpace(tboxTertiaryDateCertifiedRecertified.Text))
+            {
+                retVal = ValidationHelper.ValidateShortDate(tboxTertiaryDateCertifiedRecertified) && retVal;
+            }
+
+            if (!string.IsNullOrWhiteSpace(tboxTertiaryExpirationDate.Text))
+            {
+                retVal = ValidationHelper.ValidateShortDate(tboxTertiaryExpirationDate) && retVal;
+            }
+
+            return retVal;
+        }
+
+        private void LoadFormData(Entities.Data.BoardCertification formData)
+        {
+            if (formData == null) return;
+
+            tboxPrimaryNameIssuingBoard.Text = formData.PrimaryNameIssuingBoard;
+            tboxPrimarySpecialty.Text = formData.PrimarySpecialty;
+            tboxPrimaryDateCertifiedRecertified.Text = formData.PrimaryDateCertifiedRecertified.HasValue ? formData.PrimaryDateCertifiedRecertified.Value.ToString("MM/dd/yyyy") : string.Empty;
+            tboxPrimaryExpirationDate.Text = formData.PrimaryExpirationDate.HasValue ? formData.PrimaryExpirationDate.Value.ToString("MM/dd/yyyy") : string.Empty;
+
+            tboxSecondaryNameIssuingBoard.Text = formData.SecondaryNameIssuingBoard;
+            tboxSecondarySpecialty.Text = formData.SecondarySpecialty;
+            tboxSecondaryDateCertifiedRecertified.Text = formData.SecondaryDateCertifiedRecertified.HasValue ? formData.SecondaryDateCertifiedRecertified.Value.ToString("MM/dd/yyyy") : string.Empty;
+            tboxSecondaryExpirationDate.Text = formData.SecondaryExpirationDate.HasValue ? formData.SecondaryExpirationDate.Value.ToString("MM/dd/yyyy") : string.Empty;
+
+            tboxTertiaryNameIssuingBoard.Text = formData.TertiaryNameIssuingBoard;
+            tboxTertiarySpecialty.Text = formData.TertiarySpecialty;
+            tboxTertiaryDateCertifiedRecertified.Text = formData.TertiaryDateCertifiedRecertified.HasValue ? formData.TertiaryDateCertifiedRecertified.Value.ToString("MM/dd/yyyy") : string.Empty;
+            tboxTertiaryExpirationDate.Text = formData.TertiaryExpirationDate.HasValue ? formData.TertiaryExpirationDate.Value.ToString("MM/dd/yyyy") : string.Empty;
         }
 
         #endregion [Private methods]

@@ -61,9 +61,9 @@ namespace Credentialing.Business.DataAccess
                         retVal.PrimaryZip = reader[Constants.ResidenciesFellowshipsColumns.PrimaryZip] as string;
                         retVal.PrimaryTypeTraining = reader[Constants.ResidenciesFellowshipsColumns.PrimaryTypeTraining] as string;
                         retVal.PrimarySpecialty = reader[Constants.ResidenciesFellowshipsColumns.PrimarySpecialty] as string;
-                        retVal.PrimaryFrom = (DateTime)reader[Constants.ResidenciesFellowshipsColumns.PrimaryFrom];
-                        retVal.PrimaryTo = (DateTime)reader[Constants.ResidenciesFellowshipsColumns.PrimaryTo];
-                        retVal.PrimaryCompleted = (bool)reader[Constants.ResidenciesFellowshipsColumns.PrimaryCompleted];
+                        retVal.PrimaryFrom = Convert.IsDBNull(reader[Constants.ResidenciesFellowshipsColumns.PrimaryFrom]) ? null : (DateTime?)reader[Constants.ResidenciesFellowshipsColumns.PrimaryFrom];
+                        retVal.PrimaryTo = Convert.IsDBNull(reader[Constants.ResidenciesFellowshipsColumns.PrimaryTo]) ? null : (DateTime?)reader[Constants.ResidenciesFellowshipsColumns.PrimaryTo];
+                        retVal.PrimaryCompleted = Convert.IsDBNull(reader[Constants.ResidenciesFellowshipsColumns.PrimaryCompleted]) ? null : (bool?)reader[Constants.ResidenciesFellowshipsColumns.PrimaryCompleted];
 
                         retVal.SecondaryInstitution = reader[Constants.ResidenciesFellowshipsColumns.SecondaryInstitution] as string;
                         retVal.SecondaryProgramDirector = reader[Constants.ResidenciesFellowshipsColumns.SecondaryProgramDirector] as string;
@@ -73,9 +73,9 @@ namespace Credentialing.Business.DataAccess
                         retVal.SecondaryZip = reader[Constants.ResidenciesFellowshipsColumns.SecondaryZip] as string;
                         retVal.SecondaryTypeTraining = reader[Constants.ResidenciesFellowshipsColumns.SecondaryTypeTraining] as string;
                         retVal.SecondarySpecialty = reader[Constants.ResidenciesFellowshipsColumns.SecondarySpecialty] as string;
-                        retVal.SecondaryFrom = (DateTime)reader[Constants.ResidenciesFellowshipsColumns.SecondaryFrom];
-                        retVal.SecondaryTo = (DateTime)reader[Constants.ResidenciesFellowshipsColumns.SecondaryTo];
-                        retVal.SecondaryCompleted = (bool)reader[Constants.ResidenciesFellowshipsColumns.SecondaryCompleted];
+                        retVal.SecondaryFrom = Convert.IsDBNull(reader[Constants.ResidenciesFellowshipsColumns.SecondaryFrom]) ? null : (DateTime?)reader[Constants.ResidenciesFellowshipsColumns.SecondaryFrom];
+                        retVal.SecondaryTo = Convert.IsDBNull(reader[Constants.ResidenciesFellowshipsColumns.SecondaryTo]) ? null : (DateTime?)reader[Constants.ResidenciesFellowshipsColumns.SecondaryTo];
+                        retVal.SecondaryCompleted = Convert.IsDBNull(reader[Constants.ResidenciesFellowshipsColumns.SecondaryCompleted]) ? null : (bool?)reader[Constants.ResidenciesFellowshipsColumns.SecondaryCompleted];
 
                         retVal.TertiaryInstitution = reader[Constants.ResidenciesFellowshipsColumns.TertiaryInstitution] as string;
                         retVal.TertiaryProgramDirector = reader[Constants.ResidenciesFellowshipsColumns.TertiaryProgramDirector] as string;
@@ -85,9 +85,9 @@ namespace Credentialing.Business.DataAccess
                         retVal.TertiaryZip = reader[Constants.ResidenciesFellowshipsColumns.TertiaryZip] as string;
                         retVal.TertiaryTypeTraining = reader[Constants.ResidenciesFellowshipsColumns.TertiaryTypeTraining] as string;
                         retVal.TertiarySpecialty = reader[Constants.ResidenciesFellowshipsColumns.TertiarySpecialty] as string;
-                        retVal.TertiaryFrom = (DateTime)reader[Constants.ResidenciesFellowshipsColumns.TertiaryFrom];
-                        retVal.TertiaryTo = (DateTime)reader[Constants.ResidenciesFellowshipsColumns.TertiaryTo];
-                        retVal.TertiaryCompleted = (bool)reader[Constants.ResidenciesFellowshipsColumns.TertiaryCompleted];
+                        retVal.TertiaryFrom = Convert.IsDBNull(reader[Constants.ResidenciesFellowshipsColumns.TertiaryFrom]) ? null : (DateTime?)reader[Constants.ResidenciesFellowshipsColumns.TertiaryFrom];
+                        retVal.TertiaryTo = Convert.IsDBNull(reader[Constants.ResidenciesFellowshipsColumns.TertiaryTo]) ? null : (DateTime?)reader[Constants.ResidenciesFellowshipsColumns.TertiaryTo];
+                        retVal.TertiaryCompleted = Convert.IsDBNull(reader[Constants.ResidenciesFellowshipsColumns.TertiaryCompleted]) ? null: (bool?)reader[Constants.ResidenciesFellowshipsColumns.TertiaryCompleted];
 
                         retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }

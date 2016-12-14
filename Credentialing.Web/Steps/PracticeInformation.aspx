@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PracticeInformation.aspx.cs" Inherits="Credentialing.Web.Steps.PracticeInformation" MasterPageFile="../Main.Master" %>
 <%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
-    <uc:SidebarProgress runat="server" CurrentStep="3" EnableViewState="false"/>
+	<uc:SidebarProgress runat="server" CurrentStep="3" EnableViewState="false"/>
 	<div class="form-block">
 		<div class="form-heading">
 			<h2><strong>3.</strong> Practice information</h2>

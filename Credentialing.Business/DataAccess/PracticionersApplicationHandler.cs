@@ -279,13 +279,13 @@ namespace Credentialing.Business.DataAccess
                         formData.AttachmentId = id;
                     }
 
-                    var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, trans, userId);
+                    var physicianFormData = GetByUserId(conn, trans, userId);
                     if (!physicianFormData.IdentifyingInformationId.HasValue)
                     {
                         var id = IdentifyingInformationHandler.Instance.Insert(conn, trans, formData);
                         physicianFormData.IdentifyingInformationId = id;
 
-                        PracticionersApplicationHandler.Instance.Update(conn, trans, physicianFormData);
+                        Update(conn, trans, physicianFormData);
                     }
                     else
                     {
@@ -317,7 +317,7 @@ namespace Credentialing.Business.DataAccess
                 var trans = conn.BeginTransaction();
                 try
                 {
-                    var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, trans, userId);
+                    var physicianFormData = GetByUserId(conn, trans, userId);
                     if (physicianFormData.EducationId.HasValue)
                     {
                         formData.EducationId = physicianFormData.EducationId.Value;
@@ -328,7 +328,7 @@ namespace Credentialing.Business.DataAccess
                         var id = EducationHandler.Instance.Insert(conn, trans, formData);
                         physicianFormData.EducationId = id;
 
-                        PracticionersApplicationHandler.Instance.Update(conn, trans, physicianFormData);
+                        Update(conn, trans, physicianFormData);
                     }
 
                     if (formData.AttachedDocuments.Count > 0)
@@ -371,7 +371,7 @@ namespace Credentialing.Business.DataAccess
                 var trans = conn.BeginTransaction();
                 try
                 {
-                    var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, trans, userId);
+                    var physicianFormData = GetByUserId(conn, trans, userId);
 
                     if (physicianFormData.MedicalProfessionalEducationId.HasValue)
                     {
@@ -383,7 +383,7 @@ namespace Credentialing.Business.DataAccess
                         var id = MedicalProfessionalEducationHandler.Instance.Insert(conn, trans, formData);
                         physicianFormData.MedicalProfessionalEducationId = id;
 
-                        PracticionersApplicationHandler.Instance.Update(conn, trans, physicianFormData);
+                        Update(conn, trans, physicianFormData);
                     }
 
                     if (formData.Attachments.Count > 0)
@@ -426,18 +426,174 @@ namespace Credentialing.Business.DataAccess
                 var trans = conn.BeginTransaction();
                 try
                 {
-                    var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId(conn, trans, userId);
+                    var physicianFormData = GetByUserId(conn, trans, userId);
                     if (!physicianFormData.PracticeInformationId.HasValue)
                     {
                         var id = PracticeInformationHandler.Instance.Insert(conn, trans, formData);
                         physicianFormData.PracticeInformationId = id;
 
-                        PracticionersApplicationHandler.Instance.Update(conn, trans, physicianFormData);
+                        Update(conn, trans, physicianFormData);
                     }
                     else
                     {
                         formData.PracticeInformationId = physicianFormData.PracticeInformationId.Value;
                         PracticeInformationHandler.Instance.Update(conn, trans, formData);
+                    }
+
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+
+                    Log.Error(ex);
+
+                    retVal = false;
+                }
+            }
+
+            return retVal;
+        }
+
+        public bool UpsertInternshipInformation(Internship formData, Guid userId)
+        {
+            var retVal = true;
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                conn.Open();
+                var trans = conn.BeginTransaction();
+                try
+                {
+                    var physicianFormData = GetByUserId(conn, trans, userId);
+                    if (!physicianFormData.InternshipId.HasValue)
+                    {
+                        var id = InternshipHandler.Instance.Insert(conn, trans, formData);
+                        physicianFormData.PracticeInformationId = id;
+
+                        Update(conn, trans, physicianFormData);
+                    }
+                    else
+                    {
+                        formData.InternshipId = physicianFormData.InternshipId.Value;
+                        InternshipHandler.Instance.Update(conn, trans, formData);
+                    }
+
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+
+                    Log.Error(ex);
+
+                    retVal = false;
+                }
+            }
+
+            return retVal;
+        }
+
+        public bool UpsertResidenciesFellowship(ResidenciesFellowship formData, Guid userId)
+        {
+            var retVal = true;
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                conn.Open();
+                var trans = conn.BeginTransaction();
+                try
+                {
+                    var physicianFormData = GetByUserId(conn, trans, userId);
+                    if (!physicianFormData.ResidenciesFellowshipId.HasValue)
+                    {
+                        var id = ResidenciesFellowshipHandler.Instance.Insert(conn, trans, formData);
+                        physicianFormData.ResidenciesFellowshipId = id;
+
+                        Update(conn, trans, physicianFormData);
+                    }
+                    else
+                    {
+                        formData.ResidenciesFellowshipId = physicianFormData.ResidenciesFellowshipId.Value;
+                        ResidenciesFellowshipHandler.Instance.Update(conn, trans, formData);
+                    }
+
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+
+                    Log.Error(ex);
+
+                    retVal = false;
+                }
+            }
+
+            return retVal;
+        }
+
+        public bool UpsertBoardCertification(BoardCertification formData, Guid userId)
+        {
+            var retVal = true;
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                conn.Open();
+                var trans = conn.BeginTransaction();
+                try
+                {
+                    var physicianFormData = GetByUserId(conn, trans, userId);
+                    if (!physicianFormData.BoardCertificationId.HasValue)
+                    {
+                        var id = BoardCertificationHandler.Instance.Insert(conn, trans, formData);
+                        physicianFormData.ResidenciesFellowshipId = id;
+
+                        Update(conn, trans, physicianFormData);
+                    }
+                    else
+                    {
+                        formData.BoardCertificationId = physicianFormData.BoardCertificationId.Value;
+                        BoardCertificationHandler.Instance.Update(conn, trans, formData);
+                    }
+
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+
+                    Log.Error(ex);
+
+                    retVal = false;
+                }
+            }
+
+            return retVal;
+        }
+
+        public bool UpsertOtherCertifications(OtherCertifications formData, Guid userId)
+        {
+            var retVal = true;
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                conn.Open();
+                var trans = conn.BeginTransaction();
+                try
+                {
+                    var physicianFormData = GetByUserId(conn, trans, userId);
+                    if (!physicianFormData.OtherCertificationId.HasValue)
+                    {
+                        var id = OtherCertificationsHandler.Instance.Insert(conn, trans, formData);
+                        physicianFormData.ResidenciesFellowshipId = id;
+
+                        Update(conn, trans, physicianFormData);
+                    }
+                    else
+                    {
+                        formData.OtherCertificationsId = physicianFormData.OtherCertificationId.Value;
+                        OtherCertificationsHandler.Instance.Update(conn, trans, formData);
                     }
 
                     trans.Commit();

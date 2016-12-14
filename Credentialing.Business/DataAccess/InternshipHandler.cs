@@ -59,8 +59,8 @@ namespace Credentialing.Business.DataAccess
                         retVal.Zip = reader[Constants.InternshipsColumns.Zip] as string;
                         retVal.TypeOfInternship = reader[Constants.InternshipsColumns.TypeOfInternship] as string;
                         retVal.Specialty = reader[Constants.InternshipsColumns.Specialty] as string;
-                        retVal.SpecialtyFrom = (DateTime)reader[Constants.InternshipsColumns.SpecialtyFrom];
-                        retVal.SpecialtyTo = (DateTime)reader[Constants.InternshipsColumns.SpecialtyTo];
+                        retVal.SpecialtyFrom = Convert.IsDBNull(reader[Constants.InternshipsColumns.SpecialtyFrom]) ? null : (DateTime?)reader[Constants.InternshipsColumns.SpecialtyFrom];
+                        retVal.SpecialtyTo = Convert.IsDBNull(reader[Constants.InternshipsColumns.SpecialtyTo]) ? null : (DateTime?)reader[Constants.InternshipsColumns.SpecialtyTo];
                         retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }

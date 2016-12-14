@@ -28,6 +28,6 @@ namespace Credentialing.Web.Dashboard {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStartForm;
+        protected global::System.Web.UI.WebControls.LinkButton btnStartForm;
     }
 }

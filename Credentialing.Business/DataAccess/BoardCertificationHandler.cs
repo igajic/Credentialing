@@ -55,19 +55,22 @@ namespace Credentialing.Business.DataAccess
                         retVal.BoardCertificationId = (int)reader[Constants.BoardCertificationColumns.BoardCertificationId];
                         retVal.PrimaryNameIssuingBoard = reader[Constants.BoardCertificationColumns.PrimaryNameIssuingBoard] as string;
                         retVal.PrimarySpecialty = reader[Constants.BoardCertificationColumns.PrimarySpecialty] as string;
-                        retVal.PrimaryDateCertifiedRecertified = (DateTime)reader[Constants.BoardCertificationColumns.PrimaryDateCertifiedRecertified];
-                        retVal.PrimaryExpirationDate = (DateTime)reader[Constants.BoardCertificationColumns.PrimaryExpirationDate];
+                        retVal.PrimaryDateCertifiedRecertified = Convert.IsDBNull(reader[Constants.BoardCertificationColumns.PrimaryDateCertifiedRecertified]) ? null : (DateTime?)reader[Constants.BoardCertificationColumns.PrimaryDateCertifiedRecertified];
+                        retVal.PrimaryExpirationDate = Convert.IsDBNull(reader[Constants.BoardCertificationColumns.PrimaryExpirationDate]) ? null : (DateTime?)reader[Constants.BoardCertificationColumns.PrimaryExpirationDate];
+
                         retVal.SecondaryNameIssuingBoard = reader[Constants.BoardCertificationColumns.SecondaryNameIssuingBoard] as string;
                         retVal.SecondarySpecialty = reader[Constants.BoardCertificationColumns.SecondarySpecialty] as string;
-                        retVal.SecondaryDateCertifiedRecertified = (DateTime)reader[Constants.BoardCertificationColumns.SecondaryDateCertifiedRecertified];
-                        retVal.SecondaryExpirationDate = (DateTime)reader[Constants.BoardCertificationColumns.SecondaryExpirationDate];
+                        retVal.SecondaryDateCertifiedRecertified = Convert.IsDBNull(reader[Constants.BoardCertificationColumns.SecondaryDateCertifiedRecertified]) ? null : (DateTime?)reader[Constants.BoardCertificationColumns.SecondaryDateCertifiedRecertified];
+                        retVal.SecondaryExpirationDate = Convert.IsDBNull(reader[Constants.BoardCertificationColumns.SecondaryExpirationDate]) ? null : (DateTime?)reader[Constants.BoardCertificationColumns.SecondaryExpirationDate];
+
                         retVal.TertiaryNameIssuingBoard = reader[Constants.BoardCertificationColumns.TertiaryNameIssuingBoard] as string;
                         retVal.TertiarySpecialty = reader[Constants.BoardCertificationColumns.TertiarySpecialty] as string;
-                        retVal.TertiaryDateCertifiedRecertified = (DateTime)reader[Constants.BoardCertificationColumns.TertiaryDateCertifiedRecertified];
-                        retVal.TertiaryExpirationDate = (DateTime)reader[Constants.BoardCertificationColumns.TertiaryExpirationDate];
+                        retVal.TertiaryDateCertifiedRecertified = Convert.IsDBNull(reader[Constants.BoardCertificationColumns.TertiaryDateCertifiedRecertified]) ? null : (DateTime?)reader[Constants.BoardCertificationColumns.TertiaryDateCertifiedRecertified];
+                        retVal.TertiaryExpirationDate = Convert.IsDBNull(reader[Constants.BoardCertificationColumns.TertiaryExpirationDate]) ? null : (DateTime?)reader[Constants.BoardCertificationColumns.TertiaryExpirationDate];
+
                         retVal.AdditionalBoards = (bool)reader[Constants.BoardCertificationColumns.AdditionalBoards];
                         retVal.AdditionalListBoardsDates = reader[Constants.BoardCertificationColumns.AdditionalListBoardsDates] as string;
-                        retVal.AttachmentId = (int?)reader[Constants.BoardCertificationColumns.Attachment_AttachmentId];
+                        retVal.AttachmentId = Convert.IsDBNull(reader[Constants.BoardCertificationColumns.Attachment_AttachmentId]) ? null : (int?)reader[Constants.BoardCertificationColumns.Attachment_AttachmentId];
                         retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }

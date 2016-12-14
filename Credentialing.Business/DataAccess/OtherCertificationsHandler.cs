@@ -54,10 +54,10 @@ namespace Credentialing.Business.DataAccess
                         retVal.OtherCertificationsId = (int)reader[Constants.OtherCertificationsColumns.OtherCertificationsId];
                         retVal.PrimaryType = reader[Constants.OtherCertificationsColumns.PrimaryType] as string;
                         retVal.PrimaryNumber = reader[Constants.OtherCertificationsColumns.PrimaryNumber] as string;
-                        retVal.PrimaryDate = (DateTime)reader[Constants.OtherCertificationsColumns.PrimaryDate];
+                        retVal.PrimaryDate = Convert.IsDBNull(reader[Constants.OtherCertificationsColumns.PrimaryDate]) ? null : (DateTime?)reader[Constants.OtherCertificationsColumns.PrimaryDate];
                         retVal.SecondaryType = reader[Constants.OtherCertificationsColumns.SecondaryType] as string;
                         retVal.SecondaryNumber = reader[Constants.OtherCertificationsColumns.SecondaryNumber] as string;
-                        retVal.SecondaryDate = (DateTime)reader[Constants.OtherCertificationsColumns.SecondaryDate];
+                        retVal.SecondaryDate = Convert.IsDBNull(reader[Constants.OtherCertificationsColumns.SecondaryDate]) ? null : (DateTime?)reader[Constants.OtherCertificationsColumns.SecondaryDate];
                         retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }
