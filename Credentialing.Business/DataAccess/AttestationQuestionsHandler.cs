@@ -66,6 +66,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.QuestionK = (bool)reader[Constants.AttestationQuestionsColumns.QuestionK];
                         retVal.QuestionL = (bool)reader[Constants.AttestationQuestionsColumns.QuestionL];
                         retVal.QuestionM = (bool)reader[Constants.AttestationQuestionsColumns.QuestionM];
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }
 
@@ -93,10 +94,10 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, AttestationQuestions questions)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO AttestationQuestions
-                                                    (QuestionA, QuestionB, QuestionC, QuestionD, QuestionE, QuestionF, QuestionG, QuestionH, QuestionI, QuestionJ, QuestionK, QuestionL, QuestionM)
+                                                    (QuestionA, QuestionB, QuestionC, QuestionD, QuestionE, QuestionF, QuestionG, QuestionH, QuestionI, QuestionJ, QuestionK, QuestionL, QuestionM, Completed)
                                                     OUTPUT INSERTED.BoardCertificationId
                                                     VALUES
-                                                    (@questionA, @questionB, @questionC, @questionD, @questionE, @questionF, @questionG, @questionH, @questionI, @questionJ, @questionK, @questionL, @questionM)", conn);
+                                                    (@questionA, @questionB, @questionC, @questionD, @questionE, @questionF, @questionG, @questionH, @questionI, @questionJ, @questionK, @questionL, @questionM, @completed)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
             if (conn.State != ConnectionState.Open)
             {
@@ -116,6 +117,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@questionK", questions.QuestionK);
             sqlCommand.Parameters.AddWithValue("@questionL", questions.QuestionL);
             sqlCommand.Parameters.AddWithValue("@questionM", questions.QuestionM);
+            sqlCommand.Parameters.AddWithValue("@completed", questions.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {
@@ -149,7 +151,8 @@ namespace Credentialing.Business.DataAccess
                                                     QuestionJ = @questionJ,
                                                     QuestionK = @questionK,
                                                     QuestionL = @questionL,
-                                                    QuestionM = @questionM
+                                                    QuestionM = @questionM,
+                                                    Completed = @completed
                                                 WHERE AttestationQuestions = @attestationQuestions", conn);
 
             if (trans != null) sqlCommand.Transaction = trans;
@@ -173,6 +176,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@questionK", questions.QuestionK);
             sqlCommand.Parameters.AddWithValue("@questionL", questions.QuestionL);
             sqlCommand.Parameters.AddWithValue("@questionM", questions.QuestionM);
+            sqlCommand.Parameters.AddWithValue("@completed", questions.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {

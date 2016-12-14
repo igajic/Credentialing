@@ -74,12 +74,16 @@ namespace Credentialing.Entities.Data
 
         public DateTime? TertiaryEndDate { get; set; }
 
+        public bool? Completed { get; set; }
+
         public virtual ICollection<Attachment> Attachments { get; set; }
 
         public virtual int PercentComplete
         {
             get
             {
+                if (Completed ?? false) return 100;
+
                 var tmp = PrimaryNamePracticeEmployer.IsCompleted();
                 tmp += PrimaryContactName.IsCompleted();
                 tmp += PrimaryTelephoneNumber.IsCompleted();

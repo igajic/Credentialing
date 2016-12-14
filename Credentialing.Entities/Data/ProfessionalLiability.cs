@@ -100,6 +100,8 @@ namespace Credentialing.Entities.Data
 
         public string FourthZip { get; set; }
 
+        public bool? Completed { get; set; }
+
         // reference fields
         public virtual Attachment CurrentLiabilityPolicy { get; set; }
 
@@ -107,6 +109,8 @@ namespace Credentialing.Entities.Data
         {
             get
             {
+                if (Completed ?? false) return 100;
+
                 var tmp = CurrentInsuranceCarrier.IsCompleted();
                 tmp += CurrentPolicyNumber.IsCompleted();
                 tmp += InitialEffectiverDate.HasValue ? 1 : 0;

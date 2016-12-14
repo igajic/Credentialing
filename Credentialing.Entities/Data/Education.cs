@@ -26,13 +26,16 @@ namespace Credentialing.Entities.Data
 
         public string MailingZip { get; set; }
 
-        public List<Attachment> AttachedDocuments { get; set; }
+        public bool? Completed { get; set; }
 
+        public List<Attachment> AttachedDocuments { get; set; }
 
         public int PercentComplete
         {
             get
             {
+                if (Completed ?? false) return 100;
+
                 var tmp = CollegeUniverityName.IsCompleted();
                 tmp += DegreeReceived.IsCompleted();
                 tmp += DateGraduation.HasValue ? 1 : 0;

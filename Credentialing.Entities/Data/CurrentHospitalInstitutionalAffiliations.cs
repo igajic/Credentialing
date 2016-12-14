@@ -90,10 +90,14 @@ namespace Credentialing.Entities.Data
 
         public DateTime? PreviousTertiaryAppointmentDate { get; set; }
 
+        public bool? Completed { get; set; }
+
         public int PercentComplete
         {
             get
             {
+                if (Completed ?? false) return 100;
+
                 var tmp = CurrentPrimaryAdmittingHospital.IsCompleted();
                 tmp += CurrentPrimaryCity.IsCompleted();
                 tmp += CurrentPrimaryState.IsCompleted();

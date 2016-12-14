@@ -58,6 +58,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.SecondaryType = reader[Constants.OtherCertificationsColumns.SecondaryType] as string;
                         retVal.SecondaryNumber = reader[Constants.OtherCertificationsColumns.SecondaryNumber] as string;
                         retVal.SecondaryDate = (DateTime)reader[Constants.OtherCertificationsColumns.SecondaryDate];
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }
             }
@@ -85,10 +86,10 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, OtherCertifications info)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO OtherCertifications
-                                                    (PrimaryType, PrimaryNumber, PrimaryDate, SecondaryType, SecondaryNumber, SecondaryDate)
+                                                    (PrimaryType, PrimaryNumber, PrimaryDate, SecondaryType, SecondaryNumber, SecondaryDate, Completed)
                                                     OUTPUT INSERTED.OtherCertificationsId
                                                     VALUES
-                                                    (@primaryType, @primaryNumber, @primaryDate, @secondaryType, @secondaryNumber, @secondaryDate)", conn);
+                                                    (@primaryType, @primaryNumber, @primaryDate, @secondaryType, @secondaryNumber, @secondaryDate, @completed)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
             if (conn.State != ConnectionState.Open)
             {
@@ -101,6 +102,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@secondaryType", info.SecondaryType);
             sqlCommand.Parameters.AddWithValue("@secondaryNumber", info.SecondaryNumber);
             sqlCommand.Parameters.AddWithValue("@secondaryDate", info.SecondaryDate);
+            sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {
@@ -127,7 +129,8 @@ namespace Credentialing.Business.DataAccess
                                                     PrimaryDate = @primaryDate, 
                                                     SecondaryType = @secondaryType, 
                                                     SecondaryNumber = @secondaryNumber,
-                                                    SecondaryDate = @secondaryDate
+                                                    SecondaryDate = @secondaryDate,
+                                                    Completed = @completed
                                                 WHERE OtherCertificationsId = @otherCertifications", conn);
             if (trans != null) sqlCommand.Transaction = trans;
 
@@ -142,6 +145,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@secondaryType", info.SecondaryType);
             sqlCommand.Parameters.AddWithValue("@secondaryNumber", info.SecondaryNumber);
             sqlCommand.Parameters.AddWithValue("@secondaryDate", info.SecondaryDate);
+            sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {

@@ -74,6 +74,8 @@ namespace Credentialing.Business.DataAccess
                         retVal.TertiaryCity = reader[Constants.PeerReferencesColumns.TertiaryCity] as string;
                         retVal.TertiaryState = reader[Constants.PeerReferencesColumns.TertiaryState] as string;
                         retVal.TertiaryZip = reader[Constants.PeerReferencesColumns.TertiaryZip] as string;
+
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }
             }
@@ -96,10 +98,10 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, PeerReferences info)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO PeerReferences
-                                                    (PrimaryNameReference, PrimarySpecialty, PrimaryTelephoneNumber, PrimaryMailingAddress, PrimaryCity, PrimaryState, PrimaryZip, SecondaryNameReference, SecondarySpecialty, SecondaryTelephoneNumber, SecondaryMailingAddress, SecondaryCity, SecondaryState, SecondaryZip, TertiaryNameReference, TertiarySpecialty, TertiaryTelephoneNumber, TertiaryMailingAddress, TertiaryCity, TertiaryState, TertiaryZip)
+                                                    (PrimaryNameReference, PrimarySpecialty, PrimaryTelephoneNumber, PrimaryMailingAddress, PrimaryCity, PrimaryState, PrimaryZip, SecondaryNameReference, SecondarySpecialty, SecondaryTelephoneNumber, SecondaryMailingAddress, SecondaryCity, SecondaryState, SecondaryZip, TertiaryNameReference, TertiarySpecialty, TertiaryTelephoneNumber, TertiaryMailingAddress, TertiaryCity, TertiaryState, TertiaryZip, Completed)
                                                     OUTPUT INSERTED.PeerReferencesId
                                                     VALUES
-                                                    (@primaryNameReference, @primarySpecialty, @primaryTelephoneNumber, @primaryMailingAddress, @primaryCity, @primaryState, @primaryZip, @secondaryNameReference, @secondarySpecialty, @secondaryTelephoneNumber, @secondaryMailingAddress, @secondaryCity, @secondaryState, @secondaryZip, @tertiaryNameReference, @tertiarySpecialty, @tertiaryTelephoneNumber, @tertiaryMailingAddress, @tertiaryCity, @tertiaryState, @tertiaryZip)", conn);
+                                                    (@primaryNameReference, @primarySpecialty, @primaryTelephoneNumber, @primaryMailingAddress, @primaryCity, @primaryState, @primaryZip, @secondaryNameReference, @secondarySpecialty, @secondaryTelephoneNumber, @secondaryMailingAddress, @secondaryCity, @secondaryState, @secondaryZip, @tertiaryNameReference, @tertiarySpecialty, @tertiaryTelephoneNumber, @tertiaryMailingAddress, @tertiaryCity, @tertiaryState, @tertiaryZip, @completed)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
             if (conn.State != ConnectionState.Open)
             {
@@ -172,7 +174,9 @@ namespace Credentialing.Business.DataAccess
                                                     TertiaryMailingAddress = @tertiaryMailingAddress,
                                                     TertiaryCity = @tertiaryCity,
                                                     TertiaryState = @tertiaryState,
-                                                    TertiaryZip = @tertiaryZip
+                                                    TertiaryZip = @tertiaryZip,
+
+                                                    Completed = @completed
                                                 WHERE PeerReferencesId = @peerReferencesId", conn);
 
             if (trans != null) sqlCommand.Transaction = trans;
@@ -206,6 +210,8 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@tertiaryCity", info.TertiaryCity);
             sqlCommand.Parameters.AddWithValue("@tertiaryState", info.TertiaryState);
             sqlCommand.Parameters.AddWithValue("@tertiaryZip", info.TertiaryZip);
+
+            sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {

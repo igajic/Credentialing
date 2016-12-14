@@ -62,6 +62,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.ECFMGNumberIssueDate = (DateTime)reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.ECFMGNumberIssueDate];
                         retVal.MedicareNationalPhysicianIdentifier = reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.MedicareNationalPhysicianIdentifier] as string;
                         retVal.MedicaidNumber = reader[Constants.MedicalProfessionalLicensureRegistrationsColumns.MedicaidNumber] as string;
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }
             }
@@ -84,10 +85,10 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, MedicalProfessionalLicensureRegistrations info)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO MedicalProfessionalLicensureRegistrations
-                                                    (PrimaryStateMedicalLicenseNumber, PrimaryStateMedicalLicenseIssueDate, PrimaryStateMedicalLicenseExpirationDate, DrugAdministrationNumber, DrugAdministrationExpirationDate, StateControlledSubstancesCertificate, StateControlledSubstancesCertificateExpirationDate, ECFMGNumber, ECFMGNumberIssueDate, MedicareNationalPhysicianIdentifier, MedicaidNumber)
+                                                    (PrimaryStateMedicalLicenseNumber, PrimaryStateMedicalLicenseIssueDate, PrimaryStateMedicalLicenseExpirationDate, DrugAdministrationNumber, DrugAdministrationExpirationDate, StateControlledSubstancesCertificate, StateControlledSubstancesCertificateExpirationDate, ECFMGNumber, ECFMGNumberIssueDate, MedicareNationalPhysicianIdentifier, MedicaidNumber, Completed)
                                                     OUTPUT INSERTED.MedicalProfessionalLicensureRegistrationsId
                                                     VALUES
-                                                    (@primaryStateMedicalLicenseNumber, @primaryStateMedicalLicenseIssueDate, @primaryStateMedicalLicenseExpirationDate, @drugAdministrationNumber, @drugAdministrationExpirationDate, @stateControlledSubstancesCertificate, @stateControlledSubstancesCertificateExpirationDate, @eCFMGNumber, @eCFMGNumberIssueDate, @medicareNationalPhysicianIdentifier, @medicaidNumber)", conn);
+                                                    (@primaryStateMedicalLicenseNumber, @primaryStateMedicalLicenseIssueDate, @primaryStateMedicalLicenseExpirationDate, @drugAdministrationNumber, @drugAdministrationExpirationDate, @stateControlledSubstancesCertificate, @stateControlledSubstancesCertificateExpirationDate, @eCFMGNumber, @eCFMGNumberIssueDate, @medicareNationalPhysicianIdentifier, @medicaidNumber, @completed)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
             if (conn.State != ConnectionState.Open)
             {
@@ -109,6 +110,8 @@ namespace Credentialing.Business.DataAccess
 
             sqlCommand.Parameters.AddWithValue("@medicareNationalPhysicianIdentifier", info.MedicareNationalPhysicianIdentifier);
             sqlCommand.Parameters.AddWithValue("@medicaidNumber", info.MedicaidNumber);
+
+            sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {
@@ -140,7 +143,8 @@ namespace Credentialing.Business.DataAccess
                                                     ECFMGNumber = @eCFMGNumber, 
                                                     ECFMGNumberIssueDate = @eCFMGNumberIssueDate, 
                                                     MedicareNationalPhysicianIdentifier = @medicareNationalPhysicianIdentifier, 
-                                                    MedicaidNumber = @medicaidNumber
+                                                    MedicaidNumber = @medicaidNumber,
+                                                    Completed = @completed
                                                 WHERE MedicalProfessionalLicensureRegistrationsId = @medicalProfessionalLicensureRegistrationsId", conn);
 
             if (trans != null) sqlCommand.Transaction = trans;
@@ -166,6 +170,8 @@ namespace Credentialing.Business.DataAccess
 
             sqlCommand.Parameters.AddWithValue("@medicareNationalPhysicianIdentifier", info.MedicareNationalPhysicianIdentifier);
             sqlCommand.Parameters.AddWithValue("@medicaidNumber", info.MedicaidNumber);
+
+            sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {

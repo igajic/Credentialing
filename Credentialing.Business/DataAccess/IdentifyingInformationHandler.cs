@@ -74,6 +74,8 @@ namespace Credentialing.Business.DataAccess
                         retVal.Specialty = reader[Constants.IdentifyingInformationColumns.Specialty] as string;
                         retVal.RaceEthnicity = reader[Constants.IdentifyingInformationColumns.RaceEthnicity] as string;
                         retVal.Subspecialties = reader[Constants.IdentifyingInformationColumns.Subspecialties] as string;
+
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }
             }
@@ -103,10 +105,10 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, IdentifyingInformation info)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO IdentifyingInformations
-                                                    (LastName, FirstName, MiddleName, OtherKnownNames, HomeMailingAddress, City, State, Zip, HomeTelephoneNumber, HomeFaxNumber, EmailAddress, PagerNumber, BirthDate, BirthPlace, SocialSecurityNumber, Gender, Specialty, RaceEthnicity, Subspecialties, AttachmentId)
+                                                    (LastName, FirstName, MiddleName, OtherKnownNames, HomeMailingAddress, City, State, Zip, HomeTelephoneNumber, HomeFaxNumber, EmailAddress, PagerNumber, BirthDate, BirthPlace, SocialSecurityNumber, Gender, Specialty, RaceEthnicity, Subspecialties, AttachmentId, Completed)
                                                     OUTPUT INSERTED.IdentifyingInformationId
                                                     VALUES
-                                                    (@lastName, @firstName, @middleName, @otherKnownNames, @homeMailingAddress, @city, @state, @zip, @homeTelephoneNumber, @homeFaxNumber, @emailAddress, @pagerNumber, @birthDate, @birthPlace, @socialSecurityNumber, @gender, @specialty, @raceEthnicity, @subspecialties, @attachmentId)", conn);
+                                                    (@lastName, @firstName, @middleName, @otherKnownNames, @homeMailingAddress, @city, @state, @zip, @homeTelephoneNumber, @homeFaxNumber, @emailAddress, @pagerNumber, @birthDate, @birthPlace, @socialSecurityNumber, @gender, @specialty, @raceEthnicity, @subspecialties, @attachmentId, @completed)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
             if (conn.State != ConnectionState.Open)
             {
@@ -133,6 +135,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@raceEthnicity", info.RaceEthnicity);
             sqlCommand.Parameters.AddWithValue("@subspecialties", info.Subspecialties);
             sqlCommand.Parameters.AddWithValue("@attachmentId", info.AttachmentId);
+            sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {
@@ -172,7 +175,8 @@ namespace Credentialing.Business.DataAccess
                                                         Specialty = @specialty,
                                                         RaceEthnicity = @raceEthnicity,
                                                         Subspecialties = @subspecialties,
-                                                        AttachmentId = @attachmentId
+                                                        AttachmentId = @attachmentId,
+                                                        Completed = @completed
                                                     WHERE IdentifyingInformationId = @identifyingInformationId
                                                     ", conn);
 
@@ -204,6 +208,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@raceEthnicity", info.RaceEthnicity);
             sqlCommand.Parameters.AddWithValue("@subspecialties", info.Subspecialties);
             sqlCommand.Parameters.AddWithValue("@attachmentId", info.AttachmentId);
+            sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {

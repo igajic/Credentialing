@@ -36,12 +36,16 @@ namespace Credentialing.Entities.Data
 
         public bool? QuestionM { get; set; }
 
+        public bool? Completed { get; set; }
+
         public virtual ICollection<Attachment> AdditionalSheets { get; set; }
 
         public virtual int PercentComplete
         {
             get
             {
+                if (Completed ?? false) return 100;
+
                 var tmp = QuestionA.HasValue ? 1 : 0;
                 tmp += QuestionB.HasValue ? 1 : 0;
                 tmp += QuestionC.HasValue ? 1 : 0;

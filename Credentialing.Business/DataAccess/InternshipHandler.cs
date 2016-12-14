@@ -61,6 +61,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.Specialty = reader[Constants.InternshipsColumns.Specialty] as string;
                         retVal.SpecialtyFrom = (DateTime)reader[Constants.InternshipsColumns.SpecialtyFrom];
                         retVal.SpecialtyTo = (DateTime)reader[Constants.InternshipsColumns.SpecialtyTo];
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }
             }
@@ -88,10 +89,10 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, Internship info)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO Internships
-                                                    (Institution, ProgramDirector, MailingAddress, City, StateCountry, Zip, TypeOfInternship, Specialty, SpecialtyFrom, SpecialtyTo)
+                                                    (Institution, ProgramDirector, MailingAddress, City, StateCountry, Zip, TypeOfInternship, Specialty, SpecialtyFrom, SpecialtyTo, Completed)
                                                     OUTPUT INSERTED.InternshipId
                                                     VALUES
-                                                    (@institution, @programDirector, @mailingAddress, @city, @stateCountry, @zip, @typeOfInternship, @specialty, @specialtyFrom, @specialtyTo)", conn);
+                                                    (@institution, @programDirector, @mailingAddress, @city, @stateCountry, @zip, @typeOfInternship, @specialty, @specialtyFrom, @specialtyTo, @completed)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
             if (conn.State != ConnectionState.Open)
             {
@@ -108,6 +109,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@specialty", info.Specialty);
             sqlCommand.Parameters.AddWithValue("@specialtyFrom", info.SpecialtyFrom);
             sqlCommand.Parameters.AddWithValue("@specialtyTo", info.SpecialtyTo);
+            sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {
@@ -138,7 +140,8 @@ namespace Credentialing.Business.DataAccess
                                                     TypeOfInternship = @typeOfInternship,
                                                     Specialty = @specialty,
                                                     SpecialtyFrom = @specialtyFrom,
-                                                    SpecialtyTo = @specialtyTo
+                                                    SpecialtyTo = @specialtyTo,
+                                                    Completed = @completed
                                                 WHERE InternshipId = @internshipId", conn);
             if (trans != null) sqlCommand.Transaction = trans;
 
@@ -158,6 +161,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@specialty", info.Specialty);
             sqlCommand.Parameters.AddWithValue("@specialtyFrom", info.SpecialtyFrom);
             sqlCommand.Parameters.AddWithValue("@specialtyTo", info.SpecialtyTo);
+            sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {

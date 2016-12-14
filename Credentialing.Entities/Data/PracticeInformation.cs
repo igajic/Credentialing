@@ -13,6 +13,8 @@
 
         public string DepartmentName { get; set; }
 
+        public bool? Completed { get; set; }
+
         #region [Primary office]
 
         public string PrimaryOfficeStreetAddress { get; set; }
@@ -83,6 +85,8 @@
         {
             get
             {
+                if (Completed ?? false) return 100;
+
                 var tmp = PracticeName.IsCompleted();
                 tmp += DepartmentName.IsCompleted();
                 tmp += PrimaryOfficeStreetAddress.IsCompleted();

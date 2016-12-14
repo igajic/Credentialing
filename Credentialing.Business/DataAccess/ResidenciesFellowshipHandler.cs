@@ -88,6 +88,8 @@ namespace Credentialing.Business.DataAccess
                         retVal.TertiaryFrom = (DateTime)reader[Constants.ResidenciesFellowshipsColumns.TertiaryFrom];
                         retVal.TertiaryTo = (DateTime)reader[Constants.ResidenciesFellowshipsColumns.TertiaryTo];
                         retVal.TertiaryCompleted = (bool)reader[Constants.ResidenciesFellowshipsColumns.TertiaryCompleted];
+
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }
             }
@@ -115,10 +117,10 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, ResidenciesFellowship residencies)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO ResidenciesFellowships
-                                                    (PrimaryInstitution, PrimaryProgramDirector, PrimaryMailingAddress, PrimaryCity, PrimaryState, PrimaryZip, PrimaryTypeTraining, PrimarySpecialty, PrimaryFrom, PrimaryTo, PrimaryCompleted, SecondaryInstitution, SecondaryProgramDirector, SecondaryMailingAddress, SecondaryCity, SecondaryState, SecondaryZip, SecondaryTypeTraining, SecondarySpecialty, SecondaryFrom, SecondaryTo, SecondaryCompleted, TertiaryInstitution, TertiaryProgramDirector, TertiaryMailingAddress, TertiaryCity, TertiaryState, TertiaryZip, TertiaryTypeTraining, TertiarySpecialty, TertiaryFrom, TertiaryTo, TertiaryCompleted)
+                                                    (PrimaryInstitution, PrimaryProgramDirector, PrimaryMailingAddress, PrimaryCity, PrimaryState, PrimaryZip, PrimaryTypeTraining, PrimarySpecialty, PrimaryFrom, PrimaryTo, PrimaryCompleted, SecondaryInstitution, SecondaryProgramDirector, SecondaryMailingAddress, SecondaryCity, SecondaryState, SecondaryZip, SecondaryTypeTraining, SecondarySpecialty, SecondaryFrom, SecondaryTo, SecondaryCompleted, TertiaryInstitution, TertiaryProgramDirector, TertiaryMailingAddress, TertiaryCity, TertiaryState, TertiaryZip, TertiaryTypeTraining, TertiarySpecialty, TertiaryFrom, TertiaryTo, TertiaryCompleted, Completed)
                                                     OUTPUT INSERTED.IdentifyingInformationId
                                                     VALUES
-                                                    (@primaryInstitution, @primaryProgramDirector, @primaryMailingAddress, @primaryCity, @primaryState, @primaryZip, @primaryTypeTraining, @primarySpecialty, @primaryFrom, @primaryTo, @primaryCompleted, @secondaryInstitution, @secondaryProgramDirector, @secondaryMailingAddress, @secondaryCity, @secondaryState, @secondaryZip, @secondaryTypeTraining, @secondarySpecialty, @secondaryFrom, @secondaryTo, @secondaryCompleted, @tertiaryInstitution, @tertiaryProgramDirector, @tertiaryMailingAddress, @tertiaryCity, @tertiaryState, @tertiaryZip, @tertiaryTypeTraining, @tertiarySpecialty, @tertiaryFrom, @tertiaryTo, @tertiaryCompleted)", conn);
+                                                    (@primaryInstitution, @primaryProgramDirector, @primaryMailingAddress, @primaryCity, @primaryState, @primaryZip, @primaryTypeTraining, @primarySpecialty, @primaryFrom, @primaryTo, @primaryCompleted, @secondaryInstitution, @secondaryProgramDirector, @secondaryMailingAddress, @secondaryCity, @secondaryState, @secondaryZip, @secondaryTypeTraining, @secondarySpecialty, @secondaryFrom, @secondaryTo, @secondaryCompleted, @tertiaryInstitution, @tertiaryProgramDirector, @tertiaryMailingAddress, @tertiaryCity, @tertiaryState, @tertiaryZip, @tertiaryTypeTraining, @tertiarySpecialty, @tertiaryFrom, @tertiaryTo, @tertiaryCompleted, @completed)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
             if (conn.State != ConnectionState.Open)
             {
@@ -136,6 +138,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@primaryFrom", residencies.PrimaryFrom);
             sqlCommand.Parameters.AddWithValue("@primaryTo", residencies.PrimaryTo);
             sqlCommand.Parameters.AddWithValue("@primaryCompleted", residencies.PrimaryCompleted);
+
             sqlCommand.Parameters.AddWithValue("@secondaryInstitution", residencies.SecondaryInstitution);
             sqlCommand.Parameters.AddWithValue("@secondaryProgramDirector", residencies.SecondaryProgramDirector);
             sqlCommand.Parameters.AddWithValue("@secondaryMailingAddress", residencies.SecondaryMailingAddress);
@@ -147,6 +150,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@secondaryFrom", residencies.SecondaryFrom);
             sqlCommand.Parameters.AddWithValue("@secondaryTo", residencies.SecondaryTo);
             sqlCommand.Parameters.AddWithValue("@secondaryCompleted", residencies.SecondaryCompleted);
+
             sqlCommand.Parameters.AddWithValue("@tertiaryInstitution", residencies.TertiaryInstitution);
             sqlCommand.Parameters.AddWithValue("@tertiaryProgramDirector", residencies.TertiaryProgramDirector);
             sqlCommand.Parameters.AddWithValue("@tertiaryMailingAddress", residencies.TertiaryMailingAddress);
@@ -158,6 +162,8 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@tertiaryFrom", residencies.TertiaryFrom);
             sqlCommand.Parameters.AddWithValue("@tertiaryTo", residencies.TertiaryTo);
             sqlCommand.Parameters.AddWithValue("@tertiaryCompleted", residencies.TertiaryCompleted);
+
+            sqlCommand.Parameters.AddWithValue("@completed", residencies.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {
@@ -213,7 +219,9 @@ namespace Credentialing.Business.DataAccess
                                                     TertiarySpecialty =@tertiarySpecialty ,
                                                     TertiaryFrom = @tertiaryFrom,
                                                     TertiaryTo = @tertiaryTo,
-                                                    TertiaryCompleted = @tertiaryCompleted
+                                                    TertiaryCompleted = @tertiaryCompleted.
+
+                                                    Completed = @completed
                                                 WHERE residenciesFellowshipId = @residenciesFellowshipId", conn);
 
             if (trans != null) sqlCommand.Transaction = trans;
@@ -257,6 +265,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@tertiaryFrom", residencies.TertiaryFrom);
             sqlCommand.Parameters.AddWithValue("@tertiaryTo", residencies.TertiaryTo);
             sqlCommand.Parameters.AddWithValue("@tertiaryCompleted", residencies.TertiaryCompleted);
+            sqlCommand.Parameters.AddWithValue("@completed", residencies.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {

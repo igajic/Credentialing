@@ -85,6 +85,8 @@ namespace Credentialing.Business.DataAccess
                         retVal.TertiaryZip = reader[Constants.WorkHistoriesColumns.TertiaryZip] as string;
                         retVal.TertiaryStartDate = (DateTime)reader[Constants.WorkHistoriesColumns.TertiaryStartDate];
                         retVal.TertiaryEndDate = (DateTime)reader[Constants.WorkHistoriesColumns.TertiaryEndDate];
+
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }
             }
@@ -140,8 +142,9 @@ namespace Credentialing.Business.DataAccess
                                                     TertiaryState = @tertiaryState,
                                                     TertiaryZip = @tertiaryZip,
                                                     TertiaryStartDate = @tertiaryStartDate,
-                                                    TertiaryEndDate = @tertiaryEndDate
-
+                                                    TertiaryEndDate = @tertiaryEndDate,
+    
+                                                    Completed = @completed
                                                 WHERE WorkHistoryId = @workHistoryId", conn);
 
             if (trans != null) sqlCommand.Transaction = trans;
@@ -185,6 +188,8 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@tertiaryStartDate", history.TertiaryStartDate);
             sqlCommand.Parameters.AddWithValue("@tertiaryEndDate", history.TertiaryEndDate);
 
+            sqlCommand.Parameters.AddWithValue("@completed", history.Completed);
+
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {
                 parameter.Value = DBNull.Value;
@@ -208,10 +213,10 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, WorkHistory history)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO WorkHistories
-                                                    (PrimaryNamePracticeEmployer, PrimaryContactName, PrimaryTelephoneNumber, PrimaryFaxNumber, PrimaryPracticeAddress, PrimaryCity, PrimaryState, PrimaryZip, PrimaryStartDate, PrimaryEndDate, SecondaryNamePracticeEmployer, SecondaryContactName, SecondaryTelephoneNumber, SecondaryFaxNumber, SecondaryPracticeAddress, SecondaryCity, SecondaryState, SecondaryZip, SecondaryStartDate, SecondaryEndDate, TertiaryNamePracticeEmployer, TertiaryContactName, TertiaryTelephoneNumber, TertiaryFaxNumber, TertiaryPracticeAddress, TertiaryCity, TertiaryState, TertiaryZip, TertiaryStartDate, TertiaryEndDate)
+                                                    (PrimaryNamePracticeEmployer, PrimaryContactName, PrimaryTelephoneNumber, PrimaryFaxNumber, PrimaryPracticeAddress, PrimaryCity, PrimaryState, PrimaryZip, PrimaryStartDate, PrimaryEndDate, SecondaryNamePracticeEmployer, SecondaryContactName, SecondaryTelephoneNumber, SecondaryFaxNumber, SecondaryPracticeAddress, SecondaryCity, SecondaryState, SecondaryZip, SecondaryStartDate, SecondaryEndDate, TertiaryNamePracticeEmployer, TertiaryContactName, TertiaryTelephoneNumber, TertiaryFaxNumber, TertiaryPracticeAddress, TertiaryCity, TertiaryState, TertiaryZip, TertiaryStartDate, TertiaryEndDate, Completed)
                                                     OUTPUT INSERTED.BoardCertificationId
                                                     VALUES
-                                                    (@primaryNamePracticeEmployer, @primaryContactName, @primaryTelephoneNumber, @primaryFaxNumber, @primaryPracticeAddress, @primaryCity, @primaryState, @primaryZip, @primaryStartDate, @primaryEndDate, @secondaryNamePracticeEmployer, @secondaryContactName, @secondaryTelephoneNumber, @secondaryFaxNumber, @secondaryPracticeAddress, @secondaryCity, @secondaryState, @secondaryZip, @secondaryStartDate, @secondaryEndDate, @tertiaryNamePracticeEmployer, @tertiaryContactName, @tertiaryTelephoneNumber, @tertiaryFaxNumber, @tertiaryPracticeAddress, @tertiaryCity, @tertiaryState, @tertiaryZip, @tertiaryStartDate, @tertiaryEndDate)", conn);
+                                                    (@primaryNamePracticeEmployer, @primaryContactName, @primaryTelephoneNumber, @primaryFaxNumber, @primaryPracticeAddress, @primaryCity, @primaryState, @primaryZip, @primaryStartDate, @primaryEndDate, @secondaryNamePracticeEmployer, @secondaryContactName, @secondaryTelephoneNumber, @secondaryFaxNumber, @secondaryPracticeAddress, @secondaryCity, @secondaryState, @secondaryZip, @secondaryStartDate, @secondaryEndDate, @tertiaryNamePracticeEmployer, @tertiaryContactName, @tertiaryTelephoneNumber, @tertiaryFaxNumber, @tertiaryPracticeAddress, @tertiaryCity, @tertiaryState, @tertiaryZip, @tertiaryStartDate, @tertiaryEndDate, @completed)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
             if (conn.State != ConnectionState.Open)
             {
@@ -250,6 +255,8 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@tertiaryZip", history.TertiaryZip);
             sqlCommand.Parameters.AddWithValue("@tertiaryStartDate", history.TertiaryStartDate);
             sqlCommand.Parameters.AddWithValue("@tertiaryEndDate", history.TertiaryEndDate);
+
+            sqlCommand.Parameters.AddWithValue("@completed", history.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {

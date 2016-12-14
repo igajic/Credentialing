@@ -39,8 +39,6 @@ namespace Credentialing.Entities.Data
 
         public string BirthPlace { get; set; }
 
-        public int? AttachmentId { get; set; }
-
         public string SocialSecurityNumber { get; set; }
 
         public Gender? Gender { get; set; }
@@ -51,12 +49,18 @@ namespace Credentialing.Entities.Data
 
         public string Subspecialties { get; set; }
 
-        public Attachment Attachment { get; set; }
+        public bool? Completed { get; set; }
+
+        public int? AttachmentId { get; set; }
+
+        public virtual Attachment Attachment { get; set; }
 
         public int PercentComplete
         {
             get
             {
+                if (Completed ?? false) return 100;
+
                 var tmp = LastName.IsCompleted();
                 tmp += FirstName.IsCompleted();
                 tmp += MiddleName.IsCompleted();

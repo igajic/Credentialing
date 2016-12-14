@@ -101,6 +101,8 @@ namespace Credentialing.Business.DataAccess
                         retVal.FourthCity = reader[Constants.ProfessionalLiabilities.FourthCity] as string;
                         retVal.FourthState = reader[Constants.ProfessionalLiabilities.FourthState] as string;
                         retVal.FourthZip = reader[Constants.ProfessionalLiabilities.FourthZip] as string;
+
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }
             }
@@ -123,10 +125,10 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, ProfessionalLiability info)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO ProfessionalLiabilities
-                                                    (CurrentInsuranceCarrier, CurrentPolicyNumber, InitialEffectiverDate, CurrentMailingAddress, CurrentCity, CurrentState, CurrentZip, CurrentPerClaimAmount, CurrentAggregateAmount, CurrentExpirationDate, FirstPolicyCarrierName, FirstPolicyNumber, FirstFromDate, FirstToDate, FirstMailingAddress, FirstCity, FirstState, FirstZip, SecondPolicyCarrierName, SecondPolicyNumber, SecondFromDate, SecondToDate, SecondMailingAddress, SecondCity, SecondState, SecondZip, ThirdPolicyCarrierName, ThirdPolicyNumber, ThirdFromDate, ThirdToDate, ThirdMailingAddress, ThirdCity, ThirdState, ThirdZip, FourthPolicyCarrierName, FourthPolicyNumber, FourthFromDate, FourthToDate, FourthMailingAddress, FourthCity, FourthState, FourthZip)
+                                                    (CurrentInsuranceCarrier, CurrentPolicyNumber, InitialEffectiverDate, CurrentMailingAddress, CurrentCity, CurrentState, CurrentZip, CurrentPerClaimAmount, CurrentAggregateAmount, CurrentExpirationDate, FirstPolicyCarrierName, FirstPolicyNumber, FirstFromDate, FirstToDate, FirstMailingAddress, FirstCity, FirstState, FirstZip, SecondPolicyCarrierName, SecondPolicyNumber, SecondFromDate, SecondToDate, SecondMailingAddress, SecondCity, SecondState, SecondZip, ThirdPolicyCarrierName, ThirdPolicyNumber, ThirdFromDate, ThirdToDate, ThirdMailingAddress, ThirdCity, ThirdState, ThirdZip, FourthPolicyCarrierName, FourthPolicyNumber, FourthFromDate, FourthToDate, FourthMailingAddress, FourthCity, FourthState, FourthZip, Completed)
                                                     OUTPUT INSERTED.ProfessionalLiabilityId
                                                     VALUES
-                                                    (@currentInsuranceCarrier, @currentPolicyNumber, @initialEffectiverDate, @currentMailingAddress, @currentCity, @currentState, @currentZip, @currentPerClaimAmount, @currentAggregateAmount, @currentExpirationDate, @firstPolicyCarrierName, @firstPolicyNumber, @firstFromDate, @firstToDate, @firstMailingAddress, @firstCity, @firstState, @firstZip, @secondPolicyCarrierName, @secondPolicyNumber, @secondFromDate, @secondToDate, @secondMailingAddress, @secondCity, @secondState, @secondZip, @thirdPolicyCarrierName, @thirdPolicyNumber, @thirdFromDate, @thirdToDate, @thirdMailingAddress, @thirdCity, @thirdState, @thirdZip, @fourthPolicyCarrierName, @fourthPolicyNumber, @fourthFromDate, @fourthToDate, @fourthMailingAddress, @fourthCity, @fourthState, @fourthZip)", conn);
+                                                    (@currentInsuranceCarrier, @currentPolicyNumber, @initialEffectiverDate, @currentMailingAddress, @currentCity, @currentState, @currentZip, @currentPerClaimAmount, @currentAggregateAmount, @currentExpirationDate, @firstPolicyCarrierName, @firstPolicyNumber, @firstFromDate, @firstToDate, @firstMailingAddress, @firstCity, @firstState, @firstZip, @secondPolicyCarrierName, @secondPolicyNumber, @secondFromDate, @secondToDate, @secondMailingAddress, @secondCity, @secondState, @secondZip, @thirdPolicyCarrierName, @thirdPolicyNumber, @thirdFromDate, @thirdToDate, @thirdMailingAddress, @thirdCity, @thirdState, @thirdZip, @fourthPolicyCarrierName, @fourthPolicyNumber, @fourthFromDate, @fourthToDate, @fourthMailingAddress, @fourthCity, @fourthState, @fourthZip, @completed)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
             if (conn.State != ConnectionState.Open)
             {
@@ -179,6 +181,8 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@fourthCity", info.FourthCity);
             sqlCommand.Parameters.AddWithValue("@fourthState", info.FourthState);
             sqlCommand.Parameters.AddWithValue("@fourthZip", info.FourthZip);
+
+            sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {
@@ -247,7 +251,9 @@ namespace Credentialing.Business.DataAccess
                                                     FourthMailingAddress = @fourthMailingAddress, 
                                                     FourthCity = @fourthCity, 
                                                     FourthState = @fourthState, 
-                                                    FourthZip = @fourthZip
+                                                    FourthZip = @fourthZip,
+
+                                                    Completed = @completed
                                                 WHERE ProfessionalLiabilityId = @professionalLiabilityId", conn);
 
             if (trans != null) sqlCommand.Transaction = trans;
@@ -303,6 +309,8 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@fourthCity", info.FourthCity);
             sqlCommand.Parameters.AddWithValue("@fourthState", info.FourthState);
             sqlCommand.Parameters.AddWithValue("@fourthZip", info.FourthZip);
+
+            sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {

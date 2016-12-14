@@ -41,12 +41,16 @@ namespace Credentialing.Entities.Data
 
         public string SecondaryZip { get; set; }
 
+        public bool? Completed { get; set; }
+
         public virtual List<Attachment> Attachments { get; set; }
 
         public int PercentComplete 
         {
             get
             {
+                if (Completed ?? false) return 100;
+
                 var tmp = PrimaryMedicalProfessionalSchool.IsCompleted();
                 tmp += PrimaryDegreeReceived.IsCompleted();
                 tmp += PrimaryDateOfGraduation.HasValue ? 1 : 0;

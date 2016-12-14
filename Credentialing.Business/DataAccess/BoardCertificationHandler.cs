@@ -68,6 +68,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.AdditionalBoards = (bool)reader[Constants.BoardCertificationColumns.AdditionalBoards];
                         retVal.AdditionalListBoardsDates = reader[Constants.BoardCertificationColumns.AdditionalListBoardsDates] as string;
                         retVal.AttachmentId = (int?)reader[Constants.BoardCertificationColumns.Attachment_AttachmentId];
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }
             }
@@ -98,10 +99,10 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, BoardCertification info)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO BoardCertifications
-                                                    (PrimaryNameIssuingBoard,  PrimarySpecialty,  PrimaryDateCertifiedRecertified,  PrimaryExpirationDate,  SecondaryNameIssuingBoard,  SecondarySpecialty,  SecondaryDateCertifiedRecertified,  SecondaryExpirationDate,  TertiaryNameIssuingBoard,  TertiarySpecialty,  TertiaryDateCertifiedRecertified,  TertiaryExpirationDate,  AdditionalBoards,  AdditionalListBoardsDates)
+                                                    (PrimaryNameIssuingBoard,  PrimarySpecialty,  PrimaryDateCertifiedRecertified,  PrimaryExpirationDate,  SecondaryNameIssuingBoard,  SecondarySpecialty,  SecondaryDateCertifiedRecertified,  SecondaryExpirationDate,  TertiaryNameIssuingBoard,  TertiarySpecialty,  TertiaryDateCertifiedRecertified,  TertiaryExpirationDate,  AdditionalBoards,  AdditionalListBoardsDates, Completed)
                                                     OUTPUT INSERTED.BoardCertificationId
                                                     VALUES
-                                                    (@primaryNameIssuingBoard, @primarySpecialty, @primaryDateCertifiedRecertified, @primaryExpirationDate, @secondaryNameIssuingBoard, @secondarySpecialty, @secondaryDateCertifiedRecertified, @secondaryExpirationDate, @tertiaryNameIssuingBoard, @tertiarySpecialty, @tertiaryDateCertifiedRecertified, @tertiaryExpirationDate, @additionalBoards, @additionalListBoardsDates)", conn);
+                                                    (@primaryNameIssuingBoard, @primarySpecialty, @primaryDateCertifiedRecertified, @primaryExpirationDate, @secondaryNameIssuingBoard, @secondarySpecialty, @secondaryDateCertifiedRecertified, @secondaryExpirationDate, @tertiaryNameIssuingBoard, @tertiarySpecialty, @tertiaryDateCertifiedRecertified, @tertiaryExpirationDate, @additionalBoards, @additionalListBoardsDates, @completed)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
             if (conn.State != ConnectionState.Open)
             {
@@ -122,6 +123,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@tertiaryExpirationDate", info.TertiaryExpirationDate);
             sqlCommand.Parameters.AddWithValue("@additionalBoards", info.AdditionalBoards);
             sqlCommand.Parameters.AddWithValue("@additionalListBoardsDates", info.AdditionalListBoardsDates);
+            sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {
@@ -156,7 +158,8 @@ namespace Credentialing.Business.DataAccess
                                                     TertiaryDateCertifiedRecertified = @tertiaryDateCertifiedRecertified,
                                                     TertiaryExpirationDate = @tertiaryExpirationDate,
                                                     AdditionalBoards = @additionalBoards,
-                                                    AdditionalListBoardsDates = @additionalListBoardsDates
+                                                    AdditionalListBoardsDates = @additionalListBoardsDates,
+                                                    Completed = @completed
                                                 WHERE BoardCertificationId = @boardCertificationId
                                                     ", conn);
 
@@ -182,6 +185,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@tertiaryExpirationDate", info.TertiaryExpirationDate);
             sqlCommand.Parameters.AddWithValue("@additionalBoards", info.AdditionalBoards);
             sqlCommand.Parameters.AddWithValue("@additionalListBoardsDates", info.AdditionalListBoardsDates);
+            sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {

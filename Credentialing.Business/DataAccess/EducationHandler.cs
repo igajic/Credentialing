@@ -61,6 +61,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.MailingCity = reader[Constants.EducationColumns.MailingCity] as string;
                         retVal.MailingState = reader[Constants.EducationColumns.MailingState] as string;
                         retVal.MailingZip = reader[Constants.EducationColumns.MailingZip] as string;
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }
             }
@@ -87,10 +88,10 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, Education education)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO Educations
-                                                    (CollegeUniverityName, DegreeReceived, DateGraduation, MailingAddress, MailingCity, MailingState, MailingZip)
+                                                    (CollegeUniverityName, DegreeReceived, DateGraduation, MailingAddress, MailingCity, MailingState, MailingZip, Completed)
                                                     OUTPUT INSERTED.EducationId
                                                     VALUES
-                                                    (@collegeUniverityName, @degreeReceived, @dateGraduation, @mailingAddress, @mailingCity, @mailingState, @mailingZip)", conn);
+                                                    (@collegeUniverityName, @degreeReceived, @dateGraduation, @mailingAddress, @mailingCity, @mailingState, @mailingZip, @completed)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
@@ -105,6 +106,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@mailingCity", education.MailingCity);
             sqlCommand.Parameters.AddWithValue("@mailingState", education.MailingState);
             sqlCommand.Parameters.AddWithValue("@mailingZip", education.MailingZip);
+            sqlCommand.Parameters.AddWithValue("@completed", education.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {
@@ -131,7 +133,8 @@ namespace Credentialing.Business.DataAccess
                                                         MailingAddress = @mailingAddress,
                                                         MailingCity = @mailingCity,
                                                         MailingState = @mailingState,
-                                                        MailingZip = @mailingZip
+                                                        MailingZip = @mailingZip,
+                                                        Completed = @completed
                                                     WHERE EducationId = @educationId", conn);
             if (trans != null) sqlCommand.Transaction = trans;
 
@@ -148,6 +151,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@mailingCity", education.MailingCity);
             sqlCommand.Parameters.AddWithValue("@mailingState", education.MailingState);
             sqlCommand.Parameters.AddWithValue("@mailingZip", education.MailingZip);
+            sqlCommand.Parameters.AddWithValue("@completed", education.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {

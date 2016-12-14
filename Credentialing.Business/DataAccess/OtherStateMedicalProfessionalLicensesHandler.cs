@@ -63,6 +63,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.TertiaryLicenseNumber = reader[Constants.OtherStateMedicalProfessionalLicensesColumns.TertiaryLicenseNumber] as string;
                         retVal.TertiaryExpirationDate = (DateTime)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.TertiaryExpirationDate];
                         retVal.TertiaryLastExpirationDate = (DateTime)reader[Constants.OtherStateMedicalProfessionalLicensesColumns.TertiaryLastExpirationDate];
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }
             }
@@ -86,10 +87,10 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, OtherStateMedicalProfessionalLicenses info)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO OtherStateMedicalProfessionalLicenses
-                                                    (PrimaryState, PrimaryLicenseNumber, PrimaryExpirationDate, PrimaryLastExpirationDate, SecondaryState, SecondaryLicenseNumber, SecondaryExpirationDate, SecondaryLastExpirationDate, TertiaryState, TertiaryLicenseNumber, TertiaryExpirationDate, TertiaryLastExpirationDate)
+                                                    (PrimaryState, PrimaryLicenseNumber, PrimaryExpirationDate, PrimaryLastExpirationDate, SecondaryState, SecondaryLicenseNumber, SecondaryExpirationDate, SecondaryLastExpirationDate, TertiaryState, TertiaryLicenseNumber, TertiaryExpirationDate, TertiaryLastExpirationDate, Completed)
                                                     OUTPUT INSERTED.OtherStateMedicalProfessionalLicensesId
                                                     VALUES
-                                                    (@primaryState, @primaryLicenseNumber, @primaryExpirationDate, @primaryLastExpirationDate, @secondaryState, @secondaryLicenseNumber, @secondaryExpirationDate, @secondaryLastExpirationDate, @tertiaryState, @tertiaryLicenseNumber, @tertiaryExpirationDate, @tertiaryLastExpirationDate)", conn);
+                                                    (@primaryState, @primaryLicenseNumber, @primaryExpirationDate, @primaryLastExpirationDate, @secondaryState, @secondaryLicenseNumber, @secondaryExpirationDate, @secondaryLastExpirationDate, @tertiaryState, @tertiaryLicenseNumber, @tertiaryExpirationDate, @tertiaryLastExpirationDate, @completed)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
             if (conn.State != ConnectionState.Open)
             {
@@ -110,6 +111,8 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@tertiaryLicenseNumber", info.TertiaryLicenseNumber);
             sqlCommand.Parameters.AddWithValue("@tertiaryExpirationDate", info.TertiaryExpirationDate);
             sqlCommand.Parameters.AddWithValue("@tertiaryLastExpirationDate", info.TertiaryLastExpirationDate);
+
+            sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {
@@ -144,7 +147,9 @@ namespace Credentialing.Business.DataAccess
                                                     TertiaryState = @tertiaryState,
                                                     TertiaryLicenseNumber = @tertiaryLicenseNumber,
                                                     TertiaryExpirationDate = @tertiaryExpirationDate, 
-                                                    TertiaryLastExpirationDate = @tertiaryLastExpirationDate
+                                                    TertiaryLastExpirationDate = @tertiaryLastExpirationDate,
+
+                                                    Completed = @completed
                                                     
                                                 WHERE OtherStateMedicalProfessionalLicensesId = @otherStateMedicalProfessionalLicensesId", conn);
 
@@ -170,6 +175,8 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@tertiaryLicenseNumber", info.TertiaryLicenseNumber);
             sqlCommand.Parameters.AddWithValue("@tertiaryExpirationDate", info.TertiaryExpirationDate);
             sqlCommand.Parameters.AddWithValue("@tertiaryLastExpirationDate", info.TertiaryLastExpirationDate);
+
+            sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {

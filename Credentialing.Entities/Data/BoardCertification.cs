@@ -43,12 +43,16 @@ namespace Credentialing.Entities.Data
 
         public int? AttachmentId { get; set; }
 
+        public bool? Completed { get; set; }
+
         public virtual Attachment Attachment { get; set; }
 
         public virtual int PercentComplete
         {
             get
             {
+                if (Completed ?? false) return 100;
+
                 // primary
                 var tmp = PrimaryNameIssuingBoard.IsCompleted();
                 tmp += PrimarySpecialty.IsCompleted();

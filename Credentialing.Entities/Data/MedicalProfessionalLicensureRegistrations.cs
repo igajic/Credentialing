@@ -35,12 +35,16 @@ namespace Credentialing.Entities.Data
 
         public string MedicaidNumber { get; set; }
 
+        public bool? Completed { get; set; }
+
         public virtual ICollection<Attachment> Attachments { get; set; }
 
         public int PercentComplete
         {
             get
             {
+                if (Completed ?? false) return 100;
+
                 var tmp = PrimaryStateMedicalLicenseNumber.IsCompleted();
                 tmp += LicensureState.IsCompleted();
                 tmp += PrimaryStateMedicalLicenseIssueDate.HasValue ? 1 : 0;

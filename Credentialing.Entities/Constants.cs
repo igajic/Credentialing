@@ -48,6 +48,7 @@
             public const string RaceEthnicity = "RaceEthnicity";
             public const string Subspecialties = "Subspecialties";
             public const string AttachmentId = "AttachmentId";
+            public const string Completed = "Completed";
         }
 
         public static class PracticionerApplicationColumns
@@ -69,6 +70,7 @@
             public const string ProfessionalLiabilityId = "ProfessionalLiabilityId";
             public const string ResidenciesFellowshipId = "ResidenciesFellowshipId";
             public const string WorkHistoryId = "WorkHistoryId";
+            public const string Completed = "Completed";
         }
 
         public static class EducationColumns
@@ -81,6 +83,7 @@
             public const string MailingCity = "MailingCity";
             public const string MailingState = "MailingState";
             public const string MailingZip = "MailingZip";
+            public const string Completed = "Completed";
         }
 
         public static class PracticeInformationColumns
@@ -115,6 +118,7 @@
             public const string TertiaryOfficeManagerAdministratorFaxNumber = "TertiaryOfficeManagerAdministratorFaxNumber";
             public const string TertiaryOfficeNameAffiliatedWithTaxIdNumber = "TertiaryOfficeNameAffiliatedWithTaxIdNumber";
             public const string TertiaryOfficeFederalTaxIdNumber = "TertiaryOfficeFederalTaxIdNumber";
+            public const string Completed = "Completed";
         }
 
         public static class MedicalProfessionalEducationColumns
@@ -134,6 +138,7 @@
             public const string SecondaryCity = "SecondaryCity";
             public const string SecondaryStateCountry = "SecondaryStateCountry";
             public const string SecondaryZip = "SecondaryZip";
+            public const string Completed = "Completed";
         }
 
         public static class AttestationQuestionsColumns
@@ -152,6 +157,7 @@
             public const string QuestionK = "QuestionK";
             public const string QuestionL = "QuestionL";
             public const string QuestionM = "QuestionM";
+            public const string Completed = "Completed";
         }
 
         public static class BoardCertificationColumns
@@ -172,6 +178,7 @@
             public const string AdditionalBoards = "AdditionalBoards";
             public const string AdditionalListBoardsDates = "AdditionalListBoardsDates";
             public const string Attachment_AttachmentId = "Attachment_AttachmentId";
+            public const string Completed = "Completed";
         }
 
         public static class CurrentHospitalInstitutionalAffiliationsColumns
@@ -213,6 +220,7 @@
             public const string PreviousTertiaryZip = "PreviousTertiaryZip";
             public const string PreviousTertiaryDepartmentStatus = "PreviousTertiaryDepartmentStatus";
             public const string PreviousTertiaryAppointmentDate = "PreviousTertiaryAppointmentDate";
+            public const string Completed = "Completed";
         }
 
         public static class OtherCertificationsColumns
@@ -224,6 +232,7 @@
             public const string SecondaryType = "SecondaryType";
             public const string SecondaryNumber = "SecondaryNumber";
             public const string SecondaryDate = "SecondaryDate";
+            public const string Completed = "Completed";
         }
 
         public static class OtherStateMedicalProfessionalLicensesColumns
@@ -241,6 +250,7 @@
             public const string TertiaryLicenseNumber = "TertiaryLicenseNumber";
             public const string TertiaryExpirationDate = "TertiaryExpirationDate";
             public const string TertiaryLastExpirationDate = "TertiaryLastExpirationDate";
+            public const string Completed = "Completed";
         }
 
         public static class MedicalProfessionalLicensureRegistrationsColumns
@@ -257,6 +267,7 @@
             public const string ECFMGNumberIssueDate = "ECFMGNumberIssueDate";
             public const string MedicareNationalPhysicianIdentifier = "MedicareNationalPhysicianIdentifier";
             public const string MedicaidNumber = "MedicaidNumber";
+            public const string Completed = "Completed";
         }
 
         public static class MedicalProfessionalEducationsColumns
@@ -276,6 +287,7 @@
             public const string SecondaryCity = "SecondaryCity";
             public const string SecondaryStateCountry = "SecondaryStateCountry";
             public const string SecondaryZip = "SecondaryZip";
+            public const string Completed = "Completed";
         }
 
         public static class InternshipsColumns
@@ -291,6 +303,7 @@
             public const string Specialty = "Specialty";
             public const string SpecialtyFrom = "SpecialtyFrom";
             public const string SpecialtyTo = "SpecialtyTo";
+            public const string Completed = "Completed";
         }
 
         public static class WorkHistoriesColumns
@@ -326,6 +339,7 @@
             public const string TertiaryZip = "TertiaryZip";
             public const string TertiaryStartDate = "TertiaryStartDate";
             public const string TertiaryEndDate = "TertiaryEndDate";
+            public const string Completed = "Completed";
         }
 
         public static class PeerReferencesColumns
@@ -352,6 +366,7 @@
             public const string TertiaryCity = "TertiaryCity";
             public const string TertiaryState = "TertiaryState";
             public const string TertiaryZip = "TertiaryZip";
+            public const string Completed = "Completed";
         }
 
         public static class ResidenciesFellowshipsColumns
@@ -390,6 +405,7 @@
             public const string TertiaryFrom = "TertiaryFrom";
             public const string TertiaryTo = "TertiaryTo";
             public const string TertiaryCompleted = "TertiaryCompleted";
+            public const string Completed = "Completed";
         }
 
         public static class ProfessionalLiabilities
@@ -437,6 +453,7 @@
             public const string FourthCity = "FourthCity";
             public const string FourthState = "FourthState";
             public const string FourthZip = "FourthZip";
+            public const string Completed = "Completed";
         }
     }
 }

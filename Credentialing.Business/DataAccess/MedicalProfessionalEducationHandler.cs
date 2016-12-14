@@ -68,6 +68,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.SecondaryCity = reader[Constants.MedicalProfessionalEducationColumns.SecondaryCity] as string;
                         retVal.SecondaryStateCountry = reader[Constants.MedicalProfessionalEducationColumns.SecondaryStateCountry] as string;
                         retVal.SecondaryZip = reader[Constants.MedicalProfessionalEducationColumns.SecondaryZip] as string;
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }
             }
@@ -91,10 +92,10 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, MedicalProfessionalEducation medicalEducation)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO MedicalProfessionalEducations
-                                                    (PrimaryMedicalProfessionalSchool, PrimaryDegreeReceived, PrimaryDateOfGraduation, PrimaryMailingAddress, PrimaryCity, PrimaryStateCountry, PrimaryZip, SecondaryMedicalProfessionalSchool, SecondaryDegreeReceived, SecondaryDateOfGraduation, SecondaryMailingAddress, SecondaryCity, SecondaryStateCountry, SecondaryZip)
+                                                    (PrimaryMedicalProfessionalSchool, PrimaryDegreeReceived, PrimaryDateOfGraduation, PrimaryMailingAddress, PrimaryCity, PrimaryStateCountry, PrimaryZip, SecondaryMedicalProfessionalSchool, SecondaryDegreeReceived, SecondaryDateOfGraduation, SecondaryMailingAddress, SecondaryCity, SecondaryStateCountry, SecondaryZip, Completed)
                                                     OUTPUT INSERTED.MedicalProfessionalEducationId
                                                     VALUES
-                                                    (@primaryMedicalProfessionalSchool, @primaryDegreeReceived, @primaryDateOfGraduation, @primaryMailingAddress, @primaryCity, @primaryStateCountry, @primaryZip, @secondaryMedicalProfessionalSchool, @secondaryDegreeReceived, @secondaryDateOfGraduation, @secondaryMailingAddress, @secondaryCity, @secondaryStateCountry, @secondaryZip)", conn);
+                                                    (@primaryMedicalProfessionalSchool, @primaryDegreeReceived, @primaryDateOfGraduation, @primaryMailingAddress, @primaryCity, @primaryStateCountry, @primaryZip, @secondaryMedicalProfessionalSchool, @secondaryDegreeReceived, @secondaryDateOfGraduation, @secondaryMailingAddress, @secondaryCity, @secondaryStateCountry, @secondaryZip, @completed)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
@@ -116,6 +117,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@secondaryCity", medicalEducation.SecondaryCity);
             sqlCommand.Parameters.AddWithValue("@secondaryStateCountry", medicalEducation.SecondaryStateCountry);
             sqlCommand.Parameters.AddWithValue("@secondaryZip", medicalEducation.SecondaryZip);
+            sqlCommand.Parameters.AddWithValue("@completed", medicalEducation.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {
@@ -153,7 +155,8 @@ namespace Credentialing.Business.DataAccess
                                                         SecondaryMailingAddress = @secondaryMailingAddress,
                                                         SecondaryCity = @secondaryCity,
                                                         SecondaryStateCountry = @secondaryStateCountry,
-                                                        SecondaryZip = @secondaryZip
+                                                        SecondaryZip = @secondaryZip,
+                                                        Completed = @completed
                                                     WHERE MedicalProfessionalEducationId = @medicalProfessionalEducationId", conn);
 
             if (trans != null) sqlCommand.Transaction = trans;
@@ -178,6 +181,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@secondaryCity", medicalEducation.SecondaryCity);
             sqlCommand.Parameters.AddWithValue("@secondaryStateCountry", medicalEducation.SecondaryStateCountry);
             sqlCommand.Parameters.AddWithValue("@secondaryZip", medicalEducation.SecondaryZip);
+            sqlCommand.Parameters.AddWithValue("@completed", medicalEducation.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {

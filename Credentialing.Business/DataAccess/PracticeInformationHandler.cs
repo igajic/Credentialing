@@ -82,6 +82,8 @@ namespace Credentialing.Business.DataAccess
                         retVal.TertiaryOfficeManagerAdministratorFaxNumber = reader[Constants.PracticeInformationColumns.TertiaryOfficeManagerAdministratorFaxNumber] as string;
                         retVal.TertiaryOfficeNameAffiliatedWithTaxIdNumber = reader[Constants.PracticeInformationColumns.TertiaryOfficeNameAffiliatedWithTaxIdNumber] as string;
                         retVal.TertiaryOfficeFederalTaxIdNumber = reader[Constants.PracticeInformationColumns.TertiaryOfficeFederalTaxIdNumber] as string;
+
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }
             }
@@ -92,10 +94,10 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, PracticeInformation practiceInformation)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO PracticeInformations
-                                                    (PracticeName, DepartmentName, PrimaryOfficeStreetAddress, PrimaryOfficeCityStateZip, PrimaryOfficeTelephoneNumber, PrimaryOfficeFaxNumber, PrimaryOfficeManagerAdministrator, PrimaryOfficeManagerAdministratorTelephoneNumber, PrimaryOfficeManagerAdministratorFaxNumber, PrimaryOfficeNameAffiliatedWithTaxIdNumber, PrimaryOfficeFederalTaxIdNumber, SecondaryOfficeStreetAddress, SecondaryOfficeCity, SecondaryOfficeState, SecondaryOfficeZip, SecondaryOfficeManagerAdministrator, SecondaryOfficeManagerAdministratorTelephoneNumber, SecondaryOfficeManagerAdministratorFaxNumber, SecondaryOfficeNameAffiliatedWithTaxIdNumber,SecondaryOfficeFederalTaxIdNumber, TertiaryOfficeStreetAddress, TertiaryOfficeCity, TertiaryOfficeState, TertiaryOfficeZip, TertiaryOfficeManagerAdministrator, TertiaryOfficeManagerAdministratorTelephoneNumber, TertiaryOfficeManagerAdministratorFaxNumber, TertiaryOfficeNameAffiliatedWithTaxIdNumber, TertiaryOfficeFederalTaxIdNumber)
+                                                    (PracticeName, DepartmentName, PrimaryOfficeStreetAddress, PrimaryOfficeCityStateZip, PrimaryOfficeTelephoneNumber, PrimaryOfficeFaxNumber, PrimaryOfficeManagerAdministrator, PrimaryOfficeManagerAdministratorTelephoneNumber, PrimaryOfficeManagerAdministratorFaxNumber, PrimaryOfficeNameAffiliatedWithTaxIdNumber, PrimaryOfficeFederalTaxIdNumber, SecondaryOfficeStreetAddress, SecondaryOfficeCity, SecondaryOfficeState, SecondaryOfficeZip, SecondaryOfficeManagerAdministrator, SecondaryOfficeManagerAdministratorTelephoneNumber, SecondaryOfficeManagerAdministratorFaxNumber, SecondaryOfficeNameAffiliatedWithTaxIdNumber,SecondaryOfficeFederalTaxIdNumber, TertiaryOfficeStreetAddress, TertiaryOfficeCity, TertiaryOfficeState, TertiaryOfficeZip, TertiaryOfficeManagerAdministrator, TertiaryOfficeManagerAdministratorTelephoneNumber, TertiaryOfficeManagerAdministratorFaxNumber, TertiaryOfficeNameAffiliatedWithTaxIdNumber, TertiaryOfficeFederalTaxIdNumber, Completed)
                                                     OUTPUT INSERTED.PracticeInformationId
                                                     VALUES
-                                                    (@practiceName, @departmentName, @primaryOfficeStreetAddress, @primaryOfficeCityStateZip, @primaryOfficeTelephoneNumber, @primaryOfficeFaxNumber, @primaryOfficeManagerAdministrator, @primaryOfficeManagerAdministratorTelephoneNumber, @primaryOfficeManagerAdministratorFaxNumber, @primaryOfficeNameAffiliatedWithTaxIdNumber, @primaryOfficeFederalTaxIdNumber, @secondaryOfficeStreetAddress, @secondaryOfficeCity, @secondaryOfficeState, @secondaryOfficeZip, @secondaryOfficeManagerAdministrator, @secondaryOfficeManagerAdministratorTelephoneNumber, @secondaryOfficeManagerAdministratorFaxNumber, @secondaryOfficeNameAffiliatedWithTaxIdNumber, @secondaryOfficeFederalTaxIdNumber, @tertiaryOfficeStreetAddress, @tertiaryOfficeCity, @tertiaryOfficeState, @tertiaryOfficeZip, @tertiaryOfficeManagerAdministrator, @tertiaryOfficeManagerAdministratorTelephoneNumber, @tertiaryOfficeManagerAdministratorFaxNumber, @tertiaryOfficeNameAffiliatedWithTaxIdNumber, @tertiaryOfficeFederalTaxIdNumber)", conn);
+                                                    (@practiceName, @departmentName, @primaryOfficeStreetAddress, @primaryOfficeCityStateZip, @primaryOfficeTelephoneNumber, @primaryOfficeFaxNumber, @primaryOfficeManagerAdministrator, @primaryOfficeManagerAdministratorTelephoneNumber, @primaryOfficeManagerAdministratorFaxNumber, @primaryOfficeNameAffiliatedWithTaxIdNumber, @primaryOfficeFederalTaxIdNumber, @secondaryOfficeStreetAddress, @secondaryOfficeCity, @secondaryOfficeState, @secondaryOfficeZip, @secondaryOfficeManagerAdministrator, @secondaryOfficeManagerAdministratorTelephoneNumber, @secondaryOfficeManagerAdministratorFaxNumber, @secondaryOfficeNameAffiliatedWithTaxIdNumber, @secondaryOfficeFederalTaxIdNumber, @tertiaryOfficeStreetAddress, @tertiaryOfficeCity, @tertiaryOfficeState, @tertiaryOfficeZip, @tertiaryOfficeManagerAdministrator, @tertiaryOfficeManagerAdministratorTelephoneNumber, @tertiaryOfficeManagerAdministratorFaxNumber, @tertiaryOfficeNameAffiliatedWithTaxIdNumber, @tertiaryOfficeFederalTaxIdNumber, @completed)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
@@ -132,6 +134,8 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeManagerAdministratorFaxNumber", practiceInformation.TertiaryOfficeManagerAdministratorFaxNumber);
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeNameAffiliatedWithTaxIdNumber", practiceInformation.TertiaryOfficeNameAffiliatedWithTaxIdNumber);
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeFederalTaxIdNumber", practiceInformation.TertiaryOfficeNameAffiliatedWithTaxIdNumber);
+
+            sqlCommand.Parameters.AddWithValue("@completed", practiceInformation.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {
@@ -186,7 +190,8 @@ namespace Credentialing.Business.DataAccess
                                                         TertiaryOfficeManagerAdministratorTelephoneNumber = @tertiaryOfficeManagerAdministratorTelephoneNumber,
                                                         TertiaryOfficeManagerAdministratorFaxNumber = @tertiaryOfficeManagerAdministratorFaxNumber,
                                                         TertiaryOfficeNameAffiliatedWithTaxIdNumber = @tertiaryOfficeNameAffiliatedWithTaxIdNumber,
-                                                        TertiaryOfficeFederalTaxIdNumber = @tertiaryOfficeFederalTaxIdNumber
+                                                        TertiaryOfficeFederalTaxIdNumber = @tertiaryOfficeFederalTaxIdNumber,
+                                                        Completed = @completed
                                                     WHERE PracticeInformationId = @practiceInformationId
                                                     ", conn);
             if (trans != null) sqlCommand.Transaction = trans;
@@ -199,6 +204,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@practiceInformationId", practiceInformation.PracticeInformationId);
             sqlCommand.Parameters.AddWithValue("@practiceName", practiceInformation.PracticeName);
             sqlCommand.Parameters.AddWithValue("@departmentName", practiceInformation.DepartmentName);
+
             sqlCommand.Parameters.AddWithValue("@primaryOfficeStreetAddress", practiceInformation.PrimaryOfficeStreetAddress);
             sqlCommand.Parameters.AddWithValue("@primaryOfficeCityStateZip", practiceInformation.PrimaryOfficeCityStateZip);
             sqlCommand.Parameters.AddWithValue("@primaryOfficeTelephoneNumber", practiceInformation.PrimaryOfficeTelephoneNumber);
@@ -208,6 +214,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@primaryOfficeManagerAdministratorFaxNumber", practiceInformation.PrimaryOfficeManagerAdministratorFaxNumber);
             sqlCommand.Parameters.AddWithValue("@primaryOfficeNameAffiliatedWithTaxIdNumber", practiceInformation.PrimaryOfficeNameAffiliatedWithTaxIdNumber);
             sqlCommand.Parameters.AddWithValue("@primaryOfficeFederalTaxIdNumber", practiceInformation.PrimaryOfficeFederalTaxIdNumber);
+
             sqlCommand.Parameters.AddWithValue("@secondaryOfficeStreetAddress", practiceInformation.SecondaryOfficeStreetAddress);
             sqlCommand.Parameters.AddWithValue("@secondaryOfficeCity", practiceInformation.SecondaryOfficeCity);
             sqlCommand.Parameters.AddWithValue("@secondaryOfficeState", practiceInformation.SecondaryOfficeState);
@@ -217,6 +224,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@secondaryOfficeManagerAdministratorFaxNumber", practiceInformation.SecondaryOfficeManagerAdministratorFaxNumber);
             sqlCommand.Parameters.AddWithValue("@secondaryOfficeNameAffiliatedWithTaxIdNumber", practiceInformation.SecondaryOfficeNameAffiliatedWithTaxIdNumber);
             sqlCommand.Parameters.AddWithValue("@secondaryOfficeFederalTaxIdNumber", practiceInformation.SecondaryOfficeFederalTaxIdNumber);
+
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeStreetAddress", practiceInformation.TertiaryOfficeStreetAddress);
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeCity", practiceInformation.TertiaryOfficeCity);
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeState", practiceInformation.TertiaryOfficeState);
@@ -226,6 +234,8 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeManagerAdministratorFaxNumber", practiceInformation.TertiaryOfficeManagerAdministratorFaxNumber);
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeNameAffiliatedWithTaxIdNumber", practiceInformation.TertiaryOfficeNameAffiliatedWithTaxIdNumber);
             sqlCommand.Parameters.AddWithValue("@tertiaryOfficeFederalTaxIdNumber", practiceInformation.TertiaryOfficeNameAffiliatedWithTaxIdNumber);
+
+            sqlCommand.Parameters.AddWithValue("@completed", practiceInformation.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {

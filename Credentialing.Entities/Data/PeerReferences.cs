@@ -53,10 +53,14 @@
 
         public string TertiaryZip { get; set; }
 
+        public bool? Completed { get; set; }
+
         public virtual int PercentComplete
         {
             get
             {
+                if (Completed ?? false) return 100;
+
                 // primary
                 var tmp = PrimaryNameReference.IsCompleted();
                 tmp += PrimarySpecialty.IsCompleted();
