@@ -215,6 +215,7 @@
 				<span class="form-description">(If "No", please explain on separate sheet.)</span>
 			</div>
 		</div>
+            <asp:FileUpload runat="server" ID="fuResidencies" AllowMultiple="True"/>
 		</asp:Panel>
 	</div>
 	<asp:Panel ID="Panel2" runat="server" Enabled="false" Visible="false">
