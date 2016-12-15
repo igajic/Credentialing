@@ -4,6 +4,8 @@ using Credentialing.Entities.Data;
 using System;
 using System.IO;
 using System.Web.UI;
+using System.Web.UI.WebControls;
+using Credentialing.Entities;
 
 namespace Credentialing.Web.Steps
 {
@@ -59,9 +61,7 @@ namespace Credentialing.Web.Steps
 
                 if (physicianFormData != null && physicianFormData.Education != null)
                 {
-                    var data = EducationHandler.Instance.GetById(physicianFormData.EducationId.Value);
-
-                    return data;
+                    return physicianFormData.Education;
                 }
             }
 
@@ -79,11 +79,31 @@ namespace Credentialing.Web.Steps
             tboxMailingCity.Text = data.MailingCity;
             tboxMailingState.Text = data.MailingState;
             tboxMailingZip.Text = data.MailingZip;
+
+            if (data.AttachedDocuments.Count > 0)
+            {
+                rptAttachments.Visible = true;
+                rptAttachments.DataSource = data.AttachedDocuments;
+                rptAttachments.ItemDataBound += rptAttachments_ItemDataBound;
+                rptAttachments.DataBind();
+            }
+        }
+
+        private void rptAttachments_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                var data = (Attachment) e.Item.DataItem;
+                var hlAttachment = (HyperLink) e.Item.FindControl("hlAttachment");
+
+                hlAttachment.Text = data.FileName;
+                hlAttachment.NavigateUrl = string.Format("/Handlers/DownloadAttachment.ashx?{0}={1}", Constants.RequestParameters.AttachmentId, data.AttachmentId);
+            }
         }
 
         private void SaveFormData()
         {
-            var formData = new Entities.Data.Education();
+            var formData = LoadUserData() ?? new Entities.Data.Education();
 
             formData.CollegeUniverityName = tboxCollegeUniversityName.Text;
             formData.DegreeReceived = tboxDegreeReceived.Text;
@@ -133,7 +153,16 @@ namespace Credentialing.Web.Steps
 
         private void lbReview_Click(object sender, EventArgs e)
         {
-            // TODO: Implement this
+            var formData = LoadUserData() ?? new Entities.Data.Education();
+
+            formData.Completed = true;
+
+            var user = MemberHelper.GetCurrentLoggedUser();
+
+            PracticionersApplicationHandler.Instance.UpsertEducation(formData, (Guid)user.ProviderUserKey);
+
+            Response.Redirect("/Dashboard/Physician.aspx");
+            Response.End();
         }
 
         #endregion [Private methods]

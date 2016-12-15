@@ -74,6 +74,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.Specialty = reader[Constants.IdentifyingInformationColumns.Specialty] as string;
                         retVal.RaceEthnicity = reader[Constants.IdentifyingInformationColumns.RaceEthnicity] as string;
                         retVal.Subspecialties = reader[Constants.IdentifyingInformationColumns.Subspecialties] as string;
+                        retVal.AttachmentId = Convert.IsDBNull(reader[Constants.IdentifyingInformationColumns.AttachmentId]) ? null : (int?) reader[Constants.IdentifyingInformationColumns.AttachmentId];
 
                         retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }

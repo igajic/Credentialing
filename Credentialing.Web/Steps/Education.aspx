@@ -53,6 +53,15 @@
 				</div>
 			</div>
 		</div>
+        
+        <asp:Repeater runat="server" ID="rptAttachments" Visible="False">
+            <HeaderTemplate>Attachments: <br/></HeaderTemplate>
+            <ItemTemplate>
+                <asp:HyperLink runat="server" ID="hlAttachment"/>
+                <br/>
+            </ItemTemplate>
+        </asp:Repeater>
+
 	</div>
 	<div class="form-actions">
 		<asp:LinkButton runat="server" ID="btnPrevious" Text="Previous" CssClass="btn btn-prev" />

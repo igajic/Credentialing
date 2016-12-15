@@ -211,6 +211,15 @@ namespace Credentialing.Web.Steps {
         protected global::System.Web.UI.WebControls.TextBox tboxSubspeciality;
         
         /// <summary>
+        /// hlAttachment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hlAttachment;
+        
+        /// <summary>
         /// btnPrevious control.
         /// </summary>
         /// <remarks>

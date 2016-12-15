@@ -124,6 +124,11 @@
 			</div>
 		</div>
 		<hr />
+        
+        Attachment:
+        <br/>
+	    <asp:HyperLink runat="server" ID="hlAttachment" Visible="False"/>
+
 		<div class="row">
 			<div class="footnotes col-md-12">
 				<p>

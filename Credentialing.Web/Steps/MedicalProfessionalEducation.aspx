@@ -81,12 +81,20 @@
 			<div class="col-md-6">
 				<asp:Label runat="server" Text="Attach additional sheets if necessary" CssClass="label" />
 				<div class="file-upload">
-					<asp:FileUpload ClientIDMode="Static" runat="server" ID="fuAttachments"/>
+					<asp:FileUpload ClientIDMode="Static" runat="server" ID="fuAttachments" AllowMultiple="True"/>
 					<span class="temp-filename"></span>
 					<span class="upload-file-btn"><i class="ico"></i></span>
 				</div>
 			</div>
 		</div>
+        
+        <asp:Repeater runat="server" ID="rptAttachments" Visible="False">
+            <HeaderTemplate>Attachments: <br/></HeaderTemplate>
+            <ItemTemplate>
+                <asp:HyperLink runat="server" ID="hlAttachment"/>
+                <br/>
+            </ItemTemplate>
+        </asp:Repeater>
 	</div>
 	<div class="form-actions">
 		<asp:LinkButton runat="server" ID="btnPrevious" Text="Previous" CssClass="btn btn-prev" />

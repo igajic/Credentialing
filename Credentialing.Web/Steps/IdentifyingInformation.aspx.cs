@@ -5,6 +5,7 @@ using Credentialing.Entities.Enums;
 using System;
 using System.Globalization;
 using System.Web.UI;
+using Credentialing.Entities;
 
 namespace Credentialing.Web.Steps
 {
@@ -22,7 +23,9 @@ namespace Credentialing.Web.Steps
 
             if (!IsPostBack)
             {
-                LoadUserData();
+                var data = LoadUserData();
+
+                LoadFormData(data);
             }
         }
 
@@ -58,7 +61,7 @@ namespace Credentialing.Web.Steps
             return retVal;
         }
 
-        private void LoadUserData()
+        private Entities.Data.IdentifyingInformation LoadUserData()
         {
             var user = MemberHelper.GetCurrentLoggedUser();
 
@@ -70,9 +73,12 @@ namespace Credentialing.Web.Steps
 
                 if (physicianFormData != null)
                 {
-                    LoadFormData(physicianFormData.IdentifyingInformation);
+
+                    return physicianFormData.IdentifyingInformation;
                 }
             }
+
+            return null;
         }
 
         private void LoadFormData(Entities.Data.IdentifyingInformation formData)
@@ -111,11 +117,22 @@ namespace Credentialing.Web.Steps
                 rbtnMale.Checked = false;
                 rbtnFemale.Checked = false;
             }
+
+            if (formData.AttachmentId.HasValue)
+            {
+                hlAttachment.Text = formData.Attachment.FileName;
+                hlAttachment.NavigateUrl = string.Format("/Handlers/DownloadAttachment.ashx?{0}={1}", Constants.RequestParameters.AttachmentId, formData.AttachmentId);
+                hlAttachment.Visible = true;
+            }
+            else
+            {
+                hlAttachment.Visible = false;
+            }
         }
 
         private void SaveFormData()
         {
-            var formData = new Entities.Data.IdentifyingInformation();
+            var formData = LoadUserData() ?? new Entities.Data.IdentifyingInformation();
 
             formData.LastName = tboxLastName.Text;
             formData.FirstName = tboxFirstName.Text;
@@ -159,14 +176,22 @@ namespace Credentialing.Web.Steps
             }
 
             var user = MemberHelper.GetCurrentLoggedUser();
-            var userId = (Guid)user.ProviderUserKey;
 
-            PracticionersApplicationHandler.Instance.UpsertIdentifyingInformation(formData, userId);
+            PracticionersApplicationHandler.Instance.UpsertIdentifyingInformation(formData, (Guid)user.ProviderUserKey);
         }
 
         private void lbReview_Click(object sender, EventArgs e)
         {
-            // TODO: Implement this
+            var formData = LoadUserData() ?? new Entities.Data.IdentifyingInformation();
+
+            formData.Completed = true;
+
+            var user = MemberHelper.GetCurrentLoggedUser();
+
+            PracticionersApplicationHandler.Instance.UpsertIdentifyingInformation(formData, (Guid)user.ProviderUserKey);
+
+            Response.Redirect("/Dashboard/Physician.aspx");
+            Response.End();
         }
 
         #endregion [Private methods]

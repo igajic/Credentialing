@@ -7,6 +7,7 @@
         public static class RequestParameters
         {
             public const string AttachmentId = "attachmentId";
+            public const string UserName = "username";
         }
 
         public static class AttachmentColumns

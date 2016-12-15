@@ -4,6 +4,8 @@ using Credentialing.Entities.Data;
 using System;
 using System.IO;
 using System.Web.UI;
+using System.Web.UI.WebControls;
+using Credentialing.Entities;
 
 namespace Credentialing.Web.Steps
 {
@@ -48,7 +50,7 @@ namespace Credentialing.Web.Steps
 
         private void SaveFormData()
         {
-            var formData = new Entities.Data.MedicalProfessionalEducation();
+            var formData = LoadUserData() ?? new Entities.Data.MedicalProfessionalEducation();
 
             formData.PrimaryMedicalProfessionalSchool = tboxMedicalProfessionalSchoolFirst.Text;
             formData.PrimaryDegreeReceived = tboxDegreeReceivedFirst.Text;
@@ -146,11 +148,40 @@ namespace Credentialing.Web.Steps
             tboxMailingCitySecond.Text = data.SecondaryCity;
             tboxMailingStateSecond.Text = data.SecondaryStateCountry;
             tboxMailingZipSecond.Text = data.SecondaryZip;
+
+            if (data.Attachments.Count > 0)
+            {
+                rptAttachments.Visible = true;
+                rptAttachments.DataSource = data.Attachments;
+                rptAttachments.ItemDataBound += rptAttachments_ItemDataBound;
+                rptAttachments.DataBind();
+            }
         }
 
         private void lbReview_Click(object sender, EventArgs e)
         {
-            // TODO: Implement this
+            var formData = LoadUserData() ?? new Entities.Data.MedicalProfessionalEducation();
+
+            formData.Completed = true;
+
+            var user = MemberHelper.GetCurrentLoggedUser();
+
+            PracticionersApplicationHandler.Instance.UpsertMedicalProfessionalEducation(formData, (Guid)user.ProviderUserKey);
+
+            Response.Redirect("/Dashboard/Physician.aspx");
+            Response.End();
+        }
+
+        private void rptAttachments_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                var data = (Attachment)e.Item.DataItem;
+                var hlAttachment = (HyperLink)e.Item.FindControl("hlAttachment");
+
+                hlAttachment.Text = data.FileName;
+                hlAttachment.NavigateUrl = string.Format("/Handlers/DownloadAttachment.ashx?{0}={1}", Constants.RequestParameters.AttachmentId, data.AttachmentId);
+            }
         }
 
         #endregion [Private methods]

@@ -19,7 +19,9 @@ namespace Credentialing.Web.Steps
 
             if (!IsPostBack)
             {
-                LoadUserData();
+                var data = LoadUserData();
+
+                LoadFormData(data);
             }
         }
 
@@ -41,7 +43,7 @@ namespace Credentialing.Web.Steps
             Response.End();
         }
 
-        private void LoadUserData()
+        private Entities.Data.PracticeInformation LoadUserData()
         {
             var user = MemberHelper.GetCurrentLoggedUser();
 
@@ -53,9 +55,11 @@ namespace Credentialing.Web.Steps
 
                 if (physicianFormData != null && physicianFormData.PracticeInformation != null)
                 {
-                    LoadFormData(physicianFormData.PracticeInformation);
+                    return physicianFormData.PracticeInformation;
                 }
             }
+
+            return null;
         }
 
         private void LoadFormData(Entities.Data.PracticeInformation formData)
@@ -99,7 +103,7 @@ namespace Credentialing.Web.Steps
 
         private void SaveFormData()
         {
-            var formData = new Entities.Data.PracticeInformation();
+            var formData = LoadUserData() ?? new Entities.Data.PracticeInformation();
 
             formData.PracticeName = tboxPracticeName.Text;
             formData.DepartmentName = tboxDepartmentName.Text;
@@ -143,7 +147,16 @@ namespace Credentialing.Web.Steps
 
         private void lbReview_Click(object sender, EventArgs e)
         {
-            // TODO: Implement this
+            var formData = LoadUserData() ?? new Entities.Data.PracticeInformation();
+
+            formData.Completed = true;
+
+            var user = MemberHelper.GetCurrentLoggedUser();
+
+            PracticionersApplicationHandler.Instance.UpsertPracticeInformation(formData, (Guid)user.ProviderUserKey);
+
+            Response.Redirect("/Dashboard/Physician.aspx");
+            Response.End();
         }
 
         #endregion [Private methods]
