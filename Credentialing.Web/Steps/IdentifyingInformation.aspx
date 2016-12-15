@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="IdentifyingInformation.aspx.cs" Inherits="Credentialing.Web.Steps.IdentifyingInformation" MasterPageFile="../Main.Master" %>
 <%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
+	<asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
 	<uc:SidebarProgress runat="server" CurrentStep="2" EnableViewState="false"/>
 
 	<div class="form-block">
@@ -8,9 +9,6 @@
 			<h2><strong>2.</strong> Identifying information</h2>
 		</div>
 		<div class="row">
-
-		    <asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed"/>
-
 			<div class="col-md-5">
 				<asp:Label runat="server" AssociatedControlID="tboxLastName" Text="Last Name:" EnableViewState="False"/>
 				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxLastName"/>
@@ -124,10 +122,13 @@
 			</div>
 		</div>
 		<hr />
-        
-        Attachment:
-        <br/>
-	    <asp:HyperLink runat="server" ID="hlAttachment" Visible="False"/>
+		<div class="row attachments">
+			<div class="col-md-6">
+				<span class="label">Attachment:</span>
+				<asp:HyperLink runat="server" ID="hlAttachment" Visible="False"/>
+			</div>
+		</div>
+		<hr />
 
 		<div class="row">
 			<div class="footnotes col-md-12">

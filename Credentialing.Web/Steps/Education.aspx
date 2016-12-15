@@ -1,15 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Education.aspx.cs" Inherits="Credentialing.Web.Steps.Education"  MasterPageFile="../Main.Master"%>
 <%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
-    <uc:SidebarProgress runat="server" CurrentStep="4" EnableViewState="false"/>
+	<asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
+	<uc:SidebarProgress runat="server" CurrentStep="4" EnableViewState="false"/>
+
 	<div class="form-block">
 		<div class="form-heading">
 			<h2><strong>4.</strong> Education</h2>
 		</div>
 		<div class="row">
-		    
-		    <asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed"/>
-
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxCollegeUniversityName" Text="College or University Name:" EnableViewState="False"/>
 				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxCollegeUniversityName"/>
@@ -53,15 +52,26 @@
 				</div>
 			</div>
 		</div>
-        
-        <asp:Repeater runat="server" ID="rptAttachments" Visible="False">
-            <HeaderTemplate>Attachments: <br/></HeaderTemplate>
-            <ItemTemplate>
-                <asp:HyperLink runat="server" ID="hlAttachment"/>
-                <br/>
-            </ItemTemplate>
-        </asp:Repeater>
-
+		<hr />
+		<asp:Repeater runat="server" ID="rptAttachments" Visible="False">
+			<HeaderTemplate>
+			<div class="row attachments">
+				<div class="col-md-6">
+					<span class="label">Attachments:</span>
+					<ul>
+			</HeaderTemplate>
+			<ItemTemplate>
+				<li>
+					<asp:HyperLink runat="server" ID="hlAttachment"/>
+				</li>
+			</ItemTemplate>
+			<FooterTemplate>
+					</ul>
+				</div>
+			</div>
+			<hr />
+			</FooterTemplate>
+		</asp:Repeater>
 	</div>
 	<div class="form-actions">
 		<asp:LinkButton runat="server" ID="btnPrevious" Text="Previous" CssClass="btn btn-prev" />

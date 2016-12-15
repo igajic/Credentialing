@@ -1,15 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PracticeInformation.aspx.cs" Inherits="Credentialing.Web.Steps.PracticeInformation" MasterPageFile="../Main.Master" %>
 <%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
+	<asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
 	<uc:SidebarProgress runat="server" CurrentStep="3" EnableViewState="false"/>
+
 	<div class="form-block">
 		<div class="form-heading">
 			<h2><strong>3.</strong> Practice information</h2>
 		</div>
 		<div class="row">
-		    
-		    <asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed"/>
-
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxPracticeName" Text="Practice Name (if applicable)" EnableViewState="False"/>
 				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxPracticeName"/>

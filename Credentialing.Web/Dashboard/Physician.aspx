@@ -6,7 +6,7 @@
 		<asp:Repeater runat="server" ID="rptSteps">
 			<HeaderTemplate>
 			<div class="dashboard-progress">
-				<div class="row">
+				<div class="row hidden-sm-down">
 					<div class="col-md-4">
 						<h5>Step</h5>
 					</div>
@@ -21,7 +21,7 @@
 					<div class="col-md-4">
 						<div class="form-step-link"><asp:HyperLink ID="hlStep" runat="server"/></div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3 hidden-sm-down">
 						<span class="form-step-percentage"><asp:Literal ID="ltrPercentage" runat="server"/></span>
 					</div>
 					<div class="col-md-5">

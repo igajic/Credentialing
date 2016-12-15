@@ -167,4 +167,27 @@
 			display: block;
 		}
 	}
+	@include media-breakpoint-down(sm) {
+		[class^="col-"] {
+			margin-bottom: 5px;
+		}
+		.form-step-link {
+			font-size: 16px;
+		}
+	}
+}
+
+.review-button {
+	margin-bottom: 20px;
+	float: right;
+}
+
+.attachments {
+	a {
+		color: $secondary;
+		text-decoration: underline;
+	}
+	& + hr {
+		margin-top: 1em;
+	}
 }

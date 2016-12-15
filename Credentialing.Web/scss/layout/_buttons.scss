@@ -55,4 +55,10 @@ input[type="submit"] {
 			display: block;
 		}
 	}
+	&.btn-green {
+		background: $green;
+		&:hover {
+			background-color: mix($green, $primary, 50%);
+		}
+	}
 }
