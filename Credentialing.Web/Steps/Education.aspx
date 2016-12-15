@@ -7,6 +7,9 @@
 			<h2><strong>4.</strong> Education</h2>
 		</div>
 		<div class="row">
+		    
+		    <asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed"/>
+
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxCollegeUniversityName" Text="College or University Name:" EnableViewState="False"/>
 				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxCollegeUniversityName"/>

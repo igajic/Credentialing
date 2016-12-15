@@ -17,6 +17,7 @@ namespace Credentialing.Web.Steps
         {
             btnNext.Click += btnNext_Click;
             btnPrevious.Click += btnPrevious_Click;
+            lbReview.Click += lbReview_Click;
 
             if (!IsPostBack)
             {
@@ -128,6 +129,11 @@ namespace Credentialing.Web.Steps
             }
 
             return retVal;
+        }
+
+        private void lbReview_Click(object sender, EventArgs e)
+        {
+            // TODO: Implement this
         }
 
         #endregion [Private methods]

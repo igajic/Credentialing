@@ -7,6 +7,9 @@
 			<h2><strong>3.</strong> Practice information</h2>
 		</div>
 		<div class="row">
+		    
+		    <asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed"/>
+
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxPracticeName" Text="Practice Name (if applicable)" EnableViewState="False"/>
 				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxPracticeName"/>

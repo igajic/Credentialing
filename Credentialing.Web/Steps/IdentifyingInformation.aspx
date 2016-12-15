@@ -8,6 +8,9 @@
 			<h2><strong>2.</strong> Identifying information</h2>
 		</div>
 		<div class="row">
+
+		    <asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed"/>
+
 			<div class="col-md-5">
 				<asp:Label runat="server" AssociatedControlID="tboxLastName" Text="Last Name:" EnableViewState="False"/>
 				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxLastName"/>

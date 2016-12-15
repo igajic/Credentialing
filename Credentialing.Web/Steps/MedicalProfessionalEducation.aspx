@@ -7,6 +7,9 @@
 			<h2><strong>5.</strong> Medical / Professional education</h2>
 		</div>
 		<div class="row">
+		    
+		    <asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed"/>
+
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxMedicalProfessionalSchoolFirst" Text="Medical/Professional School:" EnableViewState="False" />
 				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxMedicalProfessionalSchoolFirst"/>

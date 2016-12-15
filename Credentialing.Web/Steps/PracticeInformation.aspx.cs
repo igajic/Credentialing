@@ -15,6 +15,7 @@ namespace Credentialing.Web.Steps
         {
             btnPrevious.Click += btnPrevious_Click;
             btnNext.Click += btnNext_Click;
+            lbReview.Click += lbReview_Click;
 
             if (!IsPostBack)
             {
@@ -138,6 +139,11 @@ namespace Credentialing.Web.Steps
             var userId = (Guid)user.ProviderUserKey;
 
             PracticionersApplicationHandler.Instance.UpsertPracticeInformation(formData, userId);
+        }
+
+        private void lbReview_Click(object sender, EventArgs e)
+        {
+            // TODO: Implement this
         }
 
         #endregion [Private methods]
