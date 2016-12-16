@@ -176,8 +176,10 @@ namespace Credentialing.Web.Steps
             }
 
             var user = MemberHelper.GetCurrentLoggedUser();
-
-            PracticionersApplicationHandler.Instance.UpsertIdentifyingInformation(formData, (Guid)user.ProviderUserKey);
+            if (user != null)
+            {
+                PracticionersApplicationHandler.Instance.UpsertIdentifyingInformation(formData, (Guid) user.ProviderUserKey);
+            }
         }
 
         private void lbReview_Click(object sender, EventArgs e)

@@ -275,10 +275,10 @@ namespace Credentialing.Business.DataAccess
                         if (formData.AttachmentId.HasValue && formData.Attachment.AttachmentId == 0)
                         {
                             AttachmentHandler.Instance.Delete(conn, trans, formData.AttachmentId.Value); // delete existing
-
-                            var id = AttachmentHandler.Instance.Insert(conn, trans, formData.Attachment); // add new
-                            formData.AttachmentId = id;
                         }
+
+                        var id = AttachmentHandler.Instance.Insert(conn, trans, formData.Attachment); // add new
+                        formData.AttachmentId = id;
                     }
 
                     var physicianFormData = GetByUserId(conn, trans, userId);
