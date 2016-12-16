@@ -29,13 +29,13 @@ namespace Credentialing.Web.Handlers
                 if (CheckUserAccess(attachmentId))
                 {
                     var attachment = AttachmentHandler.Instance.GetById(attachmentId);
-
+                    var content = AttachmentHandler.Instance.GetAttachmentContent(attachmentId);
                     if (attachment != null)
                     {
                         context.Response.ContentType = "application/octet-stream";
                         context.Response.AppendHeader("Content-Disposition", "attachment; filename=" + attachment.FileName);
-                        context.Response.AddHeader("Content-Length", attachment.Content.Length.ToString());
-                        context.Response.BinaryWrite(attachment.Content);
+                        context.Response.AddHeader("Content-Length", content.Length.ToString());
+                        context.Response.BinaryWrite(content);
                         context.Response.End();
                     }
                 }

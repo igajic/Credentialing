@@ -44,6 +44,42 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.ExecuteNonQuery();
         }
 
+        public byte[] GetAttachmentContent(int attachmentId)
+        {
+            byte[] retVal = new byte[0];
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                var sqlCommand = new SqlCommand(@"SELECT Content
+                                            FROM Attachments
+                                            WHERE AttachmentId = @attachmentId", conn);
+                sqlCommand.Parameters.AddWithValue("@attachmentId", attachmentId);
+
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+
+                using (var reader = sqlCommand.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            if (!Convert.IsDBNull(reader[Constants.AttachmentColumns.Content]))
+                            {
+                                retVal = (byte[])reader[Constants.AttachmentColumns.Content];
+                            }
+                        }
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            return retVal;
+        }
+
         public List<Attachment> GetReferencedAttachments(string fk, int fkVal)
         {
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
@@ -56,7 +92,20 @@ namespace Credentialing.Business.DataAccess
         {
             var retVal = new List<Attachment>();
 
-            var sqlCommand = new SqlCommand("SELECT * FROM Attachments WHERE " + fk + " = @fkVal", conn);
+            var sqlCommand = new SqlCommand(@"SELECT AttachmentId,
+                                                    FileName,
+                                                    Content,
+                                                    EducationId,
+                                                    MedicalProfessionalEducationId,
+                                                    InternshipId,
+                                                    ResidenciesFellowshipId,
+                                                    OtherCertificationsId,
+                                                    MedicalProfessionalLicensureRegistrationsId,
+                                                    OtherStateMedicalProfessionalLicensesId,
+                                                    WorkHistoryId,
+                                                    AttestationQuestionsId
+                                                FROM Attachments
+                                                WHERE " + fk + " = @fkVal", conn);
             sqlCommand.Parameters.AddWithValue("@fkVal", fkVal);
             if (trans != null) sqlCommand.Transaction = trans;
 
@@ -93,7 +142,20 @@ namespace Credentialing.Business.DataAccess
         {
             Attachment retVal = null;
 
-            var sqlCommand = new SqlCommand("SELECT * FROM Attachments WHERE AttachmentId = @attachmentId", conn);
+            var sqlCommand = new SqlCommand(@"SELECT AttachmentId,
+                                                    FileName,
+                                                    Content,
+                                                    EducationId,
+                                                    MedicalProfessionalEducationId,
+                                                    InternshipId,
+                                                    ResidenciesFellowshipId,
+                                                    OtherCertificationsId,
+                                                    MedicalProfessionalLicensureRegistrationsId,
+                                                    OtherStateMedicalProfessionalLicensesId,
+                                                    WorkHistoryId,
+                                                    AttestationQuestionsId
+                                            FROM Attachments
+                                            WHERE AttachmentId = @attachmentId", conn);
             sqlCommand.Parameters.AddWithValue("@attachmentId", attachmentId);
             if (trans != null) sqlCommand.Transaction = trans;
 
@@ -165,7 +227,6 @@ namespace Credentialing.Business.DataAccess
             var retVal = new Attachment();
 
             retVal.AttachmentId = (int)reader[Constants.AttachmentColumns.AttachmentId];
-            retVal.Content = (byte[])reader[Constants.AttachmentColumns.Content];
             retVal.FileName = reader[Constants.AttachmentColumns.FileName] as string;
             retVal.EducationId = reader[Constants.AttachmentColumns.EducationId] as int?;
             retVal.MedicalProfessionalEducationId = reader[Constants.AttachmentColumns.MedicalProfessionalEducationId] as int?;
