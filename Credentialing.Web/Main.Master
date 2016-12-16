@@ -14,8 +14,7 @@
 	<title>Credentialing</title>
 	<link href="https://fonts.googleapis.com/css?family=Yrsa:400,700" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="css/style.css">
-	<asp:ContentPlaceHolder ID="head" runat="server">
-	</asp:ContentPlaceHolder>
+	<asp:ContentPlaceHolder ID="head" runat="server"/>
 </head>
 <body>
 
@@ -98,6 +97,8 @@
 	<script type="text/javascript" src="/Scripts/libs/moment.js"></script>
 	<script type="text/javascript" src="/Scripts/libs/pikaday.js"></script>
 	<script type="text/javascript" src="/Scripts/default.js"></script>
+
+    <asp:ContentPlaceHolder ID="footer" runat="server"/>
 
 	</form>
 

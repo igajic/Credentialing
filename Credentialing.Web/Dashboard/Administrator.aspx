@@ -1,6 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Administrator.aspx.cs" Inherits="Credentialing.Web.Dashboard.Administrator" MasterPageFile="../Main.Master" %>
 
+<asp:Content ContentPlaceHolderID="footer" runat="server">    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="/Scripts/admin-dashboard.js"></script>
+</asp:Content>
+
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
+    
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+
 	<div class="form-block">
 		<h1>Administrator dashboard</h1>
 		<asp:Repeater runat="server" ID="rptUsers">
