@@ -1,4 +1,5 @@
-﻿using Credentialing.Business.Helpers;
+﻿using Credentialing.Business.DataAccess;
+using Credentialing.Business.Helpers;
 using System;
 using System.Web.UI;
 
@@ -44,6 +45,25 @@ namespace Credentialing.Web.Steps
         private bool ValidateFields()
         {
             return true; // TODO: Implement
+        }
+
+        private void lbReview_Click(object sender, EventArgs e)
+        {
+            var formData = LoadUserData() ?? new Entities.Data.MedicalProfessionalLicensureRegistrations();
+
+            formData.Completed = true;
+
+            var user = MemberHelper.GetCurrentLoggedUser();
+
+            PracticionersApplicationHandler.Instance.UpsertMedicalProfessionalLicensureRegistrations(formData, (Guid)user.ProviderUserKey);
+
+            Response.Redirect("/Dashboard/Physician.aspx");
+            Response.End();
+        }
+
+        private Entities.Data.MedicalProfessionalLicensureRegistrations LoadUserData()
+        {
+            return null; // TODO Implement this
         }
 
         #endregion [Private methods]

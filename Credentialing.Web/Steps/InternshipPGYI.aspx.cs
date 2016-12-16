@@ -136,6 +136,20 @@ namespace Credentialing.Web.Steps
             tboxToDate.Text = data.SpecialtyTo.HasValue ? data.SpecialtyTo.Value.ToString("MM/yy") : string.Empty;
         }
 
+        private void lbReview_Click(object sender, EventArgs e)
+        {
+            var formData = LoadUserData() ?? new Entities.Data.Internship();
+
+            formData.Completed = true;
+
+            var user = MemberHelper.GetCurrentLoggedUser();
+
+            PracticionersApplicationHandler.Instance.UpsertInternshipInformation(formData, (Guid)user.ProviderUserKey);
+
+            Response.Redirect("/Dashboard/Physician.aspx");
+            Response.End();
+        }
+
         #endregion [Private methods]
     }
 }

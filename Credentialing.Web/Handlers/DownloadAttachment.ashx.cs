@@ -12,6 +12,8 @@ namespace Credentialing.Web.Handlers
     /// </summary>
     public class DownloadAttachment : IHttpHandler
     {
+        #region [Properties]
+
         public bool IsReusable
         {
             get
@@ -19,6 +21,10 @@ namespace Credentialing.Web.Handlers
                 return false;
             }
         }
+
+        #endregion [Properties]
+
+        #region [Public methods]
 
         public void ProcessRequest(HttpContext context)
         {
@@ -41,6 +47,10 @@ namespace Credentialing.Web.Handlers
                 }
             }
         }
+
+        #endregion [Public methods]
+
+        #region [Private methods]
 
         private bool CheckUserAccess(int attachmentId)
         {
@@ -124,5 +134,7 @@ namespace Credentialing.Web.Handlers
 
             return retVal;
         }
+
+        #endregion [Private methods]
     }
 }

@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AttestationQuestions.aspx.cs" Inherits="Credentialing.Web.Steps.AttestationQuestions"  MasterPageFile="../Main.Master"%>
+<%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
     <h1>XVI. ATTESTATION QUESTIONS</h1>
     <br />
@@ -9,6 +10,8 @@
     <h1>Coming soon</h1>
     
     <asp:Panel ID="Panel1" runat="server" Visible="False">
+        <uc:SidebarProgress ID="SidebarProgress1" runat="server" CurrentStep="14" EnableViewState="false"/>
+
         <p>Please answer the following question "yes" or "no". If your answer to questions A through K is "YES,", or if your answer to L or M is "NO," please provide full details on separate sheet.</p>
     
         <ul style="list-style: upper-latin">
@@ -100,7 +103,11 @@
                 <asp:RadioButton runat="server" ID="rbtnQuestionMNo" GroupName="QuestionM" Text="No*"/>
             </li>
         </ul>
-    
+
+        <asp:TextBox ID="tboxDetails" runat="server" TextMode="MultiLine" />
+
+        <asp:FileUpload ID="fuAttachments" runat="server" AllowMultiple="true" />
+
         <strong>* Details must be provided; use additional sheet(s) and reference Section XVI</strong>
 
         <p>

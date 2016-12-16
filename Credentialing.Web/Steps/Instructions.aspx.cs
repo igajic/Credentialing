@@ -8,6 +8,8 @@ namespace Credentialing.Web.Steps
 {
     public partial class Instructions : Page
     {
+        private int CurrentStep = 0;
+
         #region [Protected methods]
 
         protected void Page_Load(object sender, EventArgs e)
@@ -32,7 +34,7 @@ namespace Credentialing.Web.Steps
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/Steps/IdentifyingInformation.aspx");
+            Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
             Response.End();
         }
 

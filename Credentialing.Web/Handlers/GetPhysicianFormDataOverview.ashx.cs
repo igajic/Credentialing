@@ -1,17 +1,30 @@
-﻿using System;
-using System.Web;
+﻿using Credentialing.Business.DataAccess;
 using Credentialing.Business.Helpers;
 using Credentialing.Entities;
+using System;
+using System.Web;
 using System.Web.Script.Serialization;
-using Credentialing.Business.DataAccess;
 
 namespace Credentialing.Web.Handlers
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class GetPhysicianFormDataOverview : IHttpHandler
     {
+        #region [Properties]
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        #endregion [Properties]
+
+        #region [Public methods]
 
         public void ProcessRequest(HttpContext context)
         {
@@ -32,12 +45,6 @@ namespace Credentialing.Web.Handlers
             }
         }
 
-        public bool IsReusable
-        {
-            get
-            {
-                return false;
-            }
-        }
+        #endregion [Public methods]
     }
 }

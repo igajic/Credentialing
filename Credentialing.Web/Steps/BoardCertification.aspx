@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="BoardCertification.aspx.cs" Inherits="Credentialing.Web.Steps.BoardCertification" MasterPageFile="../Main.Master" %>
+<%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
 	<h1>VIII. BOARD CERTIFICATION</h1>
 	<br />
@@ -9,6 +10,7 @@
 	<h1>Coming soon</h1>
 
 	<asp:Panel ID="Panel1" runat="server" Enabled="false" Visible="false">
+        <uc:SidebarProgress ID="SidebarProgress1" runat="server" CurrentStep="7" EnableViewState="false"/>
 		<p>
 			Include certifications by board(s) which are duly organized and recognized by:
 		</p>

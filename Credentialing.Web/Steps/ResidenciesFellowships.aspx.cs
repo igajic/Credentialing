@@ -266,6 +266,20 @@ namespace Credentialing.Web.Steps
             }
         }
 
+        private void lbReview_Click(object sender, EventArgs e)
+        {
+            var formData = LoadUserData() ?? new Entities.Data.ResidenciesFellowship();
+
+            formData.Completed = true;
+
+            var user = MemberHelper.GetCurrentLoggedUser();
+
+            PracticionersApplicationHandler.Instance.UpsertResidenciesFellowship(formData, (Guid)user.ProviderUserKey);
+
+            Response.Redirect("/Dashboard/Physician.aspx");
+            Response.End();
+        }
+
         #endregion [Private methods]
     }
 }

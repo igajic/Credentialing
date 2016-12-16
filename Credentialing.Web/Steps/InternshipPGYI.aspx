@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="InternshipPGYI.aspx.cs" Inherits="Credentialing.Web.Steps.InternshipPGYI" MasterPageFile="../Main.Master" %>
+<%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
 	<div class="form-block">
 		<div class="form-heading">
@@ -6,6 +7,7 @@
 		</div>
 		<h1>Coming soon</h1>
 		<asp:Panel ID="Panel1" runat="server" Enabled="false" Visible="false">
+	    <uc:SidebarProgress runat="server" CurrentStep="5" EnableViewState="false"/>
 		<div class="row">
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxInstitution" Text="Institution" EnableViewState="false"/>

@@ -12,6 +12,8 @@ namespace Credentialing.Web.Dashboard
 {
     public partial class Administrator : Page
     {
+        #region [Protected methods]
+
         protected void Page_Load(object sender, EventArgs e)
         {
             var data = GetPhysicianStatistics();
@@ -24,9 +26,13 @@ namespace Credentialing.Web.Dashboard
             rptUsers.DataBind();
         }
 
+        #endregion [Protected methods]
+
+        #region [Private methods]
+
         private string GetChartData(List<Tuple<string, int>> data)
         {
-            List<object[]> retVal = new List<object[]>();
+            var retVal = new List<object[]>();
 
             retVal.Add(new object[] { "Status", "Percentage" });
             retVal.Add(new object[] { "Completed", data.Count(s => s.Item2 == 100) });
@@ -65,5 +71,7 @@ namespace Credentialing.Web.Dashboard
 
             return data;
         }
+
+        #endregion [Private methods]
     }
 }

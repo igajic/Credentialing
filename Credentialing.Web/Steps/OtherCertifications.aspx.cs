@@ -130,6 +130,20 @@ namespace Credentialing.Web.Steps
             tboxSecondaryExpirationDate.Text = data.SecondaryDate.HasValue ? data.SecondaryDate.Value.ToString("MM/dd/yyyy") : string.Empty;
         }
 
+        private void lbReview_Click(object sender, EventArgs e)
+        {
+            var formData = LoadUserData() ?? new Entities.Data.OtherCertifications();
+
+            formData.Completed = true;
+
+            var user = MemberHelper.GetCurrentLoggedUser();
+
+            PracticionersApplicationHandler.Instance.UpsertOtherCertifications(formData, (Guid)user.ProviderUserKey);
+
+            Response.Redirect("/Dashboard/Physician.aspx");
+            Response.End();
+        }
+
         #endregion [Private methods]
     }
 }

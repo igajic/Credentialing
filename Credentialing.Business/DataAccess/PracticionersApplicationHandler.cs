@@ -31,7 +31,6 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@userId", userId);
             if (trans != null) sqlCommand.Transaction = trans;
 
-
             if (conn.State != ConnectionState.Open)
             {
                 conn.Open();
@@ -550,7 +549,7 @@ namespace Credentialing.Business.DataAccess
                     if (!physicianFormData.BoardCertificationId.HasValue)
                     {
                         var id = BoardCertificationHandler.Instance.Insert(conn, trans, formData);
-                        physicianFormData.ResidenciesFellowshipId = id;
+                        physicianFormData.BoardCertificationId = id;
 
                         Update(conn, trans, physicianFormData);
                     }
@@ -589,7 +588,7 @@ namespace Credentialing.Business.DataAccess
                     if (!physicianFormData.OtherCertificationId.HasValue)
                     {
                         var id = OtherCertificationsHandler.Instance.Insert(conn, trans, formData);
-                        physicianFormData.ResidenciesFellowshipId = id;
+                        physicianFormData.OtherCertificationId = id;
 
                         Update(conn, trans, physicianFormData);
                     }
@@ -612,6 +611,70 @@ namespace Credentialing.Business.DataAccess
             }
 
             return retVal;
+        }
+
+        public bool UpsertAttestationQuestions(AttestationQuestions formData, Guid userId)
+        {
+            var retVal = true;
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                conn.Open();
+                var trans = conn.BeginTransaction();
+                try
+                {
+                    var physicianFormData = GetByUserId(conn, trans, userId);
+                    if (!physicianFormData.OtherCertificationId.HasValue)
+                    {
+                        var id = AttestationQuestionsHandler.Instance.Insert(conn, trans, formData);
+                        physicianFormData.AttestationQuestionId = id;
+
+                        Update(conn, trans, physicianFormData);
+                    }
+                    else
+                    {
+                        formData.AttestationQuestionsId = physicianFormData.AttestationQuestionId.Value;
+                        AttestationQuestionsHandler.Instance.Update(conn, trans, formData);
+                    }
+
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+
+                    Log.Error(ex);
+
+                    retVal = false;
+                }
+            }
+
+            return retVal;
+        }
+
+        public void UpsertMedicalProfessionalLicensureRegistrations(MedicalProfessionalLicensureRegistrations formData, Guid guid)
+        {
+            // TODO: Implement this
+        }
+
+        public void UpsertOtherStateMedicalProfessionalLicenses(OtherStateMedicalProfessionalLicenses formData, Guid guid)
+        {
+            // TODO: Implement this
+        }
+
+        public void UpsertPeerReferences(PeerReferences formData, Guid guid)
+        {
+            // TODO: Implement this
+        }
+
+        public void UpsertProfessionalLiability(ProfessionalLiability formData, Guid guid)
+        {
+            // TODO: Implement this
+        }
+
+        public void UpsertWorkHistory(WorkHistory formData, Guid guid)
+        {
+            // TODO: Implement this
         }
     }
 }

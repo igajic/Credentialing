@@ -22,6 +22,15 @@ namespace Credentialing.Web.Steps {
         protected global::System.Web.UI.WebControls.Panel Panel1;
         
         /// <summary>
+        /// SidebarProgress1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Credentialing.Web.Usercontrols.SidebarProgress SidebarProgress1;
+        
+        /// <summary>
         /// rbtnQuestionAYes control.
         /// </summary>
         /// <remarks>
@@ -254,6 +263,24 @@ namespace Credentialing.Web.Steps {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rbtnQuestionMNo;
+        
+        /// <summary>
+        /// tboxDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxDetails;
+        
+        /// <summary>
+        /// fuAttachments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuAttachments;
         
         /// <summary>
         /// btnPrevious control.
