@@ -49,9 +49,11 @@ namespace Credentialing.Web.Dashboard
             {
                 var data = (Tuple<string, int>)e.Item.DataItem;
                 var ltrPercentage = (Literal)e.Item.FindControl("ltrPercentage");
+				var ltrProgressBar = (Literal)e.Item.FindControl("ltrProgressBar");
                 var ltrUserName = (Literal)e.Item.FindControl("ltrUser");
 
                 ltrPercentage.Text = data.Item2 + "%";
+				ltrProgressBar.Text = data.Item2 + "%";
                 ltrUserName.Text = data.Item1;
             }
         }

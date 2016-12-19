@@ -191,3 +191,27 @@
 		margin-top: 1em;
 	}
 }
+
+.piechart {
+	width: 100%;
+	max-width: 800px;
+	height: 500px;
+	svg {
+		text {
+			font-family: $font-default;
+		}
+		> g {
+			> text {
+				font-size: 20px;
+			}
+		}
+	}
+	@include media-breakpoint-down(sm) {
+		width: 380px;
+		height: 300px;
+		margin-left: -60px;
+		svg > rect {
+			fill: none;
+		}
+	}
+}
