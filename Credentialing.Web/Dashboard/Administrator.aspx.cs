@@ -34,10 +34,14 @@ namespace Credentialing.Web.Dashboard
         {
             var retVal = new List<object[]>();
 
+            int completed = data.Count(s => s.Item2 == 100);
+            int incomplete = data.Count(s => s.Item2 < 100 && s.Item2 > 0);
+            int notStarted = data.Count(s => s.Item2 == 0);
+
             retVal.Add(new object[] { "Status", "Percentage" });
-            retVal.Add(new object[] { "Completed", data.Count(s => s.Item2 == 100) });
-            retVal.Add(new object[] { "Incomplete", data.Count(s => s.Item2 < 100 && s.Item2 > 0) });
-            retVal.Add(new object[] { "Not started", data.Count(s => s.Item2 == 0) });
+            retVal.Add(new object[] { string.Format("Completed {0}%", data.Count == 0 ? 0 : Math.Round((100d * completed) / data.Count, 1)), completed });
+            retVal.Add(new object[] { string.Format("Incomplete {0}%", data.Count == 0 ? 0 : Math.Round((100d * incomplete) / data.Count, 1)), incomplete });
+            retVal.Add(new object[] { string.Format("Not started {0}%", data.Count == 0 ? 0 : Math.Round((100d * notStarted) / data.Count, 1)), notStarted });
 
             var json = new JavaScriptSerializer().Serialize(retVal);
             return json;
@@ -49,11 +53,11 @@ namespace Credentialing.Web.Dashboard
             {
                 var data = (Tuple<string, int>)e.Item.DataItem;
                 var ltrPercentage = (Literal)e.Item.FindControl("ltrPercentage");
-				var ltrProgressBar = (Literal)e.Item.FindControl("ltrProgressBar");
+                var ltrProgressBar = (Literal)e.Item.FindControl("ltrProgressBar");
                 var ltrUserName = (Literal)e.Item.FindControl("ltrUser");
 
                 ltrPercentage.Text = data.Item2 + "%";
-				ltrProgressBar.Text = data.Item2 + "%";
+                ltrProgressBar.Text = data.Item2 + "%";
                 ltrUserName.Text = data.Item1;
             }
         }
