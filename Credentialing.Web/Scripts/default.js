@@ -37,6 +37,12 @@ $(function () {
 		});
 	});
 
+	$('.js-close-modal').on('click', function () {
+		$('.modal.opened').removeClass('opened').fadeOut(300, function () {
+			$('.overlay').fadeOut(200);
+		});
+	});
+
 	$(document).keyup(function (e) {
 		if (e.keyCode == 27) {
 			$('.modal.opened').removeClass('opened').fadeOut(300, function () {
@@ -97,7 +103,6 @@ $(function () {
 					this.el.className = this.el.className.replace('pika-monthly', '');
 				}
 			});
-
 		});
 	}
 

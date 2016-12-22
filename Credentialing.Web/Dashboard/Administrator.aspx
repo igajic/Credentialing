@@ -11,7 +11,7 @@
 		<h1>Administrator dashboard</h1>
 		<asp:Repeater runat="server" ID="rptUsers">
 			<HeaderTemplate>
-			<div class="dashboard-progress">
+			<div class="dashboard-progress admin-dashboard js-open-user-dashboard">
 				<div class="row hidden-sm-down">
 					<div class="col-md-4">
 						<h5>User</h5>

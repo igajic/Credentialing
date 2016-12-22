@@ -32,7 +32,7 @@ h1 {
 		width: 120px;
 	}
 	@include media-breakpoint-down(sm) {
-		font-size: 32px;
+		font-size: 30px;
 		line-height: 1em;
 	}
 }
@@ -43,7 +43,7 @@ h2 {
 		width: 100px;
 	}
 	@include media-breakpoint-down(sm) {
-		font-size: 28px;
+		font-size: 26px;
 		line-height: 1em;
 	}
 }

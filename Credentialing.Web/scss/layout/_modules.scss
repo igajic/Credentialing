@@ -29,6 +29,19 @@
 	&.opened {
 		transform: scale(1);
 	}
+	.close-modal {
+		position: relative;
+		width: 26px;
+		height: 26px;
+		margin: 48px 40px 0 0;
+		background: url('../img/svg/close-modal.svg') no-repeat;
+		background-size: 100% auto;
+		text-indent: -9999px;
+		z-index: 10;
+		display: block;
+		float: right;
+		cursor: pointer;
+	}
 	.inner {
 		padding: 40px;
 		@extend %clearfix;
@@ -42,6 +55,11 @@
 		width: 92%;
 		left: 4%;
 		margin-left: 0;
+		.close-modal {
+			width: 20px;
+			height: 20px;
+			margin: 25px 10px -45px 0;
+		}
 		.inner {
 			padding: 20px 20px 10px 20px;
 		}

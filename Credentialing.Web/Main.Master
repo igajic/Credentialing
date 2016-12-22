@@ -89,6 +89,11 @@
 			</div>
 		</div>
 
+		<div class="dashboard-popup modal">
+			<span class="close-modal js-close-modal">Close</span>
+			<div class="inner"></div>
+		</div>
+
 	</div>
 
 	<!-- javascript -->

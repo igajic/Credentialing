@@ -167,12 +167,46 @@
 			display: block;
 		}
 	}
+	&.admin-dashboard {
+		.form-step-link {
+			display: inline-block;
+			cursor: pointer;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
 	@include media-breakpoint-down(sm) {
 		[class^="col-"] {
 			margin-bottom: 5px;
 		}
 		.form-step-link {
 			font-size: 16px;
+		}
+	}
+}
+
+.dashboard-popup {
+	position: absolute;
+	top: 80px;
+	width: 728px;
+	margin-left: -364px;
+	@include media-breakpoint-down(sm) {
+		position: fixed;
+		top: 50px;
+		width: 92%;
+		height: calc(100vh - 70px);
+		left: 4%;
+		margin-left: 0;
+		overflow-y: auto;
+		h1 {
+			padding-right: 20px;
+		}
+		.inner {
+			height: 100%;
+			width: 100%;
+			padding-right: 10px;
+			clear: both;
 		}
 	}
 }
