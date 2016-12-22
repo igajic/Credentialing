@@ -31,7 +31,7 @@
 					<nav class="main-nav">
 						<ul>
 							<li>
-								<a href="/Dashboard/Physician.aspx">Physician Dashboard</a>
+								<a href="/Dashboard/Physician.aspx">My Dashboard</a>
 							</li>
 							<li>
 								<a href="/Dashboard/Administrator.aspx">Administrator Dashboard</a>
