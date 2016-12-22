@@ -39,17 +39,13 @@ function getUserDashboardContent(username) {
 			var returnContent = [];
 			$.each(data, function(index, element) {
 				var stepName = element.Name,
-					stepLink = element.Url,
 					stepProgress = element.PercentComplete;
 
 				returnContent.push('<div class="row">' +
-									'<div class="col-md-4">' +
-										'<div class="form-step-link"><a href="' + stepLink + '">' + stepName + '</a></div>' +
+									'<div class="col-md-6">' +
+										'<div class="form-step-link">' + stepName + '</div>' +
 									'</div>' +
-									'<div class="col-md-3 hidden-sm-down">' +
-										'<span class="form-step-percentage">' + stepProgress + '%</span>' +
-									'</div>' +
-									'<div class="col-md-5">' +
+									'<div class="col-md-6">' +
 										'<div class="form-step-progress">' +
 											'<span class="text-percent">' + stepProgress + '%</span>' +
 											'<span class="progress-bar"></span>' +
@@ -61,10 +57,10 @@ function getUserDashboardContent(username) {
 									'<h1>' + username + ' dashboard</h1>' +
 									'<div class="dashboard-progress">' +
 										'<div class="row hidden-sm-down">' +
-											'<div class="col-md-4">' +
+											'<div class="col-md-6">' +
 												'<h5>Step</h5>' +
 											'</div>' +
-											'<div class="col-md-3">' +
+											'<div class="col-md-6">' +
 												'<h5 class="centered">Percentage</h5>' +
 											'</div>' +
 										'</div>';

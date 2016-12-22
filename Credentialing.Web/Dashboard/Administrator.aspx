@@ -13,10 +13,10 @@
 			<HeaderTemplate>
 			<div class="dashboard-progress admin-dashboard js-open-user-dashboard">
 				<div class="row hidden-sm-down">
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<h5>User</h5>
 					</div>
-					<div class="col-md-3">
+					<div class="col-lg-4 col-md-6">
 						<h5 class="centered">Progress</h5>
 					</div>
 				</div>
@@ -24,15 +24,12 @@
 
 			<ItemTemplate>
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<div class="form-step-link"><asp:Literal ID="ltrUser" runat="server" /></div>
 					</div>
-					<div class="col-md-3 hidden-sm-down">
-						<span class="form-step-percentage"><asp:Literal ID="ltrPercentage" runat="server" /></span>
-					</div>
-					<div class="col-md-5">
+					<div class="col-lg-4 col-md-6">
 						<div class="form-step-progress">
-							<span class="text-percent"><asp:Literal ID="ltrProgressBar" runat="server"/></span>
+							<span class="text-percent"><asp:Literal ID="ltrPercentage" runat="server"/></span>
 							<span class="progress-bar"></span>
 						</div>
 					</div>
