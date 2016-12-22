@@ -47,7 +47,7 @@
         <asp:TextBox runat="server" ID="tboxTertiaryLastExpirationDate" ClientIDMode="Static"/>
         
         
-        <asp:FileUpload runat="server" AllowMultiple="True"/>
+        <asp:FileUpload ID="fuAttachments" runat="server" AllowMultiple="True"/>
         
 	    <div class="form-actions">
 		    <asp:LinkButton runat="server" ID="btnPrevious" Text="Previous" CssClass="btn btn-prev" />

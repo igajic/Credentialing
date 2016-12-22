@@ -1,6 +1,8 @@
 ﻿using Credentialing.Business.DataAccess;
 using Credentialing.Business.Helpers;
+using Credentialing.Entities.Data;
 using System;
+using System.IO;
 using System.Web.UI;
 
 namespace Credentialing.Web.Steps
@@ -15,6 +17,13 @@ namespace Credentialing.Web.Steps
         {
             btnNext.Click += btnNext_Click;
             btnPrevious.Click += btnPrevious_Click;
+
+            if (!IsPostBack)
+            {
+                var data = LoadUserData();
+
+                //LoadFormData(data);
+            }
         }
 
         #endregion [Protected methods]
@@ -31,7 +40,7 @@ namespace Credentialing.Web.Steps
         {
             if (ValidateFields())
             {
-                SaveFormData();
+                //SaveFormData();
                 Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
                 Response.End();
             }
@@ -39,12 +48,99 @@ namespace Credentialing.Web.Steps
 
         private void SaveFormData()
         {
-            // TODO: Implement
+            var data = new Entities.Data.MedicalProfessionalLicensureRegistrations();
+
+            data.PrimaryStateMedicalLicenseNumber = tboxPrimaryStateMedicalLicenseNumber.Text;
+            data.PrimaryStateMedicalLicenseIssueDate = DateHelper.ParseFullDate(tboxIssueDate.Text);
+            data.PrimaryStateMedicalLicenseExpirationDate = DateHelper.ParseFullDate(tboxPrimaryStateMedicalLicenseExpirationDate.Text);
+
+            data.DrugAdministrationNumber = tboxDrugAdministrationNumber.Text;
+            data.DrugAdministrationExpirationDate = DateHelper.ParseFullDate(tboxDrugAdministrationExpirationDate.Text);
+
+            data.StateControlledSubstancesCertificate = tboxStateControlledSubstancesCertificate.Text;
+            data.StateControlledSubstancesCertificateExpirationDate = DateHelper.ParseFullDate(tboxStateControlledSubstancesCertificateExpirationDate.Text);
+
+            data.ECFMGNumber = tboxECFMGNumber.Text;
+            data.ECFMGNumberIssueDate = DateHelper.ParseFullDate(tboxECFMGNumberIssueDate.Text);
+
+            data.MedicareNationalPhysicianIdentifier = tboxMedicareNationalPhysicianIdentifier.Text;
+            data.MedicaidNumber = tboxMedicaidNumber.Text;
+
+            if (fuAttachments.HasFiles)
+            {
+                foreach (var file in fuAttachments.PostedFiles)
+                {
+                    var attachment = new Attachment
+                    {
+                        FileName = file.FileName
+                    };
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        file.InputStream.CopyTo(ms);
+                        attachment.Content = ms.ToArray();
+                    }
+
+                    data.Attachments.Add(attachment);
+                }
+            }
+
+            var user = MemberHelper.GetCurrentLoggedUser();
+            var userId = (Guid)user.ProviderUserKey;
+
+            PracticionersApplicationHandler.Instance.UpsertMedicalProfessionalLicensureRegistrations(data, userId);
+        }
+
+        private void LoadFormData(Entities.Data.MedicalProfessionalLicensureRegistrations data)
+        {
+            tboxPrimaryStateMedicalLicenseNumber.Text = data.PrimaryStateMedicalLicenseNumber;
+            tboxIssueDate.Text = data.PrimaryStateMedicalLicenseIssueDate == null ? string.Empty : data.PrimaryStateMedicalLicenseIssueDate.Value.ToString("MM/dd/yyyy");
+            tboxPrimaryStateMedicalLicenseExpirationDate.Text = data.PrimaryStateMedicalLicenseExpirationDate == null ? string.Empty : data.PrimaryStateMedicalLicenseExpirationDate.Value.ToString("MM/dd/yyyy");
+
+            tboxDrugAdministrationNumber.Text = data.DrugAdministrationNumber;
+            tboxDrugAdministrationExpirationDate.Text = data.DrugAdministrationExpirationDate == null ? string.Empty : data.DrugAdministrationExpirationDate.Value.ToString("MM/dd/yyyy");
+
+            tboxStateControlledSubstancesCertificate.Text = data.StateControlledSubstancesCertificate;
+            tboxStateControlledSubstancesCertificateExpirationDate.Text = data.StateControlledSubstancesCertificateExpirationDate == null ? string.Empty : data.StateControlledSubstancesCertificateExpirationDate.Value.ToString("MM/dd/yyyy");
+
+            tboxECFMGNumber.Text = data.ECFMGNumber;
+            tboxECFMGNumberIssueDate.Text = data.ECFMGNumberIssueDate == null ? string.Empty : data.ECFMGNumberIssueDate.Value.ToString("MM/dd/yyyy");
+
+            tboxMedicareNationalPhysicianIdentifier.Text = data.MedicareNationalPhysicianIdentifier;
+            tboxMedicaidNumber.Text = data.MedicaidNumber;
         }
 
         private bool ValidateFields()
         {
-            return true; // TODO: Implement
+            var retVal = true;
+
+            if (!string.IsNullOrWhiteSpace(tboxIssueDate.Text))
+            {
+                retVal = ValidationHelper.ValidateFullDate(tboxIssueDate);
+            }
+
+            if (!string.IsNullOrWhiteSpace(tboxPrimaryStateMedicalLicenseExpirationDate.Text))
+            {
+                retVal = ValidationHelper.ValidateFullDate(tboxPrimaryStateMedicalLicenseExpirationDate) && retVal;
+            }
+
+
+            if (!string.IsNullOrWhiteSpace(tboxDrugAdministrationExpirationDate.Text))
+            {
+                retVal = ValidationHelper.ValidateFullDate(tboxDrugAdministrationExpirationDate) && retVal;
+            }
+
+            if (!string.IsNullOrWhiteSpace(tboxStateControlledSubstancesCertificateExpirationDate.Text))
+            {
+                retVal = ValidationHelper.ValidateFullDate(tboxStateControlledSubstancesCertificateExpirationDate) && retVal;
+            }
+
+            if (!string.IsNullOrWhiteSpace(tboxECFMGNumberIssueDate.Text))
+            {
+                retVal = ValidationHelper.ValidateFullDate(tboxECFMGNumberIssueDate) && retVal;
+            }
+
+            return retVal;
         }
 
         private void lbReview_Click(object sender, EventArgs e)
@@ -63,7 +159,21 @@ namespace Credentialing.Web.Steps
 
         private Entities.Data.MedicalProfessionalLicensureRegistrations LoadUserData()
         {
-            return null; // TODO Implement this
+            var user = MemberHelper.GetCurrentLoggedUser();
+
+            if (user != null && MemberHelper.IsUserPhysician(user.UserName))
+            {
+                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey, true);
+
+                StepsHelper.Instance.UpdateSteps(physicianFormData);
+
+                if (physicianFormData != null && physicianFormData.MedicalProfessionalLicensureRegistration != null)
+                {
+                    return physicianFormData.MedicalProfessionalLicensureRegistration;
+                }
+            }
+
+            return null;
         }
 
         #endregion [Private methods]

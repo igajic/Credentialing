@@ -652,29 +652,199 @@ namespace Credentialing.Business.DataAccess
             return retVal;
         }
 
-        public void UpsertMedicalProfessionalLicensureRegistrations(MedicalProfessionalLicensureRegistrations formData, Guid guid)
+        public bool UpsertMedicalProfessionalLicensureRegistrations(MedicalProfessionalLicensureRegistrations formData, Guid userId)
         {
-            // TODO: Implement this
+            var retVal = true;
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                conn.Open();
+                var trans = conn.BeginTransaction();
+                try
+                {
+                    var physicianFormData = GetByUserId(conn, trans, userId);
+                    if (!physicianFormData.MedicalProfessionalLicensureRegistrationId.HasValue)
+                    {
+                        var id = MedicalProfessionalLicensureRegistrationHandler.Instance.Insert(conn, trans, formData);
+                        physicianFormData.MedicalProfessionalLicensureRegistrationId = id;
+
+                        Update(conn, trans, physicianFormData);
+                    }
+                    else
+                    {
+                        formData.MedicalProfessionalLicensureRegistrationsId = physicianFormData.MedicalProfessionalLicensureRegistrationId.Value;
+                        MedicalProfessionalLicensureRegistrationHandler.Instance.Update(conn, trans, formData);
+                    }
+
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+
+                    Log.Error(ex);
+
+                    retVal = false;
+                }
+            }
+
+            return retVal;
         }
 
-        public void UpsertOtherStateMedicalProfessionalLicenses(OtherStateMedicalProfessionalLicenses formData, Guid guid)
+        public bool UpsertOtherStateMedicalProfessionalLicenses(OtherStateMedicalProfessionalLicenses formData, Guid userId)
         {
-            // TODO: Implement this
+            var retVal = true;
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                conn.Open();
+                var trans = conn.BeginTransaction();
+                try
+                {
+                    var physicianFormData = GetByUserId(conn, trans, userId);
+                    if (!physicianFormData.OtherStateMedicalProfessionalLicenseId.HasValue)
+                    {
+                        var id = OtherStateMedicalProfessionalLicensesHandler.Instance.Insert(conn, trans, formData);
+                        physicianFormData.ProfessionalLiabilityId = id;
+
+                        Update(conn, trans, physicianFormData);
+                    }
+                    else
+                    {
+                        formData.OtherStateMedicalProfessionalLicensesId = physicianFormData.OtherStateMedicalProfessionalLicenseId.Value;
+                        OtherStateMedicalProfessionalLicensesHandler.Instance.Update(conn, trans, formData);
+                    }
+
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+
+                    Log.Error(ex);
+
+                    retVal = false;
+                }
+            }
+
+            return retVal;
         }
 
-        public void UpsertPeerReferences(PeerReferences formData, Guid guid)
+        public bool UpsertPeerReferences(PeerReferences formData, Guid userId)
         {
-            // TODO: Implement this
+            var retVal = true;
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                conn.Open();
+                var trans = conn.BeginTransaction();
+                try
+                {
+                    var physicianFormData = GetByUserId(conn, trans, userId);
+                    if (!physicianFormData.PeerReferenceId.HasValue)
+                    {
+                        var id = PeerReferencesHandler.Instance.Insert(conn, trans, formData);
+                        physicianFormData.ProfessionalLiabilityId = id;
+
+                        Update(conn, trans, physicianFormData);
+                    }
+                    else
+                    {
+                        formData.PeerReferencesId = physicianFormData.PeerReferenceId.Value;
+                        PeerReferencesHandler.Instance.Update(conn, trans, formData);
+                    }
+
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+
+                    Log.Error(ex);
+
+                    retVal = false;
+                }
+            }
+
+            return retVal;
         }
 
-        public void UpsertProfessionalLiability(ProfessionalLiability formData, Guid guid)
+        public bool UpsertProfessionalLiability(ProfessionalLiability formData, Guid userId)
         {
-            // TODO: Implement this
+            var retVal = true;
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                conn.Open();
+                var trans = conn.BeginTransaction();
+                try
+                {
+                    var physicianFormData = GetByUserId(conn, trans, userId);
+                    if (!physicianFormData.ProfessionalLiabilityId.HasValue)
+                    {
+                        var id = ProfessionalLiabilityHandler.Instance.Insert(conn, trans, formData);
+                        physicianFormData.ProfessionalLiabilityId = id;
+
+                        Update(conn, trans, physicianFormData);
+                    }
+                    else
+                    {
+                        formData.ProfessionalLiabilityId = physicianFormData.ProfessionalLiabilityId.Value;
+                        ProfessionalLiabilityHandler.Instance.Update(conn, trans, formData);
+                    }
+
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+
+                    Log.Error(ex);
+
+                    retVal = false;
+                }
+            }
+
+            return retVal;
         }
 
-        public void UpsertWorkHistory(WorkHistory formData, Guid guid)
+        public bool UpsertWorkHistory(WorkHistory formData, Guid userId)
         {
-            // TODO: Implement this
+            var retVal = true;
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                conn.Open();
+                var trans = conn.BeginTransaction();
+                try
+                {
+                    var physicianFormData = GetByUserId(conn, trans, userId);
+                    if (!physicianFormData.WorkHistoryId.HasValue)
+                    {
+                        var id = WorkHistoryHandler.Instance.Insert(conn, trans, formData);
+                        physicianFormData.WorkHistoryId = id;
+
+                        Update(conn, trans, physicianFormData);
+                    }
+                    else
+                    {
+                        formData.WorkHistoryId = physicianFormData.WorkHistoryId.Value;
+                        WorkHistoryHandler.Instance.Update(conn, trans, formData);
+                    }
+
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+
+                    Log.Error(ex);
+
+                    retVal = false;
+                }
+            }
+
+            return retVal;
         }
     }
 }

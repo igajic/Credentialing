@@ -121,6 +121,15 @@ namespace Credentialing.Web.Steps {
         protected global::System.Web.UI.WebControls.TextBox tboxTertiaryLastExpirationDate;
         
         /// <summary>
+        /// fuAttachments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuAttachments;
+        
+        /// <summary>
         /// btnPrevious control.
         /// </summary>
         /// <remarks>

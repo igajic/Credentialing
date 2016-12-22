@@ -37,12 +37,9 @@ namespace Credentialing.Web.Steps
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if (ValidateFields())
-            {
-                SaveFormData();
-                Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
-                Response.End();
-            }
+            SaveFormData();
+            Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
+            Response.End();
         }
 
         private Entities.Data.AttestationQuestions LoadUserData()
@@ -107,11 +104,6 @@ namespace Credentialing.Web.Steps
             SetQuestion(rbtnQuestionMYes, rbtnQuestionMNo, formData.QuestionM);
         }
 
-        private bool ValidateFields()
-        {
-            return true; // TODO: Implement this
-        }
-
         private bool? ReadQuestion(RadioButton rbtnYes, RadioButton rbtnNo)
         {
             if (rbtnYes.Checked)
@@ -144,6 +136,7 @@ namespace Credentialing.Web.Steps
                 }
             }
         }
+
         #endregion [Private methods]
     }
 }

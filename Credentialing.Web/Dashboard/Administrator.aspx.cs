@@ -40,7 +40,7 @@ namespace Credentialing.Web.Dashboard
 
             retVal.Add(new object[] { "Status", "Percentage" });
             retVal.Add(new object[] { string.Format("Completed {0}%", data.Count == 0 ? 0 : Math.Round((100d * completed) / data.Count, 1)), completed });
-            retVal.Add(new object[] { string.Format("Incomplete {0}%", data.Count == 0 ? 0 : Math.Round((100d * incomplete) / data.Count, 1)), incomplete });
+            retVal.Add(new object[] { string.Format("In progress {0}%", data.Count == 0 ? 0 : Math.Round((100d * incomplete) / data.Count, 1)), incomplete });
             retVal.Add(new object[] { string.Format("Not started {0}%", data.Count == 0 ? 0 : Math.Round((100d * notStarted) / data.Count, 1)), notStarted });
 
             var json = new JavaScriptSerializer().Serialize(retVal);
