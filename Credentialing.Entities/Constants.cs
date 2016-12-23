@@ -13,6 +13,7 @@
         public static class RequestParameters
         {
             public const string AttachmentId = "attachmentId";
+            public const string ReturnUrl = "ReturnUrl";
             public const string UserName = "username";
         }
 

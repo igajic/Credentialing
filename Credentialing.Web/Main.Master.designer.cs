@@ -40,6 +40,15 @@ namespace Credentialing.Web {
         protected global::Credentialing.Web.Usercontrols.LoginBlock lgBlock;
         
         /// <summary>
+        /// ucMainMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Credentialing.Web.Usercontrols.MainMenu ucMainMenu;
+        
+        /// <summary>
         /// mainContent control.
         /// </summary>
         /// <remarks>

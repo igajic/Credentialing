@@ -2,6 +2,7 @@
 <%@ Register src="/Usercontrols/Login.ascx" tagPrefix="uc" tagName="Login" %>
 <%@ Register src="/Usercontrols/LoginBlock.ascx" tagPrefix="uc" tagName="LoginBlock" %>
 <%@ Register src="/Usercontrols/CreateUser.ascx" tagPrefix="uc" tagName="CreateUser" %>
+<%@ Register src="/Usercontrols/MainMenu.ascx" tagPrefix="uc" tagName="MainMenu" %>
 <!DOCTYPE html>
 
 <html>
@@ -28,16 +29,7 @@
 				</div>
 				<div class="mobile-menu">
 					<uc:LoginBlock runat="server" ID="lgBlock"/>
-					<nav class="main-nav">
-						<ul>
-							<li>
-								<a href="/Dashboard/Physician.aspx">My Dashboard</a>
-							</li>
-							<li>
-								<a href="/Dashboard/Administrator.aspx">Administrator Dashboard</a>
-							</li>
-						</ul>
-					</nav>
+				    <uc:MainMenu runat="server" ID="ucMainMenu"/>
 				</div>
 				<span class="menu-toggle">
 					<span></span>

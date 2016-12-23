@@ -4,6 +4,7 @@ using Credentialing.Entities.Data;
 using System;
 using System.Linq;
 using System.Web.UI;
+using Credentialing.Entities;
 
 namespace Credentialing.Web.Usercontrols
 {
@@ -35,7 +36,16 @@ namespace Credentialing.Web.Usercontrols
                     PracticionersApplicationHandler.Instance.Insert(newApplication);
                 }
 
-                Response.Redirect(userRoles.Contains("Admin") ? "/Dashboard/Administrator.aspx" : "/Dashboard/Physician.aspx", true);
+                var returnUrl = Request[Constants.RequestParameters.ReturnUrl];
+
+                if (!string.IsNullOrWhiteSpace(returnUrl))
+                {
+                    Response.Redirect(returnUrl, true);
+                }
+                else
+                {
+                    Response.Redirect(userRoles.Contains("Admin") ? "/Dashboard/Administrator.aspx" : "/Dashboard/Physician.aspx", true);
+                }
 
                 Response.End();
             }
