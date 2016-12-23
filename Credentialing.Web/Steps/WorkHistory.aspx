@@ -30,6 +30,9 @@
         <asp:Label runat="server" AssociatedControlID="tboxPrimaryCity" Text="City:" EnableViewState="False" />
         <asp:TextBox runat="server" ID="tboxPrimaryCity" ClientIDMode="Static" />
 
+        <asp:Label runat="server" AssociatedControlID="tboxPrimaryZip" Text="Zip:" EnableViewState="false" />
+        <asp:TextBox runat="server" ID="tboxPrimaryZip" ClientIDMode="Static" />
+
         <asp:Label runat="server" AssociatedControlID="tboxPrimaryState" Text="State" EnableViewState="False" />
         <asp:TextBox runat="server" ID="tboxPrimaryState" ClientIDMode="Static" />
 
@@ -56,6 +59,9 @@
 
         <asp:Label runat="server" AssociatedControlID="tboxSecondaryCity" Text="City:" EnableViewState="False" />
         <asp:TextBox runat="server" ID="tboxSecondaryCity" ClientIDMode="Static" />
+        
+        <asp:Label runat="server" AssociatedControlID="tboxSecondaryZip" Text="Zip:" EnableViewState="false" />
+        <asp:TextBox runat="server" ID="tboxSecondaryZip" ClientIDMode="Static" />
 
         <asp:Label runat="server" AssociatedControlID="tboxSecondaryState" Text="State" EnableViewState="False" />
         <asp:TextBox runat="server" ID="tboxSecondaryState" ClientIDMode="Static" />
@@ -83,6 +89,9 @@
 
         <asp:Label runat="server" AssociatedControlID="tboxTertiaryCity" Text="City:" EnableViewState="False" />
         <asp:TextBox runat="server" ID="tboxTertiaryCity" ClientIDMode="Static" />
+
+        <asp:Label runat="server" AssociatedControlID="tboxTertiaryZip" Text="Zip:" EnableViewState="false" />
+        <asp:TextBox runat="server" ID="tboxTertiaryZip" ClientIDMode="Static" />
 
         <asp:Label runat="server" AssociatedControlID="tboxTertiaryState" Text="State" EnableViewState="False" />
         <asp:TextBox runat="server" ID="tboxTertiaryState" ClientIDMode="Static" />

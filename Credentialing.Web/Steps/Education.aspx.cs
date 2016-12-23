@@ -25,7 +25,7 @@ namespace Credentialing.Web.Steps
             {
                 var data = LoadUserData();
 
-                LoadFormData(data);
+                //LoadFormData(data);
             }
         }
 
@@ -43,7 +43,7 @@ namespace Credentialing.Web.Steps
         {
             if (ValidateFields())
             {
-                SaveFormData();
+                //SaveFormData();
                 Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
                 Response.End();
             }
@@ -74,31 +74,13 @@ namespace Credentialing.Web.Steps
 
             tboxCollegeUniversityName.Text = data.CollegeUniverityName;
             tboxDegreeReceived.Text = data.DegreeReceived;
-            tboxDateOfGraduation.Text = data.DateGraduation.HasValue ? data.DateGraduation.Value.ToString("MM/yy") : string.Empty;
+            tboxDateOfGraduation.Text = data.DateGraduation.HasValue ? data.DateGraduation.Value.ToString(Constants.DateFormats.ShortDateFormat) : string.Empty;
             tboxMailingAddress.Text = data.MailingAddress;
             tboxMailingCity.Text = data.MailingCity;
             tboxMailingState.Text = data.MailingState;
             tboxMailingZip.Text = data.MailingZip;
 
-            if (data.AttachedDocuments.Count > 0)
-            {
-                rptAttachments.Visible = true;
-                rptAttachments.DataSource = data.AttachedDocuments;
-                rptAttachments.ItemDataBound += rptAttachments_ItemDataBound;
-                rptAttachments.DataBind();
-            }
-        }
-
-        private void rptAttachments_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                var data = (Attachment) e.Item.DataItem;
-                var hlAttachment = (HyperLink) e.Item.FindControl("hlAttachment");
-
-                hlAttachment.Text = data.FileName;
-                hlAttachment.NavigateUrl = string.Format("/Handlers/DownloadAttachment.ashx?{0}={1}", Constants.RequestParameters.AttachmentId, data.AttachmentId);
-            }
+            ucAttachments.Attachments = data.AttachedDocuments;
         }
 
         private void SaveFormData()

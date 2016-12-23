@@ -97,7 +97,7 @@ namespace Credentialing.Web.Steps
             tboxHomeFaxNumber.Text = formData.HomeFaxNumber;
             tboxEmailAddress.Text = formData.EmailAddress;
             tboxPagerNumber.Text = formData.PagerNumber;
-            tboxBirthDate.Text = formData.BirthDate.HasValue ? formData.BirthDate.Value.ToString("MM/dd/yyyy") : string.Empty;
+            tboxBirthDate.Text = formData.BirthDate.HasValue ? formData.BirthDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
             tboxBirthPlace.Text = formData.BirthPlace;
             tboxSocialSecurityNumber.Text = formData.SocialSecurityNumber;
             tboxSpecialty.Text = formData.Specialty;

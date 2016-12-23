@@ -4,6 +4,12 @@
     {
         public const string ConnectionStringName = "CredentialingDB";
 
+        public static class DateFormats
+        {
+            public const string ShortDateFormat = "MM/yy";
+            public const string FullDateFormat = "MM/dd/yyyy";
+        }
+
         public static class RequestParameters
         {
             public const string AttachmentId = "attachmentId";

@@ -39,7 +39,21 @@ namespace Credentialing.Web.Steps
 
         private Entities.Data.PeerReferences LoadUserData()
         {
-            throw new NotImplementedException();
+            var user = MemberHelper.GetCurrentLoggedUser();
+
+            if (user != null && MemberHelper.IsUserPhysician(user.UserName))
+            {
+                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid)user.ProviderUserKey, true);
+
+                StepsHelper.Instance.UpdateSteps(physicianFormData);
+
+                if (physicianFormData != null && physicianFormData.Education != null)
+                {
+                    return physicianFormData.PeerReferences;
+                }
+            }
+
+            return null;
         }
 
         private void SaveFormData()

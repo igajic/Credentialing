@@ -1,5 +1,6 @@
 ﻿using Credentialing.Business.DataAccess;
 using Credentialing.Business.Helpers;
+using Credentialing.Entities;
 using Credentialing.Entities.Data;
 using System;
 using System.IO;
@@ -123,11 +124,11 @@ namespace Credentialing.Web.Steps
         {
             tboxPrimaryType.Text = data.PrimaryType;
             tboxPrimaryNumber.Text = data.PrimaryNumber;
-            tboxPrimaryExpirationDate.Text = data.PrimaryDate.HasValue ? data.PrimaryDate.Value.ToString("MM/dd/yyyy") : string.Empty;
+            tboxPrimaryExpirationDate.Text = data.PrimaryDate.HasValue ? data.PrimaryDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
 
             tboxSecondryType.Text = data.SecondaryType;
             tboxSecondaryNumber.Text = data.SecondaryNumber;
-            tboxSecondaryExpirationDate.Text = data.SecondaryDate.HasValue ? data.SecondaryDate.Value.ToString("MM/dd/yyyy") : string.Empty;
+            tboxSecondaryExpirationDate.Text = data.SecondaryDate.HasValue ? data.SecondaryDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
         }
 
         private void lbReview_Click(object sender, EventArgs e)

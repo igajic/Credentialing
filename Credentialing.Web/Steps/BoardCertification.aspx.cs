@@ -1,5 +1,6 @@
 ﻿using Credentialing.Business.DataAccess;
 using Credentialing.Business.Helpers;
+using Credentialing.Entities;
 using System;
 using System.Web.UI;
 
@@ -132,18 +133,18 @@ namespace Credentialing.Web.Steps
 
             tboxPrimaryNameIssuingBoard.Text = formData.PrimaryNameIssuingBoard;
             tboxPrimarySpecialty.Text = formData.PrimarySpecialty;
-            tboxPrimaryDateCertifiedRecertified.Text = formData.PrimaryDateCertifiedRecertified.HasValue ? formData.PrimaryDateCertifiedRecertified.Value.ToString("MM/dd/yyyy") : string.Empty;
-            tboxPrimaryExpirationDate.Text = formData.PrimaryExpirationDate.HasValue ? formData.PrimaryExpirationDate.Value.ToString("MM/dd/yyyy") : string.Empty;
+            tboxPrimaryDateCertifiedRecertified.Text = formData.PrimaryDateCertifiedRecertified.HasValue ? formData.PrimaryDateCertifiedRecertified.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
+            tboxPrimaryExpirationDate.Text = formData.PrimaryExpirationDate.HasValue ? formData.PrimaryExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
 
             tboxSecondaryNameIssuingBoard.Text = formData.SecondaryNameIssuingBoard;
             tboxSecondarySpecialty.Text = formData.SecondarySpecialty;
-            tboxSecondaryDateCertifiedRecertified.Text = formData.SecondaryDateCertifiedRecertified.HasValue ? formData.SecondaryDateCertifiedRecertified.Value.ToString("MM/dd/yyyy") : string.Empty;
-            tboxSecondaryExpirationDate.Text = formData.SecondaryExpirationDate.HasValue ? formData.SecondaryExpirationDate.Value.ToString("MM/dd/yyyy") : string.Empty;
+            tboxSecondaryDateCertifiedRecertified.Text = formData.SecondaryDateCertifiedRecertified.HasValue ? formData.SecondaryDateCertifiedRecertified.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
+            tboxSecondaryExpirationDate.Text = formData.SecondaryExpirationDate.HasValue ? formData.SecondaryExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
 
             tboxTertiaryNameIssuingBoard.Text = formData.TertiaryNameIssuingBoard;
             tboxTertiarySpecialty.Text = formData.TertiarySpecialty;
-            tboxTertiaryDateCertifiedRecertified.Text = formData.TertiaryDateCertifiedRecertified.HasValue ? formData.TertiaryDateCertifiedRecertified.Value.ToString("MM/dd/yyyy") : string.Empty;
-            tboxTertiaryExpirationDate.Text = formData.TertiaryExpirationDate.HasValue ? formData.TertiaryExpirationDate.Value.ToString("MM/dd/yyyy") : string.Empty;
+            tboxTertiaryDateCertifiedRecertified.Text = formData.TertiaryDateCertifiedRecertified.HasValue ? formData.TertiaryDateCertifiedRecertified.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
+            tboxTertiaryExpirationDate.Text = formData.TertiaryExpirationDate.HasValue ? formData.TertiaryExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
         }
 
         #endregion [Private methods]

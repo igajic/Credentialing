@@ -135,7 +135,7 @@ namespace Credentialing.Web.Steps
 
             tboxMedicalProfessionalSchoolFirst.Text = data.PrimaryMedicalProfessionalSchool;
             tboxDegreeReceivedFirst.Text = data.PrimaryDegreeReceived;
-            tboxDateGraduationFirst.Text = data.PrimaryDateOfGraduation.HasValue ? data.PrimaryDateOfGraduation.Value.ToString("MM/yy") : string.Empty;
+            tboxDateGraduationFirst.Text = data.PrimaryDateOfGraduation.HasValue ? data.PrimaryDateOfGraduation.Value.ToString(Constants.DateFormats.ShortDateFormat) : string.Empty;
             tboxMailingAdrressFirst.Text = data.PrimaryMailingAddress;
             tboxMailingCityFirst.Text = data.PrimaryCity;
             tboxMailingStateFirst.Text = data.PrimaryStateCountry;
@@ -143,19 +143,13 @@ namespace Credentialing.Web.Steps
 
             tboxMedicalProfessionalSchoolSecond.Text = data.SecondaryMedicalProfessionalSchool;
             tboxDegreeReceivedSecond.Text = data.SecondaryDegreeReceived;
-            tboxDateGraduationSecond.Text = data.SecondaryDateOfGraduation.HasValue ? data.SecondaryDateOfGraduation.Value.ToString("MM/yy") : string.Empty;
+            tboxDateGraduationSecond.Text = data.SecondaryDateOfGraduation.HasValue ? data.SecondaryDateOfGraduation.Value.ToString(Constants.DateFormats.ShortDateFormat) : string.Empty;
             tboxMailingAdrressSecond.Text = data.SecondaryMailingAddress;
             tboxMailingCitySecond.Text = data.SecondaryCity;
             tboxMailingStateSecond.Text = data.SecondaryStateCountry;
             tboxMailingZipSecond.Text = data.SecondaryZip;
 
-            if (data.Attachments.Count > 0)
-            {
-                rptAttachments.Visible = true;
-                rptAttachments.DataSource = data.Attachments;
-                rptAttachments.ItemDataBound += rptAttachments_ItemDataBound;
-                rptAttachments.DataBind();
-            }
+            ucAttachments.Attachments = data.Attachments;
         }
 
         private void lbReview_Click(object sender, EventArgs e)
@@ -170,18 +164,6 @@ namespace Credentialing.Web.Steps
 
             Response.Redirect("/Dashboard/Physician.aspx");
             Response.End();
-        }
-
-        private void rptAttachments_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                var data = (Attachment)e.Item.DataItem;
-                var hlAttachment = (HyperLink)e.Item.FindControl("hlAttachment");
-
-                hlAttachment.Text = data.FileName;
-                hlAttachment.NavigateUrl = string.Format("/Handlers/DownloadAttachment.ashx?{0}={1}", Constants.RequestParameters.AttachmentId, data.AttachmentId);
-            }
         }
 
         #endregion [Private methods]

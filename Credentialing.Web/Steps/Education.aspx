@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Education.aspx.cs" Inherits="Credentialing.Web.Steps.Education"  MasterPageFile="../Main.Master"%>
 <%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
+<%@ Register Src="~/Usercontrols/RenderAttachments.ascx" TagPrefix="uc" TagName="Attachments" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
 	<asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
 	<uc:SidebarProgress runat="server" CurrentStep="4" EnableViewState="false"/>
@@ -53,25 +54,8 @@
 			</div>
 		</div>
 		<hr />
-		<asp:Repeater runat="server" ID="rptAttachments" Visible="False">
-			<HeaderTemplate>
-			<div class="row attachments">
-				<div class="col-md-6">
-					<span class="label">Attachments:</span>
-					<ul>
-			</HeaderTemplate>
-			<ItemTemplate>
-				<li>
-					<asp:HyperLink runat="server" ID="hlAttachment"/>
-				</li>
-			</ItemTemplate>
-			<FooterTemplate>
-					</ul>
-				</div>
-			</div>
-			<hr />
-			</FooterTemplate>
-		</asp:Repeater>
+
+        <uc:Attachments id="ucAttachments" runat="server" EnableViewState="False" />
 	</div>
 	<div class="form-actions">
 		<asp:LinkButton runat="server" ID="btnPrevious" Text="Previous" CssClass="btn btn-prev" />

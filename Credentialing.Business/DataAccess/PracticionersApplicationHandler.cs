@@ -846,5 +846,44 @@ namespace Credentialing.Business.DataAccess
 
             return retVal;
         }
+
+        public bool UpsertCurrentHospitalInstitutionalAffiliations(CurrentHospitalInstitutionalAffiliations formData, Guid userId)
+        {
+            var retVal = true;
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
+            {
+                conn.Open();
+                var trans = conn.BeginTransaction();
+                try
+                {
+                    var physicianFormData = GetByUserId(conn, trans, userId);
+                    if (!physicianFormData.WorkHistoryId.HasValue)
+                    {
+                        var id = CurrentHospitalInstitutionalAffiliationsHandler.Instance.Insert(conn, trans, formData);
+                        physicianFormData.CurrentHospitalInstitutionalAffiliationId = id;
+
+                        Update(conn, trans, physicianFormData);
+                    }
+                    else
+                    {
+                        formData.CurrentHospitalInstitutionalAffiliationsId = physicianFormData.WorkHistoryId.Value;
+                        CurrentHospitalInstitutionalAffiliationsHandler.Instance.Update(conn, trans, formData);
+                    }
+
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+
+                    Log.Error(ex);
+
+                    retVal = false;
+                }
+            }
+
+            return retVal;
+        }
     }
 }

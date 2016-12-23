@@ -7,9 +7,6 @@ using System.Web.Script.Serialization;
 
 namespace Credentialing.Web.Handlers
 {
-    /// <summary>
-    ///
-    /// </summary>
     public class GetPhysicianFormDataOverview : IHttpHandler
     {
         #region [Properties]

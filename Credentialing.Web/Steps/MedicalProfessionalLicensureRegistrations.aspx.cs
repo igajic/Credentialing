@@ -1,5 +1,6 @@
 ﻿using Credentialing.Business.DataAccess;
 using Credentialing.Business.Helpers;
+using Credentialing.Entities;
 using Credentialing.Entities.Data;
 using System;
 using System.IO;
@@ -94,17 +95,17 @@ namespace Credentialing.Web.Steps
         private void LoadFormData(Entities.Data.MedicalProfessionalLicensureRegistrations data)
         {
             tboxPrimaryStateMedicalLicenseNumber.Text = data.PrimaryStateMedicalLicenseNumber;
-            tboxIssueDate.Text = data.PrimaryStateMedicalLicenseIssueDate == null ? string.Empty : data.PrimaryStateMedicalLicenseIssueDate.Value.ToString("MM/dd/yyyy");
-            tboxPrimaryStateMedicalLicenseExpirationDate.Text = data.PrimaryStateMedicalLicenseExpirationDate == null ? string.Empty : data.PrimaryStateMedicalLicenseExpirationDate.Value.ToString("MM/dd/yyyy");
+            tboxIssueDate.Text = data.PrimaryStateMedicalLicenseIssueDate == null ? string.Empty : data.PrimaryStateMedicalLicenseIssueDate.Value.ToString(Constants.DateFormats.FullDateFormat);
+            tboxPrimaryStateMedicalLicenseExpirationDate.Text = data.PrimaryStateMedicalLicenseExpirationDate == null ? string.Empty : data.PrimaryStateMedicalLicenseExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat);
 
             tboxDrugAdministrationNumber.Text = data.DrugAdministrationNumber;
-            tboxDrugAdministrationExpirationDate.Text = data.DrugAdministrationExpirationDate == null ? string.Empty : data.DrugAdministrationExpirationDate.Value.ToString("MM/dd/yyyy");
+            tboxDrugAdministrationExpirationDate.Text = data.DrugAdministrationExpirationDate == null ? string.Empty : data.DrugAdministrationExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat);
 
             tboxStateControlledSubstancesCertificate.Text = data.StateControlledSubstancesCertificate;
-            tboxStateControlledSubstancesCertificateExpirationDate.Text = data.StateControlledSubstancesCertificateExpirationDate == null ? string.Empty : data.StateControlledSubstancesCertificateExpirationDate.Value.ToString("MM/dd/yyyy");
+            tboxStateControlledSubstancesCertificateExpirationDate.Text = data.StateControlledSubstancesCertificateExpirationDate == null ? string.Empty : data.StateControlledSubstancesCertificateExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat);
 
             tboxECFMGNumber.Text = data.ECFMGNumber;
-            tboxECFMGNumberIssueDate.Text = data.ECFMGNumberIssueDate == null ? string.Empty : data.ECFMGNumberIssueDate.Value.ToString("MM/dd/yyyy");
+            tboxECFMGNumberIssueDate.Text = data.ECFMGNumberIssueDate == null ? string.Empty : data.ECFMGNumberIssueDate.Value.ToString(Constants.DateFormats.FullDateFormat);
 
             tboxMedicareNationalPhysicianIdentifier.Text = data.MedicareNationalPhysicianIdentifier;
             tboxMedicaidNumber.Text = data.MedicaidNumber;

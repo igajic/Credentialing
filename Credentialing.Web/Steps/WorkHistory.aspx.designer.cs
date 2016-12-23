@@ -67,6 +67,15 @@ namespace Credentialing.Web.Steps {
         protected global::System.Web.UI.WebControls.TextBox tboxPrimaryCity;
         
         /// <summary>
+        /// tboxPrimaryZip control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxPrimaryZip;
+        
+        /// <summary>
         /// tboxPrimaryState control.
         /// </summary>
         /// <remarks>
@@ -148,6 +157,15 @@ namespace Credentialing.Web.Steps {
         protected global::System.Web.UI.WebControls.TextBox tboxSecondaryCity;
         
         /// <summary>
+        /// tboxSecondaryZip control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxSecondaryZip;
+        
+        /// <summary>
         /// tboxSecondaryState control.
         /// </summary>
         /// <remarks>
@@ -227,6 +245,15 @@ namespace Credentialing.Web.Steps {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tboxTertiaryCity;
+        
+        /// <summary>
+        /// tboxTertiaryZip control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tboxTertiaryZip;
         
         /// <summary>
         /// tboxTertiaryState control.

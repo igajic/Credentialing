@@ -76,6 +76,8 @@ namespace Credentialing.Entities.Data
 
         public bool? Completed { get; set; }
 
+        public string Explanation { get; set; } //   TODO: Add backing field
+
         public virtual ICollection<Attachment> Attachments { get; set; }
 
         public virtual int PercentComplete

@@ -1,5 +1,6 @@
 ﻿using Credentialing.Business.DataAccess;
 using Credentialing.Business.Helpers;
+using Credentialing.Entities;
 using Credentialing.Entities.Data;
 using System;
 using System.IO;
@@ -209,8 +210,8 @@ namespace Credentialing.Web.Steps
             tboxStateFirst.Text = formData.PrimaryState;
             tboxTrainingTypeFirst.Text = formData.PrimaryTypeTraining;
             tboxSpecialtyFirst.Text = formData.PrimarySpecialty;
-            tboxFromDateFirst.Text = formData.PrimaryFrom.HasValue ? formData.PrimaryFrom.Value.ToString("MM/yy") : string.Empty;
-            tboxToDateFirst.Text = formData.PrimaryTo.HasValue ? formData.PrimaryTo.Value.ToString("MM/yy") : string.Empty;
+            tboxFromDateFirst.Text = formData.PrimaryFrom.HasValue ? formData.PrimaryFrom.Value.ToString(Constants.DateFormats.ShortDateFormat) : string.Empty;
+            tboxToDateFirst.Text = formData.PrimaryTo.HasValue ? formData.PrimaryTo.Value.ToString(Constants.DateFormats.ShortDateFormat) : string.Empty;
 
             if (formData.PrimaryCompleted.HasValue)
             {
@@ -230,8 +231,8 @@ namespace Credentialing.Web.Steps
             tboxStateSecond.Text = formData.SecondaryState;
             tboxTrainingTypeSecond.Text = formData.SecondaryTypeTraining;
             tboxSpecialtySecond.Text = formData.SecondarySpecialty;
-            tboxFromDateSecond.Text = formData.SecondaryFrom.HasValue ? formData.SecondaryFrom.Value.ToString("MM/yy") : string.Empty;
-            tboxToDateSecond.Text = formData.SecondaryTo.HasValue ? formData.SecondaryTo.Value.ToString("MM/yy") : string.Empty;
+            tboxFromDateSecond.Text = formData.SecondaryFrom.HasValue ? formData.SecondaryFrom.Value.ToString(Constants.DateFormats.ShortDateFormat) : string.Empty;
+            tboxToDateSecond.Text = formData.SecondaryTo.HasValue ? formData.SecondaryTo.Value.ToString(Constants.DateFormats.ShortDateFormat) : string.Empty;
 
             if (formData.SecondaryCompleted.HasValue)
             {
@@ -251,8 +252,8 @@ namespace Credentialing.Web.Steps
             tboxStateThird.Text = formData.TertiaryState;
             tboxTrainingTypeThird.Text = formData.TertiaryTypeTraining;
             tboxSpecialtyThird.Text = formData.TertiarySpecialty;
-            tboxFromDateThird.Text = formData.TertiaryFrom.HasValue ? formData.TertiaryFrom.Value.ToString("MM/yy") : string.Empty;
-            tboxToDateThird.Text = formData.TertiaryTo.HasValue ? formData.TertiaryTo.Value.ToString("MM/yy") : string.Empty;
+            tboxFromDateThird.Text = formData.TertiaryFrom.HasValue ? formData.TertiaryFrom.Value.ToString(Constants.DateFormats.ShortDateFormat) : string.Empty;
+            tboxToDateThird.Text = formData.TertiaryTo.HasValue ? formData.TertiaryTo.Value.ToString(Constants.DateFormats.ShortDateFormat) : string.Empty;
 
             if (formData.TertiaryCompleted.HasValue)
             {

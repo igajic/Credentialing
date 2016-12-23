@@ -1,5 +1,6 @@
 ﻿using Credentialing.Business.DataAccess;
 using Credentialing.Business.Helpers;
+using Credentialing.Entities;
 using Credentialing.Entities.Data;
 using System;
 using System.IO;
@@ -132,8 +133,8 @@ namespace Credentialing.Web.Steps
             tboxMailingZip.Text = data.Zip;
             tboxTypeInternship.Text = data.TypeOfInternship;
             tboxSpecialty.Text = data.Specialty;
-            tboxFromDate.Text = data.SpecialtyFrom.HasValue ? data.SpecialtyFrom.Value.ToString("MM/yy") : string.Empty;
-            tboxToDate.Text = data.SpecialtyTo.HasValue ? data.SpecialtyTo.Value.ToString("MM/yy") : string.Empty;
+            tboxFromDate.Text = data.SpecialtyFrom.HasValue ? data.SpecialtyFrom.Value.ToString(Constants.DateFormats.ShortDateFormat) : string.Empty;
+            tboxToDate.Text = data.SpecialtyTo.HasValue ? data.SpecialtyTo.Value.ToString(Constants.DateFormats.ShortDateFormat) : string.Empty;
         }
 
         private void lbReview_Click(object sender, EventArgs e)

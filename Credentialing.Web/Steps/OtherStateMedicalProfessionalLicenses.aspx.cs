@@ -1,5 +1,6 @@
 ﻿using Credentialing.Business.DataAccess;
 using Credentialing.Business.Helpers;
+using Credentialing.Entities;
 using Credentialing.Entities.Data;
 using System;
 using System.IO;
@@ -113,18 +114,18 @@ namespace Credentialing.Web.Steps
         {
             tboxPrimaryState.Text = data.PrimaryState;
             tboxPrimaryLicenseNumber.Text = data.PrimaryLicenseNumber;
-            tboxPrimaryExpirationDate.Text = data.PrimaryExpirationDate.HasValue ? data.PrimaryExpirationDate.Value.ToString("MM/dd/yyyy") : string.Empty;
-            tboxPrimaryLastExpirationDate.Text = data.PrimaryLastExpirationDate.HasValue ? data.PrimaryLastExpirationDate.Value.ToString("MM/dd/yyyy") : string.Empty;
+            tboxPrimaryExpirationDate.Text = data.PrimaryExpirationDate.HasValue ? data.PrimaryExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
+            tboxPrimaryLastExpirationDate.Text = data.PrimaryLastExpirationDate.HasValue ? data.PrimaryLastExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
 
             tboxSecondaryState.Text = data.SecondaryState;
             tboxSecondaryLicenseNumber.Text = data.SecondaryLicenseNumber;
-            tboxSecondaryExpirationDate.Text = data.SecondaryExpirationDate.HasValue ? data.SecondaryExpirationDate.Value.ToString("MM/dd/yyyy") : string.Empty;
-            tboxSecondaryLastExpirationDate.Text = data.SecondaryLastExpirationDate.HasValue ? data.SecondaryLastExpirationDate.Value.ToString("MM/dd/yyyy") : string.Empty;
+            tboxSecondaryExpirationDate.Text = data.SecondaryExpirationDate.HasValue ? data.SecondaryExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
+            tboxSecondaryLastExpirationDate.Text = data.SecondaryLastExpirationDate.HasValue ? data.SecondaryLastExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
 
             tboxTertiaryState.Text = data.TertiaryState;
             tboxTertiaryLicenseNumber.Text = data.TertiaryLicenseNumber;
-            tboxTertiaryExpirationDate.Text = data.TertiaryExpirationDate.HasValue ? data.TertiaryExpirationDate.Value.ToString("MM/dd/yyyy") : string.Empty;
-            tboxTertiaryLastExpirationDate.Text = data.TertiaryLastExpirationDate.HasValue ? data.TertiaryLastExpirationDate.Value.ToString("MM/dd/yyyy") : string.Empty;
+            tboxTertiaryExpirationDate.Text = data.TertiaryExpirationDate.HasValue ? data.TertiaryExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
+            tboxTertiaryLastExpirationDate.Text = data.TertiaryLastExpirationDate.HasValue ? data.TertiaryLastExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
         }
 
         private bool ValidateFields()
