@@ -16,6 +16,7 @@ namespace Credentialing.Web.Steps
         {
             btnNext.Click += btnNext_Click;
             btnPrevious.Click += btnPrevious_Click;
+            lbReview.Click += lbReview_Click;
 
             if (!IsPostBack)
             {
@@ -135,6 +136,20 @@ namespace Credentialing.Web.Steps
                     rbtnNo.Checked = true;
                 }
             }
+        }
+
+        private void lbReview_Click(object sender, EventArgs e)
+        {
+            var formData = LoadUserData() ?? new Entities.Data.AttestationQuestions();
+
+            formData.Completed = true;
+
+            var user = MemberHelper.GetCurrentLoggedUser();
+
+            PracticionersApplicationHandler.Instance.UpsertAttestationQuestions(formData, (Guid)user.ProviderUserKey);
+
+            Response.Redirect("/Dashboard/Physician.aspx");
+            Response.End();
         }
 
         #endregion [Private methods]

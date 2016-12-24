@@ -18,12 +18,13 @@ namespace Credentialing.Web.Steps
         {
             btnNext.Click += btnNext_Click;
             btnPrevious.Click += btnPrevious_Click;
+            lbReview.Click +=lbReview_Click;
 
             if (!IsPostBack)
             {
                 var data = LoadUserData();
 
-                LoadFormData(data);
+                //LoadFormData(data);
             }
         }
 
@@ -41,7 +42,7 @@ namespace Credentialing.Web.Steps
         {
             if (ValidateFields())
             {
-                SaveFormData();
+                //SaveFormData();
                 Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
                 Response.End();
             }
@@ -104,6 +105,8 @@ namespace Credentialing.Web.Steps
             tboxTertiaryEndDate.Text = data.TertiaryEndDate.HasValue ? data.TertiaryEndDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
 
             tboxExplanation.Text = data.Explanation;
+
+            ucAttachments.Attachments = data.Attachments;
         }
 
         private void SaveFormData()

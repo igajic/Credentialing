@@ -18,6 +18,7 @@ namespace Credentialing.Web.Steps
         {
             btnNext.Click += btnNext_Click;
             btnPrevious.Click += btnPrevious_Click;
+            lbReview.Click += lbReview_Click;
 
             if (!IsPostBack)
             {
@@ -135,11 +136,13 @@ namespace Credentialing.Web.Steps
             tboxSpecialty.Text = data.Specialty;
             tboxFromDate.Text = data.SpecialtyFrom.HasValue ? data.SpecialtyFrom.Value.ToString(Constants.DateFormats.ShortDateFormat) : string.Empty;
             tboxToDate.Text = data.SpecialtyTo.HasValue ? data.SpecialtyTo.Value.ToString(Constants.DateFormats.ShortDateFormat) : string.Empty;
+
+            ucAttachments.Attachments = data.Attachments;
         }
 
         private void lbReview_Click(object sender, EventArgs e)
         {
-            var formData = LoadUserData() ?? new Entities.Data.Internship();
+            var formData = LoadUserData() ?? new Internship();
 
             formData.Completed = true;
 

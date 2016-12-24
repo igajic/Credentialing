@@ -18,6 +18,7 @@ namespace Credentialing.Web.Steps
         {
             btnNext.Click += btnNext_Click;
             btnPrevious.Click += btnPrevious_Click;
+            lbReview.Click += lbReview_Click;
 
             if (!IsPostBack)
             {
@@ -126,6 +127,8 @@ namespace Credentialing.Web.Steps
             tboxTertiaryLicenseNumber.Text = data.TertiaryLicenseNumber;
             tboxTertiaryExpirationDate.Text = data.TertiaryExpirationDate.HasValue ? data.TertiaryExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
             tboxTertiaryLastExpirationDate.Text = data.TertiaryLastExpirationDate.HasValue ? data.TertiaryLastExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
+
+            ucAttachments.Attachments = data.Attachments;
         }
 
         private bool ValidateFields()

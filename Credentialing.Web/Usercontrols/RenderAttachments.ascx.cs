@@ -17,11 +17,11 @@ namespace Credentialing.Web.Usercontrols
         {
             if (Attachments == null || Attachments.Count == 0)
             {
-                this.Visible = false;
+                Visible = false;
             }
             else
             {
-                this.Visible = true;
+                Visible = true;
                 rptAttachments.DataSource = Attachments;
                 rptAttachments.ItemDataBound += rptAttachments_ItemDataBound;
                 rptAttachments.DataBind();

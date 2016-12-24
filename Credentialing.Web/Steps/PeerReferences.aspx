@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PeerReferences.aspx.cs" Inherits="Credentialing.Web.Steps.PeerReferences" MasterPageFile="../Main.Master" %>
-
+<%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
     <h1>XIV. PEER REFERENCES</h1>
     <br />
@@ -10,6 +10,9 @@
     <h1>Coming soon</h1>
 
     <asp:Panel ID="Panel1" runat="server" Visible="false">
+	    <asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
+	    <uc:SidebarProgress runat="server" CurrentStep="13" EnableViewState="false"/>
+
         <p>List three professional references, preferably from your specialty area, not including relatives, current partners or associates in practice. If possible, include at least one member from the Medical Staff of each facility at which you have privileges. NOTE: References must be from individuals who are directly familiar with your work, either via direct clinical observation or through close working relations.</p>
 
         <asp:Label runat="server" AssociatedControlID="tboxPrimaryNameReference" Text="Name of Reference:" EnableViewState="False" />

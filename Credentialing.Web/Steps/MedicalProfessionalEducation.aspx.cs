@@ -4,14 +4,13 @@ using Credentialing.Entities.Data;
 using System;
 using System.IO;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using Credentialing.Entities;
 
 namespace Credentialing.Web.Steps
 {
     public partial class MedicalProfessionalEducation : Page
     {
-        private int CurrentStep = 4;
+        private const int CurrentStep = 4;
 
         #region [Protected methods]
 

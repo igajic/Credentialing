@@ -13,7 +13,7 @@ namespace Credentialing.Entities.Data
 
         public string PrimaryStateMedicalLicenseNumber { get; set; }
 
-        public string LicensureState { get; set; } // TODO: Add backing DB field
+        public string LicensureState { get; set; }
 
         public DateTime? PrimaryStateMedicalLicenseIssueDate { get; set; }
 
@@ -37,7 +37,7 @@ namespace Credentialing.Entities.Data
 
         public bool? Completed { get; set; }
 
-        public virtual ICollection<Attachment> Attachments { get; set; }
+        public virtual List<Attachment> Attachments { get; set; }
 
         public int PercentComplete
         {

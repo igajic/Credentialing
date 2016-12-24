@@ -11,7 +11,7 @@ namespace Credentialing.Web.Steps
 {
     public partial class IdentifyingInformation : Page
     {
-        private int CurrentStep = 1;
+        private const int CurrentStep = 1;
 
         #region [Protected methods]
 

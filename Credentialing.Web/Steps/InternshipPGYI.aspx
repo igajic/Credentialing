@@ -1,6 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="InternshipPGYI.aspx.cs" Inherits="Credentialing.Web.Steps.InternshipPGYI" MasterPageFile="../Main.Master" %>
 <%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
+<%@ Register Src="~/Usercontrols/RenderAttachments.ascx" TagPrefix="uc" TagName="Attachments" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
+    
+	<asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
+    <uc:SidebarProgress runat="server" CurrentStep="5" EnableViewState="false"/>
+
 	<div class="form-block">
 		<div class="form-heading">
 			<h2><strong>6.</strong> Internship / PGYI</h2>
@@ -68,6 +73,8 @@
 				</div>
 			</div>
 		</div>
+        <hr/>
+		    <uc:Attachments ID="ucAttachments" runat="server" EnableViewState="False"/>
 		</asp:Panel>
 	</div>
 	<asp:Panel ID="Panel2" runat="server" Enabled="false" Visible="false">

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Web.UI;
+﻿using Credentialing.Business.DataAccess;
 using Credentialing.Business.Helpers;
-using Credentialing.Business.DataAccess;
-using Credentialing.Entities.Data;
-using System.IO;
 using Credentialing.Entities;
+using Credentialing.Entities.Data;
+using System;
+using System.IO;
+using System.Web.UI;
 
 namespace Credentialing.Web.Steps
 {
@@ -18,6 +18,7 @@ namespace Credentialing.Web.Steps
         {
             btnNext.Click += btnNext_Click;
             btnPrevious.Click += btnPrevious_Click;
+            lbReview.Click += lbReview_Click;
 
             if (!IsPostBack)
             {
@@ -47,7 +48,7 @@ namespace Credentialing.Web.Steps
             }
         }
 
-        private Entities.Data.CurrentHospitalInstitutionalAffiliations LoadUserData()
+        private CurrentHospitalInstitutionalAffiliations LoadUserData()
         {
             var user = MemberHelper.GetCurrentLoggedUser();
 
@@ -66,7 +67,7 @@ namespace Credentialing.Web.Steps
             return null;
         }
 
-        private void LoadFormData(Entities.Data.CurrentHospitalInstitutionalAffiliations data)
+        private void LoadFormData(CurrentHospitalInstitutionalAffiliations data)
         {
             if (data == null) return;
 
@@ -84,7 +85,7 @@ namespace Credentialing.Web.Steps
             tboxCurrentSecondaryState.Text = data.CurrentSecondaryState;
             tboxCurrentSecondaryZip.Text = data.CurrentSecondaryZip;
 
-            tboxCurrentTertiaryAdmittingHospital.Text= data.CurrentTertiaryAdmittingHospital;
+            tboxCurrentTertiaryAdmittingHospital.Text = data.CurrentTertiaryAdmittingHospital;
             tboxCurrentTertiaryDepartmentStatus.Text = data.CurrentTertiaryDepartmentStatus;
             tboxCurrentTertiaryAppointmentDate.Text = data.CurrentTertiaryAppointmentDate.HasValue ? data.CurrentTertiaryAppointmentDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
             tboxCurrentTertiaryCity.Text = data.CurrentTertiaryCity;
@@ -102,7 +103,7 @@ namespace Credentialing.Web.Steps
             tboxPreviousSecondaryReasonLeaving.Text = data.PreviousSecondaryDepartmentStatus;
             tboxPreviousSecondaryFrom.Text = data.PreviousSecondaryAppointmentDate.HasValue ? data.PreviousSecondaryAppointmentDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
             tboxPreviousSecondaryCity.Text = data.PreviousSecondaryCity;
-            tboxPreviousSecondaryState.Text= data.PreviousSecondaryState;
+            tboxPreviousSecondaryState.Text = data.PreviousSecondaryState;
             tboxPreviousSecondaryZip.Text = data.PreviousSecondaryZip;
 
             tboxPreviousTertiaryAdmittingHospital.Text = data.PreviousTertiaryAdmittingHospital;
@@ -111,13 +112,11 @@ namespace Credentialing.Web.Steps
             tboxPreviousTertiaryCity.Text = data.PreviousTertiaryCity;
             tboxPreviousTertiaryState.Text = data.PreviousTertiaryState;
             tboxPreviousTertiaryZip.Text = data.PreviousTertiaryZip;
-
         }
 
         private void SaveFormData()
         {
-
-            var data = LoadUserData() ?? new Entities.Data.CurrentHospitalInstitutionalAffiliations();
+            var data = LoadUserData() ?? new CurrentHospitalInstitutionalAffiliations();
 
             data.CurrentPrimaryAdmittingHospital = tboxCurrentPrimaryAdmittingHospital.Text;
             data.CurrentPrimaryDepartmentStatus = tboxCurrentPrimaryDepartmentStatus.Text;
@@ -188,34 +187,34 @@ namespace Credentialing.Web.Steps
         }
 
         private bool ValidateFields()
-        {            
+        {
             var retVal = true;
 
             if (!string.IsNullOrWhiteSpace(tboxCurrentPrimaryAppointmentDate.Text))
             {
                 retVal = ValidationHelper.ValidateShortDate(tboxCurrentPrimaryAppointmentDate);
             }
-            
+
             if (!string.IsNullOrWhiteSpace(tboxCurrentSecondaryAppointmentDate.Text))
             {
                 retVal = ValidationHelper.ValidateShortDate(tboxCurrentSecondaryAppointmentDate);
             }
-            
+
             if (!string.IsNullOrWhiteSpace(tboxCurrentTertiaryAppointmentDate.Text))
             {
                 retVal = ValidationHelper.ValidateShortDate(tboxCurrentTertiaryAppointmentDate);
             }
-            
+
             if (!string.IsNullOrWhiteSpace(tboxPreviousPrimaryFrom.Text))
             {
                 retVal = ValidationHelper.ValidateShortDate(tboxPreviousPrimaryFrom);
             }
-            
+
             if (!string.IsNullOrWhiteSpace(tboxPreviousSecondaryFrom.Text))
             {
                 retVal = ValidationHelper.ValidateShortDate(tboxPreviousSecondaryFrom);
             }
-            
+
             if (!string.IsNullOrWhiteSpace(tboxPreviousTertiaryFrom.Text))
             {
                 retVal = ValidationHelper.ValidateShortDate(tboxPreviousTertiaryFrom);
@@ -226,7 +225,7 @@ namespace Credentialing.Web.Steps
 
         private void lbReview_Click(object sender, EventArgs e)
         {
-            var formData = LoadUserData() ?? new Entities.Data.CurrentHospitalInstitutionalAffiliations();
+            var formData = LoadUserData() ?? new CurrentHospitalInstitutionalAffiliations();
 
             formData.Completed = true;
 

@@ -13,6 +13,15 @@ namespace Credentialing.Web.Steps {
     public partial class OtherStateMedicalProfessionalLicenses {
         
         /// <summary>
+        /// lbReview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbReview;
+        
+        /// <summary>
         /// tboxPrimaryState control.
         /// </summary>
         /// <remarks>
@@ -128,6 +137,15 @@ namespace Credentialing.Web.Steps {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload fuAttachments;
+        
+        /// <summary>
+        /// ucAttachments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Credentialing.Web.Usercontrols.RenderAttachments ucAttachments;
         
         /// <summary>
         /// btnPrevious control.

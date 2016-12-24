@@ -9,12 +9,12 @@ namespace Credentialing.Business.Helpers
         {
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
-                textBox.CssClass = "error";
+                textBox.CssClass += " error";
                 return false;
             }
             else
             {
-                textBox.CssClass = "";
+                textBox.CssClass = textBox.CssClass.Replace("error", string.Empty);
                 return true;
             }
         }
@@ -24,12 +24,12 @@ namespace Credentialing.Business.Helpers
             try
             {
                 var date = DateTime.Parse(textBox.Text);
-                textBox.CssClass = "";
+                textBox.CssClass = textBox.CssClass.Replace("error", string.Empty);
                 return true;
             }
             catch
             {
-                textBox.CssClass = "error";
+                textBox.CssClass += " error";
                 return false;
             }
         }
@@ -39,12 +39,36 @@ namespace Credentialing.Business.Helpers
             try
             {
                 var date = DateHelper.ParseDate(textBox.Text);
-                textBox.CssClass = "";
+                textBox.CssClass = textBox.CssClass.Replace("error", string.Empty);
                 return true;
             }
             catch
             {
-                textBox.CssClass = "error";
+                textBox.CssClass += " error";
+                return false;
+            }
+        }
+
+        public static bool ValidateDecimal(TextBox textBox)
+        {
+            try
+            {
+                decimal tmp;
+
+                if (Decimal.TryParse(textBox.Text, out tmp))
+                {
+                    textBox.CssClass = textBox.CssClass.Replace("error", string.Empty);
+                    return true;
+                }
+                else
+                {
+                    textBox.CssClass += " error";
+                    return false;
+                }
+            }
+            catch
+            {
+                textBox.CssClass += " error";
                 return false;
             }
         }

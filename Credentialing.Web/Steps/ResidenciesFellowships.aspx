@@ -1,5 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ResidenciesFellowships.aspx.cs" Inherits="Credentialing.Web.Steps.ResidencesFellowships" MasterPageFile="../Main.Master" %>
+<%@ Register Src="~/Usercontrols/RenderAttachments.ascx" TagPrefix="uc" TagName="Attachments" %>
+<%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
+	<asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
+	<uc:SidebarProgress runat="server" CurrentStep="6" EnableViewState="false"/>
 	<div class="form-block">
 		<div class="form-heading">
 			<h2><strong>7.</strong> Residencies / Fellowships</h2>
@@ -216,6 +220,8 @@
 			</div>
 		</div>
             <asp:FileUpload runat="server" ID="fuResidencies" AllowMultiple="True"/>
+            <hr/>
+		<uc:Attachments ID="ucAttachments" runat="server" EnableViewState="False"/>
 		</asp:Panel>
 	</div>
 	<asp:Panel ID="Panel2" runat="server" Enabled="false" Visible="false">

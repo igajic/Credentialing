@@ -12,7 +12,7 @@ namespace Credentialing.Web.Usercontrols
 
             if (loggedUser == null)
             {
-                this.Visible = false;
+                Visible = false;
             }
             else if (MemberHelper.IsUserAdmin(loggedUser.UserName))
             {

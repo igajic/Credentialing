@@ -10,6 +10,7 @@
     <h1>Coming soon</h1>
     
     <asp:Panel ID="Panel1" runat="server" Visible="False">
+	    <asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
         <uc:SidebarProgress ID="SidebarProgress1" runat="server" CurrentStep="14" EnableViewState="false"/>
 
         <p>Please answer the following question "yes" or "no". If your answer to questions A through K is "YES,", or if your answer to L or M is "NO," please provide full details on separate sheet.</p>

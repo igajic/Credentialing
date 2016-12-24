@@ -1,5 +1,4 @@
-﻿using System;
-using Credentialing.Entities;
+﻿using Credentialing.Entities;
 using Credentialing.Entities.Data;
 using System.Collections.Generic;
 using System.Linq;

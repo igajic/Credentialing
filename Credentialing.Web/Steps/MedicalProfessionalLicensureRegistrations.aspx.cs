@@ -18,6 +18,7 @@ namespace Credentialing.Web.Steps
         {
             btnNext.Click += btnNext_Click;
             btnPrevious.Click += btnPrevious_Click;
+            lbReview.Click += lbReview_Click;
 
             if (!IsPostBack)
             {
@@ -109,6 +110,7 @@ namespace Credentialing.Web.Steps
 
             tboxMedicareNationalPhysicianIdentifier.Text = data.MedicareNationalPhysicianIdentifier;
             tboxMedicaidNumber.Text = data.MedicaidNumber;
+            ucAttachments.Attachments = data.Attachments;
         }
 
         private bool ValidateFields()
@@ -124,7 +126,6 @@ namespace Credentialing.Web.Steps
             {
                 retVal = ValidationHelper.ValidateFullDate(tboxPrimaryStateMedicalLicenseExpirationDate) && retVal;
             }
-
 
             if (!string.IsNullOrWhiteSpace(tboxDrugAdministrationExpirationDate.Text))
             {

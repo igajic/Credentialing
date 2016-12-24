@@ -7,7 +7,7 @@ namespace Credentialing.Web.Steps
 {
     public partial class PracticeInformation : Page
     {
-        private int CurrentStep = 2;
+        private const int CurrentStep = 2;
 
         #region [Protected methods]
 

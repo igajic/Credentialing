@@ -16,6 +16,7 @@ namespace Credentialing.Web.Steps
         {
             btnNext.Click += btnNext_Click;
             btnPrevious.Click += btnPrevious_Click;
+            lbReview.Click += lbReview_Click;
 
             if (!IsPostBack)
             {
@@ -145,6 +146,20 @@ namespace Credentialing.Web.Steps
             tboxTertiarySpecialty.Text = formData.TertiarySpecialty;
             tboxTertiaryDateCertifiedRecertified.Text = formData.TertiaryDateCertifiedRecertified.HasValue ? formData.TertiaryDateCertifiedRecertified.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
             tboxTertiaryExpirationDate.Text = formData.TertiaryExpirationDate.HasValue ? formData.TertiaryExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
+        }
+
+        private void lbReview_Click(object sender, EventArgs e)
+        {
+            var formData = LoadUserData() ?? new Entities.Data.BoardCertification();
+
+            formData.Completed = true;
+
+            var user = MemberHelper.GetCurrentLoggedUser();
+
+            PracticionersApplicationHandler.Instance.UpsertBoardCertification(formData, (Guid)user.ProviderUserKey);
+
+            Response.Redirect("/Dashboard/Physician.aspx");
+            Response.End();
         }
 
         #endregion [Private methods]

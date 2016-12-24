@@ -1,4 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MedicalProfessionalLicensureRegistrations.aspx.cs" Inherits="Credentialing.Web.Steps.MedicalProfessionalLicensureRegistrations" MasterPageFile="../Main.Master" %>
+<%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
+<%@ Register Src="~/Usercontrols/RenderAttachments.ascx" TagPrefix="uc" TagName="Attachments" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
     <h1>X. MEDICAL/PROFESSIONAL LICENSURE/REGISTRATIONS</h1>
     <br />
@@ -8,6 +10,10 @@
 
     <h1>Coming soon</h1>
     <asp:Panel runat="server" Visible="False">
+    
+	    <asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
+        <uc:SidebarProgress runat="server" CurrentStep="9" EnableViewState="false"/>
+
         <asp:Label runat="server" AssociatedControlID="tboxPrimaryStateMedicalLicenseNumber" EnableViewState="False"/>
         <asp:TextBox runat="server" ID="tboxPrimaryStateMedicalLicenseNumber" ClientIDMode="Static"/>
 
@@ -46,7 +52,8 @@
         
         
         <asp:FileUpload runat="server" ID="fuAttachments" AllowMultiple="True"/>
-        
+        <hr/>
+        <uc:Attachments ID="ucAttachments" runat="server" EnableViewState="False"/>
         
 	    <div class="form-actions">
 		    <asp:LinkButton runat="server" ID="btnPrevious" Text="Previous" CssClass="btn btn-prev" />

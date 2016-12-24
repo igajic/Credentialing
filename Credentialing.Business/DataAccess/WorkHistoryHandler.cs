@@ -87,6 +87,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.TertiaryEndDate = Convert.IsDBNull(reader[Constants.WorkHistoriesColumns.TertiaryEndDate]) ? null : (DateTime?)reader[Constants.WorkHistoriesColumns.TertiaryEndDate];
 
                         retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
+                        retVal.Explanation = reader[Constants.WorkHistoriesColumns.Explanation] as string;
                     }
                 }
             }
@@ -144,7 +145,8 @@ namespace Credentialing.Business.DataAccess
                                                     TertiaryStartDate = @tertiaryStartDate,
                                                     TertiaryEndDate = @tertiaryEndDate,
     
-                                                    Completed = @completed
+                                                    Completed = @completed,
+                                                    Explanation = @explanation
                                                 WHERE WorkHistoryId = @workHistoryId", conn);
 
             if (trans != null) sqlCommand.Transaction = trans;
@@ -189,6 +191,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@tertiaryEndDate", history.TertiaryEndDate);
 
             sqlCommand.Parameters.AddWithValue("@completed", history.Completed);
+            sqlCommand.Parameters.AddWithValue("@explanation", history.Explanation);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {
@@ -213,10 +216,10 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, WorkHistory history)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO WorkHistories
-                                                    (PrimaryNamePracticeEmployer, PrimaryContactName, PrimaryTelephoneNumber, PrimaryFaxNumber, PrimaryPracticeAddress, PrimaryCity, PrimaryState, PrimaryZip, PrimaryStartDate, PrimaryEndDate, SecondaryNamePracticeEmployer, SecondaryContactName, SecondaryTelephoneNumber, SecondaryFaxNumber, SecondaryPracticeAddress, SecondaryCity, SecondaryState, SecondaryZip, SecondaryStartDate, SecondaryEndDate, TertiaryNamePracticeEmployer, TertiaryContactName, TertiaryTelephoneNumber, TertiaryFaxNumber, TertiaryPracticeAddress, TertiaryCity, TertiaryState, TertiaryZip, TertiaryStartDate, TertiaryEndDate, Completed)
+                                                    (PrimaryNamePracticeEmployer, PrimaryContactName, PrimaryTelephoneNumber, PrimaryFaxNumber, PrimaryPracticeAddress, PrimaryCity, PrimaryState, PrimaryZip, PrimaryStartDate, PrimaryEndDate, SecondaryNamePracticeEmployer, SecondaryContactName, SecondaryTelephoneNumber, SecondaryFaxNumber, SecondaryPracticeAddress, SecondaryCity, SecondaryState, SecondaryZip, SecondaryStartDate, SecondaryEndDate, TertiaryNamePracticeEmployer, TertiaryContactName, TertiaryTelephoneNumber, TertiaryFaxNumber, TertiaryPracticeAddress, TertiaryCity, TertiaryState, TertiaryZip, TertiaryStartDate, TertiaryEndDate, Completed, Explanation)
                                                     OUTPUT INSERTED.BoardCertificationId
                                                     VALUES
-                                                    (@primaryNamePracticeEmployer, @primaryContactName, @primaryTelephoneNumber, @primaryFaxNumber, @primaryPracticeAddress, @primaryCity, @primaryState, @primaryZip, @primaryStartDate, @primaryEndDate, @secondaryNamePracticeEmployer, @secondaryContactName, @secondaryTelephoneNumber, @secondaryFaxNumber, @secondaryPracticeAddress, @secondaryCity, @secondaryState, @secondaryZip, @secondaryStartDate, @secondaryEndDate, @tertiaryNamePracticeEmployer, @tertiaryContactName, @tertiaryTelephoneNumber, @tertiaryFaxNumber, @tertiaryPracticeAddress, @tertiaryCity, @tertiaryState, @tertiaryZip, @tertiaryStartDate, @tertiaryEndDate, @completed)", conn);
+                                                    (@primaryNamePracticeEmployer, @primaryContactName, @primaryTelephoneNumber, @primaryFaxNumber, @primaryPracticeAddress, @primaryCity, @primaryState, @primaryZip, @primaryStartDate, @primaryEndDate, @secondaryNamePracticeEmployer, @secondaryContactName, @secondaryTelephoneNumber, @secondaryFaxNumber, @secondaryPracticeAddress, @secondaryCity, @secondaryState, @secondaryZip, @secondaryStartDate, @secondaryEndDate, @tertiaryNamePracticeEmployer, @tertiaryContactName, @tertiaryTelephoneNumber, @tertiaryFaxNumber, @tertiaryPracticeAddress, @tertiaryCity, @tertiaryState, @tertiaryZip, @tertiaryStartDate, @tertiaryEndDate, @completed, @explanation)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
             if (conn.State != ConnectionState.Open)
             {
@@ -257,6 +260,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@tertiaryEndDate", history.TertiaryEndDate);
 
             sqlCommand.Parameters.AddWithValue("@completed", history.Completed);
+            sqlCommand.Parameters.AddWithValue("@explanation", history.Explanation);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {

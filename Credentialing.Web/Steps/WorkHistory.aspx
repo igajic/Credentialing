@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WorkHistory.aspx.cs" Inherits="Credentialing.Web.Steps.WorkHistory" MasterPageFile="../Main.Master" %>
-
+<%@ Register Src="~/Usercontrols/RenderAttachments.ascx" TagPrefix="uc" TagName="Attachments" %>
+<%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
     <h1>XV. WORK HISTORY</h1>
     <br />
@@ -10,6 +11,9 @@
     <h1>Coming soon</h1>
 
     <asp:Panel runat="server" Visible="false">
+	    <asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
+	    <uc:SidebarProgress runat="server" CurrentStep="14" EnableViewState="false"/>
+
         <p>Chronologically list all work history activities since completion of postgraduate training (use extra sheets if necessary). This information must be complete. A curriculum vitae is sufficient provided it is current and contains all information requested below. Please explain any gaps in professional work history in designated area at end of this section. Work History MUST INCLUDE practice location (address).</p>
 
         <asp:Label runat="server" AssociatedControlID="tboxPrimaryNamePracticeEmployer" Text="Current Practice:" EnableViewState="False" />
@@ -108,6 +112,9 @@
         <asp:TextBox runat="server" ID="tboxExplanation" TextMode="MultiLine" ClientIDMode="Static" />
 
         <asp:FileUpload runat="server" ID="fuAttachments" AllowMultiple="True" ClientIDMode="Static" />
+        <hr/>
+        <uc:Attachments ID="ucAttachments" runat="server" EnableViewState="False"/>
+
 
         <div class="form-actions">
             <asp:LinkButton runat="server" ID="btnPrevious" Text="Previous" CssClass="btn btn-prev" />

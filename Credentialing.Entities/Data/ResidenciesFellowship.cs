@@ -82,7 +82,7 @@ namespace Credentialing.Entities.Data
 
         public bool? Completed { get; set; }
 
-        public virtual ICollection<Attachment> Attachments { get; set; }
+        public virtual List<Attachment> Attachments { get; set; }
 
         public virtual int PercentComplete
         {

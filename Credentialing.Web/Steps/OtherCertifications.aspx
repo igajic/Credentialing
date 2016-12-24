@@ -1,6 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="OtherCertifications.aspx.cs" Inherits="Credentialing.Web.Steps.OtherCertifications" MasterPageFile="../Main.Master" %>
-
+<%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
+<%@ Register Src="~/Usercontrols/RenderAttachments.ascx" TagPrefix="uc" TagName="Attachments" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
+    
+	<asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
+    <uc:SidebarProgress runat="server" CurrentStep="8" EnableViewState="false"/>
+
     <h4>IX. OTHER CERTIFICATIONS (E.G. FLUOROSCOPY, RADIOGRAPHY, ETC.)<br />
         Attach additional sheets if necessary</h4>
 
@@ -31,6 +36,9 @@
         <asp:TextBox runat="server" ID="tboxSecondaryExpirationDate" ClientIDMode="Static" />
 
         <asp:FileUpload runat="server" ID="fuAttachments" ClientIDMode="Static" AllowMultiple="True" />
+        
+        <hr/>
+        <uc:Attachments ID="ucAttachments" runat="server" EnableViewState="False"/>
 
         <div class="form-actions">
             <asp:LinkButton runat="server" ID="btnPrevious" Text="Previous" CssClass="btn btn-prev" />

@@ -2,13 +2,12 @@
 using System.Web.UI;
 using Credentialing.Business.DataAccess;
 using Credentialing.Business.Helpers;
-using Credentialing.Entities.Data;
 
 namespace Credentialing.Web.Steps
 {
     public partial class Instructions : Page
     {
-        private int CurrentStep = 0;
+        private const int CurrentStep = 0;
 
         #region [Protected methods]
 
@@ -16,13 +15,11 @@ namespace Credentialing.Web.Steps
         {
             btnNext.Click += btnNext_Click;
 
-            PracticionerApplication physicianFormData = null;
-            
             var user = MemberHelper.GetCurrentLoggedUser();
 
             if (user != null && MemberHelper.IsUserPhysician(user.UserName))
             {
-                physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid) user.ProviderUserKey);
+                var physicianFormData = PracticionersApplicationHandler.Instance.GetByUserId((Guid) user.ProviderUserKey);
 
                 StepsHelper.Instance.UpdateSteps(physicianFormData);
             }

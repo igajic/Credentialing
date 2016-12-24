@@ -19,7 +19,7 @@ namespace Credentialing.Web.Dashboard
             var data = GetPhysicianStatistics();
             var chartData = GetChartData(data);
 
-            this.Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "data", string.Format("var chartData = {0};", chartData), true);
+            Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "data", string.Format("var chartData = {0};", chartData), true);
 
             rptUsers.DataSource = data;
             rptUsers.ItemDataBound += rptUsers_ItemDataBound;

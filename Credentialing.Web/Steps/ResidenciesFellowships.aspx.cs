@@ -18,6 +18,8 @@ namespace Credentialing.Web.Steps
         {
             btnNext.Click += btnNext_Click;
             btnPrevious.Click += btnPrevious_Click;
+            lbReview.Click += lbReview_Click;
+
             if (!IsPostBack)
             {
                 //var data = LoadUserData();
@@ -265,11 +267,13 @@ namespace Credentialing.Web.Steps
                 rbtnProgramThirdNo.Checked = false;
                 rbtnProgramThirdYes.Checked = false;
             }
+
+            ucAttachments.Attachments = formData.Attachments;
         }
 
         private void lbReview_Click(object sender, EventArgs e)
         {
-            var formData = LoadUserData() ?? new Entities.Data.ResidenciesFellowship();
+            var formData = LoadUserData() ?? new ResidenciesFellowship();
 
             formData.Completed = true;
 

@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ProfessionalLiability.aspx.cs" Inherits="Credentialing.Web.Steps.ProfessionalLiability" MasterPageFile="../Main.Master" %>
+<%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
     <h1>XII. PROFESSIONAL LIABILITY</h1>
     <br />
@@ -9,6 +10,9 @@
     <h1>Coming soon</h1>
 
     <asp:Panel runat="server" Visible="False">
+	    <asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
+	    <uc:SidebarProgress runat="server" CurrentStep="11" EnableViewState="false"/>
+
         <asp:Label runat="server" AssociatedControlID="tboxCurrentInsuranceCarrier" Text="Current Insurance Carrier:" EnableViewState="False"/>
         <asp:TextBox runat="server" ID="tboxCurrentInsuranceCarrier" ClientIDMode="Static"/>
 
@@ -118,6 +122,35 @@
 
         <asp:Label runat="server" AssociatedControlID="tboxThirdZip" Text="ZIP:" EnableViewState="False"/>
         <asp:TextBox runat="server" ID="tboxThirdZip" ClientIDMode="Static"/>
+        
+        
+        
+        <asp:Label runat="server" AssociatedControlID="tboxFourthPolicyCarrierName" Text="Name of Carrier:" EnableViewState="False"/>
+        <asp:TextBox runat="server" ID="tboxFourthPolicyCarrierName" ClientIDMode="Static"/>
+
+        <asp:Label runat="server" AssociatedControlID="tboxFourthPolicyNumber" Text="Policy Number:" EnableViewState="False"/>
+        <asp:TextBox runat="server" ID="tboxFourthPolicyNumber" ClientIDMode="Static"/>
+
+        <asp:Label runat="server" AssociatedControlID="tboxFourthFromDate" Text="From:" EnableViewState="False"/>
+        <asp:TextBox runat="server" ID="tboxFourthFromDate" ClientIDMode="Static" placeholder="mm/yy"/>
+
+        <asp:Label runat="server" AssociatedControlID="tboxFourthToDate" Text="To:" EnableViewState="False"/>
+        <asp:TextBox runat="server" ID="tboxFourthToDate" ClientIDMode="Static" placeholder="mm/yy"/>
+
+        <asp:Label runat="server" AssociatedControlID="tboxFourthMailingAddress" Text="Mailing Address:" EnableViewState="False"/>
+        <asp:TextBox runat="server" ID="tboxFourthMailingAddress" ClientIDMode="Static"/>
+
+        <asp:Label runat="server" AssociatedControlID="tboxFourthCity" Text="City:" EnableViewState="False"/>
+        <asp:TextBox runat="server" ID="tboxFourthCity" ClientIDMode="Static"/>
+
+        <asp:Label runat="server" AssociatedControlID="tboxFourthState" Text="State:" EnableViewState="False"/>
+        <asp:TextBox runat="server" ID="tboxFourthState" ClientIDMode="Static"/>
+
+        <asp:Label runat="server" AssociatedControlID="tboxFourthZip" Text="ZIP:" EnableViewState="False"/>
+        <asp:TextBox runat="server" ID="tboxFourthZip" ClientIDMode="Static"/>
+        
+        
+        <asp:FileUpload runat="server" ID="fuAttachment"/>
 
     </asp:Panel>
     

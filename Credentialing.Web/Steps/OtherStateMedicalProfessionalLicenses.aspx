@@ -1,4 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="OtherStateMedicalProfessionalLicenses.aspx.cs" Inherits="Credentialing.Web.Steps.OtherStateMedicalProfessionalLicenses" MasterPageFile="../Main.Master" %>
+<%@ Register Src="~/Usercontrols/RenderAttachments.ascx" TagPrefix="uc" TagName="Attachments" %>
+<%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
     <h1>XI. ALL OTHER STATE MEDICAL/PROFESSIONAL LICENSES. List All Medical/Professional Licenses Now or Previously Held.</h1>
     <br />
@@ -8,6 +10,9 @@
 
     <h1>Coming soon</h1>
     <asp:Panel runat="server" Visible="False">
+	    <asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
+	    <uc:SidebarProgress runat="server" CurrentStep="10" EnableViewState="false"/>
+
         <asp:Label runat="server" AssociatedControlID="tboxPrimaryState" Text="State:" EnableViewState="False"/>
         <asp:TextBox runat="server" ID="tboxPrimaryState" ClientIDMode="Static"/>
 
@@ -48,7 +53,8 @@
         
         
         <asp:FileUpload ID="fuAttachments" runat="server" AllowMultiple="True"/>
-        
+        <hr/>
+        <uc:Attachments ID="ucAttachments" runat="server" EnableViewState="False"/>
 	    <div class="form-actions">
 		    <asp:LinkButton runat="server" ID="btnPrevious" Text="Previous" CssClass="btn btn-prev" />
 		    <asp:LinkButton runat="server" ID="btnNext" Text="Next" CssClass="btn btn-next" />

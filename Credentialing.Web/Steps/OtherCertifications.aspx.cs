@@ -18,6 +18,7 @@ namespace Credentialing.Web.Steps
         {
             btnNext.Click += btnNext_Click;
             btnPrevious.Click += btnPrevious_Click;
+            lbReview.Click += lbReview_Click;
 
             if (!IsPostBack)
             {
@@ -77,7 +78,7 @@ namespace Credentialing.Web.Steps
             data.SecondaryType = tboxSecondryType.Text;
             data.SecondaryNumber = tboxSecondaryNumber.Text;
             data.SecondaryDate = string.IsNullOrWhiteSpace(tboxSecondaryExpirationDate.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxSecondaryExpirationDate.Text);
-            
+
             if (fuAttachments.HasFiles)
             {
                 foreach (var file in fuAttachments.PostedFiles)
@@ -129,6 +130,8 @@ namespace Credentialing.Web.Steps
             tboxSecondryType.Text = data.SecondaryType;
             tboxSecondaryNumber.Text = data.SecondaryNumber;
             tboxSecondaryExpirationDate.Text = data.SecondaryDate.HasValue ? data.SecondaryDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
+
+            ucAttachments.Attachments = data.Attachments;
         }
 
         private void lbReview_Click(object sender, EventArgs e)

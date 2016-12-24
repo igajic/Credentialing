@@ -10,7 +10,8 @@
 	<h1>Coming soon</h1>
 
 	<asp:Panel ID="Panel1" runat="server" Enabled="false" Visible="false">
-        <uc:SidebarProgress ID="SidebarProgress1" runat="server" CurrentStep="7" EnableViewState="false"/>
+	    <asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
+        <uc:SidebarProgress runat="server" CurrentStep="7" EnableViewState="false"/>
 		<p>
 			Include certifications by board(s) which are duly organized and recognized by:
 		</p>
