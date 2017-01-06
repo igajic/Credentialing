@@ -53,6 +53,7 @@ namespace Credentialing.Business.DataAccess
                         retVal = new Internship();
                         retVal.InternshipId = (int)reader[Constants.InternshipsColumns.InternshipId];
                         retVal.Institution = reader[Constants.InternshipsColumns.Institution] as string;
+                        retVal.ProgramDirector = reader[Constants.InternshipsColumns.ProgramDirector] as string;
                         retVal.MailingAddress = reader[Constants.InternshipsColumns.MailingAddress] as string;
                         retVal.City = reader[Constants.InternshipsColumns.City] as string;
                         retVal.StateCountry = reader[Constants.InternshipsColumns.StateCountry] as string;

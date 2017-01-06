@@ -22,8 +22,8 @@ namespace Credentialing.Web.Steps
 
             if (!IsPostBack)
             {
-                //var data = LoadUserData();
-                //LoadFormData(data);
+                var data = LoadUserData();
+                LoadFormData(data);
             }
         }
 
@@ -41,7 +41,7 @@ namespace Credentialing.Web.Steps
         {
             if (ValidateFields())
             {
-                //SaveFormData();
+                SaveFormData();
                 Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
                 Response.End();
             }
@@ -60,7 +60,7 @@ namespace Credentialing.Web.Steps
             formData.TypeOfInternship = tboxTypeInternship.Text;
             formData.Specialty = tboxSpecialty.Text;
             formData.SpecialtyFrom = string.IsNullOrWhiteSpace(tboxFromDate.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxFromDate.Text);
-            formData.SpecialtyFrom = string.IsNullOrWhiteSpace(tboxToDate.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxToDate.Text);
+            formData.SpecialtyTo = string.IsNullOrWhiteSpace(tboxToDate.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxToDate.Text);
 
             if (fuInternship.HasFiles)
             {

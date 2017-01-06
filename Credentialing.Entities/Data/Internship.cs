@@ -7,6 +7,7 @@ namespace Credentialing.Entities.Data
     {
         public Internship()
         {
+            Attachments = new List<Attachment>();
         }
 
         public int InternshipId { get; set; }

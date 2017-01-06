@@ -7,6 +7,7 @@ namespace Credentialing.Entities.Data
     {
         public ResidenciesFellowship()
         {
+            Attachments = new List<Attachment>();
         }
 
         public int ResidenciesFellowshipId { get; set; }

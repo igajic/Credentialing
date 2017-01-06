@@ -35,8 +35,8 @@ namespace Credentialing.Business.DataAccess
 
             var sqlCommand = new SqlCommand(@"SELECT *
                                                   FROM OtherCertifications
-                                                  WHERE InternshipId = @internshipId", conn);
-            sqlCommand.Parameters.AddWithValue("@internshipId", otherCertificationsId);
+                                                  WHERE OtherCertificationsId = @otherCertificationsId", conn);
+            sqlCommand.Parameters.AddWithValue("@otherCertificationsId", otherCertificationsId);
             if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)

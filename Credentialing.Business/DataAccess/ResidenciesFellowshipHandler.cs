@@ -34,9 +34,9 @@ namespace Credentialing.Business.DataAccess
             ResidenciesFellowship retVal = null;
 
             var sqlCommand = new SqlCommand(@"SELECT *
-                                                  FROM IdentifyingInformations
-                                                  WHERE IdentifyingInformationId = @identifyingInformationId", conn);
-            sqlCommand.Parameters.AddWithValue("@identifyingInformationId", residenciesFellowshipId);
+                                                  FROM ResidenciesFellowships
+                                                  WHERE ResidenciesFellowshipId = @residenciesFellowshipId", conn);
+            sqlCommand.Parameters.AddWithValue("@residenciesFellowshipId", residenciesFellowshipId);
             if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
@@ -81,7 +81,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.TertiaryProgramDirector = reader[Constants.ResidenciesFellowshipsColumns.TertiaryProgramDirector] as string;
                         retVal.TertiaryMailingAddress = reader[Constants.ResidenciesFellowshipsColumns.TertiaryMailingAddress] as string;
                         retVal.TertiaryCity = reader[Constants.ResidenciesFellowshipsColumns.TertiaryCity] as string;
-                        retVal.TertiaryState = reader[Constants.ResidenciesFellowshipsColumns.SecondaryState] as string;
+                        retVal.TertiaryState = reader[Constants.ResidenciesFellowshipsColumns.TertiaryState] as string;
                         retVal.TertiaryZip = reader[Constants.ResidenciesFellowshipsColumns.TertiaryZip] as string;
                         retVal.TertiaryTypeTraining = reader[Constants.ResidenciesFellowshipsColumns.TertiaryTypeTraining] as string;
                         retVal.TertiarySpecialty = reader[Constants.ResidenciesFellowshipsColumns.TertiarySpecialty] as string;
@@ -118,7 +118,7 @@ namespace Credentialing.Business.DataAccess
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO ResidenciesFellowships
                                                     (PrimaryInstitution, PrimaryProgramDirector, PrimaryMailingAddress, PrimaryCity, PrimaryState, PrimaryZip, PrimaryTypeTraining, PrimarySpecialty, PrimaryFrom, PrimaryTo, PrimaryCompleted, SecondaryInstitution, SecondaryProgramDirector, SecondaryMailingAddress, SecondaryCity, SecondaryState, SecondaryZip, SecondaryTypeTraining, SecondarySpecialty, SecondaryFrom, SecondaryTo, SecondaryCompleted, TertiaryInstitution, TertiaryProgramDirector, TertiaryMailingAddress, TertiaryCity, TertiaryState, TertiaryZip, TertiaryTypeTraining, TertiarySpecialty, TertiaryFrom, TertiaryTo, TertiaryCompleted, Completed)
-                                                    OUTPUT INSERTED.IdentifyingInformationId
+                                                    OUTPUT INSERTED.ResidenciesFellowshipId
                                                     VALUES
                                                     (@primaryInstitution, @primaryProgramDirector, @primaryMailingAddress, @primaryCity, @primaryState, @primaryZip, @primaryTypeTraining, @primarySpecialty, @primaryFrom, @primaryTo, @primaryCompleted, @secondaryInstitution, @secondaryProgramDirector, @secondaryMailingAddress, @secondaryCity, @secondaryState, @secondaryZip, @secondaryTypeTraining, @secondarySpecialty, @secondaryFrom, @secondaryTo, @secondaryCompleted, @tertiaryInstitution, @tertiaryProgramDirector, @tertiaryMailingAddress, @tertiaryCity, @tertiaryState, @tertiaryZip, @tertiaryTypeTraining, @tertiarySpecialty, @tertiaryFrom, @tertiaryTo, @tertiaryCompleted, @completed)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
@@ -219,7 +219,7 @@ namespace Credentialing.Business.DataAccess
                                                     TertiarySpecialty =@tertiarySpecialty ,
                                                     TertiaryFrom = @tertiaryFrom,
                                                     TertiaryTo = @tertiaryTo,
-                                                    TertiaryCompleted = @tertiaryCompleted.
+                                                    TertiaryCompleted = @tertiaryCompleted,
 
                                                     Completed = @completed
                                                 WHERE residenciesFellowshipId = @residenciesFellowshipId", conn);

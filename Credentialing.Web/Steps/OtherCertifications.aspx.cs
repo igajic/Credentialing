@@ -24,7 +24,7 @@ namespace Credentialing.Web.Steps
             {
                 var data = LoadUserData();
 
-                //LoadFormData(data);
+                LoadFormData(data);
             }
         }
 
@@ -42,7 +42,7 @@ namespace Credentialing.Web.Steps
         {
             if (ValidateFields())
             {
-                //SaveFormData();
+                SaveFormData();
                 Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
                 Response.End();
             }
@@ -73,11 +73,11 @@ namespace Credentialing.Web.Steps
 
             data.PrimaryType = tboxPrimaryType.Text;
             data.PrimaryNumber = tboxPrimaryNumber.Text;
-            data.PrimaryDate = string.IsNullOrWhiteSpace(tboxPrimaryExpirationDate.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxPrimaryExpirationDate.Text);
+            data.PrimaryDate = string.IsNullOrWhiteSpace(tboxPrimaryExpirationDate.Text) ? null : DateHelper.ParseFullDate(tboxPrimaryExpirationDate.Text);
 
             data.SecondaryType = tboxSecondryType.Text;
             data.SecondaryNumber = tboxSecondaryNumber.Text;
-            data.SecondaryDate = string.IsNullOrWhiteSpace(tboxSecondaryExpirationDate.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxSecondaryExpirationDate.Text);
+            data.SecondaryDate = string.IsNullOrWhiteSpace(tboxSecondaryExpirationDate.Text) ? null : DateHelper.ParseFullDate(tboxSecondaryExpirationDate.Text);
 
             if (fuAttachments.HasFiles)
             {
@@ -123,6 +123,8 @@ namespace Credentialing.Web.Steps
 
         private void LoadFormData(Entities.Data.OtherCertifications data)
         {
+            if(data == null) return;
+            
             tboxPrimaryType.Text = data.PrimaryType;
             tboxPrimaryNumber.Text = data.PrimaryNumber;
             tboxPrimaryExpirationDate.Text = data.PrimaryDate.HasValue ? data.PrimaryDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;

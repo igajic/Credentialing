@@ -2,14 +2,13 @@
 <%@ Register Src="~/Usercontrols/RenderAttachments.ascx" TagPrefix="uc" TagName="Attachments" %>
 <%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
+
 	<asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
-	<uc:SidebarProgress runat="server" CurrentStep="6" EnableViewState="false"/>
+	<uc:SidebarProgress runat="server" CurrentStep="7" EnableViewState="false"/>
 	<div class="form-block">
 		<div class="form-heading">
 			<h2><strong>7.</strong> Residencies / Fellowships</h2>
 		</div>
-		<h1>Coming soon</h1>
-		<asp:Panel ID="Panel1" runat="server" Enabled="false" Visible="false">
 		<div class="row">
 			<div class="col-md-12">
 				<p>Include residencies, fellowships, Preceptorship, teaching appointments (indicate whether clinical or academic), and postgraduate education in chronological order, giving name, address, city, ZIP code, and dates. Include <strong>all</strong> programs you attended, whether or not completed.</p>
@@ -60,11 +59,11 @@
 		<div class="row">
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxFromDateFirst" Text="From: (mm/yy)" EnableViewState="false"/>
-				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxFromDateFirst"/>
+				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxFromDateFirst" CssClass="datepicker-monthly"/>
 			</div>
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxToDateFirst" Text="To: (mm/yy)" EnableViewState="false"/>
-				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxToDateFirst"/>
+				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxToDateFirst" CssClass="datepicker-monthly"/>
 			</div>
 		</div>
 		<div class="row">
@@ -128,11 +127,11 @@
 		<div class="row">
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxFromDateSecond" Text="From: (mm/yy)" EnableViewState="false"/>
-				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxFromDateSecond"/>
+				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxFromDateSecond" CssClass="datepicker-monthly"/>
 			</div>
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxToDateSecond" Text="To: (mm/yy)" EnableViewState="false"/>
-				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxToDateSecond"/>
+				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxToDateSecond" CssClass="datepicker-monthly"/>
 			</div>
 		</div>
 		<div class="row">
@@ -196,11 +195,11 @@
 		<div class="row">
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxFromDateThird" Text="From: (mm/yy)" EnableViewState="false"/>
-				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxFromDateThird"/>
+				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxFromDateThird" CssClass="datepicker-monthly"/>
 			</div>
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxToDateThird" Text="To: (mm/yy)" EnableViewState="false"/>
-				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxToDateThird"/>
+				<asp:TextBox ClientIDMode="Static" runat="server" ID="tboxToDateThird" CssClass="datepicker-monthly"/>
 			</div>
 		</div>
 		<div class="row">
@@ -219,15 +218,12 @@
 				<span class="form-description">(If "No", please explain on separate sheet.)</span>
 			</div>
 		</div>
-            <asp:FileUpload runat="server" ID="fuResidencies" AllowMultiple="True"/>
-            <hr/>
-		<uc:Attachments ID="ucAttachments" runat="server" EnableViewState="False"/>
-		</asp:Panel>
+        <asp:FileUpload runat="server" ID="fuResidencies" AllowMultiple="True"/>
+        <hr/>
+	    <uc:Attachments ID="ucAttachments" runat="server" EnableViewState="False"/>
 	</div>
-	<asp:Panel ID="Panel2" runat="server" Enabled="false" Visible="false">
 	<div class="form-actions">
 		<asp:LinkButton runat="server" ID="btnPrevious" Text="Previous" CssClass="btn btn-prev" />
 		<asp:LinkButton runat="server" ID="btnNext" Text="Next" CssClass="btn btn-next" />
 	</div>
-	</asp:Panel>
 </asp:Content>

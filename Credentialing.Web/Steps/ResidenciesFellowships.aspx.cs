@@ -22,8 +22,8 @@ namespace Credentialing.Web.Steps
 
             if (!IsPostBack)
             {
-                //var data = LoadUserData();
-                //LoadFormData(data);
+                var data = LoadUserData();
+                LoadFormData(data);
             }
         }
 
@@ -41,7 +41,7 @@ namespace Credentialing.Web.Steps
         {
             if (ValidateFields())
             {
-                //SaveFormData();
+                SaveFormData();
                 Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
                 Response.End();
             }
@@ -75,6 +75,7 @@ namespace Credentialing.Web.Steps
             formData.PrimaryMailingAddress = tboxMailingAddressFirst.Text;
             formData.PrimaryCity = tboxCityFirst.Text;
             formData.PrimaryState = tboxStateFirst.Text;
+            formData.PrimaryZip = tboxZipFirst.Text;
             formData.PrimaryTypeTraining = tboxTrainingTypeFirst.Text;
             formData.PrimarySpecialty = tboxSpecialtyFirst.Text;
             formData.PrimaryFrom = string.IsNullOrWhiteSpace(tboxFromDateFirst.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxFromDateFirst.Text);
@@ -98,6 +99,7 @@ namespace Credentialing.Web.Steps
             formData.SecondaryMailingAddress = tboxMailingAddressSecond.Text;
             formData.SecondaryCity = tboxCitySecond.Text;
             formData.SecondaryState = tboxStateSecond.Text;
+            formData.SecondaryZip = tboxZipSecond.Text;
             formData.SecondaryTypeTraining = tboxTrainingTypeSecond.Text;
             formData.SecondarySpecialty = tboxSpecialtySecond.Text;
             formData.SecondaryFrom = string.IsNullOrWhiteSpace(tboxFromDateSecond.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxFromDateSecond.Text);
@@ -121,6 +123,7 @@ namespace Credentialing.Web.Steps
             formData.TertiaryMailingAddress = tboxMailingAddressThird.Text;
             formData.TertiaryCity = tboxCityThird.Text;
             formData.TertiaryState = tboxStateThird.Text;
+            formData.TertiaryZip = tboxZipThird.Text;
             formData.TertiaryTypeTraining = tboxTrainingTypeThird.Text;
             formData.TertiarySpecialty = tboxSpecialtyThird.Text;
             formData.TertiaryFrom = string.IsNullOrWhiteSpace(tboxFromDateThird.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxFromDateThird.Text);
@@ -210,6 +213,7 @@ namespace Credentialing.Web.Steps
             tboxMailingAddressFirst.Text = formData.PrimaryMailingAddress;
             tboxCityFirst.Text = formData.PrimaryCity;
             tboxStateFirst.Text = formData.PrimaryState;
+            tboxZipFirst.Text = formData.PrimaryZip;
             tboxTrainingTypeFirst.Text = formData.PrimaryTypeTraining;
             tboxSpecialtyFirst.Text = formData.PrimarySpecialty;
             tboxFromDateFirst.Text = formData.PrimaryFrom.HasValue ? formData.PrimaryFrom.Value.ToString(Constants.DateFormats.ShortDateFormat) : string.Empty;
@@ -231,6 +235,7 @@ namespace Credentialing.Web.Steps
             tboxMailingAddressSecond.Text = formData.SecondaryMailingAddress;
             tboxCitySecond.Text = formData.SecondaryCity;
             tboxStateSecond.Text = formData.SecondaryState;
+            tboxZipSecond.Text = formData.SecondaryZip;
             tboxTrainingTypeSecond.Text = formData.SecondaryTypeTraining;
             tboxSpecialtySecond.Text = formData.SecondarySpecialty;
             tboxFromDateSecond.Text = formData.SecondaryFrom.HasValue ? formData.SecondaryFrom.Value.ToString(Constants.DateFormats.ShortDateFormat) : string.Empty;
@@ -252,6 +257,7 @@ namespace Credentialing.Web.Steps
             tboxMailingAddressThird.Text = formData.TertiaryMailingAddress;
             tboxCityThird.Text = formData.TertiaryCity;
             tboxStateThird.Text = formData.TertiaryState;
+            tboxZipThird.Text = formData.TertiaryZip;
             tboxTrainingTypeThird.Text = formData.TertiaryTypeTraining;
             tboxSpecialtyThird.Text = formData.TertiarySpecialty;
             tboxFromDateThird.Text = formData.TertiaryFrom.HasValue ? formData.TertiaryFrom.Value.ToString(Constants.DateFormats.ShortDateFormat) : string.Empty;

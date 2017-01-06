@@ -2,7 +2,10 @@
 using Credentialing.Business.Helpers;
 using Credentialing.Entities;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Web.UI;
+using Credentialing.Entities.Data;
 
 namespace Credentialing.Web.Steps
 {
@@ -22,7 +25,7 @@ namespace Credentialing.Web.Steps
             {
                 var data = LoadUserData();
 
-                //   LoadFormData(data);
+                LoadFormData(data);
             }
         }
 
@@ -40,7 +43,7 @@ namespace Credentialing.Web.Steps
         {
             if (ValidateFields())
             {
-                // SaveFormData();
+                SaveFormData();
                 Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
                 Response.End();
             }
@@ -56,7 +59,7 @@ namespace Credentialing.Web.Steps
 
                 StepsHelper.Instance.UpdateSteps(physicianFormData);
 
-                if (physicianFormData != null && physicianFormData.OtherCertification != null)
+                if (physicianFormData != null && physicianFormData.BoardCertification != null)
                 {
                     return physicianFormData.BoardCertification;
                 }
@@ -72,18 +75,49 @@ namespace Credentialing.Web.Steps
             formData.PrimaryNameIssuingBoard = tboxPrimaryNameIssuingBoard.Text;
             formData.PrimarySpecialty = tboxPrimarySpecialty.Text;
 
-            formData.PrimaryDateCertifiedRecertified = string.IsNullOrWhiteSpace(tboxPrimaryDateCertifiedRecertified.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxPrimaryDateCertifiedRecertified.Text);
-            formData.PrimaryExpirationDate = string.IsNullOrWhiteSpace(tboxPrimaryExpirationDate.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxPrimaryExpirationDate.Text);
+            formData.PrimaryDateCertifiedRecertified = string.IsNullOrWhiteSpace(tboxPrimaryDateCertifiedRecertified.Text) ? null : DateHelper.ParseFullDate(tboxPrimaryDateCertifiedRecertified.Text);
+            formData.PrimaryExpirationDate = string.IsNullOrWhiteSpace(tboxPrimaryExpirationDate.Text) ? null : DateHelper.ParseFullDate(tboxPrimaryExpirationDate.Text);
 
             formData.SecondaryNameIssuingBoard = tboxSecondaryNameIssuingBoard.Text;
             formData.SecondarySpecialty = tboxSecondarySpecialty.Text;
-            formData.SecondaryDateCertifiedRecertified = string.IsNullOrWhiteSpace(tboxSecondaryDateCertifiedRecertified.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxSecondaryDateCertifiedRecertified.Text);
-            formData.SecondaryExpirationDate = string.IsNullOrWhiteSpace(tboxSecondaryExpirationDate.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxSecondaryExpirationDate.Text);
+            formData.SecondaryDateCertifiedRecertified = string.IsNullOrWhiteSpace(tboxSecondaryDateCertifiedRecertified.Text) ? null : DateHelper.ParseFullDate(tboxSecondaryDateCertifiedRecertified.Text);
+            formData.SecondaryExpirationDate = string.IsNullOrWhiteSpace(tboxSecondaryExpirationDate.Text) ? null : DateHelper.ParseFullDate(tboxSecondaryExpirationDate.Text);
 
             formData.TertiaryNameIssuingBoard = tboxTertiaryNameIssuingBoard.Text;
             formData.TertiarySpecialty = tboxTertiarySpecialty.Text;
-            formData.TertiaryDateCertifiedRecertified = string.IsNullOrWhiteSpace(tboxTertiaryDateCertifiedRecertified.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxTertiaryDateCertifiedRecertified.Text);
-            formData.TertiaryExpirationDate = string.IsNullOrWhiteSpace(tboxTertiaryExpirationDate.Text) ? (DateTime?)null : DateHelper.ParseDate(tboxTertiaryExpirationDate.Text);
+            formData.TertiaryDateCertifiedRecertified = string.IsNullOrWhiteSpace(tboxTertiaryDateCertifiedRecertified.Text) ? null : DateHelper.ParseFullDate(tboxTertiaryDateCertifiedRecertified.Text);
+            formData.TertiaryExpirationDate = string.IsNullOrWhiteSpace(tboxTertiaryExpirationDate.Text) ? null : DateHelper.ParseFullDate(tboxTertiaryExpirationDate.Text);
+
+            formData.AdditionalListBoardsDates = tboxAdditionalListBoardsDates.Text;
+
+            if (rbtnYes.Checked)
+            {
+                formData.AdditionalBoards = true;
+            }
+            else if (rbtnNo.Checked)
+            {
+                formData.AdditionalBoards = false;
+            }
+            else
+            {
+                formData.AdditionalBoards = null;
+            }
+
+            if (fuAttachments.HasFile)
+            {
+                var attachment = new Attachment
+                {
+                    FileName = fuAttachments.PostedFile.FileName
+                };
+
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    fuAttachments.PostedFile.InputStream.CopyTo(ms);
+                    attachment.Content = ms.ToArray();
+                }
+
+                formData.Attachment = attachment;
+            }
 
             var user = MemberHelper.GetCurrentLoggedUser();
             var userId = (Guid)user.ProviderUserKey;
@@ -146,6 +180,32 @@ namespace Credentialing.Web.Steps
             tboxTertiarySpecialty.Text = formData.TertiarySpecialty;
             tboxTertiaryDateCertifiedRecertified.Text = formData.TertiaryDateCertifiedRecertified.HasValue ? formData.TertiaryDateCertifiedRecertified.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
             tboxTertiaryExpirationDate.Text = formData.TertiaryExpirationDate.HasValue ? formData.TertiaryExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
+
+            tboxAdditionalListBoardsDates.Text = formData.AdditionalListBoardsDates;
+
+            if (formData.AdditionalBoards.HasValue)
+            {
+                if (formData.AdditionalBoards.Value)
+                {
+                    rbtnNo.Checked = false;
+                    rbtnYes.Checked = true;
+                }
+                else
+                {
+                    rbtnNo.Checked = true;
+                    rbtnYes.Checked = false;
+                }
+            }
+            else
+            {
+                rbtnNo.Checked = false;
+                rbtnYes.Checked = false;
+            }
+
+            if (formData.Attachment != null)
+            {
+                ucAttachments.Attachments = new List<Attachment> {formData.Attachment};
+            }
         }
 
         private void lbReview_Click(object sender, EventArgs e)
