@@ -2,7 +2,7 @@
 <%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <%@ Register Src="~/Usercontrols/RenderAttachments.ascx" TagPrefix="uc" TagName="Attachments" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
-    <h1>X. </h1>
+    <h1>X. MEDICAL/PROFESSIONAL LICENSURE/REGISTRATIONS (Remember to attach copies of documents) </h1>
     <br />
     <br />
     <br />
