@@ -12,38 +12,35 @@
         </div>
         
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <asp:Label runat="server" AssociatedControlID="tboxPrimaryType" Text="Type:" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxPrimaryType" ClientIDMode="Static" />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <asp:Label runat="server" AssociatedControlID="tboxPrimaryNumber" Text="Number:" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxPrimaryNumber" ClientIDMode="Static" CssClass="datepicker-default" />
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <asp:Label runat="server" AssociatedControlID="tboxPrimaryExpirationDate" Text="Expiration Date:" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxPrimaryExpirationDate" ClientIDMode="Static" CssClass="datepicker-default" />
             </div>
-            <div class="col-md-6">
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-md-4">
                 <asp:Label runat="server" AssociatedControlID="tboxSecondryType" Text="Type:" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxSecondryType" ClientIDMode="Static" />
             </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <asp:Label runat="server" AssociatedControlID="tboxSecondaryNumber" Text="Number:" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxSecondaryNumber" ClientIDMode="Static" />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <asp:Label runat="server" AssociatedControlID="tboxSecondaryExpirationDate" Text="Expiration Date:" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxSecondaryExpirationDate" ClientIDMode="Static" CssClass="datepicker-default" />
             </div>
         </div>
-        
+        <hr/>
 		<div class="row">
 			<div class="col-md-6">
 				<asp:Label runat="server" Text="Attach additional sheets if necessary" CssClass="label" />

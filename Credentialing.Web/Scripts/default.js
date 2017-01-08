@@ -1,6 +1,10 @@
 $(function () {
+    if (window.location.pathname.toLowerCase() === '/default.aspx' || window.location.pathname === '/') {
+        $('.overlay').fadeIn(300);
+        $('.login-popup').fadeIn(200).addClass('opened');
+    }
 
-	$('.menu-toggle').on('click', function() {
+    $('.menu-toggle').on('click', function() {
 		if(!$(this).hasClass('opened')){
 			$(this).addClass('opened');
 			$('.header').find('.mobile-menu').addClass('opened');
@@ -31,11 +35,12 @@ $(function () {
 		e.preventDefault();
 	});
 
+    /*
 	$('.overlay').on('click', function () {
 		$('.modal.opened').removeClass('opened').fadeOut(300, function () {
 			$('.overlay').fadeOut(200);
 		});
-	});
+	});*/
 
 	$('.js-close-modal').on('click', function () {
 		$('.modal.opened').removeClass('opened').fadeOut(300, function () {

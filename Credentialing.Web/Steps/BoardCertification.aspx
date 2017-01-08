@@ -22,72 +22,62 @@
         </div>
         
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-3">
                 <asp:Label runat="server" AssociatedControlID="tboxPrimaryNameIssuingBoard" Text="Name of Issuing Board:" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxPrimaryNameIssuingBoard" ClientIDMode="Static" />
             </div>
-            
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <asp:Label runat="server" AssociatedControlID="tboxPrimarySpecialty" Text="Specialty:" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxPrimarySpecialty" ClientIDMode="Static" />
             </div>
-        </div>    
-        
-        <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <asp:Label runat="server" AssociatedControlID="tboxPrimaryDateCertifiedRecertified" Text="Date Certified/Recertified:" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxPrimaryDateCertifiedRecertified" ClientIDMode="Static" CssClass="datepicker-default" />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <asp:Label runat="server" AssociatedControlID="tboxPrimaryExpirationDate" Text="Expiration Date (if any):" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxPrimaryExpirationDate" ClientIDMode="Static" CssClass="datepicker-default" />
             </div>
         </div>
-        
+        <hr/>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <asp:Label runat="server" AssociatedControlID="tboxSecondaryNameIssuingBoard" Text="Name of Issuing Board:" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxSecondaryNameIssuingBoard" ClientIDMode="Static" />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <asp:Label runat="server" AssociatedControlID="tboxSecondarySpecialty" Text="Specialty:" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxSecondarySpecialty" ClientIDMode="Static" />
             </div>
-        </div>
-            
-        <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <asp:Label runat="server" AssociatedControlID="tboxSecondaryDateCertifiedRecertified" Text="Date Certified/Recertified:" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxSecondaryDateCertifiedRecertified" ClientIDMode="Static" CssClass="datepicker-default" />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <asp:Label runat="server" AssociatedControlID="tboxSecondaryExpirationDate" Text="Expiration Date (if any):" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxSecondaryExpirationDate" ClientIDMode="Static" CssClass="datepicker-default" />
             </div>
         </div>
-        
+        <hr/>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <asp:Label runat="server" AssociatedControlID="tboxTertiaryNameIssuingBoard" Text="Name of Issuing Board:" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxTertiaryNameIssuingBoard" ClientIDMode="Static" />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <asp:Label runat="server" AssociatedControlID="tboxTertiarySpecialty" Text="Specialty:" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxTertiarySpecialty" ClientIDMode="Static" />
             </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <asp:Label runat="server" AssociatedControlID="tboxTertiaryDateCertifiedRecertified" Text="Date Certified/Recertified:" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxTertiaryDateCertifiedRecertified" ClientIDMode="Static" CssClass="datepicker-default" />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <asp:Label runat="server" AssociatedControlID="tboxTertiaryExpirationDate" Text="Expiration Date (if any):" EnableViewState="False" />
                 <asp:TextBox runat="server" ID="tboxTertiaryExpirationDate" ClientIDMode="Static" CssClass="datepicker-default" />
             </div>
         </div>
-        
+        <hr/>
         <div class="row">
             <div class="col-md-6">
                 <span class="label">Have you applied for board certification other than those indicated above?</span>

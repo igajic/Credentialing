@@ -49,10 +49,24 @@ namespace Credentialing.Web.Dashboard
                 var data = (Step) e.Item.DataItem;
                 var ltrPercentage = (Literal)e.Item.FindControl("ltrPercentage");
                 var hlStep = (HyperLink)e.Item.FindControl("hlStep");
+                var pnlProgress = (Panel) e.Item.FindControl("pnlProgress");
 
                 ltrPercentage.Text = data.PercentComplete + "%";
                 hlStep.Text = data.Name;
                 hlStep.NavigateUrl = data.Url;
+
+                if (data.PercentComplete < 50)
+                {
+                    pnlProgress.CssClass += " red";
+                }
+                else if (data.PercentComplete < 99)
+                {
+                    pnlProgress.CssClass += " yellow";
+                }
+                else
+                {
+                    pnlProgress.CssClass += " green";
+                }
             }
         }
 

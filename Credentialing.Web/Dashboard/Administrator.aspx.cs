@@ -54,9 +54,23 @@ namespace Credentialing.Web.Dashboard
                 var data = (Tuple<string, int>)e.Item.DataItem;
                 var ltrPercentage = (Literal)e.Item.FindControl("ltrPercentage");
                 var ltrUserName = (Literal)e.Item.FindControl("ltrUser");
+                var pnlProgress = (Panel)e.Item.FindControl("pnlProgress");
 
                 ltrPercentage.Text = data.Item2 + "%";
                 ltrUserName.Text = data.Item1;
+
+                if (data.Item2 < 50)
+                {
+                    pnlProgress.CssClass += " red";
+                }
+                else if (data.Item2 < 99)
+                {
+                    pnlProgress.CssClass += " yellow";
+                }
+                else
+                {
+                    pnlProgress.CssClass += " green";
+                }
             }
         }
 

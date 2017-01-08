@@ -22,10 +22,10 @@
 						<div class="form-step-link"><asp:HyperLink ID="hlStep" runat="server"/></div>
 					</div>
 					<div class="col-lg-4 col-md-6">
-						<div class="form-step-progress">
+						<asp:Panel ID="pnlProgress" runat="server" EnableViewState="False" CssClass="form-step-progress">
 							<span class="text-percent"><asp:Literal ID="ltrPercentage" runat="server"/></span>
 							<span class="progress-bar"></span>
-						</div>
+						</asp:Panel>
 					</div>
 				</div>
 			</ItemTemplate>

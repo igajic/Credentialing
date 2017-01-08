@@ -4,9 +4,14 @@ function drawChart() {
 
 	var data = google.visualization.arrayToDataTable(chartData);
 
-	var options = {
-		title: 'Physician overview'
-	};
+    var options = {
+        title: 'Physician overview',
+        slices: {
+            0: { color: 'green' },
+            1: { color: 'yellow' },
+            2: { color: 'red' },
+        }
+    };
 
 	var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
@@ -24,6 +29,16 @@ $(function() {
 	});
 
 });
+
+function getStepProgressClass(progress) {
+    if (progress < 50) {
+        return ' red';
+    } else if (progress < 99) {
+        return ' yellow';
+    }
+
+    return ' green';
+}
 
 function getUserDashboardContent(username) {
 
@@ -46,7 +61,7 @@ function getUserDashboardContent(username) {
 										'<div class="form-step-link">' + stepName + '</div>' +
 									'</div>' +
 									'<div class="col-md-6">' +
-										'<div class="form-step-progress">' +
+										'<div class="form-step-progress' + getStepProgressClass(stepProgress) + '">' +
 											'<span class="text-percent">' + stepProgress + '%</span>' +
 											'<span class="progress-bar"></span>' +
 										'</div>' +

@@ -25,5 +25,7 @@
 </div>
 <div class="form-row align-right">
 	<asp:Button runat="server" ID="btnCreate" Text="Create" />
+    
+    <asp:Button runat="server" ID="btnCancel" Text="Cancel"/>
 </div>
 <asp:Literal runat="server" ID="ltrErrorMessage"/>
