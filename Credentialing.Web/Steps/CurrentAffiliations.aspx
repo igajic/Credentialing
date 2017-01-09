@@ -49,7 +49,7 @@
                 </div>
                 <div class="col-md-6">
                     <asp:Label runat="server" AssociatedControlID="tboxCurrentPrimaryAppointmentDate" Text="Appointment Date:" EnableViewState="False" />
-                    <asp:TextBox runat="server" ID="tboxCurrentPrimaryAppointmentDate" ClientIDMode="Static" />
+                    <asp:TextBox runat="server" ID="tboxCurrentPrimaryAppointmentDate" ClientIDMode="Static" CssClass="datepicker-default" />
                 </div>
             </div>
             <div class="row">
@@ -77,7 +77,7 @@
                 </div>
                 <div class="col-md-6">
                     <asp:Label runat="server" AssociatedControlID="tboxCurrentSecondaryAppointmentDate" Text="Appointment Date:" EnableViewState="False" />
-                    <asp:TextBox runat="server" ID="tboxCurrentSecondaryAppointmentDate" ClientIDMode="Static" />
+                    <asp:TextBox runat="server" ID="tboxCurrentSecondaryAppointmentDate" ClientIDMode="Static" CssClass="datepicker-default" />
                 </div>
             </div>
             
@@ -106,7 +106,7 @@
                 </div>
                 <div class="col-md-6">
                     <asp:Label runat="server" AssociatedControlID="tboxCurrentTertiaryAppointmentDate" Text="Appointment Date:" EnableViewState="False" />
-                    <asp:TextBox runat="server" ID="tboxCurrentTertiaryAppointmentDate" ClientIDMode="Static" />
+                    <asp:TextBox runat="server" ID="tboxCurrentTertiaryAppointmentDate" ClientIDMode="Static" CssClass="datepicker-default" />
                 </div>
             </div>
             <span class="label">If you do not have hospital privileges, please explain on Addendum A</span>
@@ -137,11 +137,11 @@
             <div class="row">
                 <div class="col-md-4">
                     <asp:Label runat="server" AssociatedControlID="tboxPreviousPrimaryFrom" Text="From:" EnableViewState="False" />
-                    <asp:TextBox runat="server" ID="tboxPreviousPrimaryFrom" ClientIDMode="Static" placeholder="mm/yy" />
+                    <asp:TextBox runat="server" ID="tboxPreviousPrimaryFrom" ClientIDMode="Static" placeholder="mm/yy" CssClass="datepicker-monthly" />
                 </div>
                 <div class="col-md-4">
                     <asp:Label runat="server" AssociatedControlID="tboxPreviousPrimaryTo" Text="To:" EnableViewState="False" />
-                    <asp:TextBox runat="server" ID="tboxPreviousPrimaryTo" ClientIDMode="Static" placeholder="mm/yy" />
+                    <asp:TextBox runat="server" ID="tboxPreviousPrimaryTo" ClientIDMode="Static" placeholder="mm/yy" CssClass="datepicker-monthly" />
                 </div>
                 <div class="col-md-4">
                     <asp:Label runat="server" AssociatedControlID="tboxPreviousPrimaryReasonLeaving" Text="Reason for Leaving:" EnableViewState="False" />
@@ -171,11 +171,11 @@
             <div class="row">
                 <div class="col-md-4">
                     <asp:Label runat="server" AssociatedControlID="tboxPreviousSecondaryFrom" Text="From:" EnableViewState="False" />
-                    <asp:TextBox runat="server" ID="tboxPreviousSecondaryFrom" ClientIDMode="Static" placeholder="mm/yy" />
+                    <asp:TextBox runat="server" ID="tboxPreviousSecondaryFrom" ClientIDMode="Static" placeholder="mm/yy" CssClass="datepicker-monthly" />
                 </div>
                 <div class="col-md-4">
                     <asp:Label runat="server" AssociatedControlID="tboxPreviousSecondaryTo" Text="To:" EnableViewState="False" />
-                    <asp:TextBox runat="server" ID="tboxPreviousSecondaryTo" ClientIDMode="Static" placeholder="mm/yy" />
+                    <asp:TextBox runat="server" ID="tboxPreviousSecondaryTo" ClientIDMode="Static" placeholder="mm/yy" CssClass="datepicker-monthly" />
                 </div>
                 <div class="col-md-4">
                     <asp:Label runat="server" AssociatedControlID="tboxPreviousSecondaryReasonLeaving" Text="Reason for Leaving:" EnableViewState="False" />
@@ -205,11 +205,11 @@
             <div class="row">
                 <div class="col-md-4">
                     <asp:Label runat="server" AssociatedControlID="tboxPreviousTertiaryFrom" Text="From:" EnableViewState="False" />
-                    <asp:TextBox runat="server" ID="tboxPreviousTertiaryFrom" ClientIDMode="Static" placeholder="mm/yy" />
+                    <asp:TextBox runat="server" ID="tboxPreviousTertiaryFrom" ClientIDMode="Static" placeholder="mm/yy" CssClass="datepicker-monthly" />
                 </div>
                 <div class="col-md-4">
                     <asp:Label runat="server" AssociatedControlID="tboxPreviousTertiaryTo" Text="To:" EnableViewState="False" />
-                    <asp:TextBox runat="server" ID="tboxPreviousTertiaryTo" ClientIDMode="Static" placeholder="mm/yy" />
+                    <asp:TextBox runat="server" ID="tboxPreviousTertiaryTo" ClientIDMode="Static" placeholder="mm/yy" CssClass="datepicker-monthly" />
                 </div>
                 <div class="col-md-4">
                     <asp:Label runat="server" AssociatedControlID="tboxPreviousTertiaryReasonLeaving" Text="Reason for Leaving:" EnableViewState="False" />

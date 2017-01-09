@@ -30,7 +30,7 @@
                 </div>
                 <div class="col-md-4">
                     <asp:Label runat="server" AssociatedControlID="tboxInitialEffectiveDate" Text="Initial Effective Date:" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxInitialEffectiveDate" ClientIDMode="Static"/>
+                    <asp:TextBox runat="server" ID="tboxInitialEffectiveDate" ClientIDMode="Static" CssClass="datepicker-default"/>
                 </div>
             </div>
             
@@ -64,7 +64,7 @@
                 </div>
                 <div class="col-md-4">
                     <asp:Label runat="server" AssociatedControlID="tboxCurrentExpirationDate" Text="Expiration Date:" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxCurrentExpirationDate" ClientIDMode="Static"/>
+                    <asp:TextBox runat="server" ID="tboxCurrentExpirationDate" ClientIDMode="Static" CssClass="datepicker-default"/>
                 </div>
             </div>
         
@@ -87,11 +87,11 @@
                 </div>
                 <div class="col-md-3">
                     <asp:Label runat="server" AssociatedControlID="tboxFirstFromDate" Text="From:" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxFirstFromDate" ClientIDMode="Static" placeholder="mm/yy"/>
+                    <asp:TextBox runat="server" ID="tboxFirstFromDate" ClientIDMode="Static" placeholder="mm/yy" CssClass="datepicker-monthly"/>
                 </div>
                 <div class="col-md-3">
                     <asp:Label runat="server" AssociatedControlID="tboxFirstToDate" Text="To:" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxFirstToDate" ClientIDMode="Static" placeholder="mm/yy"/>
+                    <asp:TextBox runat="server" ID="tboxFirstToDate" ClientIDMode="Static" placeholder="mm/yy" CssClass="datepicker-monthly"/>
                 </div>
             </div>
             
@@ -127,11 +127,11 @@
                 </div>
                 <div class="col-md-3">
                     <asp:Label runat="server" AssociatedControlID="tboxSecondFromDate" Text="From:" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxSecondFromDate" ClientIDMode="Static" placeholder="mm/yy"/>
+                    <asp:TextBox runat="server" ID="tboxSecondFromDate" ClientIDMode="Static" placeholder="mm/yy" CssClass="datepicker-monthly"/>
                 </div>
                 <div class="col-md-3">
                     <asp:Label runat="server" AssociatedControlID="tboxSecondToDate" Text="To:" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxSecondToDate" ClientIDMode="Static" placeholder="mm/yy"/>
+                    <asp:TextBox runat="server" ID="tboxSecondToDate" ClientIDMode="Static" placeholder="mm/yy" CssClass="datepicker-monthly"/>
                 </div>
             </div>
             
@@ -167,11 +167,11 @@
                 </div>
                 <div class="col-md-3">
                     <asp:Label runat="server" AssociatedControlID="tboxThirdFromDate" Text="From:" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxThirdFromDate" ClientIDMode="Static" placeholder="mm/yy"/>
+                    <asp:TextBox runat="server" ID="tboxThirdFromDate" ClientIDMode="Static" placeholder="mm/yy" CssClass="datepicker-monthly"/>
                 </div>
                 <div class="col-md-3">
                     <asp:Label runat="server" AssociatedControlID="tboxThirdToDate" Text="To:" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxThirdToDate" ClientIDMode="Static" placeholder="mm/yy"/>
+                    <asp:TextBox runat="server" ID="tboxThirdToDate" ClientIDMode="Static" placeholder="mm/yy" CssClass="datepicker-monthly"/>
                 </div>
             </div>
 
@@ -206,11 +206,11 @@
                 </div>
                 <div class="col-md-3">
                     <asp:Label runat="server" AssociatedControlID="tboxFourthFromDate" Text="From:" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxFourthFromDate" ClientIDMode="Static" placeholder="mm/yy"/>
+                    <asp:TextBox runat="server" ID="tboxFourthFromDate" ClientIDMode="Static" placeholder="mm/yy" CssClass="datepicker-monthly"/>
                 </div>
                 <div class="col-md-3">
                     <asp:Label runat="server" AssociatedControlID="tboxFourthToDate" Text="To:" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxFourthToDate" ClientIDMode="Static" placeholder="mm/yy"/>
+                    <asp:TextBox runat="server" ID="tboxFourthToDate" ClientIDMode="Static" placeholder="mm/yy" CssClass="datepicker-monthly"/>
                 </div>
             </div>
             

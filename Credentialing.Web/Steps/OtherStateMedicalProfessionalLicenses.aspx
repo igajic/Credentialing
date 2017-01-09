@@ -30,11 +30,11 @@ Previously Held</h1>
                 </div>
                 <div class="col-md-3">
                     <asp:Label runat="server" AssociatedControlID="tboxPrimaryExpirationDate" Text="Exp. Date" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxPrimaryExpirationDate" ClientIDMode="Static"/>
+                    <asp:TextBox runat="server" ID="tboxPrimaryExpirationDate" ClientIDMode="Static" CssClass="datepicker-default"/>
                 </div>
                 <div class="col-md-3">
                     <asp:Label runat="server" AssociatedControlID="tboxPrimaryLastExpirationDate" Text="If inactive, last Exp. Date:" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxPrimaryLastExpirationDate" ClientIDMode="Static"/>
+                    <asp:TextBox runat="server" ID="tboxPrimaryLastExpirationDate" ClientIDMode="Static" CssClass="datepicker-default"/>
                 </div>
             </div>
 
@@ -52,12 +52,12 @@ Previously Held</h1>
                     
                 <div class="col-md-3">
                     <asp:Label runat="server" AssociatedControlID="tboxSecondaryExpirationDate" Text="Exp. Date" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxSecondaryExpirationDate" ClientIDMode="Static"/>
+                    <asp:TextBox runat="server" ID="tboxSecondaryExpirationDate" ClientIDMode="Static" CssClass="datepicker-default"/>
                 </div>
         
                 <div class="col-md-3">
                     <asp:Label runat="server" AssociatedControlID="tboxSecondaryLastExpirationDate" Text="If inactive, last Exp. Date:" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxSecondaryLastExpirationDate" ClientIDMode="Static"/>
+                    <asp:TextBox runat="server" ID="tboxSecondaryLastExpirationDate" ClientIDMode="Static" CssClass="datepicker-default"/>
                 </div>
             </div>
 
@@ -74,12 +74,12 @@ Previously Held</h1>
                     
                 <div class="col-md-3">
                     <asp:Label runat="server" AssociatedControlID="tboxTertiaryExpirationDate" Text="Exp. Date" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxTertiaryExpirationDate" ClientIDMode="Static"/>
+                    <asp:TextBox runat="server" ID="tboxTertiaryExpirationDate" ClientIDMode="Static" CssClass="datepicker-default"/>
                 </div>
         
                 <div class="col-md-3">
                     <asp:Label runat="server" AssociatedControlID="tboxTertiaryLastExpirationDate" Text="If inactive, last Exp. Date:" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxTertiaryLastExpirationDate" ClientIDMode="Static"/>
+                    <asp:TextBox runat="server" ID="tboxTertiaryLastExpirationDate" ClientIDMode="Static" CssClass="datepicker-default"/>
                 </div>
             </div>
         

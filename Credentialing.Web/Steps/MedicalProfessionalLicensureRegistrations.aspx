@@ -35,8 +35,8 @@
                     <asp:TextBox runat="server" ID="tboxIssueDate" ClientIDMode="Static"/>
                 </div>
                 <div class="col-md-3">
-                    <asp:Label runat="server" AssociatedControlID="tboxPrimaryStateMedicalLicenseExpirationDate" Text="Expiration DAte:" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxPrimaryStateMedicalLicenseExpirationDate" ClientIDMode="Static"/>
+                    <asp:Label runat="server" AssociatedControlID="tboxPrimaryStateMedicalLicenseExpirationDate" Text="Expiration Date:" EnableViewState="False"/>
+                    <asp:TextBox runat="server" ID="tboxPrimaryStateMedicalLicenseExpirationDate" ClientIDMode="Static" CssClass="datepicker-default"/>
                 </div>
             </div>
             
@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-md-6">
                     <asp:Label runat="server" AssociatedControlID="tboxDrugAdministrationExpirationDate" Text="Expiration Date:" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxDrugAdministrationExpirationDate" ClientIDMode="Static"/>
+                    <asp:TextBox runat="server" ID="tboxDrugAdministrationExpirationDate" ClientIDMode="Static" CssClass="datepicker-default"/>
                 </div>
             </div>
 
@@ -58,7 +58,7 @@
                 </div>
                 <div class="col-md-6">
                     <asp:Label runat="server" AssociatedControlID="tboxStateControlledSubstancesCertificateExpirationDate" Text="Expiration Date:" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxStateControlledSubstancesCertificateExpirationDate" ClientIDMode="Static"/>
+                    <asp:TextBox runat="server" ID="tboxStateControlledSubstancesCertificateExpirationDate" ClientIDMode="Static" CssClass="datepicker-default"/>
                 </div>
             </div>
 
@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-md-6">
                     <asp:Label runat="server" AssociatedControlID="tboxECFMGNumberIssueDate" Text="Date Issued:" EnableViewState="False"/>
-                    <asp:TextBox runat="server" ID="tboxECFMGNumberIssueDate" ClientIDMode="Static"/>
+                    <asp:TextBox runat="server" ID="tboxECFMGNumberIssueDate" ClientIDMode="Static" CssClass="datepicker-default"/>
                 </div>
             </div>
 
