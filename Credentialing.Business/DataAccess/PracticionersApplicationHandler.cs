@@ -53,6 +53,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.IdentifyingInformationId = reader[Constants.PracticionerApplicationColumns.IdentifyingInformationId] as int?;
                         retVal.InternshipId = reader[Constants.PracticionerApplicationColumns.InternshipId] as int?;
                         retVal.MedicalProfessionalEducationId = reader[Constants.PracticionerApplicationColumns.MedicalProfessionalEducationId] as int?;
+                        retVal.MedicalProfessionalLicensureRegistrationId = reader[Constants.PracticionerApplicationColumns.MedicalProfessionalLicensureRegistrationsId] as int?;
                         retVal.OtherCertificationId = reader[Constants.PracticionerApplicationColumns.OtherCertificationsId] as int?;
                         retVal.OtherStateMedicalProfessionalLicenseId = reader[Constants.PracticionerApplicationColumns.OtherStateMedicalProfessionalLicensesId] as int?;
                         retVal.PeerReferenceId = reader[Constants.PracticionerApplicationColumns.PeerReferencesId] as int?;

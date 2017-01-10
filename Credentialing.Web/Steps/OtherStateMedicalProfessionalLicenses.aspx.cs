@@ -24,7 +24,7 @@ namespace Credentialing.Web.Steps
             {
                 var data = LoadUserData();
 
-                //LoadFormData(data);
+                LoadFormData(data);
             }
         }
 
@@ -113,6 +113,8 @@ namespace Credentialing.Web.Steps
 
         private void LoadFormData(Entities.Data.OtherStateMedicalProfessionalLicenses data)
         {
+            if (data == null) return;
+            
             tboxPrimaryState.Text = data.PrimaryState;
             tboxPrimaryLicenseNumber.Text = data.PrimaryLicenseNumber;
             tboxPrimaryExpirationDate.Text = data.PrimaryExpirationDate.HasValue ? data.PrimaryExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;

@@ -24,7 +24,7 @@ namespace Credentialing.Web.Steps
             {
                 var data = LoadUserData();
 
-                //LoadFormData(data);
+                LoadFormData(data);
             }
         }
 
@@ -42,7 +42,7 @@ namespace Credentialing.Web.Steps
         {
             if (ValidateFields())
             {
-                //SaveFormData();
+                SaveFormData();
                 Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
                 Response.End();
             }
@@ -95,6 +95,8 @@ namespace Credentialing.Web.Steps
 
         private void LoadFormData(Entities.Data.MedicalProfessionalLicensureRegistrations data)
         {
+            if (data == null) return;
+
             tboxPrimaryStateMedicalLicenseNumber.Text = data.PrimaryStateMedicalLicenseNumber;
             tboxIssueDate.Text = data.PrimaryStateMedicalLicenseIssueDate == null ? string.Empty : data.PrimaryStateMedicalLicenseIssueDate.Value.ToString(Constants.DateFormats.FullDateFormat);
             tboxPrimaryStateMedicalLicenseExpirationDate.Text = data.PrimaryStateMedicalLicenseExpirationDate == null ? string.Empty : data.PrimaryStateMedicalLicenseExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat);
