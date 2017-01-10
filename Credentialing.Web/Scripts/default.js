@@ -71,6 +71,7 @@ $(function () {
 		$('.datepicker-default').each(function (idx, element) {
 			new Pikaday({
 				field: element,
+				reposition: false,
 				format: moment().format('MM/DD/YYYY'),
 				firstDay: 1,
 				onSelect: function (date) {
@@ -92,6 +93,7 @@ $(function () {
 		$('.datepicker-monthly').each(function (idx, element) {
 			new Pikaday({
 				field: element,
+				reposition: false,
 				format: 'MM/YY',
 				firstDay: 1,
 				onOpen: function () {
