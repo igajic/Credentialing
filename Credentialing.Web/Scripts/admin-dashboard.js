@@ -9,8 +9,11 @@ function drawChart() {
         slices: {
             0: { color: '#6cb31d' },
             1: { color: '#ffd500' },
-            2: { color: '#be0909' },
-        }
+            2: { color: '#f30e34' }
+        },
+	    pieSliceTextStyle: {
+		    color: 'black'
+	    }
     };
 
 	var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -69,14 +72,14 @@ function getUserDashboardContent(username) {
 								'</div>');
 			});
 			var contentBefore = '<div class="form-block">' +
-									'<h1>' + username + ' dashboard</h1>' +
+									'<h1>' + username + ' Dashboard</h1>' +
 									'<div class="dashboard-progress">' +
 										'<div class="row hidden-sm-down">' +
 											'<div class="col-md-6">' +
 												'<h5>Step</h5>' +
 											'</div>' +
 											'<div class="col-md-6">' +
-												'<h5 class="centered">Percentage</h5>' +
+												'<h5 class="centered">Progress</h5>' +
 											'</div>' +
 										'</div>';
 			var contentRepeat = returnContent.join('');

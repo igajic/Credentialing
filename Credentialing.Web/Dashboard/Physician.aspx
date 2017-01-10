@@ -2,7 +2,7 @@
 
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
 	<div class="form-block">
-		<h1>My dashboard</h1>
+		<h1>My Dashboard</h1>
 		<asp:Repeater runat="server" ID="rptSteps">
 			<HeaderTemplate>
 			<div class="dashboard-progress">

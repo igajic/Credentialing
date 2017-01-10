@@ -8,7 +8,7 @@
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
 
 	<div class="form-block">
-		<h1>Administrator dashboard</h1>
+		<h1>Administrator Dashboard</h1>
 		<asp:Repeater runat="server" ID="rptUsers">
 			<HeaderTemplate>
 			<div class="dashboard-progress admin-dashboard js-open-user-dashboard">
