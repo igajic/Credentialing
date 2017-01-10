@@ -27,6 +27,11 @@ textarea {
 	}
 }
 
+textarea {
+	height: 100px;
+	padding: 10px 15px;
+}
+
 label,
 .label {
 	font-family: $font-serif;

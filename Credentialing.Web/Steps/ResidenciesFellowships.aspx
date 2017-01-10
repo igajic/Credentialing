@@ -218,7 +218,16 @@
 				<span class="form-description">(If "No", please explain on separate sheet.)</span>
 			</div>
 		</div>
-        <asp:FileUpload runat="server" ID="fuResidencies" AllowMultiple="True"/>
+        <div class="row">
+			<div class="col-md-6">
+				<asp:Label runat="server" Text="Attach additional sheets if necessary" CssClass="label" />
+				<div class="file-upload">
+					<asp:FileUpload runat="server" ID="fuResidencies" AllowMultiple="True"/>
+					<span class="temp-filename"></span>
+					<span class="upload-file-btn"><i class="ico"></i></span>
+				</div>
+			</div>
+		</div>
         <hr/>
 	    <uc:Attachments ID="ucAttachments" runat="server" EnableViewState="False"/>
 	</div>

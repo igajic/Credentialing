@@ -7,9 +7,9 @@ function drawChart() {
     var options = {
         title: 'Physician overview',
         slices: {
-            0: { color: 'green' },
-            1: { color: 'yellow' },
-            2: { color: 'red' },
+            0: { color: '#6cb31d' },
+            1: { color: '#ffd500' },
+            2: { color: '#be0909' },
         }
     };
 

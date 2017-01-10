@@ -52,7 +52,9 @@
 		float: left;
 	}
 	.register-user {
-		margin-top: 10px;
+		margin-top: 8px;
+		font-size: 18px;
+		font-weight: 700;
 		color: $secondary;
 		float: left;
 		&:hover {
@@ -151,12 +153,26 @@
 			top: 0;
 			left: 0;
 			border-radius: 2px;
-			background-color: $green;
 			background-image: linear-gradient(-45deg,rgba(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.15) 75%, transparent 75%, transparent);
 			background-size: 40px 40px;
 			transition: width 1s ease-in;
 			z-index: 5;
 			display: block;
+		}
+		&.red {
+			.progress-bar {
+				background-color: $quaternary;
+			}
+		}
+		&.yellow {
+			.progress-bar {
+				background-color: $yellow;
+			}
+		}
+		&.green {
+			.progress-bar {
+				background-color: $green;
+			}
 		}
 	}
 	&.admin-dashboard {
@@ -239,5 +255,11 @@
 		svg > rect {
 			fill: none;
 		}
+	}
+}
+
+.md-margin-bot {
+	@include media-breakpoint-only(md) {
+		margin-bottom: 15px;
 	}
 }
