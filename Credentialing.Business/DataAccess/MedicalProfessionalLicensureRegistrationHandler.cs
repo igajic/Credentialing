@@ -72,6 +72,11 @@ namespace Credentialing.Business.DataAccess
                 }
             }
 
+            if (deepLoad && retVal != null)
+            {
+                retVal.Attachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "MedicalProfessionalLicensureRegistrationsId", retVal.MedicalProfessionalLicensureRegistrationsId);
+            }
+
             return retVal;
         }
 

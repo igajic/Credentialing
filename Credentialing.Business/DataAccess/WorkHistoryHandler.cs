@@ -86,7 +86,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.TertiaryStartDate = Convert.IsDBNull(reader[Constants.WorkHistoriesColumns.TertiaryStartDate]) ? null : (DateTime?)reader[Constants.WorkHistoriesColumns.TertiaryStartDate];
                         retVal.TertiaryEndDate = Convert.IsDBNull(reader[Constants.WorkHistoriesColumns.TertiaryEndDate]) ? null : (DateTime?)reader[Constants.WorkHistoriesColumns.TertiaryEndDate];
 
-                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.WorkHistoriesColumns.Completed]) ? null : (bool?)reader[Constants.WorkHistoriesColumns.Completed];
                         retVal.Explanation = reader[Constants.WorkHistoriesColumns.Explanation] as string;
                     }
                 }

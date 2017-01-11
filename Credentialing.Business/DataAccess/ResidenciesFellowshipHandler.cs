@@ -89,7 +89,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.TertiaryTo = Convert.IsDBNull(reader[Constants.ResidenciesFellowshipsColumns.TertiaryTo]) ? null : (DateTime?)reader[Constants.ResidenciesFellowshipsColumns.TertiaryTo];
                         retVal.TertiaryCompleted = Convert.IsDBNull(reader[Constants.ResidenciesFellowshipsColumns.TertiaryCompleted]) ? null: (bool?)reader[Constants.ResidenciesFellowshipsColumns.TertiaryCompleted];
 
-                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.ResidenciesFellowshipsColumns.Completed]) ? null : (bool?)reader[Constants.ResidenciesFellowshipsColumns.Completed];
                     }
                 }
             }

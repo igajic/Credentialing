@@ -75,7 +75,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.TertiaryState = reader[Constants.PeerReferencesColumns.TertiaryState] as string;
                         retVal.TertiaryZip = reader[Constants.PeerReferencesColumns.TertiaryZip] as string;
 
-                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.PeerReferencesColumns.Completed]) ? null : (bool?)reader[Constants.PeerReferencesColumns.Completed];
                     }
                 }
             }

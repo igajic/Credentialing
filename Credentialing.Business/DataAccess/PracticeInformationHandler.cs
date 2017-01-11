@@ -83,7 +83,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.TertiaryOfficeNameAffiliatedWithTaxIdNumber = reader[Constants.PracticeInformationColumns.TertiaryOfficeNameAffiliatedWithTaxIdNumber] as string;
                         retVal.TertiaryOfficeFederalTaxIdNumber = reader[Constants.PracticeInformationColumns.TertiaryOfficeFederalTaxIdNumber] as string;
 
-                        retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
+                        retVal.Completed = Convert.IsDBNull(reader[Constants.PracticeInformationColumns.Completed]) ? null : (bool?)reader[Constants.PracticeInformationColumns.Completed];
                     }
                 }
             }

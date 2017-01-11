@@ -34,9 +34,9 @@ namespace Credentialing.Business.DataAccess
             CurrentHospitalInstitutionalAffiliations retVal = null;
 
             var sqlCommand = new SqlCommand(@"SELECT *
-                                                  FROM BoardCertifications
-                                                  WHERE BoardCertificationId = @boardCertificationId", conn);
-            sqlCommand.Parameters.AddWithValue("@identifyingInformationId", currentHospitalInstitutionalAffiliationsId);
+                                                  FROM CurrentHospitalInstitutionalAffiliations
+                                                  WHERE CurrentHospitalInstitutionalAffiliationsId = @currentHospitalInstitutionalAffiliationsId", conn);
+            sqlCommand.Parameters.AddWithValue("@currentHospitalInstitutionalAffiliationsId", currentHospitalInstitutionalAffiliationsId);
             if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
@@ -80,6 +80,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.PreviousPrimaryZip = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousPrimaryZip] as string;
                         retVal.PreviousPrimaryDepartmentStatus = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousPrimaryDepartmentStatus] as string;
                         retVal.PreviousPrimaryAppointmentDate = Convert.IsDBNull(reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousPrimaryAppointmentDate]) ? null : (DateTime?)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousPrimaryAppointmentDate];
+                        retVal.PreviousPrimaryAppointmentDateTo = Convert.IsDBNull(reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousPrimaryAppointmentDateTo]) ? null : (DateTime?)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousPrimaryAppointmentDateTo];
 
                         retVal.PreviousSecondaryAdmittingHospital = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousSecondaryAdmittingHospital] as string;
                         retVal.PreviousSecondaryCity = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousSecondaryCity] as string;
@@ -87,6 +88,7 @@ namespace Credentialing.Business.DataAccess
                         retVal.PreviousSecondaryZip = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousSecondaryZip] as string;
                         retVal.PreviousSecondaryDepartmentStatus = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousSecondaryDepartmentStatus] as string;
                         retVal.PreviousSecondaryAppointmentDate = Convert.IsDBNull(reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousSecondaryAppointmentDate]) ? null : (DateTime?)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousSecondaryAppointmentDate];
+                        retVal.PreviousSecondaryAppointmentDateTo = Convert.IsDBNull(reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousSecondaryAppointmentDateTo]) ? null : (DateTime?)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousSecondaryAppointmentDateTo];
 
                         retVal.PreviousTertiaryAdmittingHospital = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousTertiaryAdmittingHospital] as string;
                         retVal.PreviousTertiaryCity = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousTertiaryCity] as string;
@@ -94,6 +96,8 @@ namespace Credentialing.Business.DataAccess
                         retVal.PreviousTertiaryZip = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousTertiaryZip] as string;
                         retVal.PreviousTertiaryDepartmentStatus = reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousTertiaryDepartmentStatus] as string;
                         retVal.PreviousTertiaryAppointmentDate = Convert.IsDBNull(reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousTertiaryAppointmentDate]) ? null : (DateTime?)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousTertiaryAppointmentDate];
+                        retVal.PreviousTertiaryAppointmentDateTo = Convert.IsDBNull(reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousTertiaryAppointmentDateTo]) ? null : (DateTime?)reader[Constants.CurrentHospitalInstitutionalAffiliationsColumns.PreviousTertiaryAppointmentDateTo];
+
                         retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
                     }
                 }
@@ -117,10 +121,100 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, CurrentHospitalInstitutionalAffiliations info)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO CurrentHospitalInstitutionalAffiliations
-                                                    (CurrentPrimaryAdmittingHospital, CurrentPrimaryCity, CurrentPrimaryState, CurrentPrimaryZip, CurrentPrimaryDepartmentStatus, CurrentPrimaryAppointmentDate, CurrentSecondaryAdmittingHospital, CurrentSecondaryCity, CurrentSecondaryState, CurrentSecondaryZip, CurrentSecondaryDepartmentStatus, CurrentSecondaryAppointmentDate, CurrentTertiaryAdmittingHospital, CurrentTertiaryCity, CurrentTertiaryState, CurrentTertiaryZip, CurrentTertiaryDepartmentStatus, CurrentTertiaryAppointmentDate, PreviousPrimaryAdmittingHospital, PreviousPrimaryCity, PreviousPrimaryState, PreviousPrimaryZip, PreviousPrimaryDepartmentStatus, PreviousPrimaryAppointmentDate, PreviousSecondaryAdmittingHospital, PreviousSecondaryCity, PreviousSecondaryState, PreviousSecondaryZip, PreviousSecondaryDepartmentStatus, PreviousSecondaryAppointmentDate, PreviousTertiaryAdmittingHospital, PreviousTertiaryCity, PreviousTertiaryState, PreviousTertiaryZip, PreviousTertiaryDepartmentStatus, PreviousTertiaryAppointmentDate, Completed)
+                                                    (CurrentPrimaryAdmittingHospital,
+                                                     CurrentPrimaryCity,
+                                                     CurrentPrimaryState, 
+                                                     CurrentPrimaryZip, 
+                                                     CurrentPrimaryDepartmentStatus, 
+                                                     CurrentPrimaryAppointmentDate, 
+
+                                                     CurrentSecondaryAdmittingHospital, 
+                                                     CurrentSecondaryCity, 
+                                                     CurrentSecondaryState, 
+                                                     CurrentSecondaryZip, 
+                                                     CurrentSecondaryDepartmentStatus, 
+                                                     CurrentSecondaryAppointmentDate, 
+
+                                                     CurrentTertiaryAdmittingHospital, 
+                                                     CurrentTertiaryCity, 
+                                                     CurrentTertiaryState, 
+                                                     CurrentTertiaryZip, 
+                                                     CurrentTertiaryDepartmentStatus, 
+                                                     CurrentTertiaryAppointmentDate, 
+
+                                                     PreviousPrimaryAdmittingHospital, 
+                                                     PreviousPrimaryCity, 
+                                                     PreviousPrimaryState, 
+                                                     PreviousPrimaryZip, 
+                                                     PreviousPrimaryDepartmentStatus, 
+                                                     PreviousPrimaryAppointmentDate, 
+                                                     PreviousPrimaryAppointmentDateTo, 
+
+                                                     PreviousSecondaryAdmittingHospital, 
+                                                     PreviousSecondaryCity, 
+                                                     PreviousSecondaryState, 
+                                                     PreviousSecondaryZip, 
+                                                     PreviousSecondaryDepartmentStatus, 
+                                                     PreviousSecondaryAppointmentDate, 
+                                                     PreviousSecondaryAppointmentDateTo, 
+
+                                                     PreviousTertiaryAdmittingHospital, 
+                                                     PreviousTertiaryCity, 
+                                                     PreviousTertiaryState, 
+                                                     PreviousTertiaryZip, 
+                                                     PreviousTertiaryDepartmentStatus, 
+                                                     PreviousTertiaryAppointmentDate, 
+                                                     PreviousTertiaryAppointmentDateTo, 
+
+                                                     Completed)
+
                                                     OUTPUT INSERTED.CurrentHospitalInstitutionalAffiliationsId
+
                                                     VALUES
-                                                    (@currentPrimaryAdmittingHospital, @currentPrimaryCity, @currentPrimaryState, @currentPrimaryZip, @currentPrimaryDepartmentStatus, @currentPrimaryAppointmentDate, @currentSecondaryAdmittingHospital, @currentSecondaryCity, @currentSecondaryState, @currentSecondaryZip, @currentSecondaryDepartmentStatus, @currentSecondaryAppointmentDate, @currentTertiaryAdmittingHospital, @currentTertiaryCity, @currentTertiaryState, @currentTertiaryZip, @currentTertiaryDepartmentStatus, @currentTertiaryAppointmentDate, @previousPrimaryAdmittingHospital, @previousPrimaryCity, @previousPrimaryState, @previousPrimaryZip, @previousPrimaryDepartmentStatus, @previousPrimaryAppointmentDate, @previousSecondaryAdmittingHospital, @previousSecondaryCity, @previousSecondaryState, @previousSecondaryZip, @previousSecondaryDepartmentStatus, @previousSecondaryAppointmentDate, @previousTertiaryAdmittingHospital, @previousTertiaryCity, @previousTertiaryState, @previousTertiaryZip, @previousTertiaryDepartmentStatus, @previousTertiaryAppointmentDate, @completed)", conn);
+                                                    (@currentPrimaryAdmittingHospital, 
+                                                     @currentPrimaryCity, 
+                                                     @currentPrimaryState, 
+                                                     @currentPrimaryZip, 
+                                                     @currentPrimaryDepartmentStatus, 
+                                                     @currentPrimaryAppointmentDate, 
+                                                     @currentSecondaryAdmittingHospital, 
+                                                     @currentSecondaryCity, 
+                                                     @currentSecondaryState, 
+                                                     @currentSecondaryZip, 
+                                                     @currentSecondaryDepartmentStatus, 
+                                                     @currentSecondaryAppointmentDate, 
+                                                     @currentTertiaryAdmittingHospital, 
+                                                     @currentTertiaryCity, 
+                                                     @currentTertiaryState, 
+                                                     @currentTertiaryZip, 
+                                                     @currentTertiaryDepartmentStatus, 
+                                                     @currentTertiaryAppointmentDate, 
+
+                                                     @previousPrimaryAdmittingHospital, 
+                                                     @previousPrimaryCity, 
+                                                     @previousPrimaryState, 
+                                                     @previousPrimaryZip, 
+                                                     @previousPrimaryDepartmentStatus, 
+                                                     @previousPrimaryAppointmentDate, 
+                                                     @previousPrimaryAppointmentDateTo,
+
+                                                     @previousSecondaryAdmittingHospital, 
+                                                     @previousSecondaryCity, 
+                                                     @previousSecondaryState, 
+                                                     @previousSecondaryZip, 
+                                                     @previousSecondaryDepartmentStatus, 
+                                                     @previousSecondaryAppointmentDate, 
+                                                     @previousSecondaryAppointmentDateTo, 
+
+                                                     @previousTertiaryAdmittingHospital, 
+                                                     @previousTertiaryCity, 
+                                                     @previousTertiaryState, 
+                                                     @previousTertiaryZip, 
+                                                     @previousTertiaryDepartmentStatus, 
+                                                     @previousTertiaryAppointmentDate, 
+                                                     @previousTertiaryAppointmentDateTo, 
+
+                                                     @completed)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
             if (conn.State != ConnectionState.Open)
             {
@@ -155,6 +249,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@previousPrimaryZip", info.PreviousPrimaryZip);
             sqlCommand.Parameters.AddWithValue("@previousPrimaryDepartmentStatus", info.PreviousPrimaryDepartmentStatus);
             sqlCommand.Parameters.AddWithValue("@previousPrimaryAppointmentDate", info.PreviousPrimaryAppointmentDate);
+            sqlCommand.Parameters.AddWithValue("@previousPrimaryAppointmentDateTo", info.PreviousPrimaryAppointmentDateTo);
 
             sqlCommand.Parameters.AddWithValue("@previousSecondaryAdmittingHospital", info.PreviousSecondaryAdmittingHospital);
             sqlCommand.Parameters.AddWithValue("@previousSecondaryCity", info.PreviousSecondaryCity);
@@ -162,6 +257,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@previousSecondaryZip", info.PreviousSecondaryZip);
             sqlCommand.Parameters.AddWithValue("@previousSecondaryDepartmentStatus", info.PreviousSecondaryDepartmentStatus);
             sqlCommand.Parameters.AddWithValue("@previousSecondaryAppointmentDate", info.PreviousSecondaryAppointmentDate);
+            sqlCommand.Parameters.AddWithValue("@previousSecondaryAppointmentDateTo", info.PreviousSecondaryAppointmentDateTo);
 
             sqlCommand.Parameters.AddWithValue("@previousTertiaryAdmittingHospital", info.PreviousTertiaryAdmittingHospital);
             sqlCommand.Parameters.AddWithValue("@previousTertiaryCity", info.PreviousTertiaryCity);
@@ -169,6 +265,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@previousTertiaryZip", info.PreviousTertiaryZip);
             sqlCommand.Parameters.AddWithValue("@previousTertiaryDepartmentStatus", info.PreviousTertiaryDepartmentStatus);
             sqlCommand.Parameters.AddWithValue("@previousTertiaryAppointmentDate", info.PreviousTertiaryAppointmentDate);
+            sqlCommand.Parameters.AddWithValue("@previousTertiaryAppointmentDateTo", info.PreviousTertiaryAppointmentDateTo);
 
             sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
@@ -179,9 +276,6 @@ namespace Credentialing.Business.DataAccess
 
             return (int)sqlCommand.ExecuteScalar();
         }
-
-
-
 
         public void Update(CurrentHospitalInstitutionalAffiliations info)
         {
@@ -223,6 +317,7 @@ namespace Credentialing.Business.DataAccess
                                                     PreviousPrimaryZip = @previousPrimaryZip ,
                                                     PreviousPrimaryDepartmentStatus = @previousPrimaryDepartmentStatus, 
                                                     PreviousPrimaryAppointmentDate = @previousPrimaryAppointmentDate, 
+                                                    PreviousPrimaryAppointmentDateTo = @previousPrimaryAppointmentDateTo, 
 
                                                     PreviousSecondaryAdmittingHospital = @previousSecondaryAdmittingHospital, 
                                                     PreviousSecondaryCity = @previousSecondaryCity, 
@@ -230,13 +325,17 @@ namespace Credentialing.Business.DataAccess
                                                     PreviousSecondaryZip = @previousSecondaryZip, 
                                                     PreviousSecondaryDepartmentStatus =  @previousSecondaryDepartmentStatus, 
                                                     PreviousSecondaryAppointmentDate = @previousSecondaryAppointmentDate, 
+                                                    PreviousSecondaryAppointmentDateTo = @previousSecondaryAppointmentDateTo, 
 
                                                     PreviousTertiaryAdmittingHospital = @previousTertiaryAdmittingHospital, 
                                                     PreviousTertiaryCity = @previousTertiaryCity , 
                                                     PreviousTertiaryState = @previousTertiaryState, 
                                                     PreviousTertiaryZip = @previousTertiaryZip, 
                                                     PreviousTertiaryDepartmentStatus =  @previousTertiaryDepartmentStatus, 
-                                                    PreviousTertiaryAppointmentDate = @previousTertiaryAppointmentDate
+                                                    PreviousTertiaryAppointmentDate = @previousTertiaryAppointmentDate,
+                                                    PreviousTertiaryAppointmentDateTo = @previousTertiaryAppointmentDateTo,
+
+                                                    Completed = @completed
 
                                                 WHERE CurrentHospitalInstitutionalAffiliationsId = @currentHospitalInstitutionalAffiliationsId
                                                     ", conn);
@@ -276,6 +375,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@previousPrimaryZip", info.PreviousPrimaryZip);
             sqlCommand.Parameters.AddWithValue("@previousPrimaryDepartmentStatus", info.PreviousPrimaryDepartmentStatus);
             sqlCommand.Parameters.AddWithValue("@previousPrimaryAppointmentDate", info.PreviousPrimaryAppointmentDate);
+            sqlCommand.Parameters.AddWithValue("@previousPrimaryAppointmentDateTo", info.PreviousPrimaryAppointmentDateTo);
 
             sqlCommand.Parameters.AddWithValue("@previousSecondaryAdmittingHospital", info.PreviousSecondaryAdmittingHospital);
             sqlCommand.Parameters.AddWithValue("@previousSecondaryCity", info.PreviousSecondaryCity);
@@ -283,6 +383,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@previousSecondaryZip", info.PreviousSecondaryZip);
             sqlCommand.Parameters.AddWithValue("@previousSecondaryDepartmentStatus", info.PreviousSecondaryDepartmentStatus);
             sqlCommand.Parameters.AddWithValue("@previousSecondaryAppointmentDate", info.PreviousSecondaryAppointmentDate);
+            sqlCommand.Parameters.AddWithValue("@previousSecondaryAppointmentDateTo", info.PreviousSecondaryAppointmentDateTo);
 
             sqlCommand.Parameters.AddWithValue("@previousTertiaryAdmittingHospital", info.PreviousTertiaryAdmittingHospital);
             sqlCommand.Parameters.AddWithValue("@previousTertiaryCity", info.PreviousTertiaryCity);
@@ -290,6 +391,9 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@previousTertiaryZip", info.PreviousTertiaryZip);
             sqlCommand.Parameters.AddWithValue("@previousTertiaryDepartmentStatus", info.PreviousTertiaryDepartmentStatus);
             sqlCommand.Parameters.AddWithValue("@previousTertiaryAppointmentDate", info.PreviousTertiaryAppointmentDate);
+            sqlCommand.Parameters.AddWithValue("@previousTertiaryAppointmentDateTo", info.PreviousTertiaryAppointmentDateTo);
+
+            sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {

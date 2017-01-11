@@ -719,6 +719,22 @@ namespace Credentialing.Business.DataAccess
                         MedicalProfessionalLicensureRegistrationHandler.Instance.Update(conn, trans, formData);
                     }
 
+
+                    if (formData.Attachments.Count > 0)
+                    {
+                        var existingAttachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "MedicalProfessionalLicensureRegistrationsId", formData.MedicalProfessionalLicensureRegistrationsId);
+                        foreach (var attachment in existingAttachments)
+                        {
+                            AttachmentHandler.Instance.Delete(conn, trans, attachment.AttachmentId);
+                        }
+
+                        foreach (var attachment in formData.Attachments)
+                        {
+                            attachment.MedicalProfessionalLicensureRegistrationsId = physicianFormData.MedicalProfessionalLicensureRegistrationId;
+                            AttachmentHandler.Instance.Insert(conn, trans, attachment);
+                        }
+                    }
+
                     trans.Commit();
                 }
                 catch (Exception ex)
@@ -748,7 +764,7 @@ namespace Credentialing.Business.DataAccess
                     if (!physicianFormData.OtherStateMedicalProfessionalLicenseId.HasValue)
                     {
                         var id = OtherStateMedicalProfessionalLicensesHandler.Instance.Insert(conn, trans, formData);
-                        physicianFormData.ProfessionalLiabilityId = id;
+                        physicianFormData.OtherStateMedicalProfessionalLicenseId = id;
 
                         Update(conn, trans, physicianFormData);
                     }
@@ -756,6 +772,22 @@ namespace Credentialing.Business.DataAccess
                     {
                         formData.OtherStateMedicalProfessionalLicensesId = physicianFormData.OtherStateMedicalProfessionalLicenseId.Value;
                         OtherStateMedicalProfessionalLicensesHandler.Instance.Update(conn, trans, formData);
+                    }
+
+
+                    if (formData.Attachments.Count > 0)
+                    {
+                        var existingAttachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "OtherStateMedicalProfessionalLicensesId", formData.OtherStateMedicalProfessionalLicensesId);
+                        foreach (var attachment in existingAttachments)
+                        {
+                            AttachmentHandler.Instance.Delete(conn, trans, attachment.AttachmentId);
+                        }
+
+                        foreach (var attachment in formData.Attachments)
+                        {
+                            attachment.OtherStateMedicalProfessionalLicensesId = physicianFormData.OtherStateMedicalProfessionalLicenseId;
+                            AttachmentHandler.Instance.Insert(conn, trans, attachment);
+                        }
                     }
 
                     trans.Commit();
@@ -822,6 +854,17 @@ namespace Credentialing.Business.DataAccess
                 var trans = conn.BeginTransaction();
                 try
                 {
+                    if (formData.Attachment != null)
+                    {
+                        if (formData.AttachmentId.HasValue && formData.Attachment.AttachmentId == 0)
+                        {
+                            AttachmentHandler.Instance.Delete(conn, trans, formData.AttachmentId.Value); // delete existing
+                        }
+
+                        var id = AttachmentHandler.Instance.Insert(conn, trans, formData.Attachment); // add new
+                        formData.AttachmentId = id;
+                    }
+
                     var physicianFormData = GetByUserId(conn, trans, userId);
                     if (!physicianFormData.ProfessionalLiabilityId.HasValue)
                     {
@@ -901,7 +944,7 @@ namespace Credentialing.Business.DataAccess
                 try
                 {
                     var physicianFormData = GetByUserId(conn, trans, userId);
-                    if (!physicianFormData.WorkHistoryId.HasValue)
+                    if (!physicianFormData.CurrentHospitalInstitutionalAffiliationId.HasValue)
                     {
                         var id = CurrentHospitalInstitutionalAffiliationsHandler.Instance.Insert(conn, trans, formData);
                         physicianFormData.CurrentHospitalInstitutionalAffiliationId = id;
@@ -910,7 +953,7 @@ namespace Credentialing.Business.DataAccess
                     }
                     else
                     {
-                        formData.CurrentHospitalInstitutionalAffiliationsId = physicianFormData.WorkHistoryId.Value;
+                        formData.CurrentHospitalInstitutionalAffiliationsId = physicianFormData.CurrentHospitalInstitutionalAffiliationId.Value;
                         CurrentHospitalInstitutionalAffiliationsHandler.Instance.Update(conn, trans, formData);
                     }
 
