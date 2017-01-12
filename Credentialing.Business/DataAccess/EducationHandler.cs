@@ -68,7 +68,7 @@ namespace Credentialing.Business.DataAccess
 
             if (deepLoad && retVal != null)
             {
-                retVal.AttachedDocuments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "EducationId", retVal.EducationId);
+                retVal.Attachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "EducationId", retVal.EducationId);
             }
 
             return retVal;

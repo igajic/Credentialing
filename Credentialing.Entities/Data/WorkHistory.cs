@@ -7,6 +7,7 @@ namespace Credentialing.Entities.Data
     {
         public WorkHistory()
         {
+            Attachments = new List<Attachment>();
         }
 
         public int WorkHistoryId { get; set; }

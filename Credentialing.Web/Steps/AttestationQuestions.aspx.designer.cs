@@ -274,6 +274,15 @@ namespace Credentialing.Web.Steps {
         protected global::System.Web.UI.WebControls.RadioButton rbtnQuestionMNo;
         
         /// <summary>
+        /// pnlDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlDetails;
+        
+        /// <summary>
         /// tboxDetails control.
         /// </summary>
         /// <remarks>

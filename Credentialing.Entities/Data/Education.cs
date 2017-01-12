@@ -7,7 +7,7 @@ namespace Credentialing.Entities.Data
     {
         public Education()
         {
-            AttachedDocuments = new List<Attachment>();
+            Attachments = new List<Attachment>();
         }
 
         public int EducationId { get; set; }
@@ -28,7 +28,7 @@ namespace Credentialing.Entities.Data
 
         public bool? Completed { get; set; }
 
-        public List<Attachment> AttachedDocuments { get; set; }
+        public List<Attachment> Attachments { get; set; }
 
         public int PercentComplete
         {

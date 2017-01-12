@@ -1,17 +1,16 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PeerReferences.aspx.cs" Inherits="Credentialing.Web.Steps.PeerReferences" MasterPageFile="../Main.Master" %>
 <%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
-    <h1>XIV. </h1>
+    <h1>XIV. PEER REFERENCES<</h1>
     <br />
     <br />
     <br />
     <br />
 
     <h1>Coming soon</h1>
-
-    <asp:Panel ID="Panel1" runat="server" Visible="false">
+    <asp:Panel ID="Panel1" runat="server" Visible="False">
 	    <asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
-	    <uc:SidebarProgress runat="server" CurrentStep="13" EnableViewState="false"/>
+	    <uc:SidebarProgress runat="server" CurrentStep="14" EnableViewState="false"/>
         
         <div class="form-block">
             <div class="form-heading">
@@ -20,15 +19,15 @@
             </div>
             
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <asp:Label runat="server" AssociatedControlID="tboxPrimaryNameReference" Text="Name of Reference:" EnableViewState="False" />
                     <asp:TextBox runat="server" ID="tboxPrimaryNameReference" ClientIDMode="Static" />
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <asp:Label runat="server" AssociatedControlID="tboxPrimarySpecialty" Text="Specialty:" EnableViewState="False" />
                     <asp:TextBox runat="server" ID="tboxPrimarySpecialty" ClientIDMode="Static" />
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <asp:Label runat="server" AssociatedControlID="tboxPrimaryTelephoneNumber" Text="Telephone Number:" EnableViewState="False" />
                     <asp:TextBox runat="server" ID="tboxPrimaryTelephoneNumber" ClientIDMode="Static" />
                 </div>

@@ -79,7 +79,7 @@ namespace Credentialing.Web.Steps
             tboxMailingState.Text = data.MailingState;
             tboxMailingZip.Text = data.MailingZip;
 
-            ucAttachments.Attachments = data.AttachedDocuments;
+            ucAttachments.Attachments = data.Attachments;
         }
 
         private void SaveFormData()
@@ -109,7 +109,7 @@ namespace Credentialing.Web.Steps
                         attachment.Content = ms.ToArray();
                     }
 
-                    formData.AttachedDocuments.Add(attachment);
+                    formData.Attachments.Add(attachment);
                 }
             }
 

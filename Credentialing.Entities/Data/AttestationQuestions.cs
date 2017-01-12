@@ -6,6 +6,7 @@ namespace Credentialing.Entities.Data
     {
         public AttestationQuestions()
         {
+            Attachments = new List<Attachment>();
         }
 
         public int AttestationQuestionsId { get; set; }
@@ -38,7 +39,9 @@ namespace Credentialing.Entities.Data
 
         public bool? Completed { get; set; }
 
-        public virtual ICollection<Attachment> AdditionalSheets { get; set; }
+        public string AdditionalDetails { get; set; }
+
+        public virtual List<Attachment> Attachments { get; set; }
 
         public virtual int PercentComplete
         {

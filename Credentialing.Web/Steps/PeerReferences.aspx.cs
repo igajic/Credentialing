@@ -21,7 +21,7 @@ namespace Credentialing.Web.Steps
             {
                 var data = LoadUserData();
 
-                //LoadFormData(data);
+                LoadFormData(data);
             }
         }
 
@@ -38,13 +38,13 @@ namespace Credentialing.Web.Steps
             {
                 var data = LoadUserData();
 
-                //LoadFormData(data);
+                LoadFormData(data);
             }
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            //SaveFormData();
+            SaveFormData();
             Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
             Response.End();
         }
@@ -59,7 +59,7 @@ namespace Credentialing.Web.Steps
 
                 StepsHelper.Instance.UpdateSteps(physicianFormData);
 
-                if (physicianFormData != null && physicianFormData.Education != null)
+                if (physicianFormData != null && physicianFormData.PeerReferences != null)
                 {
                     return physicianFormData.PeerReferences;
                 }

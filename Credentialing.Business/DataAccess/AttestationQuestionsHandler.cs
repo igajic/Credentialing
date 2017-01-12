@@ -67,13 +67,14 @@ namespace Credentialing.Business.DataAccess
                         retVal.QuestionL = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.QuestionL]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.QuestionL];
                         retVal.QuestionM = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.QuestionM]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.QuestionM];
                         retVal.Completed = Convert.IsDBNull(reader[Constants.AttestationQuestionsColumns.Completed]) ? null : (bool?)reader[Constants.AttestationQuestionsColumns.Completed];
+                        retVal.AdditionalDetails = reader[Constants.AttestationQuestionsColumns.AdditionalDetails] as string;
                     }
                 }
+            }
 
-                if (deepLoad && retVal != null)
-                {
-                    retVal.AdditionalSheets = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "AttestationQuestionsId", retVal.AttestationQuestionsId);
-                }
+            if (deepLoad && retVal != null)
+            {
+                retVal.Attachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "AttestationQuestionsId", retVal.AttestationQuestionsId);
             }
 
             return retVal;
@@ -94,10 +95,10 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, AttestationQuestions questions)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO AttestationQuestions
-                                                    (QuestionA, QuestionB, QuestionC, QuestionD, QuestionE, QuestionF, QuestionG, QuestionH, QuestionI, QuestionJ, QuestionK, QuestionL, QuestionM, Completed)
-                                                    OUTPUT INSERTED.BoardCertificationId
+                                                    (QuestionA, QuestionB, QuestionC, QuestionD, QuestionE, QuestionF, QuestionG, QuestionH, QuestionI, QuestionJ, QuestionK, QuestionL, QuestionM, Completed, AdditionalDetails)
+                                                    OUTPUT INSERTED.AttestationQuestionsId
                                                     VALUES
-                                                    (@questionA, @questionB, @questionC, @questionD, @questionE, @questionF, @questionG, @questionH, @questionI, @questionJ, @questionK, @questionL, @questionM, @completed)", conn);
+                                                    (@questionA, @questionB, @questionC, @questionD, @questionE, @questionF, @questionG, @questionH, @questionI, @questionJ, @questionK, @questionL, @questionM, @completed, @additionalDetails)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
             if (conn.State != ConnectionState.Open)
             {
@@ -118,6 +119,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@questionL", questions.QuestionL);
             sqlCommand.Parameters.AddWithValue("@questionM", questions.QuestionM);
             sqlCommand.Parameters.AddWithValue("@completed", questions.Completed);
+            sqlCommand.Parameters.AddWithValue("@additionalDetails", questions.AdditionalDetails);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {
@@ -152,8 +154,9 @@ namespace Credentialing.Business.DataAccess
                                                     QuestionK = @questionK,
                                                     QuestionL = @questionL,
                                                     QuestionM = @questionM,
-                                                    Completed = @completed
-                                                WHERE AttestationQuestions = @attestationQuestions", conn);
+                                                    Completed = @completed,
+                                                    AdditionalDetails = @additionalDetails
+                                                WHERE AttestationQuestionsId = @attestationQuestionsId", conn);
 
             if (trans != null) sqlCommand.Transaction = trans;
 
@@ -162,7 +165,7 @@ namespace Credentialing.Business.DataAccess
                 conn.Open();
             }
 
-            sqlCommand.Parameters.AddWithValue("@attestationQuestions", questions.AttestationQuestionsId);
+            sqlCommand.Parameters.AddWithValue("@attestationQuestionsId", questions.AttestationQuestionsId);
             sqlCommand.Parameters.AddWithValue("@questionA", questions.QuestionA);
             sqlCommand.Parameters.AddWithValue("@questionB", questions.QuestionB);
             sqlCommand.Parameters.AddWithValue("@questionC", questions.QuestionC);
@@ -177,6 +180,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@questionL", questions.QuestionL);
             sqlCommand.Parameters.AddWithValue("@questionM", questions.QuestionM);
             sqlCommand.Parameters.AddWithValue("@completed", questions.Completed);
+            sqlCommand.Parameters.AddWithValue("@additionalDetails", questions.AdditionalDetails);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {

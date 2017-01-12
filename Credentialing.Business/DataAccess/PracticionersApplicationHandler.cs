@@ -130,6 +130,11 @@ namespace Credentialing.Business.DataAccess
 
                 if (retVal.PeerReferenceId.HasValue)
                 {
+                    retVal.PeerReferences = PeerReferencesHandler.Instance.GetById(retVal.PeerReferenceId.Value, true);
+                }
+
+                if (retVal.WorkHistoryId.HasValue)
+                {
                     retVal.WorkHistory = WorkHistoryHandler.Instance.GetById(retVal.WorkHistoryId.Value, true);
                 }
 
@@ -334,7 +339,7 @@ namespace Credentialing.Business.DataAccess
                         Update(conn, trans, physicianFormData);
                     }
 
-                    if (formData.AttachedDocuments.Count > 0)
+                    if (formData.Attachments.Count > 0)
                     {
                         var existingAttachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "EducationId", formData.EducationId);
                         foreach (var attachment in existingAttachments)
@@ -342,7 +347,7 @@ namespace Credentialing.Business.DataAccess
                             AttachmentHandler.Instance.Delete(conn, trans, attachment.AttachmentId);
                         }
 
-                        foreach (var attachment in formData.AttachedDocuments)
+                        foreach (var attachment in formData.Attachments)
                         {
                             attachment.EducationId = physicianFormData.EducationId;
                             AttachmentHandler.Instance.Insert(conn, trans, attachment);
@@ -482,7 +487,6 @@ namespace Credentialing.Business.DataAccess
                         InternshipHandler.Instance.Update(conn, trans, formData);
                     }
 
-
                     if (formData.Attachments.Count > 0)
                     {
                         var existingAttachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "InternshipId", formData.InternshipId);
@@ -536,7 +540,6 @@ namespace Credentialing.Business.DataAccess
                         formData.ResidenciesFellowshipId = physicianFormData.ResidenciesFellowshipId.Value;
                         ResidenciesFellowshipHandler.Instance.Update(conn, trans, formData);
                     }
-
 
                     if (formData.Attachments.Count > 0)
                     {
@@ -667,7 +670,7 @@ namespace Credentialing.Business.DataAccess
                 try
                 {
                     var physicianFormData = GetByUserId(conn, trans, userId);
-                    if (!physicianFormData.OtherCertificationId.HasValue)
+                    if (!physicianFormData.AttestationQuestionId.HasValue)
                     {
                         var id = AttestationQuestionsHandler.Instance.Insert(conn, trans, formData);
                         physicianFormData.AttestationQuestionId = id;
@@ -678,6 +681,21 @@ namespace Credentialing.Business.DataAccess
                     {
                         formData.AttestationQuestionsId = physicianFormData.AttestationQuestionId.Value;
                         AttestationQuestionsHandler.Instance.Update(conn, trans, formData);
+                    }
+
+                    if (formData.Attachments.Count > 0)
+                    {
+                        var existingAttachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "AttestationQuestionsId", formData.AttestationQuestionsId);
+                        foreach (var attachment in existingAttachments)
+                        {
+                            AttachmentHandler.Instance.Delete(conn, trans, attachment.AttachmentId);
+                        }
+
+                        foreach (var attachment in formData.Attachments)
+                        {
+                            attachment.AttestationQuestionsId = physicianFormData.AttestationQuestionId;
+                            AttachmentHandler.Instance.Insert(conn, trans, attachment);
+                        }
                     }
 
                     trans.Commit();
@@ -718,7 +736,6 @@ namespace Credentialing.Business.DataAccess
                         formData.MedicalProfessionalLicensureRegistrationsId = physicianFormData.MedicalProfessionalLicensureRegistrationId.Value;
                         MedicalProfessionalLicensureRegistrationHandler.Instance.Update(conn, trans, formData);
                     }
-
 
                     if (formData.Attachments.Count > 0)
                     {
@@ -774,7 +791,6 @@ namespace Credentialing.Business.DataAccess
                         OtherStateMedicalProfessionalLicensesHandler.Instance.Update(conn, trans, formData);
                     }
 
-
                     if (formData.Attachments.Count > 0)
                     {
                         var existingAttachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "OtherStateMedicalProfessionalLicensesId", formData.OtherStateMedicalProfessionalLicensesId);
@@ -819,7 +835,7 @@ namespace Credentialing.Business.DataAccess
                     if (!physicianFormData.PeerReferenceId.HasValue)
                     {
                         var id = PeerReferencesHandler.Instance.Insert(conn, trans, formData);
-                        physicianFormData.ProfessionalLiabilityId = id;
+                        physicianFormData.PeerReferenceId = id;
 
                         Update(conn, trans, physicianFormData);
                     }
@@ -917,6 +933,20 @@ namespace Credentialing.Business.DataAccess
                         formData.WorkHistoryId = physicianFormData.WorkHistoryId.Value;
                         WorkHistoryHandler.Instance.Update(conn, trans, formData);
                     }
+                    if (formData.Attachments.Count > 0)
+                    {
+                        var existingAttachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "WorkHistoryId", formData.WorkHistoryId);
+                        foreach (var attachment in existingAttachments)
+                        {
+                            AttachmentHandler.Instance.Delete(conn, trans, attachment.AttachmentId);
+                        }
+
+                        foreach (var attachment in formData.Attachments)
+                        {
+                            attachment.WorkHistoryId = physicianFormData.WorkHistoryId;
+                            AttachmentHandler.Instance.Insert(conn, trans, attachment);
+                        }
+                    }
 
                     trans.Commit();
                 }
@@ -956,7 +986,6 @@ namespace Credentialing.Business.DataAccess
                         formData.CurrentHospitalInstitutionalAffiliationsId = physicianFormData.CurrentHospitalInstitutionalAffiliationId.Value;
                         CurrentHospitalInstitutionalAffiliationsHandler.Instance.Update(conn, trans, formData);
                     }
-
 
                     if (formData.Attachments.Count > 0)
                     {

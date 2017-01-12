@@ -10,7 +10,7 @@ namespace Credentialing.Web.Steps
 {
     public partial class WorkHistory : Page
     {
-        private const int CurrentStep = 13;
+        private const int CurrentStep = 14;
 
         #region [Protected methods]
 
@@ -24,7 +24,7 @@ namespace Credentialing.Web.Steps
             {
                 var data = LoadUserData();
 
-                //LoadFormData(data);
+                LoadFormData(data);
             }
         }
 
@@ -42,7 +42,7 @@ namespace Credentialing.Web.Steps
         {
             if (ValidateFields())
             {
-                //SaveFormData();
+                SaveFormData();
                 Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
                 Response.End();
             }
@@ -146,7 +146,7 @@ namespace Credentialing.Web.Steps
             data.TertiaryStartDate = DateHelper.ParseFullDate(tboxTertiaryStartDate.Text);
             data.TertiaryEndDate = DateHelper.ParseFullDate(tboxTertiaryEndDate.Text);
 
-            tboxExplanation.Text = data.Explanation;
+            data.Explanation = tboxExplanation.Text;
 
             if (fuAttachments.HasFiles)
             {

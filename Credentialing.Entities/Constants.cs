@@ -167,6 +167,7 @@
             public const string QuestionL = "QuestionL";
             public const string QuestionM = "QuestionM";
             public const string Completed = "Completed";
+            public const string AdditionalDetails = "AdditionalDetails";
         }
 
         public static class BoardCertificationColumns

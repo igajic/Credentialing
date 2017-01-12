@@ -77,7 +77,7 @@ namespace Credentialing.Web.Handlers
 
                     if (!retVal && application.EducationId.HasValue)
                     {
-                        retVal = application.Education.AttachedDocuments.Any(s => s.AttachmentId == attachmentId);
+                        retVal = application.Education.Attachments.Any(s => s.AttachmentId == attachmentId);
                     }
 
                     if (!retVal && application.MedicalProfessionalEducationId.HasValue)
@@ -127,7 +127,7 @@ namespace Credentialing.Web.Handlers
 
                     if (!retVal && application.AttestationQuestionId.HasValue)
                     {
-                        retVal = application.AttestationQuestions.AdditionalSheets.Any(s => s.AttachmentId == attachmentId);
+                        retVal = application.AttestationQuestions.Attachments.Any(s => s.AttachmentId == attachmentId);
                     }
 
                     if (!retVal && application.CurrentHospitalInstitutionalAffiliationId.HasValue)

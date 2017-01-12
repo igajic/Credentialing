@@ -25,7 +25,7 @@ namespace Credentialing.Business.DataAccess
         {
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings[Constants.ConnectionStringName].ConnectionString))
             {
-                return GetById(conn, null, workHistoryId);
+                return GetById(conn, null, workHistoryId, deepLoad);
             }
         }
 
@@ -110,7 +110,7 @@ namespace Credentialing.Business.DataAccess
 
         public void Update(SqlConnection conn, SqlTransaction trans, WorkHistory history)
         {
-            var sqlCommand = new SqlCommand(@"UPDATE WorkHistory
+            var sqlCommand = new SqlCommand(@"UPDATE WorkHistories
                                                 SET
                                                     PrimaryNamePracticeEmployer = @primaryNamePracticeEmployer,
                                                     PrimaryContactName = @primaryContactName,
@@ -160,9 +160,9 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@primaryNamePracticeEmployer", history.PrimaryNamePracticeEmployer);
             sqlCommand.Parameters.AddWithValue("@primaryContactName", history.PrimaryContactName);
             sqlCommand.Parameters.AddWithValue("@primaryTelephoneNumber", history.PrimaryTelephoneNumber);
-            sqlCommand.Parameters.AddWithValue("@primaryFaxNumber", history.SecondaryFaxNumber);
-            sqlCommand.Parameters.AddWithValue("@primaryPracticeAddress", history.SecondaryPracticeAddress);
-            sqlCommand.Parameters.AddWithValue("@primaryCity", history.SecondaryCity);
+            sqlCommand.Parameters.AddWithValue("@primaryFaxNumber", history.PrimaryFaxNumber);
+            sqlCommand.Parameters.AddWithValue("@primaryPracticeAddress", history.PrimaryFaxNumber);
+            sqlCommand.Parameters.AddWithValue("@primaryCity", history.PrimaryCity);
             sqlCommand.Parameters.AddWithValue("@primaryState", history.PrimaryState);
             sqlCommand.Parameters.AddWithValue("@primaryZip", history.PrimaryZip);
             sqlCommand.Parameters.AddWithValue("@primaryStartDate", history.PrimaryStartDate);
@@ -217,7 +217,7 @@ namespace Credentialing.Business.DataAccess
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO WorkHistories
                                                     (PrimaryNamePracticeEmployer, PrimaryContactName, PrimaryTelephoneNumber, PrimaryFaxNumber, PrimaryPracticeAddress, PrimaryCity, PrimaryState, PrimaryZip, PrimaryStartDate, PrimaryEndDate, SecondaryNamePracticeEmployer, SecondaryContactName, SecondaryTelephoneNumber, SecondaryFaxNumber, SecondaryPracticeAddress, SecondaryCity, SecondaryState, SecondaryZip, SecondaryStartDate, SecondaryEndDate, TertiaryNamePracticeEmployer, TertiaryContactName, TertiaryTelephoneNumber, TertiaryFaxNumber, TertiaryPracticeAddress, TertiaryCity, TertiaryState, TertiaryZip, TertiaryStartDate, TertiaryEndDate, Completed, Explanation)
-                                                    OUTPUT INSERTED.BoardCertificationId
+                                                    OUTPUT INSERTED.WorkHistoryId
                                                     VALUES
                                                     (@primaryNamePracticeEmployer, @primaryContactName, @primaryTelephoneNumber, @primaryFaxNumber, @primaryPracticeAddress, @primaryCity, @primaryState, @primaryZip, @primaryStartDate, @primaryEndDate, @secondaryNamePracticeEmployer, @secondaryContactName, @secondaryTelephoneNumber, @secondaryFaxNumber, @secondaryPracticeAddress, @secondaryCity, @secondaryState, @secondaryZip, @secondaryStartDate, @secondaryEndDate, @tertiaryNamePracticeEmployer, @tertiaryContactName, @tertiaryTelephoneNumber, @tertiaryFaxNumber, @tertiaryPracticeAddress, @tertiaryCity, @tertiaryState, @tertiaryZip, @tertiaryStartDate, @tertiaryEndDate, @completed, @explanation)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
@@ -229,9 +229,9 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@primaryNamePracticeEmployer", history.PrimaryNamePracticeEmployer);
             sqlCommand.Parameters.AddWithValue("@primaryContactName", history.PrimaryContactName);
             sqlCommand.Parameters.AddWithValue("@primaryTelephoneNumber", history.PrimaryTelephoneNumber);
-            sqlCommand.Parameters.AddWithValue("@primaryFaxNumber", history.SecondaryFaxNumber);
-            sqlCommand.Parameters.AddWithValue("@primaryPracticeAddress", history.SecondaryPracticeAddress);
-            sqlCommand.Parameters.AddWithValue("@primaryCity", history.SecondaryCity);
+            sqlCommand.Parameters.AddWithValue("@primaryFaxNumber", history.PrimaryFaxNumber);
+            sqlCommand.Parameters.AddWithValue("@primaryPracticeAddress", history.PrimaryPracticeAddress);
+            sqlCommand.Parameters.AddWithValue("@primaryCity", history.PrimaryCity);
             sqlCommand.Parameters.AddWithValue("@primaryState", history.PrimaryState);
             sqlCommand.Parameters.AddWithValue("@primaryZip", history.PrimaryZip);
             sqlCommand.Parameters.AddWithValue("@primaryStartDate", history.PrimaryStartDate);

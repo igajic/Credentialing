@@ -1,6 +1,8 @@
 ﻿using Credentialing.Business.DataAccess;
 using Credentialing.Business.Helpers;
+using Credentialing.Entities.Data;
 using System;
+using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -8,7 +10,7 @@ namespace Credentialing.Web.Steps
 {
     public partial class AttestationQuestions : Page
     {
-        private const int CurrentStep = 14;
+        private const int CurrentStep = 15;
 
         #region [Protected methods]
 
@@ -22,7 +24,7 @@ namespace Credentialing.Web.Steps
             {
                 var data = LoadUserData();
 
-                //LoadFormData(data);
+                LoadFormData(data);
             }
         }
 
@@ -39,7 +41,7 @@ namespace Credentialing.Web.Steps
         private void btnNext_Click(object sender, EventArgs e)
         {
             SaveFormData();
-            Response.Redirect(StepsHelper.Instance.AppSteps[CurrentStep + 1].Url);
+            Response.Redirect("~/Dashboard/Physician.aspx");
             Response.End();
         }
 
@@ -79,6 +81,26 @@ namespace Credentialing.Web.Steps
             formData.QuestionK = ReadQuestion(rbtnQuestionKYes, rbtnQuestionKNo);
             formData.QuestionL = ReadQuestion(rbtnQuestionLYes, rbtnQuestionLNo);
             formData.QuestionM = ReadQuestion(rbtnQuestionMYes, rbtnQuestionMNo);
+            formData.AdditionalDetails = tboxDetails.Text;
+
+            if (fuAttachments.HasFiles)
+            {
+                foreach (var file in fuAttachments.PostedFiles)
+                {
+                    var attachment = new Attachment
+                    {
+                        FileName = file.FileName
+                    };
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        file.InputStream.CopyTo(ms);
+                        attachment.Content = ms.ToArray();
+                    }
+
+                    formData.Attachments.Add(attachment);
+                }
+            }
 
             var user = MemberHelper.GetCurrentLoggedUser();
             var userId = (Guid)user.ProviderUserKey;
@@ -103,6 +125,26 @@ namespace Credentialing.Web.Steps
             SetQuestion(rbtnQuestionKYes, rbtnQuestionKNo, formData.QuestionK);
             SetQuestion(rbtnQuestionLYes, rbtnQuestionLNo, formData.QuestionL);
             SetQuestion(rbtnQuestionMYes, rbtnQuestionMNo, formData.QuestionM);
+
+            tboxDetails.Text = formData.AdditionalDetails;
+
+            ucAttachments.Attachments = formData.Attachments;
+
+            if (rbtnQuestionAYes.Checked ||
+                rbtnQuestionBYes.Checked ||
+                rbtnQuestionCYes.Checked ||
+                rbtnQuestionDYes.Checked ||
+                rbtnQuestionEYes.Checked ||
+                rbtnQuestionFYes.Checked ||
+                rbtnQuestionGYes.Checked ||
+                rbtnQuestionHYes.Checked ||
+                rbtnQuestionIYes.Checked ||
+                rbtnQuestionJYes.Checked ||
+                rbtnQuestionKYes.Checked ||
+                rbtnQuestionLNo.Checked ||
+                rbtnQuestionMNo.Checked) return;
+
+            pnlDetails.CssClass += " hidden";
         }
 
         private bool? ReadQuestion(RadioButton rbtnYes, RadioButton rbtnNo)

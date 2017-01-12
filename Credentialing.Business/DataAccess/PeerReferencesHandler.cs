@@ -34,7 +34,7 @@ namespace Credentialing.Business.DataAccess
             PeerReferences retVal = null;
 
             var sqlCommand = new SqlCommand("SELECT * FROM PeerReferences WHERE PeerReferencesId = @peerReferencesId", conn);
-            sqlCommand.Parameters.AddWithValue("@practiceInformationId", peerReferencesId);
+            sqlCommand.Parameters.AddWithValue("@peerReferencesId", peerReferencesId);
             if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
@@ -131,6 +131,8 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@tertiaryCity", info.TertiaryCity);
             sqlCommand.Parameters.AddWithValue("@tertiaryState", info.TertiaryState);
             sqlCommand.Parameters.AddWithValue("@tertiaryZip", info.TertiaryZip);
+
+            sqlCommand.Parameters.AddWithValue("@completed", info.Completed);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {
