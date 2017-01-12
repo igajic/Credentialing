@@ -1,7 +1,9 @@
 ﻿using Credentialing.Business.DataAccess;
 using Credentialing.Business.Helpers;
 using Credentialing.Entities;
+using Credentialing.Entities.Data;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Web.UI;
 
@@ -118,6 +120,8 @@ namespace Credentialing.Web.Steps
             tboxFourthZip.Text = data.FourthZip;
             tboxFourthFromDate.Text = data.FourthFromDate.HasValue ? data.FourthFromDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
             tboxFourthToDate.Text = data.FourthToDate.HasValue ? data.FourthToDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
+
+            ucAttachments.Attachments = new List<Attachment> {data.Attachment};
         }
 
         private void SaveFormData()
@@ -171,6 +175,15 @@ namespace Credentialing.Web.Steps
             data.FourthFromDate = DateHelper.ParseFullDate(tboxFourthFromDate.Text);
             data.FourthToDate = DateHelper.ParseFullDate(tboxFourthToDate.Text);
 
+            if (fuAttachment.HasFile)
+            {
+                data.Attachment = new Attachment
+                {
+                    FileName = fuAttachment.FileName,
+                    Content = fuAttachment.FileBytes
+                };
+            }
+
             var user = MemberHelper.GetCurrentLoggedUser();
             var userId = (Guid)user.ProviderUserKey;
 
@@ -188,57 +201,57 @@ namespace Credentialing.Web.Steps
 
             if (!string.IsNullOrWhiteSpace(tboxCurrentPerClaimAmount.Text))
             {
-                retVal = ValidationHelper.ValidateDecimal(tboxCurrentPerClaimAmount);
+                retVal = ValidationHelper.ValidateDecimal(tboxCurrentPerClaimAmount) && retVal;
             }
 
             if (!string.IsNullOrWhiteSpace(tboxCurrentAggregateAmount.Text))
             {
-                retVal = ValidationHelper.ValidateDecimal(tboxCurrentAggregateAmount);
+                retVal = ValidationHelper.ValidateDecimal(tboxCurrentAggregateAmount) && retVal;
             }
 
             if (!string.IsNullOrWhiteSpace(tboxCurrentExpirationDate.Text))
             {
-                retVal = ValidationHelper.ValidateFullDate(tboxCurrentExpirationDate);
+                retVal = ValidationHelper.ValidateFullDate(tboxCurrentExpirationDate) && retVal;
             }
 
             if (!string.IsNullOrWhiteSpace(tboxFirstFromDate.Text))
             {
-                retVal = ValidationHelper.ValidateFullDate(tboxFirstFromDate);
+                retVal = ValidationHelper.ValidateFullDate(tboxFirstFromDate) && retVal;
             }
 
             if (!string.IsNullOrWhiteSpace(tboxFirstToDate.Text))
             {
-                retVal = ValidationHelper.ValidateFullDate(tboxFirstToDate);
+                retVal = ValidationHelper.ValidateFullDate(tboxFirstToDate) && retVal;
             }
 
             if (!string.IsNullOrWhiteSpace(tboxSecondFromDate.Text))
             {
-                retVal = ValidationHelper.ValidateFullDate(tboxSecondFromDate);
+                retVal = ValidationHelper.ValidateFullDate(tboxSecondFromDate) && retVal;
             }
 
             if (!string.IsNullOrWhiteSpace(tboxSecondToDate.Text))
             {
-                retVal = ValidationHelper.ValidateFullDate(tboxSecondToDate);
+                retVal = ValidationHelper.ValidateFullDate(tboxSecondToDate) && retVal;
             }
 
             if (!string.IsNullOrWhiteSpace(tboxThirdFromDate.Text))
             {
-                retVal = ValidationHelper.ValidateFullDate(tboxThirdFromDate);
+                retVal = ValidationHelper.ValidateFullDate(tboxThirdFromDate) && retVal;
             }
 
             if (!string.IsNullOrWhiteSpace(tboxThirdToDate.Text))
             {
-                retVal = ValidationHelper.ValidateFullDate(tboxThirdToDate);
+                retVal = ValidationHelper.ValidateFullDate(tboxThirdToDate) && retVal;
             }
 
             if (!string.IsNullOrWhiteSpace(tboxFourthFromDate.Text))
             {
-                retVal = ValidationHelper.ValidateFullDate(tboxFourthFromDate);
+                retVal = ValidationHelper.ValidateFullDate(tboxFourthFromDate) && retVal;
             }
 
             if (!string.IsNullOrWhiteSpace(tboxFourthToDate.Text))
             {
-                retVal = ValidationHelper.ValidateFullDate(tboxFourthToDate);
+                retVal = ValidationHelper.ValidateFullDate(tboxFourthToDate) && retVal;
             }
 
             return retVal;

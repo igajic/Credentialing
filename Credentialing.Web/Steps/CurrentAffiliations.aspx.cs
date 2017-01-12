@@ -10,7 +10,7 @@ namespace Credentialing.Web.Steps
 {
     public partial class CurrentAffiliations : Page
     {
-        private const int CurrentStep = 11;
+        private const int CurrentStep = 12;
 
         #region [Protected methods]
 
@@ -95,6 +95,7 @@ namespace Credentialing.Web.Steps
             tboxPreviousPrimaryAdmittingHospital.Text = data.PreviousPrimaryAdmittingHospital;
             tboxPreviousPrimaryReasonLeaving.Text = data.PreviousPrimaryDepartmentStatus;
             tboxPreviousPrimaryFrom.Text = data.PreviousPrimaryAppointmentDate.HasValue ? data.PreviousPrimaryAppointmentDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
+            tboxPreviousPrimaryTo.Text = data.PreviousPrimaryAppointmentDateTo.HasValue ? data.PreviousPrimaryAppointmentDateTo.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
             tboxPreviousPrimaryCity.Text = data.PreviousPrimaryCity;
             tboxPreviousPrimaryState.Text = data.PreviousPrimaryState;
             tboxPreviousPrimaryZip.Text = data.PreviousPrimaryZip;
@@ -102,6 +103,7 @@ namespace Credentialing.Web.Steps
             tboxPreviousSecondaryAdmittingHospital.Text = data.PreviousSecondaryAdmittingHospital;
             tboxPreviousSecondaryReasonLeaving.Text = data.PreviousSecondaryDepartmentStatus;
             tboxPreviousSecondaryFrom.Text = data.PreviousSecondaryAppointmentDate.HasValue ? data.PreviousSecondaryAppointmentDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
+            tboxPreviousSecondaryTo.Text = data.PreviousSecondaryAppointmentDateTo.HasValue ? data.PreviousSecondaryAppointmentDateTo.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
             tboxPreviousSecondaryCity.Text = data.PreviousSecondaryCity;
             tboxPreviousSecondaryState.Text = data.PreviousSecondaryState;
             tboxPreviousSecondaryZip.Text = data.PreviousSecondaryZip;
@@ -109,9 +111,12 @@ namespace Credentialing.Web.Steps
             tboxPreviousTertiaryAdmittingHospital.Text = data.PreviousTertiaryAdmittingHospital;
             tboxPreviousTertiaryReasonLeaving.Text = data.PreviousTertiaryDepartmentStatus;
             tboxPreviousTertiaryFrom.Text = data.PreviousTertiaryAppointmentDate.HasValue ? data.PreviousTertiaryAppointmentDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
+            tboxPreviousTertiaryTo.Text = data.PreviousTertiaryAppointmentDateTo.HasValue ? data.PreviousTertiaryAppointmentDateTo.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
             tboxPreviousTertiaryCity.Text = data.PreviousTertiaryCity;
             tboxPreviousTertiaryState.Text = data.PreviousTertiaryState;
             tboxPreviousTertiaryZip.Text = data.PreviousTertiaryZip;
+
+            ucAttachments.Attachments = data.Attachments;
         }
 
         private void SaveFormData()
@@ -142,6 +147,7 @@ namespace Credentialing.Web.Steps
             data.PreviousPrimaryAdmittingHospital = tboxPreviousPrimaryAdmittingHospital.Text;
             data.PreviousPrimaryDepartmentStatus = tboxPreviousPrimaryReasonLeaving.Text;
             data.PreviousPrimaryAppointmentDate = DateHelper.ParseFullDate(tboxPreviousPrimaryFrom.Text);
+            data.PreviousPrimaryAppointmentDateTo = DateHelper.ParseFullDate(tboxPreviousPrimaryTo.Text);
             data.PreviousPrimaryCity = tboxPreviousPrimaryCity.Text;
             data.PreviousPrimaryState = tboxPreviousPrimaryState.Text;
             data.PreviousPrimaryZip = tboxPreviousPrimaryZip.Text;
@@ -149,6 +155,7 @@ namespace Credentialing.Web.Steps
             data.PreviousSecondaryAdmittingHospital = tboxPreviousSecondaryAdmittingHospital.Text;
             data.PreviousSecondaryDepartmentStatus = tboxPreviousSecondaryReasonLeaving.Text;
             data.PreviousSecondaryAppointmentDate = DateHelper.ParseFullDate(tboxPreviousSecondaryFrom.Text);
+            data.PreviousSecondaryAppointmentDateTo = DateHelper.ParseFullDate(tboxPreviousSecondaryTo.Text);
             data.PreviousSecondaryCity = tboxPreviousSecondaryCity.Text;
             data.PreviousSecondaryState = tboxPreviousSecondaryState.Text;
             data.PreviousSecondaryZip = tboxPreviousSecondaryZip.Text;
@@ -156,11 +163,11 @@ namespace Credentialing.Web.Steps
             data.PreviousTertiaryAdmittingHospital = tboxPreviousTertiaryAdmittingHospital.Text;
             data.PreviousTertiaryDepartmentStatus = tboxPreviousTertiaryReasonLeaving.Text;
             data.PreviousTertiaryAppointmentDate = DateHelper.ParseFullDate(tboxPreviousTertiaryFrom.Text);
+            data.PreviousTertiaryAppointmentDateTo = DateHelper.ParseFullDate(tboxPreviousTertiaryTo.Text);
             data.PreviousTertiaryCity = tboxPreviousTertiaryCity.Text;
             data.PreviousTertiaryState = tboxPreviousTertiaryState.Text;
             data.PreviousTertiaryZip = tboxPreviousTertiaryZip.Text;
 
-            // TODO: Check if this is needed
             if (fuAttachments.HasFiles)
             {
                 foreach (var file in fuAttachments.PostedFiles)
@@ -176,7 +183,7 @@ namespace Credentialing.Web.Steps
                         attachment.Content = ms.ToArray();
                     }
 
-                    //data.AttachedDocuments.Add(attachment);
+                    data.Attachments.Add(attachment);
                 }
             }
 
@@ -192,32 +199,47 @@ namespace Credentialing.Web.Steps
 
             if (!string.IsNullOrWhiteSpace(tboxCurrentPrimaryAppointmentDate.Text))
             {
-                retVal = ValidationHelper.ValidateShortDate(tboxCurrentPrimaryAppointmentDate);
+                retVal = ValidationHelper.ValidateShortDate(tboxCurrentPrimaryAppointmentDate) && retVal;
             }
 
             if (!string.IsNullOrWhiteSpace(tboxCurrentSecondaryAppointmentDate.Text))
             {
-                retVal = ValidationHelper.ValidateShortDate(tboxCurrentSecondaryAppointmentDate);
+                retVal = ValidationHelper.ValidateShortDate(tboxCurrentSecondaryAppointmentDate) && retVal;
             }
 
             if (!string.IsNullOrWhiteSpace(tboxCurrentTertiaryAppointmentDate.Text))
             {
-                retVal = ValidationHelper.ValidateShortDate(tboxCurrentTertiaryAppointmentDate);
+                retVal = ValidationHelper.ValidateShortDate(tboxCurrentTertiaryAppointmentDate) && retVal;
             }
 
             if (!string.IsNullOrWhiteSpace(tboxPreviousPrimaryFrom.Text))
             {
-                retVal = ValidationHelper.ValidateShortDate(tboxPreviousPrimaryFrom);
+                retVal = ValidationHelper.ValidateShortDate(tboxPreviousPrimaryFrom) && retVal;
+            }
+
+            if (!string.IsNullOrWhiteSpace(tboxPreviousPrimaryTo.Text))
+            {
+                retVal = ValidationHelper.ValidateShortDate(tboxPreviousPrimaryTo) && retVal;
             }
 
             if (!string.IsNullOrWhiteSpace(tboxPreviousSecondaryFrom.Text))
             {
-                retVal = ValidationHelper.ValidateShortDate(tboxPreviousSecondaryFrom);
+                retVal = ValidationHelper.ValidateShortDate(tboxPreviousSecondaryFrom) && retVal;
+            }
+
+            if (!string.IsNullOrWhiteSpace(tboxPreviousSecondaryTo.Text))
+            {
+                retVal = ValidationHelper.ValidateShortDate(tboxPreviousSecondaryTo) && retVal;
             }
 
             if (!string.IsNullOrWhiteSpace(tboxPreviousTertiaryFrom.Text))
             {
-                retVal = ValidationHelper.ValidateShortDate(tboxPreviousTertiaryFrom);
+                retVal = ValidationHelper.ValidateShortDate(tboxPreviousTertiaryFrom) && retVal;
+            }
+
+            if (!string.IsNullOrWhiteSpace(tboxPreviousTertiaryTo.Text))
+            {
+                retVal = ValidationHelper.ValidateShortDate(tboxPreviousTertiaryTo) && retVal;
             }
 
             return retVal;

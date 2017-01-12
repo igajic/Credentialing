@@ -21,5 +21,6 @@
         public int? OtherStateMedicalProfessionalLicensesId { get; set; }
         public int? WorkHistoryId { get; set; }
         public int? AttestationQuestionsId { get; set; }
+        public int? CurrentHospitalInstitutionalAffiliationsId { get; set; }
     }
 }

@@ -957,6 +957,22 @@ namespace Credentialing.Business.DataAccess
                         CurrentHospitalInstitutionalAffiliationsHandler.Instance.Update(conn, trans, formData);
                     }
 
+
+                    if (formData.Attachments.Count > 0)
+                    {
+                        var existingAttachments = AttachmentHandler.Instance.GetReferencedAttachments(conn, trans, "CurrentHospitalInstitutionalAffiliationsId", formData.CurrentHospitalInstitutionalAffiliationsId);
+                        foreach (var attachment in existingAttachments)
+                        {
+                            AttachmentHandler.Instance.Delete(conn, trans, attachment.AttachmentId);
+                        }
+
+                        foreach (var attachment in formData.Attachments)
+                        {
+                            attachment.CurrentHospitalInstitutionalAffiliationsId = physicianFormData.CurrentHospitalInstitutionalAffiliationId;
+                            AttachmentHandler.Instance.Insert(conn, trans, attachment);
+                        }
+                    }
+
                     trans.Commit();
                 }
                 catch (Exception ex)

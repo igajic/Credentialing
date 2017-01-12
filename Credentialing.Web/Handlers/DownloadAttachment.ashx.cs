@@ -95,7 +95,7 @@ namespace Credentialing.Web.Handlers
                         retVal = application.ResidenciesFellowship.Attachments.Any(s => s.AttachmentId == attachmentId);
                     }
 
-                    if (!retVal && application.BoardCertificationId.HasValue)
+                    if (!retVal && application.BoardCertificationId.HasValue && application.BoardCertification.Attachment != null)
                     {
                         retVal = application.BoardCertification.Attachment.AttachmentId == attachmentId;
                     }
@@ -117,7 +117,7 @@ namespace Credentialing.Web.Handlers
 
                     if (!retVal && application.ProfessionalLiabilityId.HasValue)
                     {
-                        retVal = application.ProfessionalLiability.CurrentLiabilityPolicy.AttachmentId == attachmentId;
+                        retVal = application.ProfessionalLiability.Attachment.AttachmentId == attachmentId;
                     }
 
                     if (!retVal && application.WorkHistoryId.HasValue)
@@ -128,6 +128,11 @@ namespace Credentialing.Web.Handlers
                     if (!retVal && application.AttestationQuestionId.HasValue)
                     {
                         retVal = application.AttestationQuestions.AdditionalSheets.Any(s => s.AttachmentId == attachmentId);
+                    }
+
+                    if (!retVal && application.CurrentHospitalInstitutionalAffiliationId.HasValue)
+                    {
+                        retVal = application.CurrentHospitalInstitutionalAffiliations.Attachments.Any(s => s.AttachmentId == attachmentId);
                     }
                 }
             }

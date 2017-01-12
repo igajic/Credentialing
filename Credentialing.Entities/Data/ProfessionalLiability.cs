@@ -102,8 +102,10 @@ namespace Credentialing.Entities.Data
 
         public bool? Completed { get; set; }
 
+        public int? AttachmentId { get; set; }
+
         // reference fields
-        public virtual Attachment CurrentLiabilityPolicy { get; set; }
+        public virtual Attachment Attachment { get; set; }
 
         public virtual int PercentComplete
         {

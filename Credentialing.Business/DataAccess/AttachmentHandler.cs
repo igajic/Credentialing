@@ -103,7 +103,8 @@ namespace Credentialing.Business.DataAccess
                                                     MedicalProfessionalLicensureRegistrationsId,
                                                     OtherStateMedicalProfessionalLicensesId,
                                                     WorkHistoryId,
-                                                    AttestationQuestionsId
+                                                    AttestationQuestionsId,
+                                                    CurrentHospitalInstitutionalAffiliationsId
                                                 FROM Attachments
                                                 WHERE " + fk + " = @fkVal", conn);
             sqlCommand.Parameters.AddWithValue("@fkVal", fkVal);
@@ -153,7 +154,8 @@ namespace Credentialing.Business.DataAccess
                                                     MedicalProfessionalLicensureRegistrationsId,
                                                     OtherStateMedicalProfessionalLicensesId,
                                                     WorkHistoryId,
-                                                    AttestationQuestionsId
+                                                    AttestationQuestionsId,
+                                                    CurrentHospitalInstitutionalAffiliationsId
                                             FROM Attachments
                                             WHERE AttachmentId = @attachmentId", conn);
             sqlCommand.Parameters.AddWithValue("@attachmentId", attachmentId);
@@ -189,10 +191,10 @@ namespace Credentialing.Business.DataAccess
         public int Insert(SqlConnection conn, SqlTransaction trans, Attachment attachment)
         {
             var sqlCommand = new SqlCommand(@"INSERT INTO Attachments
-                                                    (FileName, Content, EducationId, MedicalProfessionalEducationId, InternshipId, ResidenciesFellowshipId, OtherCertificationsId, MedicalProfessionalLicensureRegistrationsId, OtherStateMedicalProfessionalLicensesId, WorkHistoryId, AttestationQuestionsId)
+                                                    (FileName, Content, EducationId, MedicalProfessionalEducationId, InternshipId, ResidenciesFellowshipId, OtherCertificationsId, MedicalProfessionalLicensureRegistrationsId, OtherStateMedicalProfessionalLicensesId, WorkHistoryId, AttestationQuestionsId, CurrentHospitalInstitutionalAffiliationsId)
                                                     OUTPUT INSERTED.AttachmentId
                                                     VALUES
-                                                    (@fileName, @content, @educationId, @medicalProfessionalEducationId, @internshipId, @residenciesFellowshipId, @otherCertificationsId, @medicalProfessionalLicensureRegistrationsId, @otherStateMedicalProfessionalLicensesId, @workHistoryId, @attestationQuestionsId)", conn);
+                                                    (@fileName, @content, @educationId, @medicalProfessionalEducationId, @internshipId, @residenciesFellowshipId, @otherCertificationsId, @medicalProfessionalLicensureRegistrationsId, @otherStateMedicalProfessionalLicensesId, @workHistoryId, @attestationQuestionsId, @currentHospitalInstitutionalAffiliationsId)", conn);
             if (trans != null) sqlCommand.Transaction = trans;
 
             if (conn.State != ConnectionState.Open)
@@ -211,6 +213,7 @@ namespace Credentialing.Business.DataAccess
             sqlCommand.Parameters.AddWithValue("@otherStateMedicalProfessionalLicensesId", attachment.OtherStateMedicalProfessionalLicensesId);
             sqlCommand.Parameters.AddWithValue("@workHistoryId", attachment.WorkHistoryId);
             sqlCommand.Parameters.AddWithValue("@attestationQuestionsId", attachment.AttestationQuestionsId);
+            sqlCommand.Parameters.AddWithValue("@currentHospitalInstitutionalAffiliationsId", attachment.CurrentHospitalInstitutionalAffiliationsId);
 
             foreach (SqlParameter parameter in sqlCommand.Parameters.Cast<SqlParameter>().Where(parameter => parameter.Value == null))
             {
@@ -236,6 +239,7 @@ namespace Credentialing.Business.DataAccess
             retVal.MedicalProfessionalLicensureRegistrationsId = reader[Constants.AttachmentColumns.MedicalProfessionalLicensureRegistrationsId] as int?;
             retVal.OtherStateMedicalProfessionalLicensesId = reader[Constants.AttachmentColumns.OtherStateMedicalProfessionalLicensesId] as int?;
             retVal.WorkHistoryId = reader[Constants.AttachmentColumns.WorkHistoryId] as int?;
+            retVal.CurrentHospitalInstitutionalAffiliationsId = reader[Constants.AttachmentColumns.CurrentHospitalInstitutionalAffiliationsId] as int?;
             return retVal;
         }
 

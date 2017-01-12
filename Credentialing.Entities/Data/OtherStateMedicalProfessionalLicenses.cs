@@ -7,6 +7,7 @@ namespace Credentialing.Entities.Data
     {
         public OtherStateMedicalProfessionalLicenses()
         {
+            Attachments = new List<Attachment>();
         }
 
         public int OtherStateMedicalProfessionalLicensesId { get; set; }

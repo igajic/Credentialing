@@ -228,7 +228,7 @@
 			<div class="col-md-6">
 				<asp:Label runat="server" Text="Attach additional sheets if necessary" CssClass="label" />
 				<div class="file-upload">
-					<asp:FileUpload ClientIDMode="Static" runat="server" ID="fuAttachment" AllowMultiple="True"/>
+					<asp:FileUpload ClientIDMode="Static" runat="server" ID="fuAttachment" AllowMultiple="False"/>
 					<span class="temp-filename"></span>
 					<span class="upload-file-btn"><i class="ico"></i></span>
 				</div>

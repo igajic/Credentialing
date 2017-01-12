@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Credentialing.Entities.Data
 {
@@ -6,6 +7,7 @@ namespace Credentialing.Entities.Data
     {
         public CurrentHospitalInstitutionalAffiliations()
         {
+            Attachments = new List<Attachment>();
         }
 
         public int CurrentHospitalInstitutionalAffiliationsId { get; set; }
@@ -64,6 +66,8 @@ namespace Credentialing.Entities.Data
 
         public DateTime? PreviousPrimaryAppointmentDate { get; set; }
 
+        public DateTime? PreviousPrimaryAppointmentDateTo { get; set; }
+
         // secondary
         public string PreviousSecondaryAdmittingHospital { get; set; }
 
@@ -76,6 +80,8 @@ namespace Credentialing.Entities.Data
         public string PreviousSecondaryDepartmentStatus { get; set; }
 
         public DateTime? PreviousSecondaryAppointmentDate { get; set; }
+
+        public DateTime? PreviousSecondaryAppointmentDateTo  { get; set; }
 
         // tertiary
         public string PreviousTertiaryAdmittingHospital { get; set; }
@@ -90,7 +96,11 @@ namespace Credentialing.Entities.Data
 
         public DateTime? PreviousTertiaryAppointmentDate { get; set; }
 
+        public DateTime? PreviousTertiaryAppointmentDateTo { get; set; }
+
         public bool? Completed { get; set; }
+
+        public List<Attachment>  Attachments { get; set; }
 
         public int PercentComplete
         {
@@ -129,6 +139,7 @@ namespace Credentialing.Entities.Data
                 tmp += PreviousPrimaryZip.IsCompleted();
                 tmp += PreviousPrimaryDepartmentStatus.IsCompleted();
                 tmp += PreviousPrimaryAppointmentDate.HasValue ? 1 : 0;
+                tmp += PreviousPrimaryAppointmentDateTo.HasValue ? 1 : 0;
 
                 // secondary
                 tmp += PreviousSecondaryAdmittingHospital.IsCompleted();
@@ -137,6 +148,7 @@ namespace Credentialing.Entities.Data
                 tmp += PreviousSecondaryZip.IsCompleted();
                 tmp += PreviousSecondaryDepartmentStatus.IsCompleted();
                 tmp += PreviousSecondaryAppointmentDate.HasValue ? 1 : 0;
+                tmp += PreviousSecondaryAppointmentDateTo.HasValue ? 1 : 0;
 
                 // tertiary
                 tmp += PreviousTertiaryAdmittingHospital.IsCompleted();
@@ -145,7 +157,9 @@ namespace Credentialing.Entities.Data
                 tmp += PreviousTertiaryZip.IsCompleted();
                 tmp += PreviousTertiaryDepartmentStatus.IsCompleted();
                 tmp += PreviousTertiaryAppointmentDate.HasValue ? 1 : 0;
-                return 100 * tmp / 36;
+                tmp += PreviousTertiaryAppointmentDateTo.HasValue ? 1 : 0;
+
+                return 100 * tmp / 39;
             }
         }
     }

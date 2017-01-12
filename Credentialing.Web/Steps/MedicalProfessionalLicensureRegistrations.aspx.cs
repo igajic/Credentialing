@@ -53,6 +53,7 @@ namespace Credentialing.Web.Steps
             var data = new Entities.Data.MedicalProfessionalLicensureRegistrations();
 
             data.PrimaryStateMedicalLicenseNumber = tboxPrimaryStateMedicalLicenseNumber.Text;
+            data.LicensureState = tboxLicensureState.Text;
             data.PrimaryStateMedicalLicenseIssueDate = DateHelper.ParseFullDate(tboxIssueDate.Text);
             data.PrimaryStateMedicalLicenseExpirationDate = DateHelper.ParseFullDate(tboxPrimaryStateMedicalLicenseExpirationDate.Text);
 
@@ -98,6 +99,7 @@ namespace Credentialing.Web.Steps
             if (data == null) return;
 
             tboxPrimaryStateMedicalLicenseNumber.Text = data.PrimaryStateMedicalLicenseNumber;
+            tboxLicensureState.Text = data.LicensureState;
             tboxIssueDate.Text = data.PrimaryStateMedicalLicenseIssueDate == null ? string.Empty : data.PrimaryStateMedicalLicenseIssueDate.Value.ToString(Constants.DateFormats.FullDateFormat);
             tboxPrimaryStateMedicalLicenseExpirationDate.Text = data.PrimaryStateMedicalLicenseExpirationDate == null ? string.Empty : data.PrimaryStateMedicalLicenseExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat);
 

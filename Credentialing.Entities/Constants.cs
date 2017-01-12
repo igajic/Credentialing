@@ -31,6 +31,7 @@
             public const string OtherStateMedicalProfessionalLicensesId = "OtherStateMedicalProfessionalLicensesId";
             public const string WorkHistoryId = "WorkHistoryId";
             public const string AttestationQuestionsId = "AttestationQuestionsId";
+            public const string CurrentHospitalInstitutionalAffiliationsId = "CurrentHospitalInstitutionalAffiliationsId";
         }
 
         public static class IdentifyingInformationColumns
@@ -216,18 +217,21 @@
             public const string PreviousPrimaryZip = "PreviousPrimaryZip";
             public const string PreviousPrimaryDepartmentStatus = "PreviousPrimaryDepartmentStatus";
             public const string PreviousPrimaryAppointmentDate = "PreviousPrimaryAppointmentDate";
+            public const string PreviousPrimaryAppointmentDateTo = "PreviousPrimaryAppointmentDateTo";
             public const string PreviousSecondaryAdmittingHospital = "PreviousSecondaryAdmittingHospital";
             public const string PreviousSecondaryCity = "PreviousSecondaryCity";
             public const string PreviousSecondaryState = "PreviousSecondaryState";
             public const string PreviousSecondaryZip = "PreviousSecondaryZip";
             public const string PreviousSecondaryDepartmentStatus = "PreviousSecondaryDepartmentStatus";
             public const string PreviousSecondaryAppointmentDate = "PreviousSecondaryAppointmentDate";
+            public const string PreviousSecondaryAppointmentDateTo = "PreviousSecondaryAppointmentDateTo";
             public const string PreviousTertiaryAdmittingHospital = "PreviousTertiaryAdmittingHospital";
             public const string PreviousTertiaryCity = "PreviousTertiaryCity";
             public const string PreviousTertiaryState = "PreviousTertiaryState";
             public const string PreviousTertiaryZip = "PreviousTertiaryZip";
             public const string PreviousTertiaryDepartmentStatus = "PreviousTertiaryDepartmentStatus";
             public const string PreviousTertiaryAppointmentDate = "PreviousTertiaryAppointmentDate";
+            public const string PreviousTertiaryAppointmentDateTo = "PreviousTertiaryAppointmentDateTo";
             public const string Completed = "Completed";
         }
 
@@ -444,6 +448,7 @@
             public const string FourthState = "FourthState";
             public const string FourthZip = "FourthZip";
             public const string Completed = "Completed";
+            public const string AttachmentId = "AttachmentId";
         }
     }
 }
