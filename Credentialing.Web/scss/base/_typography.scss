@@ -85,12 +85,18 @@ hr {
 
 .page-content {
 	ul {
-		margin-left: 18px;
+		margin-left: 20px;
 		li {
 			list-style-type: square;
 			font-size: 16px;
 			line-height: 1.35em;
 			margin-bottom: 8px;
+		}
+		&.alpahbetic-list {
+			margin-left: 30px;
+			li {
+				list-style-type: upper-alpha;
+			}
 		}
 	}
 }
