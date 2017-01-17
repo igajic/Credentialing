@@ -5,9 +5,6 @@
 	<uc:SidebarProgress runat="server" CurrentStep="2" EnableViewState="false"/>
 
 	<div class="form-block">
-		<div class="form-heading">
-			<h2><strong>2.</strong> Identifying information</h2>
-		</div>
 		<div class="row">
 			<div class="col-md-5">
 				<asp:Label runat="server" AssociatedControlID="tboxLastName" Text="Last Name:" EnableViewState="False"/>

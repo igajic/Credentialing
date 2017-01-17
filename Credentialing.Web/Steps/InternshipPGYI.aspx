@@ -6,9 +6,6 @@
     <uc:SidebarProgress runat="server" CurrentStep="6" EnableViewState="false"/>
 
 	<div class="form-block">
-		<div class="form-heading">
-			<h2><strong>6.</strong> Internship / PGYI</h2>
-		</div>
 		<div class="row">
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxInstitution" Text="Institution" EnableViewState="false"/>

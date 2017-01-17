@@ -2,15 +2,10 @@
 <%@ Register src="~/Usercontrols/SidebarProgress.ascx" tagPrefix="uc" tagName="SidebarProgress" %>
 <%@ Register Src="~/Usercontrols/RenderAttachments.ascx" TagPrefix="uc" TagName="Attachments" %>
 <asp:Content runat="server" ContentPlaceHolderID="mainContent">
-    
 	<asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
     <uc:SidebarProgress runat="server" CurrentStep="9" EnableViewState="false"/>
 
     <div class="form-block">
-        <div class="form-heading">
-            <h2><strong>9.</strong>  OTHER CERTIFICATIONS (E.G. FLUOROSCOPY, RADIOGRAPHY, ETC.)</h2>
-        </div>
-        
         <div class="row">
             <div class="col-md-4">
                 <asp:Label runat="server" AssociatedControlID="tboxPrimaryType" Text="Type:" EnableViewState="False" />

@@ -6,9 +6,11 @@
     <uc:SidebarProgress ID="SidebarProgress1" runat="server" CurrentStep="13" EnableViewState="false"/>
         
     <div class="form-block">
-        <div class="form-heading">
-            <h2><strong>13.</strong>Current hospital and other institutional affiliations</h2>
-            <p>Please list in reverse chronological order (with the current affiliation{s} first) all institutions where you have current affiliations (A) and have had previous hospital privileges (B) during the past ten years. This includes hospitals, surgery centers, institutions, corporations, military assignments, or government agencies.</p>
+
+		<div class="row">
+			<div class="col-md-12">
+                <p>Please list in reverse chronological order (with the current affiliation{s} first) all institutions where you have current affiliations (A) and have had previous hospital privileges (B) during the past ten years. This includes hospitals, surgery centers, institutions, corporations, military assignments, or government agencies.</p>
+            </div>
         </div>
             
         <div class="row">

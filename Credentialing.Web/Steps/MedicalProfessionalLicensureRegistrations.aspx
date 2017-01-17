@@ -6,10 +6,6 @@
 	<uc:SidebarProgress runat="server" CurrentStep="10" EnableViewState="false"/>
 		
 	<div class="form-block">
-		<div class="form-heading">
-			<h2><strong>10.</strong>Medical / Professional Licensure / Registrations</h2>
-		</div>
-			
 		<div class="row">
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxPrimaryStateMedicalLicenseNumber" Text="Primary State Medical/Professional License Number" EnableViewState="False"/>

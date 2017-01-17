@@ -6,9 +6,6 @@
 	<asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button"/>
 	<uc:SidebarProgress runat="server" CurrentStep="7" EnableViewState="false"/>
 	<div class="form-block">
-		<div class="form-heading">
-			<h2><strong>7.</strong> Residencies / Fellowships</h2>
-		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<p>Include residencies, fellowships, Preceptorship, teaching appointments (indicate whether clinical or academic), and postgraduate education in chronological order, giving name, address, city, ZIP code, and dates. Include <strong>all</strong> programs you attended, whether or not completed.</p>

@@ -6,9 +6,6 @@
 	<uc:SidebarProgress runat="server" CurrentStep="4" EnableViewState="false"/>
 
 	<div class="form-block">
-		<div class="form-heading">
-			<h2><strong>4.</strong> Education</h2>
-		</div>
 		<div class="row">
 			<div class="col-md-6">
 				<asp:Label runat="server" AssociatedControlID="tboxCollegeUniversityName" Text="College or University Name:" EnableViewState="False"/>

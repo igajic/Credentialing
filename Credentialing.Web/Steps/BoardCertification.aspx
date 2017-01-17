@@ -5,9 +5,6 @@
     <asp:LinkButton ID="lbReview" runat="server" Text="Mark as reviewed" CssClass="btn btn-green review-button" />
     <uc:SidebarProgress runat="server" CurrentStep="8" EnableViewState="false" />
     <div class="form-block">
-        <div class="form-heading">
-            <h2><strong>8.</strong> BOARD CERTIFICATION</h2>
-        </div>
         <div class="row">
             <div class="col-md-12">
                 <p>

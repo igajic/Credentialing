@@ -6,9 +6,11 @@
 	<uc:SidebarProgress ID="SidebarProgress1" runat="server" CurrentStep="11" EnableViewState="false"/>
 
 	<div class="form-block">
-		<div class="form-heading">
-			<h2><strong>11.</strong>All other state medical / professional licences. List All Medical/Professional Licenses Now or Previously Held.</h2>
-		</div>
+		<div class="row">
+			<div class="col-md-12">
+			    <p>List All Medical/Professional Licenses Now or Previously Held.</p>
+		    </div>
+        </div>
 			
 		<div class="row">
 			<div class="col-lg-3 col-md-6 md-margin-bot">

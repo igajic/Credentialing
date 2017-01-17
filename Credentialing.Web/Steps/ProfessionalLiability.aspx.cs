@@ -79,7 +79,7 @@ namespace Credentialing.Web.Steps
             tboxCurrentState.Text = data.CurrentState;
             tboxCurrentZip.Text = data.CurrentZip;
 
-            tboxCurrentExpirationDate.Text = data.InitialEffectiverDate.HasValue ? data.InitialEffectiverDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
+            tboxInitialEffectiveDate.Text = data.InitialEffectiverDate.HasValue ? data.InitialEffectiverDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
             tboxCurrentExpirationDate.Text = data.CurrentExpirationDate.HasValue ? data.CurrentExpirationDate.Value.ToString(Constants.DateFormats.FullDateFormat) : string.Empty;
 
             tboxCurrentPerClaimAmount.Text = data.CurrentPerClaimAmount.HasValue ? data.CurrentPerClaimAmount.Value.ToString(new CultureInfo("en-US")) : string.Empty;
